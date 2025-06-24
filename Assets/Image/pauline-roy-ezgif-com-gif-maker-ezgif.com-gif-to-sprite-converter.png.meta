@@ -1,0 +1,468 @@
+fileFormatVersion: 2
+guid: 6d08babd636eda34f8adabfdf7f6a5f6
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6928419635675990427
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_0
+  - first:
+      213: -7762177063068513295
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_1
+  - first:
+      213: -951487265748463405
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_2
+  - first:
+      213: -3031517196235537754
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_3
+  - first:
+      213: -6160617085058021583
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_4
+  - first:
+      213: 474983195824428074
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_5
+  - first:
+      213: 6783045284010684585
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_6
+  - first:
+      213: 3547680383891090114
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_7
+  - first:
+      213: 8915705766139263149
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_8
+  - first:
+      213: 5342932667133207814
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_9
+  - first:
+      213: 6825335917873372136
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_10
+  - first:
+      213: -8466868257250769241
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_11
+  - first:
+      213: 4942231907859303164
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_12
+  - first:
+      213: 4809424614498539467
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_13
+  - first:
+      213: 680698150712313405
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_14
+  - first:
+      213: -4813201685322561908
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_15
+  - first:
+      213: -9040882262359590049
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_16
+  - first:
+      213: 6090627930003289044
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_17
+  - first:
+      213: -1708122589486055760
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_18
+  - first:
+      213: -1140445933020975217
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_19
+  - first:
+      213: -7160704840115880432
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_20
+  - first:
+      213: 7521655046119666277
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_21
+  - first:
+      213: 3732188994593752568
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_22
+  - first:
+      213: -6736800100398285384
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_23
+  - first:
+      213: 2571780011766267041
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_24
+  - first:
+      213: -3087577461484598450
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_25
+  - first:
+      213: -432274811936539308
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_26
+  - first:
+      213: 1056970861002316762
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_27
+  - first:
+      213: -5643579174263656736
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_28
+  - first:
+      213: -4045007004210440000
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_29
+  - first:
+      213: 3323646414416950777
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_30
+  - first:
+      213: -2190451516519496924
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_31
+  - first:
+      213: 7424672772800715488
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_32
+  - first:
+      213: 7241249092310492665
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_33
+  - first:
+      213: -8751311108698198743
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_34
+  - first:
+      213: -2216591180189847295
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_35
+  - first:
+      213: 2196918069649877901
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_36
+  - first:
+      213: 3075940993456996922
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_37
+  - first:
+      213: 7960130334588844738
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_38
+  - first:
+      213: 4081999267123025075
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_39
+  - first:
+      213: 2401636367661860125
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_40
+  - first:
+      213: -4050064697781500474
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_41
+  - first:
+      213: 6131490317492141483
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_42
+  - first:
+      213: 6719780980279195685
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_43
+  - first:
+      213: 6291879506238072015
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_44
+  - first:
+      213: -8808109945273478691
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_45
+  - first:
+      213: 1818943362120040299
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_46
+  - first:
+      213: 2519162618568291170
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_47
+  - first:
+      213: 2640615319779377136
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_48
+  - first:
+      213: 8767665520795332103
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_49
+  - first:
+      213: 1603412571047696001
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_50
+  - first:
+      213: -900119273840864453
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_51
+  - first:
+      213: -7240099720683250248
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_52
+  - first:
+      213: -6523832126406505949
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_53
+  - first:
+      213: 8309659940034195639
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_54
+  - first:
+      213: 3553404651907237264
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_55
+  - first:
+      213: -6528571180344669914
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_56
+  - first:
+      213: -7102223327604025490
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_57
+  - first:
+      213: 9058005075549737320
+    second: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_58
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 504
+        width: 504
+        height: 504
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a11cb2242673d44b8dc406147e0caa1
+      internalID: -830815988
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_1
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 504
+        width: 504
+        height: 504
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2afda3c34044ec49bb2250a24f2a35d
+      internalID: 1595839751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_2
+      rect:
+        serializedVersion: 2
+        x: 1008
+        y: 504
+        width: 504
+        height: 504
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e82b8d548528654898fa5337eb99a54
+      internalID: -1915408255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_3
+      rect:
+        serializedVersion: 2
+        x: 1512
+        y: 504
+        width: 504
+        height: 504
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32e4f69a40c80464eb44a32c6d899682
+      internalID: -1361221165
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_4
+      rect:
+        serializedVersion: 2
+        x: 2016
+        y: 504
+        width: 504
+        height: 504
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c18fe65bce1ccb841958f3faee41e9bc
+      internalID: -235884621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 504
+        height: 504
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75592b44d71ad434ba7765997836bbe9
+      internalID: -1808200522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_6
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 0
+        width: 504
+        height: 504
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 017053a372ebfeb4ba46e83db4d0bb88
+      internalID: -278980245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: e12cb25bde66b09418eddf64130a8a6b
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_0: -830815988
+      pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_1: 1595839751
+      pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_2: -1915408255
+      pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_3: -1361221165
+      pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_4: -235884621
+      pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_5: -1808200522
+      pauline-roy-ezgif-com-gif-maker-ezgif.com-gif-to-sprite-converter_6: -278980245
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
