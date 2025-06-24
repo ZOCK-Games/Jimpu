@@ -1,4 +1,7 @@
 **Jimpu**
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/368e17bb-06be-481a-8769-387896ade241" />
+</div>
 
 Jimpu is a simple 2D Jump 'n' Run.
 It is in early development and
