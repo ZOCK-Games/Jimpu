@@ -2,7 +2,7 @@
 
   <h1 style="font-size: 48px;">Jimpu</h1>
 
-  <img src="Assets/Image/Baggroudn.png" style="width: 640px; height: 460px; object-fit: cover; object-position: top;" />
+  <img src="Assets/Image/Baggroudn.png" style="width: 600px; height: 340px; object-fit: cover; object-position: top;" />
 
 </div>
 
