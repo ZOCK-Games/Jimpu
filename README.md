@@ -1,6 +1,6 @@
 <div align="center">
 
-  <h1 style="font-size: 48px;">Jimpu</h1>
+  <h1 style="font-size: 80px;">Jimpu</h1>
 
   <img src="Assets/Image/Baggroudn.png" style="width: 600px; height: 340px; object-fit: cover; object-position: top;" />
 
