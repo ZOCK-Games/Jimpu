@@ -1,6 +1,6 @@
 **Jimpu**
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/368e17bb-06be-481a-8769-387896ade241" />
+  <img src="[https://github.com/user-attachments/assets/368e17bb-06be-481a-8769-387896ade241](https://github.com/ZOCK-Games/Jimpu-0.1/blob/8b5c6e1c9ff06e14b44603a6879207d75d7fdadf/Assets/Image/Baggroudn.png)" />
 </div>
 
 Jimpu is a simple 2D Jump 'n' Run.
