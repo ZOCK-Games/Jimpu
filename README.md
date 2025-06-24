@@ -1,13 +1,8 @@
-<div align="center">
 
   <h1 style="font-size: 80px;">Jimpu</h1>
 
   <img src="Assets/Image/Baggroudn.png" style="width: 600px; height: 340px; object-fit: cover; object-position: top;" />
-
 </div>
-
-
-
 
 Jimpu is a simple 2D Jump 'n' Run.
 It is in early development and
