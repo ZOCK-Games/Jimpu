@@ -1,7 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 using Button = UnityEngine.UI.Button;
 
 public class UI_All : MonoBehaviour
@@ -12,12 +10,16 @@ public class UI_All : MonoBehaviour
     public List<GameObject> to_close_when_open;
     public List<GameObject> to_close_when_close;
     public Button Close_button;
+    public bool ToOpenTrueFalse = true;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        to_open.SetActive(false);
         Opener_Button.onClick.AddListener(Open);
         Close_button.onClick.AddListener(close);
+        if (ToOpenTrueFalse == true)
+        {
+            to_open.SetActive(false);
+        }
 
     }
 
@@ -31,8 +33,7 @@ public class UI_All : MonoBehaviour
             to_close_when_close[2].SetActive(false);
             to_close_when_close[3].SetActive(false);
             to_close_when_close[4].SetActive(false);
-
-
+            Debug.Log("Escape Has Closen" + to_close_when_close);  
         }
 
     }
@@ -45,6 +46,7 @@ public class UI_All : MonoBehaviour
         to_close_when_open[2].SetActive(false);
         to_close_when_open[3].SetActive(false);
         to_close_when_open[4].SetActive(false);
+        Debug.Log("Open wen Closet has closen" + to_close_when_close);  
     }
     public void close()
     {
@@ -53,6 +55,7 @@ public class UI_All : MonoBehaviour
         to_close_when_close[2].SetActive(false);
         to_close_when_close[3].SetActive(false);
         to_close_when_close[4].SetActive(false);
+                Debug.Log("Close wen Close closet" + to_close_when_close);  
     }
     
     

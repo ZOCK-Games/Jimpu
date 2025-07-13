@@ -10,8 +10,8 @@ public class Garderoben_scribt : MonoBehaviour
     public UnityEngine.UI.Button Select_button;
     public UnityEngine.UI.Button Equip_button;
     public UnityEngine.UI.Button Close_button;
-    public Canvas Garderobe;
-    public Canvas Settings_Canvas;
+    public GameObject Garderobe;
+    public GameObject Settings_Canvas;
     public List<GameObject> PLayer_objekt;
     public SpriteRenderer Skin_player;
     public Sprite SKin_1;
@@ -29,10 +29,7 @@ public class Garderoben_scribt : MonoBehaviour
         Select_button.onClick.AddListener(Select);
         Equip_button.onClick.AddListener(Equip);
         Close_button.onClick.AddListener(CLose_canvas);
-        Garderobe.enabled = false;
-
-
-
+        Garderobe.SetActive(false);
     }
 
     // Update is called once per frame
@@ -87,11 +84,11 @@ public class Garderoben_scribt : MonoBehaviour
     }
     private void Equip()
     {
-        Garderobe.enabled = false;
+        Garderobe.SetActive(false);
     }
     private void CLose_canvas()
     {
-        Garderobe.enabled = false;
+        Garderobe.SetActive(false);
     }
 
 }

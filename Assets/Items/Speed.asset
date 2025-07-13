@@ -17,3 +17,6 @@ MonoBehaviour:
   ItemNameText: Speed
   ItemPriceInt: 1
   ItemInfosText: info...
+  Item_Object_Player: {fileID: 0}
+  Price: 2
+  Sell_Price: 0

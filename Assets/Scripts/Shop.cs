@@ -1,12 +1,5 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
-using NUnit.Framework.Constraints;
 using TMPro;
-using Unity.Android.Gradle.Manifest;
-using Unity.VisualScripting;
-using UnityEditor.U2D;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,9 +16,10 @@ public class Shop : MonoBehaviour
     public TextMeshProUGUI BuyMessage;
     public Button BuyButton;
     public int AktuelItem;
-    public Coin_scribt Coin_scribt1;
+    public PlayerStats PlayerStatsScribt;
     public Inventory Inventory;
     public int Price;
+    public GameObject ShopGameObjekt;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -42,6 +36,7 @@ public class Shop : MonoBehaviour
         BuyButton.onClick.AddListener(Buy_Button);
 
         AktuelItem = -1;
+        ShopGameObjekt.SetActive(false);
     }
 
     // Update is called once per frame
@@ -95,7 +90,7 @@ public class Shop : MonoBehaviour
     }
     public void Buy_Button()
     {
-        if (Coin_scribt1.Coin_Count >= Price)
+        if (PlayerStatsScribt.PlayerMoney >= Price)
         {
             Debug.Log(AktuelItem);
 

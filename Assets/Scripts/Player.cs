@@ -1,22 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
-public class linie : MonoBehaviour
+public class Player_move : MonoBehaviour
 
 {
     public GameObject Player;
+    public float PlayerRotation;
     public Collider2D Player_collider;
-    public Collider2D Ground_Collider;
+    public TilemapCollider2D Ground_Collider;
     public Button Player_pos_reset;
     public Camera Camera1;
     public float move_speed_R = 3.5f;
     public float move_speed_L = 3.5f;
-    public float Jump_speed = 4f;
-    public int run_speed = 10;
+    public float Jump_speed = 8f;
+    public int run_speed = 5;
     public Rigidbody2D rb;
     public GameObject Walkking_animation;
     public Tilemap PLayer_1_head;
@@ -60,12 +62,14 @@ public class linie : MonoBehaviour
         else if (Input.GetKey(KeyCode.Space) && Player_collider.IsTouching(Ground_Collider))
         {
             rb.AddForce(new Vector2(0, Jump_speed));
-                UnityEngine.Debug.Log("Berührt Boden!");
+            UnityEngine.Debug.Log("Berührt Boden!");
         }
         else
         {
             Walkking_animation.SetActive(false);
         }
+        Player.transform.rotation = Quaternion.Euler(0f, 0f, PlayerRotation);
+
     }
     private IEnumerator Reset()
     {

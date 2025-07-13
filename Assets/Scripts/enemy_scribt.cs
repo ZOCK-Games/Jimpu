@@ -20,17 +20,17 @@ public class enemy_scribt : MonoBehaviour
     public BoxCollider2D Hit_box_player;
     public BoxCollider2D Hit_box_enemy_body;
     public BoxCollider2D Hit_box_enemy_head;
-    public List<Image> Heart;
-    public float Heart_count;
+    public List<GameObject> Heart;
     private bool canTakeDamage = true;
     public GameObject Player_death_screen;
+    public PlayerStats PlayerStats;
+    public int EnemyHealt;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Heart_count = 0;
         Player_death_screen.SetActive(false);
-
+        EnemyHealt = 1;
     }
 
     // Update is called once per frame
@@ -53,33 +53,35 @@ public class enemy_scribt : MonoBehaviour
             StartCoroutine(DamagePlayer());
             Debug.Log("-1 leben");
         }
-        if (Heart_count == 1)
-            Heart[0].enabled = false;
-        if (Heart_count == 2)
-            Heart[1].enabled = false;
-        if (Heart_count == 3)
-            Heart[2].enabled = false;
+        if (PlayerStats.PlayerHealt <= 1)
+            Heart[0].SetActive(false);
+        if (PlayerStats.PlayerHealt <= 2)
+            Heart[1].SetActive(false);
+        if (PlayerStats.PlayerHealt <= 3)
+            Heart[2].SetActive(false);
 
-        if (Heart_count < 1)
-            Heart[0].enabled = true;
-        if (Heart_count < 2)
-            Heart[1].enabled = true;
-        if (Heart_count < 3)
-            Heart[2].enabled = true;
-
-
+        if (PlayerStats.PlayerHealt >= 1)
+            Heart[0].SetActive(true);
+        if (PlayerStats.PlayerHealt >= 2)
+            Heart[1].SetActive(true);
+        if (PlayerStats.PlayerHealt >= 3)
+            Heart[2].SetActive(true);
         if (Hit_box_enemy_head.IsTouching(Hit_box_player) && Input.GetKey(KeyCode.LeftShift))
         {
             //PLayer attacke
         }
-        if (Heart_count == 3)
+        if (PlayerStats.PlayerHealt == 0)
             Player_death_screen.SetActive(true);
-        }
+        if (EnemyHealt <= 0)
+        {
+            enemy.SetActive(false);
+         }
+    }
     public IEnumerator DamagePlayer()
     {
-        Heart_count += 1;
+        PlayerStats.PlayerHealt -= 1;
         canTakeDamage = false;
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1);
         canTakeDamage = true;
         
 

@@ -1,9 +1,5 @@
-using System;
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Tilemaps;
-using UnityEngine.UIElements;
 
 public class Schwebe_platform : MonoBehaviour
 {

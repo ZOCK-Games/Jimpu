@@ -7,13 +7,12 @@ public class Coin_scribt : MonoBehaviour
     public Collider2D Coin_Collider;
     public Collider2D PLayer_Collider;
     public TextMeshProUGUI PLayer_Coin_Counter;
-    public int Coin_Count;
+    public PlayerStats PlayerStats;
 
     void Start()
 
     {
-        Coin_Count = 0;
- 
+        PLayer_Coin_Counter.text = "Coins:" + PlayerStats.PlayerMoney;
     }
 
     // Update is called once per frame
@@ -22,8 +21,8 @@ public class Coin_scribt : MonoBehaviour
         if (PLayer_Collider.IsTouching(Coin_Collider))
         {
             Coin_Collider.gameObject.SetActive(false);
-            Coin_Count += 1;
-            PLayer_Coin_Counter.text = "Coins:" + Coin_Count;
+            PlayerStats.PlayerMoney += 1;
+            PLayer_Coin_Counter.text = "Coins:" + PlayerStats.PlayerMoney;
         }
         
         
