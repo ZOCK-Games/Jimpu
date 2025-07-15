@@ -17,9 +17,9 @@ public class enemy_scribt : MonoBehaviour
     public int maxSpee;
     public Vector2 Vector2_sel;
     public float Enemy_pos_y;
-    public BoxCollider2D Hit_box_player;
-    public BoxCollider2D Hit_box_enemy_body;
-    public BoxCollider2D Hit_box_enemy_head;
+    public PolygonCollider2D Hit_box_player;
+    public PolygonCollider2D Hit_box_enemy_body;
+    public PolygonCollider2D Hit_box_enemy_head;
     public List<GameObject> Heart;
     private bool canTakeDamage = true;
     public GameObject Player_death_screen;

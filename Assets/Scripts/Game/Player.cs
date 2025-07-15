@@ -23,7 +23,7 @@ public class Player_move : MonoBehaviour
     public Rigidbody2D rb;
     public GameObject Walkking_animation;
     public List<Sprite> SkinSprite;
-    private PlayerData playerData;
+    public PlayerStats playerStats;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
@@ -74,7 +74,13 @@ public class Player_move : MonoBehaviour
             Walkking_animation.SetActive(false);
         }
         Player.transform.rotation = Quaternion.Euler(0f, 0f, PlayerRotation);
-        SkinChange();
+
+        SkinChange(); //Skin changet Permanent
+
+        if (playerStats.SkinNumber >= SkinSprite.Count)
+        {
+            playerStats.SkinNumber = 0;  //Setzt SkinNumber zurück wen größer alls die verhandenen bilder
+        }
 
     }
     private IEnumerator Reset()
@@ -94,7 +100,8 @@ public class Player_move : MonoBehaviour
 
     private void SkinChange()
     {
-        PlayerSpriteRenderer.sprite = SkinSprite[playerData.Skin];
+        PlayerSpriteRenderer.sprite = SkinSprite[playerStats.SkinNumber];
+        UnityEngine.Debug.Log("Skin Number" + playerStats.SkinNumber);
 
-    }
+    } 
 }

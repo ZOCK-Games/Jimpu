@@ -4,23 +4,32 @@ using Button = UnityEngine.UI.Button;
 
 public class UI_All : MonoBehaviour
 {
-    public GameObject to_open;
-    public Canvas to_open_canvas;
-    public Button Opener_Button;
+    public List<GameObject> to_open;
+    public List<Button> Opener_Button;
+    [Space(10)]
     public List<GameObject> to_close_when_open;
     public List<GameObject> to_close_when_close;
-    public Button Close_button;
-    public bool ToOpenTrueFalse = true;
+    [Space(10)]
+    public List<Button> Close_button;
+    [Space(30)]
+    [Header("At Start Settings")]
+    [Space(10)]
+    public bool DeaktivateAtStart = false;
+    public bool DeaktivateCloseAtStart = false;
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Opener_Button.onClick.AddListener(Open);
-        Close_button.onClick.AddListener(close);
-        if (ToOpenTrueFalse == true)
+        for (int i = 0; i < Opener_Button.Count; i++)
+            Opener_Button[i].onClick.AddListener(Open);
+        for (int i = 0; i < Close_button.Count; i++)
+            Close_button[i].onClick.AddListener(close);
+        if (DeaktivateAtStart == true)
         {
-            to_open.SetActive(false);
+            for (int i = 0; i < to_open.Count; i++)
+                to_open[i].SetActive(false);
         }
-
     }
 
     // Update is called once per frame
@@ -28,33 +37,24 @@ public class UI_All : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Escape))
         {
-            to_close_when_close[0].SetActive(false);
-            to_close_when_close[1].SetActive(false);
-            to_close_when_close[2].SetActive(false);
-            to_close_when_close[3].SetActive(false);
-            to_close_when_close[4].SetActive(false);
+            for (int i = 0; i < to_close_when_close.Count; i++)
+            to_close_when_close[i].SetActive(false);
             Debug.Log("Escape Has Closen" + to_close_when_close);  
         }
 
     }
     public void Open()
     {
-        to_open.SetActive(true);
-        to_open_canvas.enabled = true;
-        to_close_when_open[0].SetActive(false);
-        to_close_when_open[1].SetActive(false);
-        to_close_when_open[2].SetActive(false);
-        to_close_when_open[3].SetActive(false);
-        to_close_when_open[4].SetActive(false);
+        for (int i = 0; i < to_open.Count; i++)  
+        to_open[i].SetActive(true);
+        for (int i = 0; i < to_close_when_open.Count; i++)
+        to_close_when_open[i].SetActive(false);
         Debug.Log("Open wen Closet has closen" + to_close_when_close);  
     }
     public void close()
     {
-        to_close_when_close[0].SetActive(false);
-        to_close_when_close[1].SetActive(false);
-        to_close_when_close[2].SetActive(false);
-        to_close_when_close[3].SetActive(false);
-        to_close_when_close[4].SetActive(false);
+        for (int i = 0; i < to_close_when_close.Count; i++)
+        to_close_when_close[i].SetActive(false);
                 Debug.Log("Close wen Close closet" + to_close_when_close);  
     }
     

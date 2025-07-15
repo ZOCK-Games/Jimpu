@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 6879f6b710602ac4cbf0e6264840af23
+guid: 0d592dd6e59aace48ac353e794ecf752
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4606908045521496030
-    second: Heart_0
+      213: 1528827394292328024
+    second: Deat_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,55 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Heart_0
+      name: Deat_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 16
-        height: 15
+        width: 350
+        height: 248
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
-      outline:
-      - - {x: -8, y: -1.5}
-        - {x: -6, y: -1.5}
-        - {x: -6, y: -3.5}
-        - {x: -4, y: -3.5}
-        - {x: -4, y: -5.5}
-        - {x: -2, y: -5.5}
-        - {x: -2, y: -7.5}
-        - {x: 2, y: -7.5}
-        - {x: 2, y: -5.5}
-        - {x: 4, y: -5.5}
-        - {x: 4, y: -3.5}
-        - {x: 6, y: -3.5}
-        - {x: 6, y: -1.5}
-        - {x: 8, y: -1.5}
-        - {x: 8, y: 4.5}
-        - {x: 6, y: 4.5}
-        - {x: 6, y: 6.5}
-        - {x: 2, y: 6.5}
-        - {x: 2, y: 4.5}
-        - {x: -2, y: 4.5}
-        - {x: -1.9778805, y: 6.5}
-        - {x: -6, y: 6.5}
-        - {x: -6, y: 4.5}
-        - {x: -8, y: 4.5}
-      - - {x: -6, y: 4.5}
-        - {x: -6, y: 4.5}
-        - {x: -6, y: 4.5}
-        - {x: -6, y: 4.5}
-      - - {x: 6, y: 4.5}
-        - {x: 6, y: 4.5}
-        - {x: 6, y: 4.5}
-        - {x: 6, y: 4.5}
+      outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: ed7a23e75760fef30800000000000000
-      internalID: 4606908045521496030
+      spriteID: 8562eaf3a6c773510800000000000000
+      internalID: 1528827394292328024
       vertices: []
       indices: 
       edges: []
@@ -157,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: cad7c619563bf5f1ba090ddf390558a9
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -167,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Heart_0: 4606908045521496030
+      Deat_0: 1528827394292328024
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
