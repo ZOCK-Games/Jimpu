@@ -14,13 +14,9 @@ public class Garderoben_scribt : MonoBehaviour
     public GameObject Settings_Canvas;
     public List<GameObject> PLayer_objekt;
     public SpriteRenderer Skin_player;
-    public Sprite SKin_1;
-    public Sprite SKin_2;
-    public Sprite SKin_3;
-    public Sprite SKin_4;
 
     public int Position_y;
-    int Skin;
+    public PlayerData playerData;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -33,54 +29,10 @@ public class Garderoben_scribt : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void Select()
     {
-
-
-
-    }
-    private void Select()
-    {
-        if (Skin == 0)
-        {
-            PLayer_objekt[1].SetActive(false);
-            PLayer_objekt[2].SetActive(false);
-            PLayer_objekt[3].SetActive(false);
-            PLayer_objekt[0].SetActive(true);
-            Skin_player.sprite = SKin_1;
-            Skin = 1;
-        }
-        else if (Skin == 1)
-        {
-            PLayer_objekt[2].SetActive(false);
-            PLayer_objekt[3].SetActive(false);
-            PLayer_objekt[0].SetActive(false);
-            PLayer_objekt[1].SetActive(true);
-            Skin_player.sprite = SKin_2;
-            Skin = 2;
-        }
-        else if (Skin == 2)
-        {
-            PLayer_objekt[0].SetActive(false);
-            PLayer_objekt[1].SetActive(false);
-            PLayer_objekt[3].SetActive(false);
-            PLayer_objekt[2].SetActive(true);
-            Skin_player.sprite = SKin_3;
-            Skin = 3;
-        }
-        else if (Skin == 3)
-        {
-            PLayer_objekt[0].SetActive(false);
-            PLayer_objekt[1].SetActive(false);
-            PLayer_objekt[2].SetActive(false);
-            PLayer_objekt[3].SetActive(true);
-            Skin_player.sprite = SKin_4;
-            Skin = 0;
-        }
-
-
-
-
+        playerData.Skin =+ 1;
+        playerData.Skin = (playerData.Skin >= 3) ? 0 : playerData.Skin;
     }
     private void Equip()
     {

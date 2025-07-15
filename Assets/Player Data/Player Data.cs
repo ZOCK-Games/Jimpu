@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 [System.Serializable]
@@ -5,6 +6,7 @@ public class PlayerData
 {
     public int health;
     public int money;
+    public int Skin;
     public float[] position;
 
     public PlayerData(PlayerStats playerStats)

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -8,7 +9,7 @@ public class Shop : MonoBehaviour
     public List<Button> Items_to_select;
     public List<ItemData> Items;
     //Items When UI SHop Is active
-    public Image ItemImagePreview;
+    public List<Image> ItemImagePreview;
     public TextMeshProUGUI ItemName;
     public TextMeshProUGUI ItemPrice;
     public TextMeshProUGUI ItemInfos;
@@ -20,15 +21,13 @@ public class Shop : MonoBehaviour
     public Inventory Inventory;
     public int Price;
     public GameObject ShopGameObjekt;
+    private int i;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Items_to_select[0].onClick.AddListener(Selected_items_0);
-        Items_to_select[1].onClick.AddListener(Selected_items_1);
-        Items_to_select[2].onClick.AddListener(Selected_items_2);
-        Items_to_select[3].onClick.AddListener(Selected_items_3);
-        Items_to_select[4].onClick.AddListener(Selected_items_4);
+        for (int i = 0; i < Items.Count; i++)
+            Items_to_select[i].onClick.AddListener(Selected_item);
         ErrorMessage.enabled = false;
         BuyMessage.enabled = false;
 
@@ -43,50 +42,14 @@ public class Shop : MonoBehaviour
     void Update()
     {
     }
-    public void Selected_items_0()
+    public void Selected_item()
     {
-        ItemImagePreview.sprite = Items[0].ItemImagePrev1;
-        ItemName.SetText(Items[0].ItemNameText);
-        Price = Items[0].ItemPriceInt;
+        ItemImagePreview[i].sprite = Items[i].ItemImagePrev1;
+        ItemName.SetText(Items[i].ItemNameText);
+        Price = Items[i].ItemPriceInt;
         ItemPrice.SetText(Price + "$");
-        ItemInfos.SetText(Items[0].ItemInfosText);
-        AktuelItem = 0;
-    }
-    public void Selected_items_1()
-    {
-        ItemImagePreview.sprite = Items[1].ItemImagePrev1;
-        ItemName.SetText(Items[1].ItemNameText);
-        Price = Items[1].ItemPriceInt;
-        ItemPrice.SetText(Price + "$");
-        ItemInfos.SetText(Items[1].ItemInfosText);
-        AktuelItem = 1;
-    }
-    public void Selected_items_2()
-    {
-        ItemImagePreview.sprite = Items[2].ItemImagePrev1;
-        ItemName.SetText(Items[2].ItemNameText);
-        Price = Items[2].ItemPriceInt;
-        ItemPrice.SetText(Price + "$");
-        ItemInfos.SetText(Items[2].ItemInfosText);
-        AktuelItem = 2;
-    }
-    public void Selected_items_3()
-    {
-        ItemImagePreview.sprite = Items[3].ItemImagePrev1;
-        ItemName.SetText(Items[3].ItemNameText);
-        Price = Items[3].ItemPriceInt;
-        ItemPrice.SetText(Price + "$");
-        ItemInfos.SetText(Items[3].ItemInfosText);
-        AktuelItem = 3;
-    }
-    public void Selected_items_4()
-    {
-        ItemImagePreview.sprite = Items[4].ItemImagePrev1;
-        ItemName.SetText(Items[4].ItemNameText);
-        Price = Items[4].ItemPriceInt;
-        ItemPrice.SetText(Price + "$");
-        ItemInfos.SetText(Items[4].ItemInfosText);
-        AktuelItem = 4;
+        ItemInfos.SetText(Items[i].ItemInfosText);
+        AktuelItem = i;
     }
     public void Buy_Button()
     {
@@ -96,6 +59,9 @@ public class Shop : MonoBehaviour
 
             BuyMessage.enabled = true;
             Inventory.Item[AktuelItem].SetActive(true);
+            
+
+
             Inventory.Item_Counter[AktuelItem] += 1;
         }
         else

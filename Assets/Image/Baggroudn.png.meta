@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: ae101121d00c7ff45b588a9ea418eb19
+guid: b7ee2515e2971a3739bbbac6d66088b2
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7666523638383639868
-    second: Baggroudn_0
+      213: 8791804297762246291
+    second: Baggroudn 1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,24 +96,11 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Baggroudn_0
+      name: Baggroudn 1_0
       rect:
         serializedVersion: 2
         x: 0
@@ -128,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c3dfdff41a6f46a60800000000000000
-      internalID: 7666523638383639868
+      spriteID: 39e0fd68d63c20a70800000000000000
+      internalID: 8791804297762246291
       vertices: []
       indices: 
       edges: []
@@ -148,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Baggroudn_0: 7666523638383639868
+      Baggroudn 1_0: 8791804297762246291
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

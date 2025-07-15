@@ -18,8 +18,7 @@ public class Quit_Button : MonoBehaviour
     }
     public void Button_Click()
     {
-        Application.Quit();
-        
         Debug.Log("Ending Game ...");
+        Application.Quit();
     }
 }
