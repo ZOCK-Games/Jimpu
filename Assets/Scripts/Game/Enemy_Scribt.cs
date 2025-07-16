@@ -4,19 +4,19 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 using Image = UnityEngine.UI.Image;
 
-public class enemy_scribt : MonoBehaviour
+public class EnemyScript : MonoBehaviour
 {
     public GameObject Player;
     public GameObject enemy;
     public int Attack_range;
     public int smoothTime;
     public int maxSpee;
-    public Vector2 Vector2_sel;
-    public float Enemy_pos_y;
+    public Vector2 EnemyPosition;
     public PolygonCollider2D Hit_box_player;
     public PolygonCollider2D Hit_box_enemy_body;
     public PolygonCollider2D Hit_box_enemy_head;
@@ -25,34 +25,32 @@ public class enemy_scribt : MonoBehaviour
     public GameObject Player_death_screen;
     public PlayerStats PlayerStats;
     public int EnemyHealt;
+    public string EnemyPositionGoal;
+    public TilemapCollider2D GroundTilemapCollider2d;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         Player_death_screen.SetActive(false);
         EnemyHealt = 1;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector2 position_P = Player.transform.position;
-        Vector2 position_E = enemy.transform.position;
-        Vector2 Distance = position_P - position_E;
-        if (Distance.x <= Attack_range)
+        if (Hit_box_enemy_body.IsTouching(GroundTilemapCollider2d))
         {
-            enemy.transform.Translate(Distance);
-            transform.position = Vector2.SmoothDamp(position_E, position_P, ref Vector2_sel, smoothTime, maxSpee);
+            EnemyPositionGoal = "-";
         }
-        Vector2 pos = enemy.transform.position;
-        pos.y = Enemy_pos_y;
-        enemy.transform.position = pos;
+
+
 
         if (Hit_box_player.IsTouching(Hit_box_enemy_body) && canTakeDamage)
-        {
-            StartCoroutine(DamagePlayer());
-            Debug.Log("-1 leben");
-        }
+            {
+                StartCoroutine(DamagePlayer());
+                Debug.Log("-1 leben");
+            }
         if (PlayerStats.PlayerHealt <= 1)
             Heart[0].SetActive(false);
         if (PlayerStats.PlayerHealt <= 2)
@@ -75,7 +73,13 @@ public class enemy_scribt : MonoBehaviour
         if (EnemyHealt <= 0)
         {
             enemy.SetActive(false);
-         }
+        }
+
+        void MoveEnemy()  //Soll den spiler bewegen wen Keine kolision bei objekt
+        {
+            transform.position = Vector2.SmoothDamp(EnemyPosition, EnemyPositionGoal + , ref EnemyPosition, smoothTime, maxSpee); //not finished 
+        }
+         
     }
     public IEnumerator DamagePlayer()
     {

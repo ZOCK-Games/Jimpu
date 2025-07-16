@@ -75,7 +75,6 @@ public class Player_move : MonoBehaviour
         }
         Player.transform.rotation = Quaternion.Euler(0f, 0f, PlayerRotation);
 
-        SkinChange(); //Skin changet Permanent
 
         if (playerStats.SkinNumber >= SkinSprite.Count)
         {

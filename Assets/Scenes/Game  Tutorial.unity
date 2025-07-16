@@ -1372,7 +1372,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerMoney: 0
-  PlayerHealt: 0
+  PlayerHealt: 3
   PlayerPosition: {x: 0, y: 0}
   Player: {fileID: 1387403622}
   playerData:
@@ -29744,7 +29744,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1567473199
 Transform:
   m_ObjectHideFlags: 0
@@ -29774,6 +29774,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 217d650eb8092164ab33b97316a08bb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CloseButton:
+  - {fileID: 1310925136}
+  ToClose:
+  - {fileID: 1567473198}
+  playerStats: {fileID: 1387403628}
+  sceneName: Start Screen
 --- !u!1 &1683804401
 GameObject:
   m_ObjectHideFlags: 0
