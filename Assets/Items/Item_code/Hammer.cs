@@ -8,7 +8,7 @@ public class Hammer : MonoBehaviour
     public BoxCollider2D HamerCollider;
     public Animator HammerAnimation;
     public List<BoxCollider2D> Enemy;
-    public enemy_scribt enemy_Scribt;
+    public EnemyScript enemy_Scribt;
     public int Demage = 1;
     private int i;
     private bool CanAttack;

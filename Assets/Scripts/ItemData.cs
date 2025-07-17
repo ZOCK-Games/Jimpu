@@ -6,9 +6,9 @@ public class ItemData : ScriptableObject
 {
     public Sprite ItemImagePrev1;
     public Sprite ItemImageInHand;
-    public String ItemNameText;
+    public string ItemNameText;
     public int ItemPriceInt;
-    public String ItemInfosText;
+    public string ItemInfosText;
     public int Price;
     public int Sell_Price;
 }

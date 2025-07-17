@@ -24,8 +24,6 @@ public class Player_move : MonoBehaviour
     public GameObject Walkking_animation;
     public List<Sprite> SkinSprite;
     public PlayerStats playerStats;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
         UnityEngine.Debug.Log("Game Startet");
@@ -67,7 +65,6 @@ public class Player_move : MonoBehaviour
         else if (Input.GetKey(KeyCode.Space) && Player_collider.IsTouching(Ground_Collider))
         {
             rb.AddForce(new Vector2(0, Jump_speed));
-            UnityEngine.Debug.Log("Berührt Boden!");
         }
         else
         {
