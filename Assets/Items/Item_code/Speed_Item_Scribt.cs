@@ -5,7 +5,7 @@ public class Speed_Item_Scribt : MonoBehaviour
 {
     public Inventory InvScribt;
     public ItemData SpeedItemData;
-    public Player_move Player_scribt;
+    public PlayerControll Player_scribt;
     public bool Power_Aktive;
     private bool Wayt_Aktive;
     private bool Wayt_Inaktive;

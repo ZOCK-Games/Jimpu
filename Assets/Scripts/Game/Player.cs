@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
-public class Player_move : MonoBehaviour
+public class PlayerControll : MonoBehaviour
 
 {
     public GameObject Player;

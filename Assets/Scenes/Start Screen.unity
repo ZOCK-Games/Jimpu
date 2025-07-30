@@ -2514,14 +2514,13 @@ MonoBehaviour:
   ItemName: {fileID: 820091850}
   ItemPrice: {fileID: 862324492}
   ItemInfos: {fileID: 961509949}
-  ErrorMessage: {fileID: 1347927420}
-  BuyMessage: {fileID: 1347927420}
+  ShopMassage: {fileID: 0}
   BuyButton: {fileID: 1709566945}
   AktuelItem: 0
   PlayerStatsScribt: {fileID: 0}
   Inventory: {fileID: 0}
   Price: 0
-  ShopGameObjekt: {fileID: 0}
+  ShopGameObjekt: {fileID: 1309386665}
 --- !u!1 &1347927418
 GameObject:
   m_ObjectHideFlags: 0

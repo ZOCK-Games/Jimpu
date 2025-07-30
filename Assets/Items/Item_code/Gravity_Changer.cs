@@ -3,9 +3,8 @@ using UnityEngine;
 
 public class Gravity_Changer : MonoBehaviour
 {
-    public Player_move PlayerScribt;
+    public PlayerControll PlayerScribt;
     public GameObject GravityChangingObjekt;
-    public Player_move PlayerMovmentScribt;
     public Rigidbody2D PlayerRigidbody2D;
     public GameObject PlayerGameObjekt;
     public GameObject PowerAnimationObjekt;
@@ -28,7 +27,7 @@ public class Gravity_Changer : MonoBehaviour
         {
             PlayerRigidbody2D.gravityScale = -0.25f;
             PlayerScribt.PlayerRotation = 180;
-            PlayerMovmentScribt.Jump_speed = -55;
+            PlayerScribt.Jump_speed = -55;
             PowerAnimationObjekt.SetActive(true);
             StartCoroutine(IsAktive());
 
@@ -37,7 +36,7 @@ public class Gravity_Changer : MonoBehaviour
         {
             PlayerScribt.PlayerRotation = 0f;
             PlayerRigidbody2D.gravityScale = 1f;
-            PlayerMovmentScribt.Jump_speed = 55;
+            PlayerScribt.Jump_speed = 55;
             PowerAnimationObjekt.SetActive(false);
             StartCoroutine(GoDown());
             Debug.Log("Reset");

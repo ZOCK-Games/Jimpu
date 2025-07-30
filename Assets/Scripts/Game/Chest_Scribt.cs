@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class Chest_Scribt : MonoBehaviour
+public class ChestScribt : MonoBehaviour
 {
     public Animator chestaniamtion;
     public Collider2D Chest_Colider;
@@ -15,6 +15,7 @@ public class Chest_Scribt : MonoBehaviour
     public List<ItemData> ItemsImages;
     public List<GameObject> ItemsHand1;
     private int index;
+    public Inventory Inventory;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -22,7 +23,7 @@ public class Chest_Scribt : MonoBehaviour
     }
 
     // Update is called once per frame
-    void OnTriggerEnter2D()
+    public void OnTriggerEnter2D()
     {
         if (PlayerCollider.IsTouching(Chest_Colider) && !ItemsHand1[index].activeSelf)
         {
@@ -37,9 +38,10 @@ public class Chest_Scribt : MonoBehaviour
     }
     private IEnumerator WaytToDestroy()
     {
-        int index = Random.Range(0, ItemsImages.Count);
+        int CurrentItemInt = Random.Range(0, ItemsImages.Count);
         ItemsToChangeSprite.sprite = ItemsImages[index].ItemImagePrev1;
-        ItemsHand1[index].SetActive(true);
+        Inventory.CurrentItemIndex = CurrentItemInt;
+        Inventory.ItemAdd();
         yield return new WaitForSeconds(0.75f);
         ChestGameObjekt.SetActive(false);
         ItemsToChangeSprite.sprite = null;
