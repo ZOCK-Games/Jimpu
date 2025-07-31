@@ -679,6 +679,52 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &664263344
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 664263346}
+  - component: {fileID: 664263345}
+  m_Layer: 0
+  m_Name: DataPersitenceManger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &664263345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 664263344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a88ac2912862dc74a7d91275d7a639a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FileName: Jimpu
+  useEncryption: 1
+--- !u!4 &664263346
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 664263344}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 483.91492, y: 182.73154, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &820091848
 GameObject:
   m_ObjectHideFlags: 0
@@ -2517,7 +2563,12 @@ MonoBehaviour:
   ShopMassage: {fileID: 0}
   BuyButton: {fileID: 1709566945}
   AktuelItem: 0
-  PlayerStatsScribt: {fileID: 0}
+  gameData:
+    SkinIndex: 0
+    CoinValue: 0
+    Health: 0
+    PlayerPositionX: 0
+    PlayerPositionY: 0
   Inventory: {fileID: 0}
   Price: 0
   ShopGameObjekt: {fileID: 1309386665}
@@ -3894,3 +3945,4 @@ SceneRoots:
   - {fileID: 2117679199}
   - {fileID: 981989334}
   - {fileID: 2135724599}
+  - {fileID: 664263346}

@@ -23,7 +23,7 @@ public class PlayerControll : MonoBehaviour
     public Rigidbody2D rb;
     public GameObject Walkking_animation;
     public List<Sprite> SkinSprite;
-    public PlayerStats playerStats;
+    public GameData gameData;
     private void Start()
     {
         UnityEngine.Debug.Log("Game Startet");
@@ -39,6 +39,7 @@ public class PlayerControll : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         Vector2 position = Player.transform.position;
 
         if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.LeftArrow) && Input.GetKey(KeyCode.LeftControl))
@@ -73,9 +74,9 @@ public class PlayerControll : MonoBehaviour
         Player.transform.rotation = Quaternion.Euler(0f, 0f, PlayerRotation);
 
 
-        if (playerStats.SkinNumber >= SkinSprite.Count)
+        if (gameData.SkinIndex >= SkinSprite.Count)
         {
-            playerStats.SkinNumber = 0;  //Setzt SkinNumber zurück wen größer alls die verhandenen bilder
+            gameData.SkinIndex = 0;  //Setzt SkinNumber zurück wen größer alls die verhandenen bilder
         }
 
     }
@@ -96,8 +97,23 @@ public class PlayerControll : MonoBehaviour
 
     private void SkinChange()
     {
-        PlayerSpriteRenderer.sprite = SkinSprite[playerStats.SkinNumber];
-        UnityEngine.Debug.Log("Skin Number" + playerStats.SkinNumber);
+        PlayerSpriteRenderer.sprite = SkinSprite[gameData.SkinIndex];
+        UnityEngine.Debug.Log("Skin Number" + gameData.SkinIndex);
 
-    } 
+    }
+    public void LoadGame(GameData data)
+    {
+        float PlayerPositionX = Player.transform.localPosition.x;
+        float PlayerPositionY = Player.transform.localPosition.y;
+
+        PlayerPositionX = data.PlayerPositionX; // Load value from GameData
+        PlayerPositionY = data.PlayerPositionY; // Load value from GameData
+        
+
+    }
+    public void SaveGame(ref GameData data) // Save the current Data to GameData
+    {
+        data.PlayerPositionX = Player.transform.localPosition.x; 
+        data.PlayerPositionY = Player.transform.localPosition.y;
+    }
 }

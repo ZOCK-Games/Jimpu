@@ -24,7 +24,7 @@ public class EnemyScript : MonoBehaviour
     public PolygonCollider2D Hit_box_enemy_head;
     public List<GameObject> Heart;
     public GameObject Player_death_screen;
-    public PlayerStats PlayerStats;
+    public GameData gameData;
     public TilemapCollider2D GroundTilemapCollider2d;
     public BoxCollider2D PlayerBoxTouchBlock;
     public bool EnemyCanMove = true;
@@ -61,24 +61,24 @@ public class EnemyScript : MonoBehaviour
             Debug.Log("-1 leben");
         }
         //Removed Die Herzen / fügt sie hinzu
-        if (PlayerStats.PlayerHealt <= 1)
+        if (gameData.Health <= 1)
             Heart[0].SetActive(false);
-        if (PlayerStats.PlayerHealt <= 2)
+        if (gameData.Health <= 2)
             Heart[1].SetActive(false);
-        if (PlayerStats.PlayerHealt <= 3)
+        if (gameData.Health <= 3)
             Heart[2].SetActive(false);
 
-        if (PlayerStats.PlayerHealt >= 1)
+        if (gameData.Health >= 1)
             Heart[0].SetActive(true);
-        if (PlayerStats.PlayerHealt >= 2)
+        if (gameData.Health >= 2)
             Heart[1].SetActive(true);
-        if (PlayerStats.PlayerHealt >= 3)
+        if (gameData.Health >= 3)
             Heart[2].SetActive(true);
         if (Hit_box_enemy_head.IsTouching(Hit_box_player) && Input.GetKey(KeyCode.LeftShift))
         {
             //PLayer attacke
         }
-        if (PlayerStats.PlayerHealt == 0)              // Aktiviert Den Dead Screen
+        if (gameData.Health == 0)              // Aktiviert Den Dead Screen
             Player_death_screen.SetActive(true);
         if (EnemyHealt <= 0)
         {
@@ -101,7 +101,7 @@ public class EnemyScript : MonoBehaviour
     }
     public IEnumerator DamagePlayer()   //Damage the Player 
     {
-        PlayerStats.PlayerHealt -= 1;
+        gameData.Health -= 1;
         canTakeDamage = false;
         yield return new WaitForSeconds(1);
         canTakeDamage = true;

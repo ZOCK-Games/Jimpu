@@ -16,7 +16,7 @@ public class Garderoben_scribt : MonoBehaviour
     public SpriteRenderer Skin_player;
 
     public int Position_y;
-    public PlayerData playerData;
+    public GameData GameData;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -31,8 +31,8 @@ public class Garderoben_scribt : MonoBehaviour
     // Update is called once per frame
     void Select()
     {
-        playerData.Skin =+ 1;
-        playerData.Skin = (playerData.Skin >= 3) ? 0 : playerData.Skin;
+        GameData.SkinIndex =+ 1;
+        GameData.SkinIndex = (GameData.SkinIndex >= 3) ? 0 : GameData.SkinIndex;
     }
     private void Equip()
     {

@@ -15,7 +15,7 @@ public class Shop : MonoBehaviour
     public TextMeshProUGUI ShopMassage;
     public Button BuyButton;
     public int AktuelItem;
-    public PlayerStats PlayerStatsScribt;
+    public GameData gameData;
     public Inventory Inventory;
     public int Price;
     public GameObject ShopGameObjekt; // The shop game object that is activated when the player opens the shop
@@ -49,7 +49,7 @@ public class Shop : MonoBehaviour
     }
     public void Buy_Button() // This function is called when the Player clicks the buy button in the shop
     {
-        if (PlayerStatsScribt.PlayerMoney >= Price)
+        if (gameData.CoinValue >= Price)
         {
             Debug.Log("Das Aktuelle Item Ist: " + AktuelItem);
 

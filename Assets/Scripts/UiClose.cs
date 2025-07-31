@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -8,7 +7,7 @@ public class UiClose : MonoBehaviour
 {
     public List<Button> CloseButton;
     public List<GameObject> ToClose;
-    public PlayerStats playerStats;
+    public GameData GameData;
     public string sceneName = "StartScene"; // Default scene name
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -25,7 +24,7 @@ public class UiClose : MonoBehaviour
             if (ToClose[i] != null)
             {
                 ToClose[i].SetActive(false);
-                playerStats.PlayerHealt = 3;
+                GameData.Health = 3;
                 Debug.Log("Closed: " + ToClose[i].name);
                 SceneManager.LoadScene(sceneName);
             }
