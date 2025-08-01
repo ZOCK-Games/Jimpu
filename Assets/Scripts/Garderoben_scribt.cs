@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.UIElements;
 using Image = UnityEngine.UI.Image;
 
-public class GarderobenScribt : MonoBehaviour
+public class GarderobenScribt : MonoBehaviour, IDataPersitence
 {
     //public Image Skin1;
     public UnityEngine.UI.Button NextSkinButton;
@@ -16,6 +16,7 @@ public class GarderobenScribt : MonoBehaviour
     [Header("Skin Sprites")]
     public Image SkinShowcase;
     public List<Sprite> SkinSprites;
+    public UnityEngine.UI.Button SkinSaveButton;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -23,6 +24,7 @@ public class GarderobenScribt : MonoBehaviour
     {
         NextSkinButton.onClick.AddListener(NextSkin);
         CloseButton.onClick.AddListener(CloseGarderobe);
+        SkinSaveButton.onClick.AddListener(SaveSkin);
         Garderobe.SetActive(false);
         LoadSkin();
     }
@@ -50,9 +52,14 @@ public class GarderobenScribt : MonoBehaviour
         LoadSkin();
         Debug.Log("Loaded Skin Index: " + SkinIndex);
     }
-        public void SaveGame(ref GameData data) // Save the current value to GameData
+    public void SaveGame(ref GameData data) // Save the current value to GameData
     {
         data.SkinIndex = this.SkinIndex; //Value to saved data
+    }
+    public void SaveSkin()
+    {
+        DataPersitenceManger.Instance.SaveGame();
+        Debug.Log("Skin saved: " + SkinIndex);
     }
 
 }

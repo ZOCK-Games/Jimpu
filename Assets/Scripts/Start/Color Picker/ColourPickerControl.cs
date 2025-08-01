@@ -1,10 +1,11 @@
 using System;
 using System.Collections;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ColourPickerControl : MonoBehaviour
+public class ColourPickerControl : MonoBehaviour, IDataPersitence
 {
     public Image colorDisplay;
     public TMP_InputField HexInputField;
@@ -26,6 +27,8 @@ public class ColourPickerControl : MonoBehaviour
         PickWhiteButton.onClick.AddListener(() => PickColor("#FFFFFF"));
         PickPinkButton.onClick.AddListener(() => PickColor("#DDA0DD"));
         FeedbackText.text = "";
+        garderobenScribt.SkinShowcase.color = colorHex;
+        colorDisplay.color = colorHex;
     }
 
     private void OnHexInputFieldChanged(string hex)
@@ -33,7 +36,7 @@ public class ColourPickerControl : MonoBehaviour
         hex = hex.TrimStart('#');
 
         // Versuche Farbe zu parsen
-        if (ColorUtility.TryParseHtmlString("#" + hex, out colorHex))
+        if (UnityEngine.ColorUtility.TryParseHtmlString("#" + hex, out colorHex))
         {
             garderobenScribt.SkinShowcase.color = colorHex;
             colorDisplay.color = colorHex;
@@ -59,5 +62,14 @@ public class ColourPickerControl : MonoBehaviour
         yield return new WaitForSeconds(4f);
         FeedbackText.text = "";
         Debug.Log("TextDeaktivate coroutine ended. Text:" + FeedbackText.text);
+    }
+    public void LoadGame(GameData data)
+    {
+        HexInputField.text = data.colorhex;     
+    }
+
+    public void SaveGame(ref GameData data) // Save the current Data to GameData
+    {
+        data.colorhex = HexInputField.text.TrimStart('#').ToString();
     }
 }

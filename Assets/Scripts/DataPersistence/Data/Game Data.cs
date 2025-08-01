@@ -4,6 +4,7 @@ using System;
 public class GameData
 {
     public int SkinIndex;     //everything that is saved in the game should be here
+    public string colorhex;
     public int CoinValue; //default value for coins
     public int Health;
     public float PlayerPositionX;

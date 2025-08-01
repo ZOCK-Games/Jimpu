@@ -28,12 +28,16 @@ public class DataPersitenceManger : MonoBehaviour
         this.dataPersistenceObjects = FindAllDataPersistenceObjects();
         LoadGame();
     }
-
-
-
-    private void OnApplicationQuit()
+    public void OnApplicationQuit()
     {
         SaveGame();
+    }
+    public void OnApplicationPause(bool pauseStatus)
+    {
+        if (pauseStatus)
+        {
+            SaveGame();
+        }
     }
     public void NewGame()
     {

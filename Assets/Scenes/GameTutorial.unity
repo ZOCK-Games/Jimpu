@@ -1296,6 +1296,7 @@ MonoBehaviour:
   PlayerPolygonCollider: {fileID: 1387403624}
   gameData:
     SkinIndex: 0
+    colorhex: 
     CoinValue: 0
     Health: 3
     PlayerPositionX: 0
@@ -1472,6 +1473,7 @@ GameObject:
   m_Component:
   - component: {fileID: 976853761}
   - component: {fileID: 976853760}
+  - component: {fileID: 976853762}
   m_Layer: 0
   m_Name: DataPersitenceManger
   m_TagString: Untagged
@@ -1491,7 +1493,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a88ac2912862dc74a7d91275d7a639a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FileName: Jimpu
   useEncryption: 0
 --- !u!4 &976853761
 Transform:
@@ -1508,6 +1509,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &976853762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 976853759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc842d435770bf98a935b22532e30bd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneName: GameTutorial
+  SaveScene: 1
+  LoadScene: 1
+  SaveSceneKey: 1
 --- !u!1 &1183198798
 GameObject:
   m_ObjectHideFlags: 0
@@ -2403,6 +2420,7 @@ MonoBehaviour:
   Player_death_screen: {fileID: 1567473198}
   gameData:
     SkinIndex: 0
+    colorhex: 
     CoinValue: 0
     Health: 3
     PlayerPositionX: 0
@@ -31393,6 +31411,7 @@ MonoBehaviour:
   - {fileID: 1567473198}
   GameData:
     SkinIndex: 0
+    colorhex: 
     CoinValue: 0
     Health: 3
     PlayerPositionX: 0
