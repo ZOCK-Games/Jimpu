@@ -1,46 +1,58 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
+using Image = UnityEngine.UI.Image;
 
-public class Garderoben_scribt : MonoBehaviour
+public class GarderobenScribt : MonoBehaviour
 {
     //public Image Skin1;
-    public UnityEngine.UI.Button Select_button;
-    public UnityEngine.UI.Button Equip_button;
-    public UnityEngine.UI.Button Close_button;
+    public UnityEngine.UI.Button NextSkinButton;
+    public UnityEngine.UI.Button CloseButton;
     public GameObject Garderobe;
-    public GameObject Settings_Canvas;
-    public List<GameObject> PLayer_objekt;
-    public SpriteRenderer Skin_player;
-
-    public int Position_y;
-    public GameData GameData;
+    public int SkinIndex = 0;
+    [Header("Skin Sprites")]
+    public Image SkinShowcase;
+    public List<Sprite> SkinSprites;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Select_button.onClick.AddListener(Select);
-        Equip_button.onClick.AddListener(Equip);
-        Close_button.onClick.AddListener(CLose_canvas);
+        NextSkinButton.onClick.AddListener(NextSkin);
+        CloseButton.onClick.AddListener(CloseGarderobe);
         Garderobe.SetActive(false);
+        LoadSkin();
     }
 
     // Update is called once per frame
-    void Select()
+    void NextSkin()
     {
-        GameData.SkinIndex =+ 1;
-        GameData.SkinIndex = (GameData.SkinIndex >= 3) ? 0 : GameData.SkinIndex;
+        SkinIndex += 1;
+        SkinIndex = (SkinIndex >= SkinSprites.Count) ? 0 : SkinIndex;
+        Debug.Log("Current Skin Index: " + SkinIndex);
+        LoadSkin();
     }
-    private void Equip()
+    private void CloseGarderobe()
     {
         Garderobe.SetActive(false);
     }
-    private void CLose_canvas()
+
+    private void LoadSkin()
     {
-        Garderobe.SetActive(false);
+        SkinShowcase.sprite = SkinSprites[SkinIndex];
+    }
+    public void LoadGame(GameData data) // Load the value from GameData
+    {
+        this.SkinIndex = data.SkinIndex; // Load value from GameData
+        LoadSkin();
+        Debug.Log("Loaded Skin Index: " + SkinIndex);
+    }
+        public void SaveGame(ref GameData data) // Save the current value to GameData
+    {
+        data.SkinIndex = this.SkinIndex; //Value to saved data
     }
 
 }

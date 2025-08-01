@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class DataPersitenceManger : MonoBehaviour
 {
     [Header("File Storage Config")]
-    [SerializeField] private string FileName;
+    private string FileName = "Jimpu.json";
     [Header("Encryption")]
     [SerializeField] private bool useEncryption = true; // <-- Hier steuerst du es im Inspector!
     private List<IDataPersitence> dataPersistenceObjects;
@@ -21,7 +21,6 @@ public class DataPersitenceManger : MonoBehaviour
         }
         Instance = this;
     }
-
     private void Start()
     {
         // Übergib useEncryption an den FileDataHandler!
@@ -31,11 +30,11 @@ public class DataPersitenceManger : MonoBehaviour
     }
 
 
+
     private void OnApplicationQuit()
     {
         SaveGame();
     }
-
     public void NewGame()
     {
         this.gameData = new GameData();

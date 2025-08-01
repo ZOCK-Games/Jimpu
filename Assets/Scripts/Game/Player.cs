@@ -1,12 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using Unity.Mathematics;
+
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
-public class PlayerControll : MonoBehaviour
+public class PlayerControll : MonoBehaviour, IDataPersitence
 
 {
     public GameObject Player;
@@ -23,15 +22,15 @@ public class PlayerControll : MonoBehaviour
     public Rigidbody2D rb;
     public GameObject Walkking_animation;
     public List<Sprite> SkinSprite;
-    public GameData gameData;
+    private int SkinIndex;
     private void Start()
     {
-        UnityEngine.Debug.Log("Game Startet");
-
+        UnityEngine.Debug.Log("Tutorial Game Has Startet");
         Player_pos_reset.onClick.AddListener(ResetButtonClick);
         rb = Player.GetComponent<Rigidbody2D>();
         Walkking_animation.SetActive(false);
-
+        Player.GetComponent<SpriteRenderer>().sprite = SkinSprite[SkinIndex];
+        UnityEngine.Debug.Log("The Curent Skin is: " + SkinSprite[SkinIndex].name);
 
     }
 
@@ -71,14 +70,8 @@ public class PlayerControll : MonoBehaviour
         {
             Walkking_animation.SetActive(false);
         }
+
         Player.transform.rotation = Quaternion.Euler(0f, 0f, PlayerRotation);
-
-
-        if (gameData.SkinIndex >= SkinSprite.Count)
-        {
-            gameData.SkinIndex = 0;  //Setzt SkinNumber zurück wen größer alls die verhandenen bilder
-        }
-
     }
     private IEnumerator Reset()
     {
@@ -95,25 +88,17 @@ public class PlayerControll : MonoBehaviour
         StartCoroutine(Reset());
     }
 
-    private void SkinChange()
-    {
-        PlayerSpriteRenderer.sprite = SkinSprite[gameData.SkinIndex];
-        UnityEngine.Debug.Log("Skin Number" + gameData.SkinIndex);
-
-    }
     public void LoadGame(GameData data)
     {
-        float PlayerPositionX = Player.transform.localPosition.x;
-        float PlayerPositionY = Player.transform.localPosition.y;
-
-        PlayerPositionX = data.PlayerPositionX; // Load value from GameData
-        PlayerPositionY = data.PlayerPositionY; // Load value from GameData
-        
-
+        Player.transform.localPosition = new Vector3(data.PlayerPositionX, data.PlayerPositionY, 0);
+        SkinIndex = data.SkinIndex;
+        Player.GetComponent<SpriteRenderer>().sprite = SkinSprite[SkinIndex];
     }
     public void SaveGame(ref GameData data) // Save the current Data to GameData
     {
-        data.PlayerPositionX = Player.transform.localPosition.x; 
-        data.PlayerPositionY = Player.transform.localPosition.y;
+        data.PlayerPositionX = this.Player.transform.localPosition.x;
+        data.PlayerPositionY = this.Player.transform.localPosition.y;
+
+        data.SkinIndex = SkinIndex;
     }
 }

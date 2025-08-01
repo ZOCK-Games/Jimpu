@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 6b93c151d4e41274e8bfe7cafcd72105
+guid: 240646f0aa79df7aaa084e111e0b79cd
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -513223075787524656
-    second: SliderHandelNoColor_0
+      213: -5016210145025390673
+    second: Player Silent_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SliderHandelNoColor_0
+      name: Player Silent_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 40
-        height: 80
+        width: 16
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0d5b62de45aa0e8f0800000000000000
-      internalID: -513223075787524656
+      spriteID: fa70d0b3377d26ab0800000000000000
+      internalID: -5016210145025390673
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      SliderHandelNoColor_0: -513223075787524656
+      Player Silent_0: -5016210145025390673
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

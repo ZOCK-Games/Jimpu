@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 1e13b2062c87f0464aebb1497220635a
+guid: 25b5c23fac73568eaa617d6e9078996d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1997808171799926702
-    second: Button No Couler 32x13_0
+      213: -5800530567114307789
+    second: Player Big Eye_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -96,17 +96,30 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Button No Couler 32x13_0
+      name: Player Big Eye_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 14
+        width: 16
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ea7d18982f3a9bb10800000000000000
-      internalID: 1997808171799926702
+      spriteID: 3374b568e20608fa0800000000000000
+      internalID: -5800530567114307789
       vertices: []
       indices: 
       edges: []
@@ -135,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Button No Couler 32x13_0: 1997808171799926702
+      Player Big Eye_0: -5800530567114307789
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
