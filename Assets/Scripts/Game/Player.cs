@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
@@ -29,9 +29,6 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
         Player_pos_reset.onClick.AddListener(ResetButtonClick);
         rb = Player.GetComponent<Rigidbody2D>();
         Walkking_animation.SetActive(false);
-        Player.GetComponent<SpriteRenderer>().sprite = SkinSprite[SkinIndex];
-        UnityEngine.Debug.Log("The Curent Skin is: " + SkinSprite[SkinIndex].name);
-
     }
 
 
@@ -93,6 +90,9 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
         Player.transform.localPosition = new Vector3(data.PlayerPositionX, data.PlayerPositionY, 0);
         SkinIndex = data.SkinIndex;
         Player.GetComponent<SpriteRenderer>().sprite = SkinSprite[SkinIndex];
+        if (UnityEngine.ColorUtility.TryParseHtmlString("#" + data.colorhex, out Color colorHex))
+        Player.GetComponent<SpriteRenderer>().color = colorHex;
+        
     }
     public void SaveGame(ref GameData data) // Save the current Data to GameData
     {

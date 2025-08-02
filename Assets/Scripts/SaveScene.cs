@@ -11,7 +11,7 @@ public class SaveSceneOnStart : MonoBehaviour
         if (LoadScene == true)
         {
             DataPersitenceManger.Instance.LoadGame();
-            Debug.Log("Autamtic Start Laden ausgelöst! Data" + DataPersitenceManger.Instance.GameData.colorhex);
+            Debug.Log("Autamtic Start Laden ausgelöst! Data");
         }
         
     }

@@ -21,13 +21,11 @@ public class ColourPickerControl : MonoBehaviour, IDataPersitence
     private void Start()
     {
         HexInputField.onEndEdit.AddListener(OnHexInputFieldChanged);
-
         PickRedButton.onClick.AddListener(() => PickColor("#A52A2A"));
         PickBlueButton.onClick.AddListener(() => PickColor("#4169E1"));
         PickWhiteButton.onClick.AddListener(() => PickColor("#FFFFFF"));
         PickPinkButton.onClick.AddListener(() => PickColor("#DDA0DD"));
         FeedbackText.text = "";
-        garderobenScribt.SkinShowcase.color = colorHex;
         colorDisplay.color = colorHex;
     }
 
@@ -65,7 +63,10 @@ public class ColourPickerControl : MonoBehaviour, IDataPersitence
     }
     public void LoadGame(GameData data)
     {
-        HexInputField.text = data.colorhex;     
+        HexInputField.text = data.colorhex;
+        if (UnityEngine.ColorUtility.TryParseHtmlString("#" + data.colorhex, out colorHex))
+        colorHex = colorHex; 
+        OnHexInputFieldChanged(HexInputField.text); 
     }
 
     public void SaveGame(ref GameData data) // Save the current Data to GameData

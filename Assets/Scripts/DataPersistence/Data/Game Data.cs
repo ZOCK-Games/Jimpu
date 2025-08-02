@@ -3,12 +3,18 @@ using System;
 [Serializable]
 public class GameData
 {
-    public int SkinIndex;     //everything that is saved in the game should be here
-    public string colorhex;
-    public int CoinValue; //default value for coins
-    public int Health;
+    public string colorhex; //Gaderobe stuff
+    public int SkinIndex; 
+
+    public int Health; //player stuff
     public float PlayerPositionX;
     public float PlayerPositionY;
+    public int CoinValue;
+
+    public int EnemyHealth; //enemy stuff
+    public float EnemyPositionX;
+    public float EnemyPositionY;
+
 
 
     public GameData()
