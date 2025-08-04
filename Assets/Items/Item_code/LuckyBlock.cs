@@ -5,6 +5,7 @@ public class LuckyBlock : MonoBehaviour
     public GameObject LuckyBlockI;
     public GameObject chest;
     public GameObject PlayerTransform;
+    public Inventory inventory;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -22,6 +23,7 @@ public class LuckyBlock : MonoBehaviour
             pos.y = -3.5f;
             chest_p.transform.position = pos;
             LuckyBlockI.SetActive(false);
+            inventory.ClearCurentItem = true;
         }
         
     }

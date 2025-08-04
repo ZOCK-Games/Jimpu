@@ -6,44 +6,61 @@ using Random = UnityEngine.Random;
 
 public class ChestScribt : MonoBehaviour
 {
-    public Animator chestaniamtion;
-    public Collider2D Chest_Colider;
     public Collider2D PlayerCollider;
     public GameObject ChestGameObjekt;
     public SpriteRenderer ItemsToChangeSprite;
     public GameObject ItemsToChange;
-    public List<ItemData> ItemsImages;
-    public List<GameObject> ItemsHand1;
-    private int index;
-    public Inventory Inventory;
+    public Inventory inventory;
+    public bool FreeSlot;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        chestaniamtion.speed = 0f;
+        ChestGameObjekt.GetComponent<Animation>().Stop();
+        FreeSlot = false;
+
     }
 
     // Update is called once per frame
-    public void OnTriggerEnter2D()
+    public void Update()
     {
-        if (PlayerCollider.IsTouching(Chest_Colider) && !ItemsHand1[index].activeSelf)
+        for (int i = 0; i < inventory.Item.Count; i++)
+            if (!inventory.Item[i].activeSelf)
+            {
+                FreeSlot = true;
+            }
+
+        if (PlayerCollider.IsTouching(ChestGameObjekt.GetComponent<BoxCollider2D>()) && FreeSlot == true)
         {
-            chestaniamtion.speed = 1f;
+            ChestInteraction();
+            Animator anim = ChestGameObjekt.GetComponent<Animator>();
+            anim.SetTrigger("TriggerChestOpen");
             StartCoroutine(WaytToDestroy());
-            Debug.Log("Berürt");
+            Debug.Log("Player Berührt Chest: " + ChestGameObjekt.name);
         }
-        else if (PlayerCollider.IsTouching(Chest_Colider) && ItemsHand1[index].activeSelf)
+
+        else if (PlayerCollider.IsTouching(ChestGameObjekt.GetComponent<BoxCollider2D>()))
         {
-            Debug.LogWarning("Player HAtt schon das item" + ItemsHand1[index]);
+            Debug.LogWarning("Player Hatt schon ein item ausgerüstet");
+            ChestInteraction();
         }
+
     }
     private IEnumerator WaytToDestroy()
     {
-        int CurrentItemInt = Random.Range(0, ItemsImages.Count);
-        ItemsToChangeSprite.sprite = ItemsImages[index].ItemImagePrev1;
-        Inventory.CurrentItemIndex = CurrentItemInt;
-        Inventory.ItemAdd();
+        int CurrentItemInt = Random.Range(0, inventory.itemData.Count);
+        Debug.Log(CurrentItemInt);
+        ItemsToChangeSprite.sprite = inventory.itemData[CurrentItemInt].ItemImagePrev1;
         yield return new WaitForSeconds(0.75f);
-        ChestGameObjekt.SetActive(false);
+        inventory.Item[CurrentItemInt].SetActive(true);
+        this.inventory.CurentItem =  
         ItemsToChangeSprite.sprite = null;
+        ChestGameObjekt.SetActive(false);
+    }
+    private IEnumerator ChestInteraction()
+    {
+        Debug.Log("Started Interaction Aniamtion");
+        ChestGameObjekt.GetComponent<Animator>().Play("TriggerChestInteract");
+        yield return new WaitForSeconds(0.1f);
+        Debug.Log("Stop Interaction Aniamtion");
     }
 }

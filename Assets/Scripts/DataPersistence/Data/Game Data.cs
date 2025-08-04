@@ -15,11 +15,11 @@ public class GameData
     public float EnemyPositionX;
     public float EnemyPositionY;
 
+    public string CurentItem;
+
 
 
     public GameData()
     {
-        this.Health = 3;
-        this.SkinIndex = 0;
     }
 }

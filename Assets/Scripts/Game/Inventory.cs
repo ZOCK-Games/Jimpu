@@ -1,35 +1,57 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Serialization;
+using Unity.VisualScripting;
+using UnityEditor;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Inventory : MonoBehaviour
+public class Inventory : MonoBehaviour, IDataPersitence
 {
     public List<ItemData> itemData;
     public List<GameObject> Item;
-    public int CurrentItemIndex;
-    public bool ItemIsAktive;
+    public string CurentItem;
+    public int CurentItemData;
+    public bool ClearCurentItem;
+
     public void Start()
     {
+        for (int i = 0; i < Item.Count; i++)
+            if (Item[i].name.ToString() == CurentItem)
+            {
+                CurentItemData = i;
+                Item[CurentItemData].SetActive(true);
+                CurentItem = Item[CurentItemData].name;
+                Debug.Log("Aktueles Item " + CurentItem + ".  the int is: " + CurentItemData + "The Game Obj is: " + Item[CurentItemData]);
+            }
+            else
+            {
+                Item[i].SetActive(false);
+                Debug.Log("Kein Item Mit Gleichen namen gefunden Aktueles Item " + CurentItem + ". And the int is: " + CurentItemData);
 
+            }
     }
     void Update()
     {
-        for (int i = 0; i < Item.Count; i++)
+        if (ClearCurentItem == true)
         {
-            if (Item[i].activeSelf)
-            {
-                Debug.Log("Item " + itemData[i].ItemNameText + " is active.");
-                ItemAdd();
-            }
+            Debug.Log("Curent Item Is Cleard item: " + CurentItem);
+            CurentItem = null;
+            ClearCurentItem = false;
         }
-    }
-    public void ItemAdd()
-    {
-        Item[CurrentItemIndex].SetActive(true);
-        ItemIsAktive = true;
-        Debug.Log("Item Added: " + itemData[CurrentItemIndex].ItemNameText);
 
     }
+
+    public void LoadGame(GameData data)
+    {
+        this.CurentItem = data.CurentItem;
+    }
+
+    public void SaveGame(ref GameData data)
+    {
+        data.CurentItem = this.CurentItem;
+    }
 }
+

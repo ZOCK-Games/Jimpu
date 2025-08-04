@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f124ddd1cb9aad4a9673da794119387, type: 3}
   m_Name: Hammer
   m_EditorClassIdentifier: 
-  ItemImagePrev1: {fileID: 6907613566496967327, guid: 484dd079e6a4dcd49bdb2a94eba68e0e, type: 3}
-  ItemImageInHand: {fileID: 0}
-  ItemNameText: 
-  ItemPriceInt: 0
-  ItemInfosText: 
-  Price: 0
-  Sell_Price: 0
+  ItemImagePrev1: {fileID: -7778670902192305897, guid: d5e06e441a913584dac9af72a0201d9d, type: 3}
+  ItemImageInHand: {fileID: -7778670902192305897, guid: d5e06e441a913584dac9af72a0201d9d, type: 3}
+  ItemNameText: Hammer
+  ItemPriceInt: 1
+  ItemInfosText: "Bum Bam B\xE4m"
+  Price: 1
+  Sell_Price: 2
