@@ -10,24 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 15003, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: Jimpu Linux
+  m_Name: Jimpu Android
   m_EditorClassIdentifier: 
   m_AssetVersion: 1
-  m_BuildTarget: 24
-  m_Subtarget: 2
-  m_PlatformId: cb423bfea44b4d658edb8bc5d91a3024
+  m_BuildTarget: 13
+  m_Subtarget: 0
+  m_PlatformId: b9b35072a6f44c2e863f17467ea3dc13
   m_PlatformBuildProfile:
-    rid: 4222498819070230783
-  m_OverrideGlobalSceneList: 1
-  m_Scenes:
-  - m_enabled: 1
-    m_path: Assets/Scenes/Start Screen.unity
-  - m_enabled: 1
-    m_path: Assets/Scenes/GameTutorial.unity
-  - m_enabled: 1
-    m_path: Assets/Scenes/Shop Scene.unity
-  - m_enabled: 1
-    m_path: Assets/NGO_Minimal_Setup/NGO_Setup.unity
+    rid: 7058217163297652981
+  m_OverrideGlobalSceneList: 0
+  m_Scenes: []
   m_ScriptingDefines: []
   m_PlayerSettingsYaml:
     m_Settings:
@@ -42,13 +34,13 @@ MonoBehaviour:
     - line: '|   targetDevice: 2'
     - line: '|   useOnDemandResources: 0'
     - line: '|   accelerometerFrequency: 60'
-    - line: '|   companyName: zock-Games'
+    - line: '|   companyName: Zock-Games'
     - line: '|   productName: Jimpu'
     - line: '|   defaultCursor: {instanceID: 0}'
     - line: '|   cursorHotspot: {x: 0, y: 0}'
     - line: '|   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b:
         0.1254902, a: 1}'
-    - line: '|   m_ShowUnitySplashScreen: 0'
+    - line: '|   m_ShowUnitySplashScreen: 1'
     - line: '|   m_ShowUnitySplashLogo: 1'
     - line: '|   m_SplashScreenOverlayOpacity: 1'
     - line: '|   m_SplashScreenAnimation: 1'
@@ -137,7 +129,7 @@ MonoBehaviour:
     - line: '|   xboxEnableFitness: 0'
     - line: '|   visibleInBackground: 1'
     - line: '|   allowFullscreenSwitch: 1'
-    - line: '|   fullscreenMode: 3'
+    - line: '|   fullscreenMode: 1'
     - line: '|   xboxSpeechDB: 0'
     - line: '|   xboxEnableHeadOrientation: 0'
     - line: '|   xboxEnableGuest: 0'
@@ -171,7 +163,7 @@ MonoBehaviour:
     - line: '|   loadStoreDebugModeEnabled: 0'
     - line: '|   visionOSBundleVersion: 1.0'
     - line: '|   tvOSBundleVersion: 1.0'
-    - line: '|   bundleVersion: 0.2'
+    - line: '|   bundleVersion: 0.3'
     - line: '|   preloadedAssets:'
     - line: '|   - {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100,
         type: 3}'
@@ -830,10 +822,10 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 4222498819070230783
-      type: {class: LinuxPlatformSettings, ns: UnityEditor.LinuxStandalone, asm: UnityEditor.LinuxStandalone.Extensions}
+    - rid: 7058217163297652981
+      type: {class: AndroidPlatformBuildSettings, ns: UnityEditor.Android, asm: UnityEditor.Android.Extensions}
       data:
-        m_Development: 1
+        m_Development: 0
         m_ConnectProfiler: 0
         m_BuildWithDeepProfilingSupport: 0
         m_AllowDebugging: 0
@@ -842,5 +834,15 @@ MonoBehaviour:
         m_ExplicitNullChecks: 0
         m_ExplicitDivideByZeroChecks: 0
         m_ExplicitArrayBoundsChecks: 0
-        m_CompressionType: 0
+        m_CompressionType: 2
         m_InstallInBuildFolder: 0
+        m_BuildSubtarget: 0
+        m_BuildSystem: 1
+        m_ExportAsGoogleAndroidProject: 0
+        m_DebugSymbolLevel: 1
+        m_DebugSymbolFormat: 5
+        m_CurrentDeploymentTargetId: R92W30PAZFH
+        m_BuildType: 2
+        m_BuildAppBundle: 0
+        m_IPAddressToConnect: 
+        m_SymlinkSources: 0

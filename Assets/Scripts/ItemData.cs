@@ -12,5 +12,4 @@ public class ItemData : ScriptableObject
     public string ItemInfosText;
     public int Price;
     public int Sell_Price;
-    public MonoScript ItemScribt;
 }

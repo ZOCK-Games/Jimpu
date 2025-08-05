@@ -4,7 +4,6 @@ using System.Linq;
 using System.Xml.Serialization;
 using Unity.VisualScripting;
 using UnityEditor;
-using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -41,6 +40,12 @@ public class Inventory : MonoBehaviour, IDataPersitence
             CurentItem = null;
             ClearCurentItem = false;
         }
+        for (int i = 0; i < Item.Count; i++)
+            if (Item[i].activeSelf)
+            {
+                CurentItem = Item[i].name;
+            }
+
 
     }
 

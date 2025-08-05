@@ -1,19 +1,29 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class SaveSceneOnStart : MonoBehaviour
+public class SaveSceneOnStart : MonoBehaviour, IDataPersitence
 {
-    public string sceneName;
+
     public bool LoadScene;
     public bool SaveSceneKey;
+
+    public void LoadGame(GameData data)
+    {
+    }
+
+    public void SaveGame(ref GameData data)
+    {
+        data.CurentScene = SceneManager.GetActiveScene().name;
+    }
+
     void Start()
     {
-
         if (LoadScene == true)
         {
             DataPersitenceManger.Instance.LoadGame();
             Debug.Log("Autamtic Start Laden ausgelöst! Data");
         }
-        
+
     }
     void Update()
     {
@@ -26,4 +36,5 @@ public class SaveSceneOnStart : MonoBehaviour
             }
         }
     }
+    
 }

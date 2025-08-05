@@ -2,9 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.Android.Gradle;
-using Unity.Android.Gradle.Manifest;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Shop : MonoBehaviour, IDataPersitence
@@ -20,18 +19,20 @@ public class Shop : MonoBehaviour, IDataPersitence
     public List<Sprite> PaperImages;
     public TextMeshProUGUI ShopMassage;
     public Button BuyButton;
+    public Button CloseShop;
 
     public string CurentItem;
     public int CurentItemPrice;
     public GameObject ShopGameObjekt;
     public int CurentPaperButton;
-
+    public GameObject ShopKeeper;
+    public string PrevScene;
     public int CoinValue; //The money the player has 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        GameData data = new GameData();
+        DataPersitenceManger.Instance.LoadGame();
 
         ShopMassage.text = "";
         ShopMassage.color = Color.white;
@@ -40,8 +41,9 @@ public class Shop : MonoBehaviour, IDataPersitence
         ItemPaperButtons[1].onClick.AddListener(() => { CurentPaperButton = 1; SelectedItem(); });
         ItemPaperButtons[2].onClick.AddListener(() => { CurentPaperButton = 2; SelectedItem(); });
         ItemPaperButtons[3].onClick.AddListener(() => { CurentPaperButton = 3; SelectedItem(); });
+
+        CloseShop.onClick.AddListener(closeshop);
         BuyButton.onClick.AddListener(BuyButtonClick);
-        ShopGameObjekt.SetActive(false);
         for (int i = 0; i < ItemPaperButtons.Count; i++) //Setzt Die Images Der Paper Buttons
         {
             ItemPaperButtons[i].transform.GetChild(0).GetComponent<Image>().sprite = Itemdata[i].ItemImagePrev1;
@@ -53,12 +55,13 @@ public class Shop : MonoBehaviour, IDataPersitence
     }
 
     // Update is called once per frame
-    void Update()
+    public void closeshop()
     {
+        SceneManager.LoadScene(PrevScene);
     }
     public void SelectedItem()                  // This function is called when the Player selects an item in the shop
     {
-        DataPersitenceManger.Instance.LoadGame(); // Load the Saved JSON
+        ShopKeeper.GetComponent<Animator>().SetTrigger("Bounce");
         ShopMassage.text = "You have selected an item!";
         ShopMassage.color = Color.white;
         StartCoroutine(TextFade());
@@ -104,6 +107,7 @@ public class Shop : MonoBehaviour, IDataPersitence
 
     public void LoadGame(GameData data)
     {
+        this.PrevScene = data.CurentScene;
         this.CoinValue = data.CoinValue;
         this.CurentItem = data.CurentItem;
     }

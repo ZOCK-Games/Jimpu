@@ -16,6 +16,7 @@ public class GameData
     public float EnemyPositionY;
 
     public string CurentItem;
+    public string CurentScene;
 
 
 

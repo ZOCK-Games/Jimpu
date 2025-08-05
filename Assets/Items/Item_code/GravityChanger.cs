@@ -60,6 +60,7 @@ public class GravityChanger : MonoBehaviour
         Debug.Log("Wayt start");
         yield return new WaitForSeconds(2);
         BlockUse = false;
+        inventory.ClearCurentItem = true;
         GravityChangingObjekt.SetActive(false);
     }
 }

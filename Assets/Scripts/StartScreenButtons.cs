@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -12,7 +13,8 @@ public class StartScreenButtons : MonoBehaviour //this script manges all buttons
     public Button SkinButton;
     public Button QuitButton;
     [Header("UI Elments to Open")]
-    public GameObject Shop;
+    public GameObject StartObjekt;
+    public String ShopCanvas;
     public GameObject Gaderobe;
     void Start()
     {
@@ -29,8 +31,11 @@ public class StartScreenButtons : MonoBehaviour //this script manges all buttons
     }
     public void OpeningShop() //is executed when ShopButton is being clicked
     {
-        Shop.SetActive(true);
-        Debug.Log(Shop.name + " Has been aktivated becaus of a button");
+        DataPersitenceManger.Instance.SaveGame();
+        Debug.Log("Automatic Save Aktivated!");
+        StartObjekt.SetActive(false);
+        SceneManager.LoadScene(ShopCanvas);
+        Debug.Log(ShopCanvas + " Has been aktivated becaus of a button");
     }
     public void OpeningSkin() //is executed when SkinButton is being clicked
     {

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using NUnit.Framework.Constraints;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -15,7 +16,7 @@ public class ChestScribt : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        ChestGameObjekt.GetComponent<Animation>().Stop();
+        ChestGameObjekt.GetComponent<Animation>().Stop("Chest Open");
         FreeSlot = false;
 
     }
@@ -33,7 +34,7 @@ public class ChestScribt : MonoBehaviour
         {
             ChestInteraction();
             Animator anim = ChestGameObjekt.GetComponent<Animator>();
-            anim.SetTrigger("TriggerChestOpen");
+            anim.SetTrigger("Chest Open");
             StartCoroutine(WaytToDestroy());
             Debug.Log("Player Berührt Chest: " + ChestGameObjekt.name);
         }
@@ -52,8 +53,6 @@ public class ChestScribt : MonoBehaviour
         ItemsToChangeSprite.sprite = inventory.itemData[CurrentItemInt].ItemImagePrev1;
         yield return new WaitForSeconds(0.75f);
         inventory.Item[CurrentItemInt].SetActive(true);
-        this.inventory.CurentItem =  
-        ItemsToChangeSprite.sprite = null;
         ChestGameObjekt.SetActive(false);
     }
     private IEnumerator ChestInteraction()
