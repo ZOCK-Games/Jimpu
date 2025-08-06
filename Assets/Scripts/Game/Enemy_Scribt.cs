@@ -1,17 +1,13 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
-using Image = UnityEngine.UI.Image;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 
 public class EnemyScript : MonoBehaviour, IDataPersitence
 {
+    public Transform GoTo;
     public GameObject Player;
     public GameObject enemy;
     public int Attack_range;
@@ -26,7 +22,7 @@ public class EnemyScript : MonoBehaviour, IDataPersitence
     public BoxCollider2D PlayerBoxTouchBlock;
     public bool EnemyCanMove = true;
     public bool canTakeDamage = true;
-    public float EnemyY;
+    public Vector2 EnemyPosition;
     public NavMeshAgent agent;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -34,10 +30,6 @@ public class EnemyScript : MonoBehaviour, IDataPersitence
     {
         Player_death_screen.SetActive(false);
         EnemyHealt = 1;
-        EnemyY = enemy.transform.position.y;
-
-        agent.updateRotation = false;
-        agent.updateUpAxis = false;
     }
 
     // Update is called once per frame
@@ -79,9 +71,19 @@ public class EnemyScript : MonoBehaviour, IDataPersitence
 
         void MoveEnemy()  //Soll den spiler bewegen wen Keine kolision bei objekt
         {
-            if (agent.enabled == true)
+          /*  if (!enemy.GetComponent<PolygonCollider2D>().IsTouching(GroundTilemapCollider2d))
             {
-                agent.SetDestination(Player.transform.position);
+                float rendom = Random.Range(-100, 1000);
+
+                Vector3 Position = new Vector3(rendom, GoTo.position.y, 0);
+
+                agent.SetDestination(Position);
+            } 
+            else */
+            {
+                Vector3 GoToPos = new Vector3(GoTo.position.x, GoTo.position.y, 0f);
+                agent.SetDestination(GoToPos); 
+                EnemyPosition = agent.destination;
 
                 NavMeshPath path = agent.path;
                 if (agent.path == null || agent.path.corners.Length < 2) return;
@@ -90,12 +92,11 @@ public class EnemyScript : MonoBehaviour, IDataPersitence
                 {
                     Debug.DrawLine(agent.path.corners[i], agent.path.corners[i + 1], Color.red);
                 }
-
-
+            }
 
                 enemy.transform.rotation = Quaternion.Euler(0, 0, 0);
             }
-        }
+        
 
 
     }

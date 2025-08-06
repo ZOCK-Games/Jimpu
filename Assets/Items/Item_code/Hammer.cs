@@ -23,7 +23,7 @@ public class Hammer : MonoBehaviour
     void Update()
     {
         for (int i = 0; i < Enemy.Count; i++)
-        if (HamerObjekt.GetComponent<BoxCollider2D>().IsTouching(Enemy[i].GetComponent<BoxCollider2D>()) && CanAttack == true && Input.GetKey(KeyCode.E))
+        if (HamerObjekt.GetComponent<BoxCollider2D>().IsTouching(Enemy[i].GetComponent<PolygonCollider2D>()) && CanAttack == true && Input.GetKey(KeyCode.E))
         {
             inventory.ClearCurentItem = true;
             enemy_Scribt.EnemyHealt -= Demage;

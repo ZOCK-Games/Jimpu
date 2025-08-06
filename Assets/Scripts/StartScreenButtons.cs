@@ -33,7 +33,6 @@ public class StartScreenButtons : MonoBehaviour //this script manges all buttons
     {
         DataPersitenceManger.Instance.SaveGame();
         Debug.Log("Automatic Save Aktivated!");
-        StartObjekt.SetActive(false);
         SceneManager.LoadScene(ShopCanvas);
         Debug.Log(ShopCanvas + " Has been aktivated becaus of a button");
     }
