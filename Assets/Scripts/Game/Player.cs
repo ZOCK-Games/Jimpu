@@ -23,6 +23,10 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
     public GameObject Walkking_animation;
     public List<Sprite> SkinSprite;
     private int SkinIndex;
+
+    public bool MovePlayerR;
+    public bool MovePlayerL;
+    public bool MovePlayerUP;
     private void Start()
     {
         UnityEngine.Debug.Log("Tutorial Game Has Startet");
@@ -38,28 +42,28 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
 
         Vector2 position = Player.transform.position;
 
-        if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.LeftArrow) && Input.GetKey(KeyCode.LeftControl))
+        if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.LeftArrow) && Input.GetKey(KeyCode.LeftControl) || MovePlayerR == true)
         {
             position.x += run_speed * Time.deltaTime;
             Player.transform.position = position;
             Walkking_animation.SetActive(true);
             PlayerSpriteRenderer.flipX = false;
         }
-        else if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
+        else if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D) || MovePlayerR == true)
         {
             position.x += move_speed_R * Time.deltaTime;
             Player.transform.position = position;//position.x = x cordinaten Time.deltaTime weil sonst per frames abhängig 
             Walkking_animation.SetActive(true);
             PlayerSpriteRenderer.flipX = false;
         }
-        else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
+        else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A) || MovePlayerL == true)
         {
             position.x -= move_speed_L * Time.deltaTime;
             Player.transform.position = position;
             Walkking_animation.SetActive(true);
             PlayerSpriteRenderer.flipX = true;
         }
-        else if (Input.GetKey(KeyCode.Space) && Player_collider.IsTouching(Ground_Collider))
+        else if (Input.GetKey(KeyCode.Space) && Player_collider.IsTouching(Ground_Collider) || MovePlayerUP == true)
         {
             rb.AddForce(new Vector2(0, Jump_speed));
         }

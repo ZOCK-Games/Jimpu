@@ -11,10 +11,12 @@ public class StartScreenButtons : MonoBehaviour //this script manges all buttons
     public Button StartButton;
     public Button ShopButton;
     public Button SkinButton;
+    public Button MultiplayerButton;
     public Button QuitButton;
     [Header("UI Elments to Open")]
     public GameObject StartObjekt;
     public String ShopCanvas;
+    public string MultiplayerScene;
     public GameObject Gaderobe;
     void Start()
     {
@@ -22,6 +24,7 @@ public class StartScreenButtons : MonoBehaviour //this script manges all buttons
         ShopButton.onClick.AddListener(OpeningShop);
         SkinButton.onClick.AddListener(OpeningSkin);
         QuitButton.onClick.AddListener(ExecutingQuit);
+        MultiplayerButton.onClick.AddListener(OpeningSceneMuliplayer);
 
     }
     public void ExecutingStart() //is executed when StartButton is being clicked
@@ -46,6 +49,12 @@ public class StartScreenButtons : MonoBehaviour //this script manges all buttons
         Debug.LogWarning("Quit in Start has been presed Quiting game");
         Application.targetFrameRate = 1;
         Application.Quit();
+    }
+    public void OpeningSceneMuliplayer()
+    {
+        Debug.Log("Loaded scene: " + MultiplayerScene);
+        SceneManager.LoadScene(MultiplayerScene);
+
     }
 
 

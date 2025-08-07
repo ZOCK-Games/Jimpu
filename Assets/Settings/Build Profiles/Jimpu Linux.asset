@@ -22,10 +22,10 @@ MonoBehaviour:
   m_Scenes:
   - m_enabled: 1
     m_path: Assets/Scenes/Start Screen.unity
-  - m_enabled: 1
+  - m_enabled: 0
     m_path: Assets/Scenes/Shop Scene.unity
   - m_enabled: 1
-    m_path: Assets/NGO_Minimal_Setup/NGO_Setup.unity
+    m_path: Assets/Scenes/Multiplayer/Multiplayer.unity
   - m_enabled: 1
     m_path: Assets/Scenes/Game Levels/GameTutorial.unity
   m_ScriptingDefines: []
