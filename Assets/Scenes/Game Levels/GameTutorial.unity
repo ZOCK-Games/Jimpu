@@ -2248,6 +2248,7 @@ GameObject:
   - component: {fileID: 976853761}
   - component: {fileID: 976853760}
   - component: {fileID: 976853762}
+  - component: {fileID: 976853763}
   m_Layer: 0
   m_Name: DataPersitenceManger
   m_TagString: Untagged
@@ -2297,6 +2298,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LoadScene: 1
   SaveSceneKey: 1
+--- !u!114 &976853763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 976853759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a24032f6f31cb63b812d1873c22d80c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Device: 
 --- !u!1 &1182164393
 GameObject:
   m_ObjectHideFlags: 0
@@ -3241,7 +3255,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -3682,6 +3696,7 @@ MonoBehaviour:
     EnemyPositionY: 0
     CurentItem: 
     CurentScene: 
+    Device: 
   GroundTilemapCollider2d: {fileID: 1968146740}
   PlayerBoxTouchBlock: {fileID: 0}
   EnemyCanMove: 1
@@ -32941,6 +32956,7 @@ MonoBehaviour:
     EnemyPositionY: 0
     CurentItem: 
     CurentScene: 
+    Device: 
   sceneName: Start Screen
 --- !u!1 &1629212846
 GameObject:

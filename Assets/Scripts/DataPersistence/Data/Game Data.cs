@@ -1,9 +1,11 @@
 using System;
+using Unity.VisualScripting;
+using UnityEngine;
 
 [Serializable]
 public class GameData
 {
-    public string colorhex; //Gaderobe stuff
+    public string colorhex; //Garderobe stuff
     public int SkinIndex; 
 
     public int Health; //player stuff
@@ -17,6 +19,9 @@ public class GameData
 
     public string CurentItem;
     public string CurentScene;
+                                //All the device information 
+    public string Device;
+    public string SimpleDevice;
 
 
 
