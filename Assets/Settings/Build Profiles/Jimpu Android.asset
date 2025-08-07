@@ -28,8 +28,6 @@ MonoBehaviour:
     m_path: Assets/Scenes/Game Levels/GameTutorial.unity
   - m_enabled: 1
     m_path: Assets/Scenes/Multiplayer/Multiplayer.unity
-  - m_enabled: 1
-    m_path: Assets/Widgets/Scenes/WidgetsQuickstart.unity
   m_ScriptingDefines: []
   m_PlayerSettingsYaml:
     m_Settings:
@@ -854,7 +852,7 @@ MonoBehaviour:
         m_ExportAsGoogleAndroidProject: 0
         m_DebugSymbolLevel: 1
         m_DebugSymbolFormat: 5
-        m_CurrentDeploymentTargetId: R92W30PAZFH
+        m_CurrentDeploymentTargetId: __builtin__target_default
         m_BuildType: 2
         m_BuildAppBundle: 0
         m_IPAddressToConnect: 
