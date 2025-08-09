@@ -13,17 +13,20 @@ public class StartScreenButtons : MonoBehaviour //this script manges all buttons
     public Button SkinButton;
     public Button MultiplayerButton;
     public Button QuitButton;
+    public Button SettingsButton;
     [Header("UI Elments to Open")]
     public GameObject StartObjekt;
     public String ShopCanvas;
     public string MultiplayerScene;
     public GameObject Gaderobe;
+    public GameObject Settings;
     void Start()
     {
         StartButton.onClick.AddListener(ExecutingStart);
         ShopButton.onClick.AddListener(OpeningShop);
         SkinButton.onClick.AddListener(OpeningSkin);
         QuitButton.onClick.AddListener(ExecutingQuit);
+        SettingsButton.onClick.AddListener(OpeningSettings);
         MultiplayerButton.onClick.AddListener(OpeningSceneMuliplayer);
 
     }
@@ -54,6 +57,12 @@ public class StartScreenButtons : MonoBehaviour //this script manges all buttons
     {
         Debug.Log("Loaded scene: " + MultiplayerScene);
         SceneManager.LoadScene(MultiplayerScene);
+
+    }
+    public void OpeningSettings()
+    {
+        Debug.Log("Opened: " + Settings.name);
+        Settings.SetActive(true);
 
     }
 
