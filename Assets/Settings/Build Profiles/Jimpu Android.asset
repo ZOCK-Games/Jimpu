@@ -28,6 +28,8 @@ MonoBehaviour:
     m_path: Assets/Scenes/Game Levels/GameTutorial.unity
   - m_enabled: 1
     m_path: Assets/Scenes/Multiplayer/Multiplayer.unity
+  - m_enabled: 1
+    m_path: Assets/Scenes/Settings.unity
   m_ScriptingDefines: []
   m_PlayerSettingsYaml:
     m_Settings:
@@ -49,7 +51,7 @@ MonoBehaviour:
     - line: '|   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b:
         0.1254902, a: 1}'
     - line: '|   m_ShowUnitySplashScreen: 1'
-    - line: '|   m_ShowUnitySplashLogo: 1'
+    - line: '|   m_ShowUnitySplashLogo: 0'
     - line: '|   m_SplashScreenOverlayOpacity: 1'
     - line: '|   m_SplashScreenAnimation: 1'
     - line: '|   m_SplashScreenLogoStyle: 1'
@@ -70,7 +72,10 @@ MonoBehaviour:
     - line: '|     y: 0'
     - line: '|     width: 1'
     - line: '|     height: 1'
-    - line: '|   m_SplashScreenLogos: []'
+    - line: '|   m_SplashScreenLogos:'
+    - line: '|   - logo: {fileID: -1794431414284899704, guid: 092b14250c3edce4480414245593caaf,
+        type: 3}'
+    - line: '|     duration: 2'
     - line: '|   m_VirtualRealitySplashScreen: {instanceID: 0}'
     - line: '|   m_HolographicTrackingLossScreen: {instanceID: 0}'
     - line: '|   defaultScreenWidth: 1920'
@@ -682,7 +687,8 @@ MonoBehaviour:
     - line: '|   ps4IncludedModules: []'
     - line: '|   ps4attribVROutputEnabled: 0'
     - line: '|   monoEnv: '
-    - line: '|   splashScreenBackgroundSourceLandscape: {instanceID: 0}'
+    - line: '|   splashScreenBackgroundSourceLandscape: {fileID: -5072798301159333844,
+        guid: 547b24f8db0593c929dfc7560d90f61d, type: 3}'
     - line: '|   splashScreenBackgroundSourcePortrait: {instanceID: 0}'
     - line: '|   blurSplashScreenBackground: 1'
     - line: '|   spritePackerPolicy: '
@@ -852,7 +858,7 @@ MonoBehaviour:
         m_ExportAsGoogleAndroidProject: 0
         m_DebugSymbolLevel: 1
         m_DebugSymbolFormat: 5
-        m_CurrentDeploymentTargetId: __builtin__target_default
+        m_CurrentDeploymentTargetId: R92W30PAZFH
         m_BuildType: 2
         m_BuildAppBundle: 0
         m_IPAddressToConnect: 

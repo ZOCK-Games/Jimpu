@@ -1,12 +1,10 @@
 using System;
-using Unity.VisualScripting;
-using UnityEngine;
 
 [Serializable]
 public class GameData
 {
     public string colorhex; //Garderobe stuff
-    public int SkinIndex; 
+    public int SkinIndex;
 
     public int Health; //player stuff
     public float PlayerPositionX;
@@ -19,7 +17,7 @@ public class GameData
 
     public string CurentItem;
     public string CurentScene;
-                                //All the device information 
+    //All the device information 
     public string Device;
     public string SimpleDevice;
 
