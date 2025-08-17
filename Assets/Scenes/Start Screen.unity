@@ -1055,7 +1055,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &458604856
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1951,6 +1951,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FPSDisplayText: {fileID: 415605237}
+  ShowFPS: 0
 --- !u!1 &686998078
 GameObject:
   m_ObjectHideFlags: 0
@@ -4862,10 +4863,10 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.11151515
-    y: 0.112068966
-    width: 0.77575755
-    height: 0.77586204
+    x: 0.11352657
+    y: 0.1137339
+    width: 0.77294683
+    height: 0.77253217
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60

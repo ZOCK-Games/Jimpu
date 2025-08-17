@@ -48,6 +48,7 @@ GameObject:
   - component: {fileID: 186588098990108316}
   - component: {fileID: 3414620902346043165}
   - component: {fileID: 3707010996808908832}
+  - component: {fileID: 303287883901106207}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -361,8 +362,8 @@ MonoBehaviour:
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 7
-  AlwaysReplicateAsRoot: 1
-  SynchronizeTransform: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 0
   ActiveSceneSynchronization: 1
   SceneMigrationSynchronization: 1
   SpawnWithObservers: 1
@@ -416,6 +417,23 @@ MonoBehaviour:
   SwitchTransformSpaceWhenParented: 0
   Interpolate: 1
   SlerpPosition: 0
+--- !u!114 &303287883901106207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1162203169426018216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80d7c879794dfda4687da0e400131852, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  NetworkRigidbodyBaseExpanded: 0
+  UseRigidBodyForMotion: 0
+  AutoUpdateKinematicState: 1
+  AutoSetKinematicOnDespawn: 1
 --- !u!1 &1524823333218538675
 GameObject:
   m_ObjectHideFlags: 0
