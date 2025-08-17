@@ -6,7 +6,7 @@
 
 <br>
 
-![Logo]([https://i.imgur.com/P5sXiRd.png](https://i.imgur.com/7SxVRvX.png))
+![Logo](https://i.imgur.com/7SxVRvX.png)
 
 # Jimpu
 
