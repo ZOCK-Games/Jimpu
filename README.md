@@ -14,9 +14,8 @@ I'm currently developing my first game. It's a fun and simple 2D jump 'n' run ma
 
 ## Roadmap
 
-- New inventory system 
+- Adding more levels
 - Better enemy movement
-- Better Scribts
 - New UI
 
 ## Support
