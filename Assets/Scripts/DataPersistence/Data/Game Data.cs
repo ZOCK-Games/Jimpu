@@ -20,10 +20,13 @@ public class GameData
     //All the device information 
     public string Device;
     public string SimpleDevice;
+    // FPS stuff
+    public bool isFPSVisible;
 
 
 
     public GameData()
     {
+        isFPSVisible = false;
     }
 }

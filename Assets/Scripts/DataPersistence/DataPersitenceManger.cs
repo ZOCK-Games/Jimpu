@@ -5,10 +5,12 @@ using System.Collections.Generic;
 public class DataPersitenceManger : MonoBehaviour
 {
     [Header("File Storage Config")]
-    private string FileName = "Jimpu.json";
+    [SerializeField] private string FileName = "Jimpu.json";
+
     [Header("Encryption")]
-    [SerializeField] private bool useEncryption = true; // <-- Hier steuerst du es im Inspector!
-    private List<IDataPersitence> dataPersistenceObjects;
+    [SerializeField] private bool useEncryption = true;
+
+    private List<IDataPersitence> dataPersistenceObjects = new List<IDataPersitence>();
     private FileDataHandler dataHandler;
     public static DataPersitenceManger Instance { get; private set; }
     private GameData gameData;
@@ -17,64 +19,96 @@ public class DataPersitenceManger : MonoBehaviour
     {
         if (Instance != null)
         {
-            Debug.LogError("More than one DataPersistenceManager in the scene.");
+            Debug.LogError("Mehr als ein DataPersistenceManager in der Szene!");
+            Destroy(this.gameObject);
+            return;
         }
+
         Instance = this;
+
+        // Liste schon hier initialisieren, um NullReference zu vermeiden
+        dataPersistenceObjects = new List<IDataPersitence>();
     }
+
     private void Start()
     {
-        // Übergib useEncryption an den FileDataHandler!
-        this.dataHandler = new FileDataHandler(Application.persistentDataPath, FileName, useEncryption);
-        this.dataPersistenceObjects = FindAllDataPersistenceObjects();
+        // FileDataHandler erzeugen
+        dataHandler = new FileDataHandler(Application.persistentDataPath, FileName, useEncryption);
+
+        // Alle Objekte finden, die IDataPersitence implementieren
+        dataPersistenceObjects = FindAllDataPersistenceObjects();
+
+        // Spielstand laden
         LoadGame();
     }
-    public void OnApplicationQuit()
+
+    private void OnApplicationQuit()
     {
         SaveGame();
     }
-    public void OnApplicationPause(bool pauseStatus)
+
+    private void OnApplicationPause(bool pauseStatus)
     {
         if (pauseStatus)
-        {
             SaveGame();
-        }
     }
+
     public void NewGame()
     {
-        this.gameData = new GameData();
+        gameData = new GameData();
     }
+
     public void LoadGame()
     {
-        // Lade die Daten aus der Datei
-        this.gameData = dataHandler.Load();
-
-        if (this.gameData == null)
+        if (dataHandler == null)
         {
-            Debug.Log("No game data found, creating new game data.");
+            Debug.LogError("DataHandler ist null! Kann nicht laden.");
+            return;
+        }
+
+        // Daten aus Datei laden
+        gameData = dataHandler.Load();
+
+        if (gameData == null)
+        {
+            Debug.Log("Keine Spieldaten gefunden, neues Spiel wird erstellt.");
             NewGame();
         }
 
-        foreach (IDataPersitence dataPersistenceObject in this.dataPersistenceObjects)
+        foreach (IDataPersitence dataPersistenceObject in dataPersistenceObjects)
         {
-            dataPersistenceObject.LoadGame(this.gameData);
-            Debug.Log("Game data loaded. Curent Skin: " + this.gameData.SkinIndex);
+            if (dataPersistenceObject != null)
+                dataPersistenceObject.LoadGame(gameData);
         }
-    }
-    public void SaveGame() //save game data
-    {
-        foreach (IDataPersitence dataPersistenceObject in this.dataPersistenceObjects)
-        {
-            dataPersistenceObject.SaveGame(ref gameData);
-            Debug.Log("Game data saved.");
-        }
-        dataHandler.Save(gameData);
-    }
-    private List<IDataPersitence> FindAllDataPersistenceObjects()
-    {
-    IEnumerable<IDataPersitence> dataPersistenceObjects = 
-        FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None)
-        .OfType<IDataPersitence>();
-        return new List<IDataPersitence>(dataPersistenceObjects);
+
+        Debug.Log("Game data geladen. Curent Skin: " + gameData.SkinIndex);
     }
 
+    public void SaveGame()
+    {
+        if (dataPersistenceObjects == null)
+        {
+            Debug.LogWarning("Keine IDataPersitence-Objekte gefunden. Speichern übersprungen.");
+            return;
+        }
+
+        foreach (IDataPersitence dataPersistenceObject in dataPersistenceObjects)
+        {
+            if (dataPersistenceObject != null)
+                dataPersistenceObject.SaveGame(ref gameData);
+        }
+
+        if (dataHandler != null)
+            dataHandler.Save(gameData);
+
+        Debug.Log("Game data gespeichert.");
+    }
+
+    private List<IDataPersitence> FindAllDataPersistenceObjects()
+    {
+        IEnumerable<IDataPersitence> foundObjects = FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None)
+                                                    .OfType<IDataPersitence>();
+
+        return new List<IDataPersitence>(foundObjects);
+    }
 }

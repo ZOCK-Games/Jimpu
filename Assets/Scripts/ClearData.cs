@@ -7,20 +7,14 @@ public class ClearData : MonoBehaviour, IDataPersitence
     public Button button;
     void Start()
     {
-        button.onClick.AddListener(DeleteData);
-        
+        button.onClick.AddListener(DeleteData);        
     }
-
-    // Update is called once per frame
     void DeleteData()
     {
-
-        
+        DataPersitenceManger.Instance.SaveGame();
+        Debug.Log("Data cleared and new game started.");
     }
 
-    public void LoadGame(GameData data)
-    {
-    }
 
     public void SaveGame(ref GameData data)
     {
@@ -33,5 +27,10 @@ public class ClearData : MonoBehaviour, IDataPersitence
         data.Health = 3;
         data.SkinIndex = 0;
         Debug.Log("Reset data");
+    }
+
+    public void LoadGame(GameData data)
+    {
+
     }
 }
