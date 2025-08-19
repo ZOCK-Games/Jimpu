@@ -88,7 +88,7 @@ public class Shop : MonoBehaviour, IDataPersitence
     }
     public void BuyButtonClick() // This function is called when the Player clicks the buy button in the shop
     {
-        if (CoinValue >= CurentItemPrice && CurentItem != null)
+        if (CoinValue >= CurentItemPrice && CurentItem == null)
         {
             CurentItem = Itemdata[CurentPaperButton].name;
             Debug.Log("Das Aktuelle Item Ist: " + CurentItem + "Preis: " + CurentItemPrice);

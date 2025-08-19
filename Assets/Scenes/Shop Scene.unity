@@ -2413,25 +2413,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemPaperButtons:
-  - {fileID: 495569690}
-  - {fileID: 1443566348}
-  - {fileID: 1070923813}
-  - {fileID: 1331107728}
+  - {fileID: 495569684}
+  - {fileID: 1443566342}
+  - {fileID: 1070923808}
+  - {fileID: 1331107727}
   Itemdata:
   - {fileID: 11400000, guid: 917d64cf9da9d43b2bb87b250e8fdb46, type: 2}
   - {fileID: 11400000, guid: d037ae8b65220ee5f85356134fb61440, type: 2}
   - {fileID: 11400000, guid: 38222043aaf9d81339270b40ed181013, type: 2}
   - {fileID: 11400000, guid: b2e2f64c8e06a9328b2e9cee5d48f38d, type: 2}
   ItemName: {fileID: 986264620}
+  ItemImage: {fileID: 1541012545}
   ItemPrice: {fileID: 1394957315}
   ItemInfos: {fileID: 778372570}
-  ItemImage: {fileID: 1541012545}
-  PaperImages:
-  - {fileID: 2045492094208909694, guid: bb5c91c073c137247a0720ee28462378, type: 3}
-  - {fileID: 2045492094208909694, guid: bb5c91c073c137247a0720ee28462378, type: 3}
-  - {fileID: 2045492094208909694, guid: bb5c91c073c137247a0720ee28462378, type: 3}
-  - {fileID: 2045492094208909694, guid: bb5c91c073c137247a0720ee28462378, type: 3}
-  - {fileID: 2045492094208909694, guid: bb5c91c073c137247a0720ee28462378, type: 3}
   ShopMassage: {fileID: 1957677395}
   BuyButton: {fileID: 554403550}
   CloseShop: {fileID: 2127911700}
@@ -3038,7 +3032,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1807801131}
   - component: {fileID: 1807801130}
-  - component: {fileID: 1807801132}
   m_Layer: 0
   m_Name: DataPersitenceManger
   m_TagString: Untagged
@@ -3075,20 +3068,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1807801132
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1807801129}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc842d435770bf98a935b22532e30bd6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LoadScene: 1
-  SaveSceneKey: 0
 --- !u!1 &1957677391
 GameObject:
   m_ObjectHideFlags: 0
