@@ -1,6 +1,6 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class ClearData : MonoBehaviour, IDataPersitence
 {
@@ -19,7 +19,7 @@ public class ClearData : MonoBehaviour, IDataPersitence
     public void SaveGame(ref GameData data)
     {
         data.CoinValue = 0;
-        data.colorhex = Color.white.ToHexString();
+        data.colorhex = Color.white.ToString();
         data.CurentItem = null;
         data.EnemyHealth = 5;
         data.EnemyPositionX = 0;

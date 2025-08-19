@@ -8,14 +8,13 @@ using UnityEngine.UI;
 public class Shop : MonoBehaviour, IDataPersitence
 {
     [Header("The ItemPaper Buttons must be in the same order as the ItemData")]
-    public List<Button> ItemPaperButtons; // Buttons for selecting items in the shop
+    public List<GameObject> ItemPaperButtons; // Buttons for selecting items in the shop
     public List<ItemData> Itemdata; // Images of the items in the shop
     [Header("Shop Images and texts")]
-    public TextMeshProUGUI ItemName;
+    public TextMeshProUGUI ItemName; // the name of the item that is currently selected in the shop
+    public Image ItemImage; // Image of the item that is currently selected in the shop
     public TextMeshProUGUI ItemPrice;
     public TextMeshProUGUI ItemInfos;
-    public Image ItemImage;
-    public List<Sprite> PaperImages;
     public TextMeshProUGUI ShopMassage;
     public Button BuyButton;
     public Button CloseShop;
@@ -37,6 +36,13 @@ public class Shop : MonoBehaviour, IDataPersitence
         SelectedItem(); // Initialize the first item as selected
 
      Debug.LogError("DataPersitenceManger Instance is null! Make sure it is in the scene!");
+
+        for (int i = 0; i < ItemPaperButtons.Count; i++)
+        {
+            ItemPaperButtons[i].transform.GetChild(0).GetComponent<Image>().sprite = Itemdata[i].ItemImagePrev1;
+        }
+
+              
         
 
         ShopMassage.text = "";
@@ -44,7 +50,7 @@ public class Shop : MonoBehaviour, IDataPersitence
         for (int i = 0; i < ItemPaperButtons.Count; i++)
         {
             int index = i;  // Lokale Kopie
-            ItemPaperButtons[i].onClick.AddListener(() =>
+            ItemPaperButtons[i].GetComponent<Button>().onClick.AddListener(() =>
             {
                 CurentPaperButton = index;
                 SelectedItem();
@@ -71,10 +77,18 @@ public class Shop : MonoBehaviour, IDataPersitence
         CurentItemPrice = Itemdata[CurentPaperButton].ItemPriceInt;
         ItemPrice.SetText(Itemdata[CurentPaperButton].Price + "$");
         ItemInfos.SetText(Itemdata[CurentPaperButton].ItemInfosText);
+
+        if (CurentItem != null)
+        {
+            ShopMassage.color = Color.yellow;
+            ShopMassage.text = "You already have an item!";
+            Debug.Log("You already have an item!");
+            ShopKeeper.GetComponent<Animator>().SetTrigger("AlreadyHasItem");
+        }
     }
     public void BuyButtonClick() // This function is called when the Player clicks the buy button in the shop
     {
-        if (CoinValue >= CurentItemPrice)
+        if (CoinValue >= CurentItemPrice && CurentItem != null)
         {
             CurentItem = Itemdata[CurentPaperButton].name;
             Debug.Log("Das Aktuelle Item Ist: " + CurentItem + "Preis: " + CurentItemPrice);
