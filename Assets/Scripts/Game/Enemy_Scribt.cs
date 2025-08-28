@@ -4,120 +4,181 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
+using TMPro;
+using System.Net.NetworkInformation;
+using UnityEditor;
+using UnityEditorInternal;
+using UnityEditor.U2D.Aseprite;
 
 public class EnemyScript : MonoBehaviour, IDataPersitence
 {
     public Transform GoTo;
     public GameObject Player;
-    public GameObject enemy;
-    public int Attack_range;
+    public GameObject EnemyContainer;
+    public int AttackRange;
     public int EnemyHealt;
-    public PolygonCollider2D Hit_box_player;
-    public PolygonCollider2D Hit_box_enemy_body;
-    public PolygonCollider2D Hit_box_enemy_head;
     public List<GameObject> Heart;
-    public GameObject Player_death_screen;
-    public GameData gameData;
+    public string DeathScene;
     public TilemapCollider2D GroundTilemapCollider2d;
     public BoxCollider2D PlayerBoxTouchBlock;
     public bool EnemyCanMove = true;
     public bool canTakeDamage = true;
-    public Vector2 EnemyPosition;
-    public NavMeshAgent agent;
+    public PlayerControll playerControll;
+    public GameObject Grid;
+    public List<GameObject> EnemyPrefab;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Player_death_screen.SetActive(false);
-        EnemyHealt = 1;
+                SpawnEnemy();
+        for (int i = 0; i < EnemyContainer.transform.childCount; i++)
+        {
+            if (EnemyContainer.transform.GetChild(i).gameObject.GetComponent<NavMeshAgent>() == null)
+            {
+                EnemyContainer.transform.GetChild(i).gameObject.AddComponent<NavMeshAgent>();
+            }
+            if (EnemyContainer.transform.GetChild(i).gameObject.GetComponent<EnemyInfo>() == null)
+            {
+                EnemyContainer.transform.GetChild(i).gameObject.AddComponent<EnemyInfo>();
+                EnemyContainer.transform.GetChild(i).gameObject.GetComponent<EnemyInfo>().EnemyHealt = 1;
+            }
+
+            EnemyContainer.transform.GetChild(i).gameObject.name = "Enemy" + i;
+        }
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        for (int i = 0; i < EnemyContainer.transform.childCount; i++)
+        {
+            if (EnemyContainer.transform.GetChild(i).gameObject.GetComponent<EnemyInfo>().EnemyHealt <= 0)
+            {
+                Destroy(EnemyContainer.transform.GetChild(i).gameObject);
+            }
+        }
 
         if (EnemyCanMove == true)
             MoveEnemy();
 
-        if (Hit_box_player.IsTouching(Hit_box_enemy_body) && canTakeDamage) //Checkt ob der spiler Chaden bekom
-        {
-            StartCoroutine(DamagePlayer());
-            Debug.Log("-1 leben");
-        }
+        for (int i = 0; i < EnemyContainer.transform.childCount; i++)
+        {        
+        if (Player.GetComponent<PolygonCollider2D>().IsTouching(EnemyContainer.transform.GetChild(i).gameObject.GetComponent<PolygonCollider2D>()) && canTakeDamage) //Checkt ob der spiler Chaden bekom
+            {
+                StartCoroutine(DamagePlayer());
+                Debug.Log("-1 leben");
+            }
+        }  
         //Removed Die Herzen / fügt sie hinzu
-        if (gameData.Health <= 1)
+        if (playerControll.PlayerHealth <= 1)
             Heart[0].SetActive(false);
-        if (gameData.Health <= 2)
+        if (playerControll.PlayerHealth <= 2)
             Heart[1].SetActive(false);
-        if (gameData.Health <= 3)
+        if (playerControll.PlayerHealth <= 3)
             Heart[2].SetActive(false);
 
-        if (gameData.Health >= 1)
+        if (playerControll.PlayerHealth >= 1)
             Heart[0].SetActive(true);
-        if (gameData.Health >= 2)
+        if (playerControll.PlayerHealth >= 2)
             Heart[1].SetActive(true);
-        if (gameData.Health >= 3)
+        if (playerControll.PlayerHealth >= 3)
             Heart[2].SetActive(true);
-        if (Hit_box_enemy_head.IsTouching(Hit_box_player) && Input.GetKey(KeyCode.LeftShift))
-        {
-            //PLayer attacke
         }
-        if (gameData.Health == 0)              // Aktiviert Den Dead Screen
-            Player_death_screen.SetActive(true);
-        if (EnemyHealt <= 0)
+    public void MoveEnemy()
+{
+    for (int i = 0; i < EnemyContainer.transform.childCount; i++)
+    {
+        GameObject enemy = EnemyContainer.transform.GetChild(i).gameObject;
+        NavMeshAgent agent = enemy.GetComponent<NavMeshAgent>();
+
+        if (agent == null)
         {
-            enemy.SetActive(false);
+            agent = enemy.AddComponent<NavMeshAgent>();
         }
 
-        void MoveEnemy()  //Soll den spiler bewegen wen Keine kolision bei objekt
+        // Optional: Agent deaktivieren, bis Position auf NavMesh bestätigt
+        agent.enabled = false;
+
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(enemy.transform.position, out hit, 1f, NavMesh.AllAreas))
         {
-          /*  if (!enemy.GetComponent<PolygonCollider2D>().IsTouching(GroundTilemapCollider2d))
+            enemy.transform.position = hit.position;
+            agent.enabled = true;
+
+            // Ziel setzen
+            if (agent != null)
+                agent.SetDestination(Player.transform.position);
+        }
+        else
+        {
+            Debug.LogWarning("Enemy nicht auf NavMesh platziert!");
+        }
+
+        enemy.transform.rotation = Quaternion.Euler(0, 0, 0);
+    }
+}
+
+    public void SpawnEnemy()
+    {
+        for (int i = 0; i < Grid.transform.childCount; i++)
+
+        {
+            if (Grid.transform.GetChild(1).gameObject.tag == "Ground")
             {
-                float rendom = Random.Range(-100, 1000);
+                Tilemap CurentT = Grid.transform.GetChild(i).gameObject.GetComponent<Tilemap>();
 
-                Vector3 Position = new Vector3(rendom, GoTo.position.y, 0);
+                int Posy = Random.Range(0, 50);
+                int Posx = Random.Range(0, 50);
 
-                agent.SetDestination(Position);
-            } 
-            else */
-            {
-                Vector3 GoToPos = new Vector3(GoTo.position.x, GoTo.position.y, 0f);
-                agent.SetDestination(GoToPos); 
-                EnemyPosition = agent.destination;
+                Vector3 PosTile = new Vector3(Posx, Posy, 0);
+                Vector3Int cellPos = CurentT.WorldToCell(PosTile);
 
-                NavMeshPath path = agent.path;
-                if (agent.path == null || agent.path.corners.Length < 2) return;
-
-                for (int i = 0; i < agent.path.corners.Length - 1; i++)
+                if (!CurentT.HasTile(cellPos))
                 {
-                    Debug.DrawLine(agent.path.corners[i], agent.path.corners[i + 1], Color.red);
+                    int TypeEnemy = Random.Range(0, EnemyPrefab.Count);
+                    GameObject CE = Instantiate(EnemyPrefab[TypeEnemy]);
+                    CE.transform.position = cellPos;
+                    CE.name = "Enemy_" + TypeEnemy;
+                    CE.transform.SetParent(EnemyContainer.transform);
+
+                    Debug.Log("Keien Tile: " + cellPos);
+                    Debug.DrawRay(cellPos, Vector3.up * 0.2f, Color.red);
                 }
+                else
+                {
+                    Debug.Log("Cant Place there is a tile");
+                    SpawnEnemy();
+                }
+
             }
-
-                enemy.transform.rotation = Quaternion.Euler(0, 0, 0);
+            else
+            {
+                Debug.LogError("No Tilemap With Layer was found");
             }
-        
-
-
+        }
     }
     public IEnumerator DamagePlayer()   //Damage the Player 
     {
-        gameData.Health -= 1;
+        playerControll.PlayerHealth -= 1;
         canTakeDamage = false;
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.5f);
         canTakeDamage = true;
-
-
     }
     public void SaveGame(ref GameData data) // Save the current Data to GameData
     {
-        data.EnemyHealth = this.EnemyHealt;
-        data.EnemyPositionX = this.enemy.transform.localPosition.x;
-        data.EnemyPositionY = this.enemy.transform.localPosition.y;
+        for (int i = 0; i < EnemyContainer.transform.childCount; i++)
+        {
+            data.EnemyHealth = this.EnemyHealt;
+        data.EnemyPositionX = this.EnemyContainer.transform.GetChild(i).transform.localPosition.x;
+        data.EnemyPositionY = this.EnemyContainer.transform.GetChild(i).transform.localPosition.y;
+        }
     }
     public void LoadGame(GameData data) // Load the GameData to the current Data
     {
         this.EnemyHealt = data.EnemyHealth;
-        this.enemy.transform.localPosition = new Vector3(data.EnemyPositionX, data.EnemyPositionY, 0);
+        for (int i = 0; i < EnemyContainer.transform.childCount; i++)
+        this.EnemyContainer.transform.GetChild(i).transform.localPosition = new Vector3(data.EnemyPositionX, data.EnemyPositionY, 0);
     }
 }

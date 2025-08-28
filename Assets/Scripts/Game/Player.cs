@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
@@ -26,6 +27,7 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
     public bool MovePlayerR;
     public bool MovePlayerL;
     public bool MovePlayerUP;
+    public int PlayerHealth;
     private void Start()
     {
         UnityEngine.Debug.Log("Tutorial Game Has Startet");
@@ -38,6 +40,8 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
     // Update is called once per frame
     void Update()
     {
+        /*/if (PlayerHealth == 0)              // Aktiviert Den Dead Screen
+        SceneManager.LoadScene("Death");*/
 
         Vector2 position = Player.transform.position;
 
@@ -94,13 +98,15 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
         SkinIndex = data.SkinIndex;
         Player.GetComponent<SpriteRenderer>().sprite = SkinSprite[SkinIndex];
         if (UnityEngine.ColorUtility.TryParseHtmlString("#" + data.colorhex, out Color colorHex))
-        Player.GetComponent<SpriteRenderer>().color = colorHex;
+            Player.GetComponent<SpriteRenderer>().color = colorHex;
+        PlayerHealth = data.Health;
         
     }
     public void SaveGame(ref GameData data) // Save the current Data to GameData
     {
         data.PlayerPositionX = this.Player.transform.localPosition.x;
         data.PlayerPositionY = this.Player.transform.localPosition.y;
+        data.Health = this.PlayerHealth;
 
         data.SkinIndex = SkinIndex;
     }
