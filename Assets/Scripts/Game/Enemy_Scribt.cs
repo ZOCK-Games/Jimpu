@@ -27,6 +27,7 @@ public class EnemyScript : MonoBehaviour, IDataPersitence
     public GameObject Grid;
     public List<GameObject> EnemyPrefab;
     public int MaxEnemys;
+    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
