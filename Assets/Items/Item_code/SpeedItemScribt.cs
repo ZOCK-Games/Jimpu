@@ -21,8 +21,8 @@ public class SpeedItemScribt : MonoBehaviour
         {
             SpeedObjekt.GetComponent<Animation>().Play();
             SpeedObjekt.SetActive(true);
-            PlayerScribt.move_speed_R = 7;
-            PlayerScribt.move_speed_L = 14;
+            PlayerScribt.move_speed_R += 3;
+            PlayerScribt.move_speed_L += 3;
             PlayerScribt.Jump_speed += 70f;
             Debug.Log("Power Used Power is aktive");
             StartCoroutine(Wayt());
@@ -34,9 +34,9 @@ public class SpeedItemScribt : MonoBehaviour
     public void ResetStats()
     {
         SpeedObjekt.GetComponent<Animation>().Stop();
-        PlayerScribt.move_speed_R = 3.5f;
-        PlayerScribt.move_speed_L = 3.5f;
-        PlayerScribt.Jump_speed = 30;
+        PlayerScribt.move_speed_R -= 3;
+        PlayerScribt.move_speed_L -= 3;
+        PlayerScribt.Jump_speed -= 70f;
         SpeedObjekt.SetActive(false);
         Debug.Log("Power Used Power is Disabled & reset");
         SpeedObjekt.GetComponent<Animation>().Stop();

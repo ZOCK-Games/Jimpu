@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
@@ -9,9 +11,8 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
 
 {
     public GameObject Player;
-    public SpriteRenderer PlayerSpriteRenderer;
+    public Animator PlayerAniamtor;
     public float PlayerRotation;
-    public Collider2D Player_collider;
     public TilemapCollider2D Ground_Collider;
     public Button Player_pos_reset;
     public Camera Camera1;
@@ -28,6 +29,8 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
     public bool MovePlayerL;
     public bool MovePlayerUP;
     public int PlayerHealth;
+
+    public GameObject BodyPartsContainer;
     private void Start()
     {
         UnityEngine.Debug.Log("Tutorial Game Has Startet");
@@ -50,28 +53,39 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
             position.x += run_speed * Time.deltaTime;
             Player.transform.position = position;
             Walkking_animation.SetActive(true);
-            PlayerSpriteRenderer.flipX = false;
+            for (int i = 0; i < BodyPartsContainer.transform.childCount; i++)
+            {
+                PlayerAniamtor.SetBool("Walk", true);
+            }
         }
         else if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D) || MovePlayerR == true)
         {
             position.x += move_speed_R * Time.deltaTime;
             Player.transform.position = position;//position.x = x cordinaten Time.deltaTime weil sonst per frames abhängig 
             Walkking_animation.SetActive(true);
-            PlayerSpriteRenderer.flipX = false;
+            for (int i = 0; i < BodyPartsContainer.transform.childCount; i++)
+            {
+                PlayerAniamtor.SetBool("Walk", true);
+            }
         }
         else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A) || MovePlayerL == true)
         {
             position.x -= move_speed_L * Time.deltaTime;
             Player.transform.position = position;
             Walkking_animation.SetActive(true);
-            PlayerSpriteRenderer.flipX = true;
+            for (int i = 0; i < BodyPartsContainer.transform.childCount; i++)
+            {
+                PlayerAniamtor.SetBool("Walk", true);
+            }
         }
-        else if (Input.GetKey(KeyCode.Space) && Player_collider.IsTouching(Ground_Collider) || MovePlayerUP == true)
+        else if (Input.GetKeyDown(KeyCode.Space) && Player.GetComponent<Collider2D>().IsTouching(Ground_Collider) || MovePlayerUP == true)
         {
             rb.AddForce(new Vector2(0, Jump_speed));
+            PlayerAniamtor.SetTrigger("Jump");
         }
         else
         {
+            PlayerAniamtor.SetBool("Walk", false);
             Walkking_animation.SetActive(false);
         }
 
@@ -87,7 +101,7 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
 
     }
 
-    private void ResetButtonClick()
+     private void ResetButtonClick()
     {
         StartCoroutine(Reset());
     }
@@ -98,7 +112,10 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
         SkinIndex = data.SkinIndex;
         Player.GetComponent<SpriteRenderer>().sprite = SkinSprite[SkinIndex];
         if (UnityEngine.ColorUtility.TryParseHtmlString("#" + data.colorhex, out Color colorHex))
-            Player.GetComponent<SpriteRenderer>().color = colorHex;
+            for (int i = 0; i < BodyPartsContainer.transform.childCount; i++)
+            {
+                BodyPartsContainer.transform.GetChild(i).GetComponent<SpriteRenderer>().color = colorHex;
+            }
         PlayerHealth = data.Health;
         
     }

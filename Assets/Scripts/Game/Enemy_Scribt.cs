@@ -21,12 +21,12 @@ public class EnemyScript : MonoBehaviour, IDataPersitence
     public List<GameObject> Heart;
     public string DeathScene;
     public TilemapCollider2D GroundTilemapCollider2d;
-    public BoxCollider2D PlayerBoxTouchBlock;
     public bool EnemyCanMove = true;
     public bool canTakeDamage = true;
     public PlayerControll playerControll;
     public GameObject Grid;
     public List<GameObject> EnemyPrefab;
+    public int MaxEnemys;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -52,13 +52,22 @@ public class EnemyScript : MonoBehaviour, IDataPersitence
     // Update is called once per frame
     void Update()
     {
-        for (int i = 0; i < EnemyContainer.transform.childCount; i++)
+        if (EnemyContainer.transform.childCount >= MaxEnemys + 1)
         {
-            if (EnemyContainer.transform.GetChild(i).gameObject.GetComponent<EnemyInfo>().EnemyHealt <= 0)
+            for (int i = 0; i < EnemyContainer.transform.childCount; i++)
             {
                 Destroy(EnemyContainer.transform.GetChild(i).gameObject);
+                break;
             }
         }
+
+        for (int i = 0; i < EnemyContainer.transform.childCount; i++)
+            {
+                if (EnemyContainer.transform.GetChild(i).gameObject.GetComponent<EnemyInfo>().EnemyHealt <= -11)
+                {
+                    Destroy(EnemyContainer.transform.GetChild(i).gameObject);
+                }
+            }
 
         if (EnemyCanMove == true)
             MoveEnemy();
@@ -95,26 +104,16 @@ public class EnemyScript : MonoBehaviour, IDataPersitence
 
         if (agent == null)
         {
-            agent = enemy.AddComponent<NavMeshAgent>();
+            enemy.AddComponent<NavMeshAgent>();
         }
-
-        // Optional: Agent deaktivieren, bis Position auf NavMesh bestätigt
-        agent.enabled = false;
-
-        NavMeshHit hit;
-        if (NavMesh.SamplePosition(enemy.transform.position, out hit, 1f, NavMesh.AllAreas))
+        else if (agent != null)
         {
-            enemy.transform.position = hit.position;
-            agent.enabled = true;
-
-            // Ziel setzen
-            if (agent != null)
                 agent.SetDestination(Player.transform.position);
         }
-        else
-        {
-            Debug.LogWarning("Enemy nicht auf NavMesh platziert!");
-        }
+            else
+            {
+                Debug.LogWarning("Enemy nicht auf NavMesh platziert!");
+            }
 
         enemy.transform.rotation = Quaternion.Euler(0, 0, 0);
     }
@@ -150,12 +149,14 @@ public class EnemyScript : MonoBehaviour, IDataPersitence
                 {
                     Debug.Log("Cant Place there is a tile");
                     SpawnEnemy();
+                    break;
                 }
 
             }
             else
             {
                 Debug.LogError("No Tilemap With Layer was found");
+                break;
             }
         }
     }
