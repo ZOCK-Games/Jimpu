@@ -44,7 +44,7 @@ public class EnemyScript : MonoBehaviour, IDataPersitence
                 EnemyContainer.transform.GetChild(i).gameObject.AddComponent<EnemyInfo>();
                 EnemyContainer.transform.GetChild(i).gameObject.GetComponent<EnemyInfo>().EnemyHealt = 1;
             }
-
+            EnemyContainer.transform.GetChild(i).gameObject.GetComponent<EnemyInfo>().EnemyHealt = 1;
             EnemyContainer.transform.GetChild(i).gameObject.name = "Enemy" + i;
         }
 
@@ -53,14 +53,21 @@ public class EnemyScript : MonoBehaviour, IDataPersitence
     // Update is called once per frame
     void Update()
     {
-        if (EnemyContainer.transform.childCount >= MaxEnemys + 1)
-        {
-            for (int i = 0; i < EnemyContainer.transform.childCount; i++)
+        for (int i = 0; i < EnemyContainer.transform.childCount; i++)
+            if (EnemyContainer.transform.GetChild(i).gameObject.GetComponent<EnemyInfo>().EnemyHealt <= 0)
             {
                 Destroy(EnemyContainer.transform.GetChild(i).gameObject);
-                break;
-            }
+                Debug.Log("Removed Enemy: " + EnemyContainer.transform.GetChild(i).gameObject.name);
         }
+
+        if (EnemyContainer.transform.childCount >= MaxEnemys + 1)
+            {
+                for (int i = 0; i < EnemyContainer.transform.childCount; i++)
+                {
+                    Destroy(EnemyContainer.transform.GetChild(i).gameObject);
+                    break;
+                }
+            }
 
         for (int i = 0; i < EnemyContainer.transform.childCount; i++)
             {
@@ -145,6 +152,7 @@ public class EnemyScript : MonoBehaviour, IDataPersitence
 
                     Debug.Log("Keien Tile: " + cellPos);
                     Debug.DrawRay(cellPos, Vector3.up * 0.2f, Color.red);
+                    EnemyContainer.transform.GetChild(i).gameObject.GetComponent<EnemyInfo>().EnemyHealt = 1;
                 }
                 else
                 {

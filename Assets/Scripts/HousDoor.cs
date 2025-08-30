@@ -46,8 +46,9 @@ public class HousDoor : MonoBehaviour
     }
     public IEnumerator Wayt()
     {
+        GUIAnimator.SetTrigger("Transition");
         Debug.Log("Started Wayt");
-        yield return new WaitForSeconds(0.6f);
+        yield return new WaitForSeconds(1.14f);
         CanOpenDoor = true;
         SceneManager.LoadScene(GoToScene);
     }

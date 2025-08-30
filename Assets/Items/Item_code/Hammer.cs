@@ -1,46 +1,61 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Services.Lobbies.Models;
 using UnityEngine;
 
 public class Hammer : MonoBehaviour
 {
     public GameObject HamerObjekt;
-    public List<GameObject> Enemy;
-    public EnemyScript enemy_Scribt;
+    public GameObject EnemyContainer;
+    public Animator ItemAnimator;
     public int Demage = 1;
-    private int i;
     private bool CanAttack;
+    private int currentenemy;
     public Inventory inventory;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public GameObject ExplosionPrefab; 
     void Start()
     {
-        HamerObjekt.GetComponent<Animation>().Stop();
         CanAttack = true;
     }
-
-    // Update is called once per frame
     void Update()
     {
-        for (int i = 0; i < Enemy.Count; i++)
-        if (HamerObjekt.GetComponent<BoxCollider2D>().IsTouching(Enemy[i].GetComponent<PolygonCollider2D>()) && CanAttack == true && Input.GetKey(KeyCode.E))
-        {
-            inventory.ClearCurentItem = true;
-            enemy_Scribt.EnemyHealt -= Demage;
-            StartCoroutine(inaktive());
+        for (int i = 0; i < EnemyContainer.transform.childCount; i++)
+        {     // Plays the attack hit animation when enemy is in range and the player presses E
+            if (HamerObjekt.GetComponent<BoxCollider2D>().IsTouching(EnemyContainer.transform.GetChild(i).GetComponent<PolygonCollider2D>()) && CanAttack && Input.GetKey(KeyCode.E))
+            {
+                inventory.ClearCurentItem = true;
+                Debug.Log("There was an Enemy in the radius of the hammer!");
+                currentenemy = i;
+                StartCoroutine(inaktive());
+
+            }
+
+            else if (Input.GetKey(KeyCode.E)) // Plays the attack animation but dose not hit
+            {
+                ItemAnimator.SetTrigger("HammerUse");
+                Debug.Log("There was no Enemy in the radius of the hammer!");
+            }
         }
-        else
-        {
-        }
+        
 
     }
     public IEnumerator inaktive()
     {
-        HamerObjekt.GetComponent<Animation>().Play();
+        float Posy = HamerObjekt.transform.position.y;
+        float Posx = HamerObjekt.transform.position.x;
+        Vector3 ExplosionPos = new Vector3(Posx, Posy -0.5f, 0);
+        GameObject explosion = Instantiate(ExplosionPrefab);
+        explosion.transform.position = ExplosionPos;
+        explosion.GetComponent<Animator>().SetTrigger("AttackHit");
+        ItemAnimator.SetTrigger("HammerHit");
         CanAttack = false;
         yield return new WaitForSeconds(0.4f);
+        EnemyContainer.transform.GetChild(currentenemy).GetComponent<EnemyInfo>().EnemyHealt -= 1;
+        currentenemy = -1;
+        yield return new WaitForSeconds(0.6f);
+        Destroy(explosion);
+        CanAttack = true;
         HamerObjekt.SetActive(false);
-        HamerObjekt.GetComponent<Animation>().Stop();
     }
 
 }

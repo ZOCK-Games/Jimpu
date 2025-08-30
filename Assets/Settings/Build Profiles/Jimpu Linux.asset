@@ -32,6 +32,8 @@ MonoBehaviour:
     m_path: Assets/Scenes/Game Levels/GameTutorial.unity
   - m_enabled: 1
     m_path: Assets/Scenes/Death.unity
+  - m_enabled: 1
+    m_path: Assets/Scenes/Game Levels/Game Level 1.unity
   m_ScriptingDefines: []
   m_PlayerSettingsYaml:
     m_Settings:

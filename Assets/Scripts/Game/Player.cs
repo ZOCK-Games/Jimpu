@@ -98,31 +98,6 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
             // Checks if there is a tilemap near the player to hold on to
             if (Player.GetComponent<BoxCollider2D>().IsTouching(Ground_Collider) && !IsHoldingOn)
             {
-                GameObject previousSegment = null;
-                for (int i = 0; i < 10; i++)
-                {
-                    GameObject segment = Instantiate(RobeSagment, Player.transform.position + new Vector3(0, -i * 0.00000001f, 00), Quaternion.identity);
-
-                    Rigidbody2D srb = segment.GetComponent<Rigidbody2D>();
-
-                    HingeJoint2D joint = srb.gameObject.GetComponent<HingeJoint2D>();
-
-                    if (i == 0)
-                    {
-                        joint.connectedBody = null;
-                        joint.connectedAnchor = Player.transform.position;
-                    }
-                    else
-                    {
-                        // An vorheriges Segment anschließen
-                        joint.connectedBody = previousSegment.GetComponent<Rigidbody2D>();
-                        joint.connectedAnchor = previousSegment.GetComponent<HingeJoint2D>().connectedAnchor;
-                    }
-
-                    previousSegment = segment;
-                }
-
-
                 float Posy = Random.Range(Player.transform.position.y, Player.transform.position.y + HoldOnRadius);
                 float Posx = Random.Range(Player.transform.position.x, Player.transform.position.x + HoldOnRadius);
 
@@ -135,8 +110,7 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
                 CanMove = false;
                 Debug.DrawRay(cellPos, cellPos * 2, Color.red);
                 IsHoldingOn = true;
-
-
+                GameObject previousSegment = null;
             }
         }
 
