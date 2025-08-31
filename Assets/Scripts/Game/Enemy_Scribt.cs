@@ -27,12 +27,14 @@ public class EnemyScript : MonoBehaviour, IDataPersitence
     public GameObject Grid;
     public List<GameObject> EnemyPrefab;
     public int MaxEnemys;
-    
+    public int MinEnemys;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-                SpawnEnemy();
+
+        SpawnEnemy();
         for (int i = 0; i < EnemyContainer.transform.childCount; i++)
         {
             if (EnemyContainer.transform.GetChild(i).gameObject.GetComponent<NavMeshAgent>() == null)
@@ -47,7 +49,6 @@ public class EnemyScript : MonoBehaviour, IDataPersitence
             EnemyContainer.transform.GetChild(i).gameObject.GetComponent<EnemyInfo>().EnemyHealt = 1;
             EnemyContainer.transform.GetChild(i).gameObject.name = "Enemy" + i;
         }
-
     }
 
     // Update is called once per frame
@@ -58,16 +59,16 @@ public class EnemyScript : MonoBehaviour, IDataPersitence
             {
                 Destroy(EnemyContainer.transform.GetChild(i).gameObject);
                 Debug.Log("Removed Enemy: " + EnemyContainer.transform.GetChild(i).gameObject.name);
-        }
-
-        if (EnemyContainer.transform.childCount >= MaxEnemys + 1)
+        }        
+        int EnemyLimit = Random.Range(MinEnemys, MaxEnemys);
+        if (EnemyContainer.transform.childCount >= EnemyLimit + 1)
+        {
+            for (int i = 0; i < EnemyContainer.transform.childCount; i++)
             {
-                for (int i = 0; i < EnemyContainer.transform.childCount; i++)
-                {
-                    Destroy(EnemyContainer.transform.GetChild(i).gameObject);
-                    break;
-                }
+                Destroy(EnemyContainer.transform.GetChild(i).gameObject);
+                break;
             }
+        }
 
         for (int i = 0; i < EnemyContainer.transform.childCount; i++)
             {
@@ -122,6 +123,7 @@ public class EnemyScript : MonoBehaviour, IDataPersitence
             {
                 Debug.LogWarning("Enemy nicht auf NavMesh platziert!");
             }
+
 
         enemy.transform.rotation = Quaternion.Euler(0, 0, 0);
     }
