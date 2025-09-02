@@ -8,6 +8,10 @@ public class Hammer : MonoBehaviour
     public GameObject EnemyContainer;
     public Animator ItemAnimator;
     public int Demage = 1;
+    public float Range = 0.8f;
+    public Tilemap ObjektTilemap;
+    public Tilemap BlocksTilemap;
+    public AnimatedTile ExplsionTile;
     private bool CanAttack;
     private int currentenemy;
     public Inventory inventory;
@@ -26,7 +30,7 @@ public class Hammer : MonoBehaviour
                 inventory.ClearCurentItem = true;
                 Debug.Log("There was an Enemy in the radius of the hammer!");
                 currentenemy = i;
-                StartCoroutine(inaktive());
+                StartCoroutine(Inaktive());
 
             }
 
@@ -39,34 +43,55 @@ public class Hammer : MonoBehaviour
         
 
     }
-    public IEnumerator inaktive()
+public IEnumerator Inaktive()
+{
+    float NumY = 0.9f;
+    Transform enemy = EnemyContainer.transform.GetChild(currentenemy);
+    float PosY = enemy.position.y;
+    float PosX = enemy.position.x;
+
+    bool tileFound = false;
+    Vector3Int cellPos = Vector3Int.zero;
+
+    for (int i = 0; i < 125; i++) // Max 20 Versuche
     {
-        float Posy = HamerObjekt.transform.position.y;
-        float Posx = HamerObjekt.transform.position.x;
-        Vector3 ExplosionPos = new Vector3(Posx, Posy -0.5f, 0);
-        GameObject explosion = Instantiate(ExplosionPrefab);
-        if (!ExplosionPrefab.GetComponent<BoxCollider2D>().IsTouching(GroundCollider))
+        PosY = enemy.position.y;
+        PosX = enemy.position.x;
+        float TileY = Random.Range(PosY, PosY + Range);
+        float TileX = Random.Range(PosX, PosX + Range);
+
+        Vector3 TilePos = new Vector3(TileX, TileY - NumY, 0);
+        cellPos = BlocksTilemap.WorldToCell(TilePos);
+
+        if (!BlocksTilemap.HasTile(cellPos))
         {
-            for (float i = ExplosionPos.y; i > ExplosionPos.y -1; i -= 0.25f)
-            {
-                ExplosionPos.y = i;
-                if (ExplosionPrefab.GetComponent<BoxCollider2D>().IsTouching(GroundCollider))
-                {
-                    explosion.transform.position = ExplosionPos;
-                    break;
-                }
-            }
+            tileFound = true;
+            break;
         }
-        explosion.GetComponent<Animator>().SetTrigger("AttackHit");
+
+        NumY += 0.3f;
+    }
+
+    if (tileFound)
+    {
+        Debug.Log("Found Tile: " + BlocksTilemap);
+        ObjektTilemap.SetTile(cellPos, ExplsionTile);
         ItemAnimator.SetTrigger("HammerHit");
         CanAttack = false;
+
         yield return new WaitForSeconds(0.4f);
-        EnemyContainer.transform.GetChild(currentenemy).GetComponent<EnemyInfo>().EnemyHealt -= 1;
+        ObjektTilemap.SetTile(cellPos, null);
+        enemy.GetComponent<EnemyInfo>().EnemyHealt -= 1;
         currentenemy = -1;
-        yield return new WaitForSeconds(0.6f);
-        Destroy(explosion);
+        yield return new WaitForSeconds(0.8f);
+
         CanAttack = true;
         HamerObjekt.SetActive(false);
     }
+    else
+    {
+        Debug.LogWarning("No valid tile found after multiple attempts.");
+    }
+}
 
 }

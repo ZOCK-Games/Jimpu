@@ -3,15 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.AI;
-using UnityEngine.UIElements;
-using UnityEngine.SceneManagement;
-using TMPro;
-using System.Net.NetworkInformation;
-using UnityEditor;
-using UnityEditorInternal;
-using UnityEditor.U2D.Aseprite;
 
-public class EnemyScript : MonoBehaviour, IDataPersitence
+public class EnemyScript : MonoBehaviour//, IDataPersitence
 {
     public Transform GoTo;
     public GameObject Player;
@@ -20,7 +13,6 @@ public class EnemyScript : MonoBehaviour, IDataPersitence
     public int EnemyHealt;
     public List<GameObject> Heart;
     public string DeathScene;
-    public TilemapCollider2D GroundTilemapCollider2d;
     public bool EnemyCanMove = true;
     public bool canTakeDamage = true;
     public PlayerControll playerControll;
@@ -35,6 +27,7 @@ public class EnemyScript : MonoBehaviour, IDataPersitence
     {
 
         SpawnEnemy();
+
         for (int i = 0; i < EnemyContainer.transform.childCount; i++)
         {
             if (EnemyContainer.transform.GetChild(i).gameObject.GetComponent<NavMeshAgent>() == null)
@@ -59,7 +52,7 @@ public class EnemyScript : MonoBehaviour, IDataPersitence
             {
                 Destroy(EnemyContainer.transform.GetChild(i).gameObject);
                 Debug.Log("Removed Enemy: " + EnemyContainer.transform.GetChild(i).gameObject.name);
-        }        
+            }
         int EnemyLimit = Random.Range(MinEnemys, MaxEnemys);
         if (EnemyContainer.transform.childCount >= EnemyLimit + 1)
         {
@@ -71,24 +64,24 @@ public class EnemyScript : MonoBehaviour, IDataPersitence
         }
 
         for (int i = 0; i < EnemyContainer.transform.childCount; i++)
+        {
+            if (EnemyContainer.transform.GetChild(i).gameObject.GetComponent<EnemyInfo>().EnemyHealt <= -11)
             {
-                if (EnemyContainer.transform.GetChild(i).gameObject.GetComponent<EnemyInfo>().EnemyHealt <= -11)
-                {
-                    Destroy(EnemyContainer.transform.GetChild(i).gameObject);
-                }
+                Destroy(EnemyContainer.transform.GetChild(i).gameObject);
             }
+        }
 
         if (EnemyCanMove == true)
             MoveEnemy();
 
         for (int i = 0; i < EnemyContainer.transform.childCount; i++)
-        {        
-        if (Player.GetComponent<PolygonCollider2D>().IsTouching(EnemyContainer.transform.GetChild(i).gameObject.GetComponent<PolygonCollider2D>()) && canTakeDamage) //Checkt ob der spiler Chaden bekom
+        {
+            if (Player.GetComponent<PolygonCollider2D>().IsTouching(EnemyContainer.transform.GetChild(i).gameObject.GetComponent<PolygonCollider2D>()) && canTakeDamage) //Checkt ob der spiler Chaden bekom
             {
                 StartCoroutine(DamagePlayer());
                 Debug.Log("-1 leben");
             }
-        }  
+        }
         //Removed Die Herzen / fügt sie hinzu
         if (playerControll.PlayerHealth <= 1)
             Heart[0].SetActive(false);
@@ -103,31 +96,31 @@ public class EnemyScript : MonoBehaviour, IDataPersitence
             Heart[1].SetActive(true);
         if (playerControll.PlayerHealth >= 3)
             Heart[2].SetActive(true);
-        }
+    }
     public void MoveEnemy()
-{
-    for (int i = 0; i < EnemyContainer.transform.childCount; i++)
     {
-        GameObject enemy = EnemyContainer.transform.GetChild(i).gameObject;
-        NavMeshAgent agent = enemy.GetComponent<NavMeshAgent>();
+        for (int i = 0; i < EnemyContainer.transform.childCount; i++)
+        {
+            GameObject enemy = EnemyContainer.transform.GetChild(i).gameObject;
+            NavMeshAgent agent = enemy.GetComponent<NavMeshAgent>();
 
-        if (agent == null)
-        {
-            enemy.AddComponent<NavMeshAgent>();
-        }
-        else if (agent != null)
-        {
+            if (agent == null)
+            {
+                enemy.AddComponent<NavMeshAgent>();
+            }
+            else if (agent != null)
+            {
                 agent.SetDestination(Player.transform.position);
-        }
+            }
             else
             {
                 Debug.LogWarning("Enemy nicht auf NavMesh platziert!");
             }
 
 
-        enemy.transform.rotation = Quaternion.Euler(0, 0, 0);
+            enemy.transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
     }
-}
 
     public void SpawnEnemy()
     {
@@ -178,19 +171,59 @@ public class EnemyScript : MonoBehaviour, IDataPersitence
         yield return new WaitForSeconds(0.5f);
         canTakeDamage = true;
     }
-    public void SaveGame(ref GameData data) // Save the current Data to GameData
+    /*public void SaveGame(ref GameData data) // Save the current Data to GameData
     {
+        // Alle Gegner durchlaufen
         for (int i = 0; i < EnemyContainer.transform.childCount; i++)
         {
-            data.EnemyHealth = this.EnemyHealt;
-        data.EnemyPositionX = this.EnemyContainer.transform.GetChild(i).transform.localPosition.x;
-        data.EnemyPositionY = this.EnemyContainer.transform.GetChild(i).transform.localPosition.y;
+
+            GameObject enemy = EnemyContainer.transform.GetChild(i).gameObject;
+            EnemyInfo info = enemy.GetComponent<EnemyInfo>();
+
+
+
+
+            EnemySaveData eData = new EnemySaveData
+            {
+                EnemyHealth = enemy.GetComponent<EnemyInfo>().EnemyHealt,
+                EnemyPositionX = enemy.transform.position.x,
+                EnemyPositionY = enemy.transform.position.y
+            };
+
+            data.enemies.Add(eData);
+
         }
+
     }
-    public void LoadGame(GameData data) // Load the GameData to the current Data
+
+public void LoadGame(GameData data)
+{
+    if (EnemyPrefab == null)
     {
-        this.EnemyHealt = data.EnemyHealth;
-        for (int i = 0; i < EnemyContainer.transform.childCount; i++)
-        this.EnemyContainer.transform.GetChild(i).transform.localPosition = new Vector3(data.EnemyPositionX, data.EnemyPositionY, 0);
+        Debug.LogError("Enemy Prefab nicht gesetzt!");
+        return;
     }
+
+    // Alte Gegner löschen
+    for (int i = EnemyContainer.transform.childCount - 1; i >= 0; i--)
+    {
+        Destroy(EnemyContainer.transform.GetChild(i).gameObject);
+    }
+
+    // Gegner aus GameData wiederherstellen
+    int index = 0;
+    foreach (var eData in data.enemies)
+    {
+        Vector3 pos = new Vector3(eData.EnemyPositionX, eData.EnemyPositionY, 0);
+        GameObject enemy = Instantiate(EnemyPrefab[0], pos, Quaternion.identity, EnemyContainer.transform);
+        enemy.name = EnemyPrefab[0].name + "_" + index;
+        index++;
+
+        EnemyInfo info = enemy.GetComponent<EnemyInfo>();
+        if (info != null)
+            info.EnemyHealt = eData.EnemyHealth;
+        else
+            Debug.LogWarning("EnemyInfo fehlt auf Prefab!");
+    } */
+ 
 }

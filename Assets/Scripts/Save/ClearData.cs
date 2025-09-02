@@ -21,9 +21,6 @@ public class ClearData : MonoBehaviour, IDataPersitence
         data.CoinValue = 0;
         data.colorhex = Color.white.ToString();
         data.CurentItem = null;
-        data.EnemyHealth = 5;
-        data.EnemyPositionX = -3.45f;
-        data.EnemyPositionY = 0;
         data.Health = 3;
         data.SkinIndex = 0;
         Debug.Log("Reset data");

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 [Serializable]
 public class GameData
@@ -12,9 +13,7 @@ public class GameData
     public int CoinValue;
 
     public int EnemyHealth; //enemy stuff
-    public float EnemyPositionX;
-    public float EnemyPositionY;
-
+    //public List<EnemySaveData> enemies = new List<EnemySaveData>();
     public string CurentItem;
     public string CurentScene;
     //All the device information 
@@ -22,6 +21,8 @@ public class GameData
     public string SimpleDevice;
     // FPS stuff
     public bool isFPSVisible;
+    // Tutorial Settings
+    public bool TutorialHasPlayed;
 
 
 
@@ -29,4 +30,5 @@ public class GameData
     {
         isFPSVisible = false;
     }
+
 }
