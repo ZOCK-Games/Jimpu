@@ -11,6 +11,12 @@ public class LuckyBlock : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E) && LuckyBlockI.activeSelf)
         {
+            SpawnChest();
+        }
+
+    }
+    public void SpawnChest()
+    {
             GameObject chest_p = Instantiate(chest);
             chest_p.name = "ChestLukyBlock";
             chest_p.transform.position = PlayerTransform.transform.position;
@@ -19,7 +25,5 @@ public class LuckyBlock : MonoBehaviour
             chest_p.transform.position = pos;
             LuckyBlockI.SetActive(false);
             inventory.ClearCurentItem = true;
-        }
-        
     }
 }

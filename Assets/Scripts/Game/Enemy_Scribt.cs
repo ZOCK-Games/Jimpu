@@ -19,7 +19,6 @@ public class EnemyScript : MonoBehaviour//, IDataPersitence
     public GameObject Grid;
     public List<GameObject> EnemyPrefab;
     public int MaxEnemys;
-    public int MinEnemys;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -47,21 +46,27 @@ public class EnemyScript : MonoBehaviour//, IDataPersitence
     // Update is called once per frame
     void Update()
     {
-        for (int i = 0; i < EnemyContainer.transform.childCount; i++)
-            if (EnemyContainer.transform.GetChild(i).gameObject.GetComponent<EnemyInfo>().EnemyHealt <= 0)
-            {
-                Destroy(EnemyContainer.transform.GetChild(i).gameObject);
-                Debug.Log("Removed Enemy: " + EnemyContainer.transform.GetChild(i).gameObject.name);
-            }
-        int EnemyLimit = Random.Range(MinEnemys, MaxEnemys);
-        if (EnemyContainer.transform.childCount >= EnemyLimit + 1)
+        for (int i = EnemyContainer.transform.childCount - 1; i >= 0; i--)
         {
-            for (int i = 0; i < EnemyContainer.transform.childCount; i++)
+            Transform child = EnemyContainer.transform.GetChild(i);
+            EnemyInfo enemy = child.GetComponent<EnemyInfo>();
+
+            if (enemy != null && enemy.EnemyHealt <= 0)
             {
-                Destroy(EnemyContainer.transform.GetChild(i).gameObject);
-                break;
+                Debug.Log("Removed Enemy: " + child.gameObject.name);
+                Destroy(child.gameObject);
             }
+
         }
+
+        if (EnemyContainer.transform.childCount >= MaxEnemys)
+        {
+            Transform child = EnemyContainer.transform.GetChild(0);
+            Debug.Log("Removed Enemy due to MaxEnemys: " + child.gameObject.name);
+            Destroy(child.gameObject);
+
+        }
+
 
         for (int i = 0; i < EnemyContainer.transform.childCount; i++)
         {
@@ -124,12 +129,9 @@ public class EnemyScript : MonoBehaviour//, IDataPersitence
 
     public void SpawnEnemy()
     {
-        for (int i = 0; i < Grid.transform.childCount; i++)
-
-        {
             if (Grid.transform.GetChild(1).gameObject.tag == "Ground")
             {
-                Tilemap CurentT = Grid.transform.GetChild(i).gameObject.GetComponent<Tilemap>();
+                Tilemap CurentT = Grid.transform.GetChild(1).gameObject.GetComponent<Tilemap>();
 
                 int Posy = Random.Range(0, 50);
                 int Posx = Random.Range(0, 50);
@@ -147,22 +149,20 @@ public class EnemyScript : MonoBehaviour//, IDataPersitence
 
                     Debug.Log("Keien Tile: " + cellPos);
                     Debug.DrawRay(cellPos, Vector3.up * 0.2f, Color.red);
+                for (int i = 0; i < EnemyContainer.transform.childCount; i ++)
                     EnemyContainer.transform.GetChild(i).gameObject.GetComponent<EnemyInfo>().EnemyHealt = 1;
                 }
                 else
                 {
                     Debug.Log("Cant Place there is a tile");
                     SpawnEnemy();
-                    break;
                 }
 
             }
             else
             {
                 Debug.LogError("No Tilemap With Layer was found");
-                break;
             }
-        }
     }
     public IEnumerator DamagePlayer()   //Damage the Player 
     {
