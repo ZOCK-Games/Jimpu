@@ -1,29 +1,29 @@
 using System.Collections;
+using Mono.Cecil.Cil;
 using UnityEngine;
 
 public class SpeedItemScribt : MonoBehaviour
 {
     public Inventory InvScribt;
+    public float Adding;
     public ItemData SpeedItemData;
     public PlayerControll PlayerScribt;
     public GameObject SpeedObjekt;
     public Inventory inventory;
+    private bool PowerAktive;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        SpeedObjekt.GetComponent<Animation>().Stop();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.E) && SpeedObjekt.activeSelf)
+        if (Input.GetKeyDown(KeyCode.E) && SpeedObjekt.activeSelf && !PowerAktive)
         {
-            SpeedObjekt.GetComponent<Animation>().Play();
-            SpeedObjekt.SetActive(true);
-            PlayerScribt.move_speed_R += 3;
-            PlayerScribt.move_speed_L += 3;
-            PlayerScribt.Jump_speed += 70f;
+            PowerAktive = true;
+            PlayerScribt.move_speed_R += Adding;
+            PlayerScribt.move_speed_L += Adding;
             Debug.Log("Power Used Power is aktive");
             StartCoroutine(Wayt());
             inventory.ClearCurentItem = true;
@@ -33,13 +33,11 @@ public class SpeedItemScribt : MonoBehaviour
     }
     public void ResetStats()
     {
-        SpeedObjekt.GetComponent<Animation>().Stop();
-        PlayerScribt.move_speed_R -= 3;
-        PlayerScribt.move_speed_L -= 3;
-        PlayerScribt.Jump_speed -= 70f;
-        SpeedObjekt.SetActive(false);
+        PlayerScribt.move_speed_R -= Adding;
+        PlayerScribt.move_speed_L -= Adding;
+        PowerAktive = false;
         Debug.Log("Power Used Power is Disabled & reset");
-        SpeedObjekt.GetComponent<Animation>().Stop();
+        SpeedObjekt.SetActive(false);
     }
             
         
@@ -48,7 +46,6 @@ public class SpeedItemScribt : MonoBehaviour
     {
         Debug.Log("Wayt Stardet 5 sec to reset");
             yield return new WaitForSeconds(5);
-            SpeedObjekt.GetComponent<Animation>().Stop();
             Debug.Log("Wayt_Aktive end");
             ResetStats();
     }
