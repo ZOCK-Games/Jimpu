@@ -12,7 +12,7 @@ TagManager:
   - Ground
   - Water
   - UI
-  - 
+  - Light
   - 
   - 
   - 
@@ -41,6 +41,15 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Light
+    uniqueID: 2515931847
+    locked: 0
+  - name: Background
+    uniqueID: 495585517
+    locked: 0
+  - name: Obj
+    uniqueID: 454410201
     locked: 0
   m_RenderingLayers:
   - Default
