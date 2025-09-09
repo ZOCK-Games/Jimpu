@@ -35,7 +35,7 @@ public class TimeManager : MonoBehaviour
                     TimeApiResponse response = JsonUtility.FromJson<TimeApiResponse>(request.downloadHandler.text);
 
                     DateTime dateTime = DateTime.Parse(response.datetime);
-                    
+
                     // Nur Uhrzeit (HH:mm)
                     timeData = dateTime.ToString("HH:mm");
                     Hour = int.Parse(dateTime.ToString("HH"));
@@ -49,6 +49,8 @@ public class TimeManager : MonoBehaviour
                 }
             }
         }
+        yield return new WaitForSeconds(60);
+        CheckTime();
     }
     [Serializable]
     public class TimeApiResponse
