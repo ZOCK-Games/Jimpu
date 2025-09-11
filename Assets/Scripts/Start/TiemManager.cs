@@ -1,8 +1,11 @@
 using System;
 using System.Collections;
+using System.Net.Http.Headers;
 using TMPro;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.PlayerLoop;
 
 
 public class TimeManager : MonoBehaviour
@@ -16,10 +19,13 @@ public class TimeManager : MonoBehaviour
     void Start()
     {
         StartCoroutine(CheckTime());
+
     }
+
 
     IEnumerator CheckTime()
     {
+        Debug.Log("Started Checking time");
         using (UnityWebRequest request = UnityWebRequest.Get(apiUrl))
         {
             yield return request.SendWebRequest();
@@ -27,6 +33,11 @@ public class TimeManager : MonoBehaviour
             if (request.result != UnityWebRequest.Result.Success)
             {
                 Debug.LogError("API Error: " + request.error);
+                timeData = DateTime.Now.TimeOfDay.ToString(@"hh\:mm");
+                Hour = DateTime.Now.Hour;
+                Minute = DateTime.Now.Minute;
+                Debug.Log("New Time:" + timeData);
+                StartCoroutine(TimeChecker());
             }
             else
             {
@@ -40,17 +51,26 @@ public class TimeManager : MonoBehaviour
                     timeData = dateTime.ToString("HH:mm");
                     Hour = int.Parse(dateTime.ToString("HH"));
                     Minute = int.Parse(dateTime.ToString("mm"));
-
                     Debug.Log("Current Time: " + timeData);
+                    Debug.Log("New Time:" + timeData);
+                    StartCoroutine(TimeChecker());
                 }
                 catch (Exception e)
                 {
                     Debug.LogError("Parsing Error: " + e.Message);
+                    timeData = DateTime.Now.TimeOfDay.ToString(@"hh\:mm");
+                    Hour = DateTime.Now.Hour;
+                    Minute = DateTime.Now.Minute;
+                    StartCoroutine(TimeChecker());
                 }
             }
         }
+
+    }
+    IEnumerator TimeChecker()
+    {
         yield return new WaitForSeconds(60);
-        CheckTime();
+        StartCoroutine(CheckTime());
     }
     [Serializable]
     public class TimeApiResponse
