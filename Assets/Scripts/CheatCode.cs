@@ -7,11 +7,14 @@ public class CheatCode : MonoBehaviour
     [SerializeField] private Button HeartsButton;
     [SerializeField] private Button EnemyButton;
     [SerializeField] private Button LuckyBlockButton;
-
+    [SerializeField] private Button BombButton;
+    [SerializeField] private GameObject CheatCodeUi;
+ 
     private int CurentInt;
     [SerializeField] private PlayerControll playerControll;
     [SerializeField] private LuckyBlock luckyBlock;
     [SerializeField] private EnemyScript enemyScript;
+    [SerializeField] private BombScribt bombScribt;
     void Start()
     {
         HeartsButton.onClick.AddListener(() =>
@@ -29,6 +32,18 @@ public class CheatCode : MonoBehaviour
             CurentInt = 2;
             CheckCheat();
         });
+        BombButton.onClick.AddListener(() =>
+        {
+            CurentInt = 3;
+            CheckCheat();
+        });
+    }
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            CheatCodeUi.SetActive(!CheatCodeUi.activeSelf);
+        }
     }
 
     // Update is called once per frame
@@ -49,6 +64,11 @@ public class CheatCode : MonoBehaviour
                 enemyScript.SpawnEnemy();
                 Debug.Log("Spawned Enemy for player");
                 break;
+            case 3:
+                bombScribt.SetBombPosition();
+                Debug.Log("SetBomb");
+                break;
+                
               
                 
         }

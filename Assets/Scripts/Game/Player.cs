@@ -136,7 +136,7 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
     {
         Player.transform.localPosition = new Vector3(data.PlayerPositionX, data.PlayerPositionY, 0);
         SkinIndex = data.SkinIndex;
-        Player.GetComponent<SpriteRenderer>().sprite = SkinSprite[SkinIndex];
+        //Player.GetComponent<SpriteRenderer>().sprite = SkinSprite[SkinIndex];
         if (UnityEngine.ColorUtility.TryParseHtmlString("#" + data.colorhex, out Color colorHex))
             for (int i = 0; i < BodyPartsContainer.transform.childCount; i++)
             {

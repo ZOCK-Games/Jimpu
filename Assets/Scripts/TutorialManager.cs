@@ -19,23 +19,34 @@ public class TutorialManager : MonoBehaviour, IDataPersitence
     private bool DialogIsPlaying;
     private string CurentText;
     private int Dialog;
-    void Start()
+
+    void Awake()
     {
-        DinoAnimator.SetBool("Talk" , false);
+        DinoTutorial.SetActive(false);
+        DinoAnimator.SetBool("Talk", false);
         if (!TutorialHasPlayed)
         {
+            PlayerAnimator.enabled = true;
+            DinoTutorial.SetActive(true);
             PlayerAnimator.SetTrigger("Hello");
             DialogIsPlaying = true;
             Dialog = 1;
             GetDialog();
             StartCoroutine(Tutorial());
         }
-
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (TutorialHasPlayed)
+        {
+            DinoAnimator.SetBool("Talk", false);
+            DinoTutorial.SetActive(false);
+            DialogIsPlaying = false;
+            PlayerAnimator.enabled = false;
+        }
+        
         if (Input.anyKeyDown && DialogIsPlaying && !TutorialHasPlayed)
         {
             StartCoroutine(Silence());
