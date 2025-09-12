@@ -14,8 +14,8 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
     public GameObject Player;
     public Animator PlayerAniamtor;
     public float PlayerRotation;
-    public TilemapCollider2D Ground_Collider;
-    public Tilemap GroudTilemap;
+    public GameObject CollidersGameObjekt;
+    public GameObject GroudTilemap;
     public Button Player_pos_reset;
     public Camera Camera1;
     public float move_speed_R = 3.5f;
@@ -33,6 +33,8 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
     public bool MovePlayerL;
     public bool MovePlayerUP;
     public int PlayerHealth;
+    public List<TilemapCollider2D> Grounds;
+    public bool PlayerIsTouchingGround; // if the player is touching a ground tile collider
     [Header("Player Hold On to settings")]
     public GameObject RobeSagment;
     public float HoldOnRadius;
@@ -42,7 +44,14 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
         UnityEngine.Debug.Log("Tutorial Game Has Startet");
         Player_pos_reset.onClick.AddListener(ResetButtonClick);
         rb = Player.GetComponent<Rigidbody2D>();
-        PlayerAniamtor.SetBool("Walk", false);  
+        PlayerAniamtor.SetBool("Walk", false);
+        for (int i = 0; i < CollidersGameObjekt.transform.childCount; i++)
+        {
+            if (CollidersGameObjekt.gameObject.tag == "Ground")
+            {
+                Grounds[i] = CollidersGameObjekt.transform.GetChild(i).gameObject.GetComponent<TilemapCollider2D>();
+            }
+        }
     }
 
 
@@ -51,6 +60,18 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
     {
         /*/if (PlayerHealth == 0)              // Aktiviert Den Dead Screen
         SceneManager.LoadScene("Death");*/
+        for (int i = 0; i < Grounds.Count; i++)
+        {
+            if (Player.GetComponent<PolygonCollider2D>().IsTouching(Grounds[i]))
+            {
+                PlayerIsTouchingGround = true;
+            }
+
+            else
+            {
+                PlayerIsTouchingGround = false;
+            }
+        }
 
         Vector2 position = Player.transform.position;
 
@@ -86,7 +107,7 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
             Debug.Log("Player is no longer holding on");
 
         }
-        if (Input.GetKeyDown(KeyCode.Space) && Player.GetComponent<Collider2D>().IsTouching(Ground_Collider) && CanMove || MovePlayerUP && CanMove)
+        if (Input.GetKeyDown(KeyCode.Space) && PlayerIsTouchingGround && CanMove || MovePlayerUP && CanMove)
         {
             rb.AddForce(new Vector2(0, Jump_speed));
             PlayerAniamtor.SetTrigger("Jump");
@@ -96,13 +117,13 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
         {
 
             // Checks if there is a tilemap near the player to hold on to
-            if (Player.GetComponent<BoxCollider2D>().IsTouching(Ground_Collider) && !IsHoldingOn)
+            if (PlayerIsTouchingGround && !IsHoldingOn)
             {
                 float Posy = Random.Range(Player.transform.position.y, Player.transform.position.y + HoldOnRadius);
                 float Posx = Random.Range(Player.transform.position.x, Player.transform.position.x + HoldOnRadius);
 
                 Vector3 PosTile = new Vector3(Posx, Posy, 0);
-                Vector3Int cellPos = GroudTilemap.WorldToCell(PosTile);
+                Vector3Int cellPos = CollidersGameObjekt.transform.GetChild(1).GetComponent<Tilemap>().WorldToCell(PosTile);
                 Debug.Log("Player Can Hold On To Position : " + cellPos);
                 Rigidbody2D rb = Player.GetComponent<Rigidbody2D>();
                 rb.constraints = RigidbodyConstraints2D.FreezeAll;

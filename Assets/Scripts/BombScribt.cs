@@ -21,10 +21,12 @@ public class BombScribt : MonoBehaviour
     public void SetBombPosition()
     {
         for (int i = 0; i < 25; i++)
-{
+        {
         Vector2 Playerpos = playerControll.Player.transform.position;
-        int TilePos2 = Random.Range(5, 0);
-        Vector3 TilePos3 = new Vector3(Playerpos.x + TilePos2, Playerpos.y + TilePos2, 0);
+        float TilePosY = Playerpos.y + Random.Range(5.5f, -5.5f);
+        float TilePosX = Playerpos.x + Random.Range(5.5f, -5.5f);
+
+        Vector3 TilePos3 = new Vector3(TilePosX ,TilePosY , 0);
         Vector3Int cellPos = BlockTilemap.WorldToCell(TilePos3);
         BlockTilemap.SetTile(cellPos, null);
         }
