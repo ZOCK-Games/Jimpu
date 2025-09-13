@@ -14,8 +14,7 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
     public GameObject Player;
     public Animator PlayerAniamtor;
     public float PlayerRotation;
-    public GameObject CollidersGameObjekt;
-    public GameObject GroudTilemap;
+    public GameObject CollidersGameObjekt; // the TilemapContainer
     public Button Player_pos_reset;
     public Camera Camera1;
     public float move_speed_R = 3.5f;
@@ -41,15 +40,26 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
     private bool IsHoldingOn;
     private void Start()
     {
+        PlayerIsTouchingGround = false;
         UnityEngine.Debug.Log("Tutorial Game Has Startet");
         Player_pos_reset.onClick.AddListener(ResetButtonClick);
         rb = Player.GetComponent<Rigidbody2D>();
         PlayerAniamtor.SetBool("Walk", false);
-        for (int i = 0; i < CollidersGameObjekt.transform.childCount; i++)
+        for (int i = 0; i < CollidersGameObjekt.transform.childCount -1; i++)
         {
-            if (CollidersGameObjekt.gameObject.tag == "Ground")
+            if (CollidersGameObjekt.transform.GetChild(i).gameObject.CompareTag("Ground"))
             {
+                Grounds.Capacity ++; // adding elments (not working)
                 Grounds[i] = CollidersGameObjekt.transform.GetChild(i).gameObject.GetComponent<TilemapCollider2D>();
+                Debug.LogError("Found Ground: " + CollidersGameObjekt.transform.GetChild(i).gameObject.name);
+            }
+            else if (Grounds == null)
+            {
+                Debug.LogWarning("NoGroundFound");
+            }
+            else
+            {
+                Debug.Log("An unexpected error accrued");
             }
         }
     }
@@ -60,9 +70,9 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
     {
         /*/if (PlayerHealth == 0)              // Aktiviert Den Dead Screen
         SceneManager.LoadScene("Death");*/
-        for (int i = 0; i < Grounds.Count; i++)
+        for (int i = 0; i < Grounds.Count - 1; i++)
         {
-            if (Player.GetComponent<PolygonCollider2D>().IsTouching(Grounds[i]))
+            if (Grounds[i] != null && Player.GetComponent<PolygonCollider2D>().IsTouching(Grounds[i]))
             {
                 PlayerIsTouchingGround = true;
             }
