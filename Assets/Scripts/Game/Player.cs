@@ -15,7 +15,6 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
     public Animator PlayerAniamtor;
     public float PlayerRotation;
     public GameObject CollidersGameObjekt; // the TilemapContainer
-    public Button Player_pos_reset;
     public Camera Camera1;
     public float move_speed_R = 3.5f;
     public float move_speed_L = 3.5f;
@@ -42,15 +41,13 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
     {
         PlayerIsTouchingGround = false;
         UnityEngine.Debug.Log("Tutorial Game Has Startet");
-        Player_pos_reset.onClick.AddListener(ResetButtonClick);
         rb = Player.GetComponent<Rigidbody2D>();
         PlayerAniamtor.SetBool("Walk", false);
-        for (int i = 0; i < CollidersGameObjekt.transform.childCount -1; i++)
+        for (int i = 0; i < CollidersGameObjekt.transform.childCount - 1; i++)
         {
             if (CollidersGameObjekt.transform.GetChild(i).gameObject.CompareTag("Ground"))
             {
-                Grounds.Capacity ++; // adding elments (not working)
-                Grounds[i] = CollidersGameObjekt.transform.GetChild(i).gameObject.GetComponent<TilemapCollider2D>();
+                Grounds.Add(CollidersGameObjekt.transform.GetChild(i).gameObject.GetComponent<TilemapCollider2D>());
                 Debug.LogError("Found Ground: " + CollidersGameObjekt.transform.GetChild(i).gameObject.name);
             }
             else if (Grounds == null)
@@ -70,22 +67,24 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
     {
         /*/if (PlayerHealth == 0)              // Aktiviert Den Dead Screen
         SceneManager.LoadScene("Death");*/
-        for (int i = 0; i < Grounds.Count - 1; i++)
+
+        PlayerIsTouchingGround = false;
+        PolygonCollider2D playerCollider = Player.GetComponent<PolygonCollider2D>();
+
+        foreach (var ground in Grounds)
         {
-            if (Grounds[i] != null && Player.GetComponent<PolygonCollider2D>().IsTouching(Grounds[i]))
+            if (PlayerIsTouchingGround == false && ground != null && playerCollider.IsTouching(ground))
             {
                 PlayerIsTouchingGround = true;
+                break;
             }
 
-            else
-            {
-                PlayerIsTouchingGround = false;
-            }
         }
+
 
         Vector2 position = Player.transform.position;
 
-        if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.LeftControl) && CanMove || Input.GetKey(KeyCode.LeftArrow) && Input.GetKey(KeyCode.LeftControl) && CanMove || MovePlayerR == true && CanMove) 
+        if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.LeftControl) && CanMove || Input.GetKey(KeyCode.LeftArrow) && Input.GetKey(KeyCode.LeftControl) && CanMove || MovePlayerR == true && CanMove)
         {
             PlayerAniamtor.SetBool("Walk", true);
             position.x += run_speed * Time.deltaTime;
@@ -105,7 +104,7 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
         }
         else
         {
-            PlayerAniamtor.SetBool("Walk", false);  
+            PlayerAniamtor.SetBool("Walk", false);
         }
 
         if (Input.GetKeyDown(KeyCode.Space) && IsHoldingOn)
@@ -148,20 +147,7 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
 
         Player.transform.rotation = Quaternion.Euler(0f, 0f, PlayerRotation);
     }
-    private IEnumerator Reset()
-    {
-        Player.transform.Translate(0, 2, 0);
-        Player.transform.eulerAngles = new Vector3(0, 0, 0);
-        Player_pos_reset.interactable = false;
-        yield return new WaitForSeconds(30f);
-        Player_pos_reset.interactable = true;
 
-    }
-
-     private void ResetButtonClick()
-    {
-        StartCoroutine(Reset());
-    }
 
     public void LoadGame(GameData data)
     {
@@ -174,7 +160,7 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
                 BodyPartsContainer.transform.GetChild(i).GetComponent<SpriteRenderer>().color = colorHex;
             }
         PlayerHealth = data.Health;
-        
+
     }
     public void SaveGame(ref GameData data) // Save the current Data to GameData
     {

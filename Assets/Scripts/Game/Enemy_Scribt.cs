@@ -11,7 +11,8 @@ public class EnemyScript : MonoBehaviour//, IDataPersitence
     public GameObject EnemyContainer;
     public int AttackRange;
     public int EnemyHealt;
-    public List<GameObject> Heart;
+    public GameObject HeartContainer;
+    public GameObject HeartPrefab;
     public string DeathScene;
     public bool EnemyCanMove = true;
     public bool canTakeDamage = true;
@@ -87,20 +88,22 @@ public class EnemyScript : MonoBehaviour//, IDataPersitence
                 Debug.Log("-1 leben");
             }
         }
-        //Removed Die Herzen / fügt sie hinzu
-        if (playerControll.PlayerHealth <= 1)
-            Heart[0].SetActive(false);
-        if (playerControll.PlayerHealth <= 2)
-            Heart[1].SetActive(false);
-        if (playerControll.PlayerHealth <= 3)
-            Heart[2].SetActive(false);
+        ////////////////////////////////////////////////////////
+        ///             Heart System                         ///
+        ////////////////////////////////////////////////////////
 
-        if (playerControll.PlayerHealth >= 1)
-            Heart[0].SetActive(true);
-        if (playerControll.PlayerHealth >= 2)
-            Heart[1].SetActive(true);
-        if (playerControll.PlayerHealth >= 3)
-            Heart[2].SetActive(true);
+        if (HeartContainer.transform.childCount != playerControll.PlayerHealth)
+        {
+            foreach (Transform child in HeartContainer.transform)
+            {
+                Destroy(child.gameObject);
+            }
+            for (int i = 0; i < playerControll.PlayerHealth; i++)
+            {
+                GameObject HeartObj = Instantiate(HeartPrefab, HeartContainer.transform);
+            }
+        }
+        ////////////////////////////////////////////////////////
     }
     public void MoveEnemy()
     {
