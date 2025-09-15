@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Net.NetworkInformation;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -20,9 +22,12 @@ public class StartScreenButtons : MonoBehaviour //this script manges all buttons
     public string MultiplayerScene;
     public GameObject Gaderobe;
     public GameObject Settings;
+    [SerializeField] private GameObject TransitionUi;
+
     void Start()
     {
-        StartButton.onClick.AddListener(ExecutingStart);
+        TransitionUi.SetActive(false);
+        StartButton.onClick.AddListener(() => StartCoroutine(ExecutingStart()));
         ShopButton.onClick.AddListener(OpeningShop);
         SkinButton.onClick.AddListener(OpeningSkin);
         QuitButton.onClick.AddListener(ExecutingQuit);
@@ -30,10 +35,32 @@ public class StartScreenButtons : MonoBehaviour //this script manges all buttons
         MultiplayerButton.onClick.AddListener(OpeningSceneMuliplayer);
 
     }
-    public void ExecutingStart() //is executed when StartButton is being clicked
+    public IEnumerator ExecutingStart() //is executed when StartButton is being clicked
     {
+        TransitionUi.SetActive(true);
+        Animator animator = TransitionUi.GetComponent<Animator>();
         Debug.Log("Start Button Clicked Load Scene: " + StartSceneName);
-        SceneManager.LoadScene(StartSceneName);
+        AsyncOperation operation = SceneManager.LoadSceneAsync(StartSceneName);
+        operation.allowSceneActivation = false;
+
+        AnimatorClipInfo[] clipInfo = animator.GetCurrentAnimatorClipInfo(0);
+        float clipLenght = clipInfo[0].clip.length;
+        if (clipInfo.Length == 0)
+        {
+            Debug.LogWarning("No animation clip found!");
+            TransitionUi.SetActive(false);
+            operation.allowSceneActivation = true;
+            yield break;
+
+        }
+        else
+        {
+            Debug.LogError("Aniamtion Time = " + clipLenght);
+            yield return new WaitForSeconds(clipLenght);
+            operation.allowSceneActivation = true;
+            yield return new WaitUntil(() => operation.isDone);
+            TransitionUi.SetActive(false);
+        }
     }
     public void OpeningShop() //is executed when ShopButton is being clicked
     {

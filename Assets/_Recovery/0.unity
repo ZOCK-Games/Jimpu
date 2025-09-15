@@ -3365,7 +3365,6 @@ MonoBehaviour:
   MultiplayerScene: Multiplayer
   Gaderobe: {fileID: 1270341738}
   Settings: {fileID: 0}
-  TransitionUi: {fileID: 1046990938}
 --- !u!1 &981989330
 GameObject:
   m_ObjectHideFlags: 0
@@ -5960,8 +5959,8 @@ Camera:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 0.999626
-    height: 1
+    width: 0
+    height: 0
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
