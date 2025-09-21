@@ -9,5 +9,6 @@ public class Skins : ScriptableObject
     public Sprite RightArm;
     public Sprite LeftLeg;
     public Sprite RightLeg;
+    public string SkinName;
     
 }

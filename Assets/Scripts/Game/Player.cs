@@ -1,12 +1,7 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
-using UnityEditor;
-using UnityEditor.Tilemaps;
 using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
-using UnityEngine.UI;
 
 public class PlayerControll : MonoBehaviour, IDataPersitence
 
@@ -26,12 +21,15 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
     public List<Sprite> SkinSprite;
     private int SkinIndex;
     public GameObject BodyPartsContainer;
+
+    public GarderobenScribt garderobenScribt;
     [Header("Can Player perform this inputs?")]
     public bool MovePlayerR;
     public bool MovePlayerL;
     public bool MovePlayerUP;
     public int PlayerHealth;
     public List<TilemapCollider2D> Grounds;
+    [SerializeField] private List<Skins> PlayerSkins;
     public bool PlayerIsTouchingGround; // if the player is touching a ground tile collider
     [Header("Player Hold On to settings")]
     public GameObject RobeSagment;
@@ -65,6 +63,7 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
                 Debug.Log("An unexpected error accrued");
             }
         }
+        CheckSkin();
     }
 
 
@@ -130,8 +129,8 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
             // Checks if there is a tilemap near the player to hold on to
             if (PlayerIsTouchingGround && !IsHoldingOn)
             {
-                float Posy = Random.Range(Player.transform.position.y, Player.transform.position.y + HoldOnRadius);
-                float Posx = Random.Range(Player.transform.position.x, Player.transform.position.x + HoldOnRadius);
+                float Posy = UnityEngine.Random.Range(Player.transform.position.y, Player.transform.position.y + HoldOnRadius);
+                float Posx = UnityEngine.Random.Range(Player.transform.position.x, Player.transform.position.x + HoldOnRadius);
 
                 Vector3 PosTile = new Vector3(Posx, Posy, 0);
                 Vector3Int cellPos = CollidersGameObjekt.transform.GetChild(1).GetComponent<Tilemap>().WorldToCell(PosTile);
@@ -148,12 +147,22 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
 
         Player.transform.rotation = Quaternion.Euler(0f, 0f, PlayerRotation);
     }
+    public void CheckSkin()
+    {
+        BodyPartsContainer.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = PlayerSkins[SkinIndex].Head;
+        BodyPartsContainer.transform.GetChild(1).GetComponent<SpriteRenderer>().sprite = PlayerSkins[SkinIndex].Body;
+        BodyPartsContainer.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = PlayerSkins[SkinIndex].LeftArm;
+        BodyPartsContainer.transform.GetChild(3).GetComponent<SpriteRenderer>().sprite = PlayerSkins[SkinIndex].RightArm;
+        BodyPartsContainer.transform.GetChild(4).GetComponent<SpriteRenderer>().sprite = PlayerSkins[SkinIndex].LeftLeg;
+        BodyPartsContainer.transform.GetChild(5).GetComponent<SpriteRenderer>().sprite = PlayerSkins[SkinIndex].RightLeg;
+    }
 
 
     public void LoadGame(GameData data)
     {
         Player.transform.localPosition = new Vector3(data.PlayerPositionX, data.PlayerPositionY, 0);
         SkinIndex = data.SkinIndex;
+        CheckSkin();
         //Player.GetComponent<SpriteRenderer>().sprite = SkinSprite[SkinIndex];
         if (UnityEngine.ColorUtility.TryParseHtmlString("#" + data.colorhex, out Color colorHex))
             for (int i = 0; i < BodyPartsContainer.transform.childCount; i++)

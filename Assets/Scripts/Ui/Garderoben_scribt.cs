@@ -13,12 +13,10 @@ public class GarderobenScribt : MonoBehaviour, IDataPersitence
     public GameObject Garderobe;
     public int SkinIndex = 0;
     [Header("Skin Sprites")]
-    public Image SkinShowcase;
-    public List<Sprite> SkinSprites;
     public UnityEngine.UI.Button SkinSaveButton;
     [Header("Skins")]
-    [SerializeField] private List<Skins> PlayerSkins;
-    
+    [SerializeField] public List<Skins> PlayerSkins;
+
     [Header("Skin Body parts")]
     [SerializeField] public Image Head;
     [SerializeField] public Image Body;
@@ -39,17 +37,11 @@ public class GarderobenScribt : MonoBehaviour, IDataPersitence
     // Update is called once per frame
     void NextSkin()
     {
-        int SkinIndex = 0;
-
-        Head.sprite = PlayerSkins[SkinIndex].Head;
-        Body.sprite = PlayerSkins[SkinIndex].Body;
-        LeftArm.sprite = PlayerSkins[SkinIndex].LeftArm;
-        RightArm.sprite = PlayerSkins[SkinIndex].RightArm;
-        LeftLeg.sprite = PlayerSkins[SkinIndex].LeftLeg;
-        RightLeg.sprite = PlayerSkins[SkinIndex].RightLeg;
-
-        SkinIndex += 1;
-        SkinIndex = (SkinIndex >= SkinSprites.Count) ? 0 : SkinIndex;
+        SkinIndex++;
+        if (SkinIndex >= PlayerSkins.Count)
+        {
+            SkinIndex = 0;
+        }
         Debug.Log("Current Skin Index: " + SkinIndex);
         LoadSkin();
     }
@@ -60,11 +52,16 @@ public class GarderobenScribt : MonoBehaviour, IDataPersitence
 
     private void LoadSkin()
     {
-        SkinShowcase.sprite = SkinSprites[SkinIndex];
+        Head.sprite = PlayerSkins[SkinIndex].Head;
+        Body.sprite = PlayerSkins[SkinIndex].Body;
+        LeftArm.sprite = PlayerSkins[SkinIndex].LeftArm;
+        RightArm.sprite = PlayerSkins[SkinIndex].RightArm;
+        LeftLeg.sprite = PlayerSkins[SkinIndex].LeftLeg;
+        RightLeg.sprite = PlayerSkins[SkinIndex].RightLeg;
     }
     public void LoadGame(GameData data) // Load the value from GameData
     {
-        this.SkinIndex = data.SkinIndex; // Load value from GameData
+        this.SkinIndex = data.SkinIndex; 
         LoadSkin();
         Debug.Log("Loaded Skin Index: " + SkinIndex);
     }
