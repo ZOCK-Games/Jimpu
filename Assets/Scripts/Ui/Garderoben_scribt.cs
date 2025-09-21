@@ -16,9 +16,17 @@ public class GarderobenScribt : MonoBehaviour, IDataPersitence
     public Image SkinShowcase;
     public List<Sprite> SkinSprites;
     public UnityEngine.UI.Button SkinSaveButton;
+    [Header("Skins")]
+    [SerializeField] private List<Skins> PlayerSkins;
+    
+    [Header("Skin Body parts")]
+    [SerializeField] public Image Head;
+    [SerializeField] public Image Body;
+    [SerializeField] public Image LeftArm;
+    [SerializeField] public Image RightArm;
+    [SerializeField] public Image LeftLeg;
+    [SerializeField] public Image RightLeg;
 
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         NextSkinButton.onClick.AddListener(NextSkin);
@@ -31,6 +39,15 @@ public class GarderobenScribt : MonoBehaviour, IDataPersitence
     // Update is called once per frame
     void NextSkin()
     {
+        int SkinIndex = 0;
+
+        Head.sprite = PlayerSkins[SkinIndex].Head;
+        Body.sprite = PlayerSkins[SkinIndex].Body;
+        LeftArm.sprite = PlayerSkins[SkinIndex].LeftArm;
+        RightArm.sprite = PlayerSkins[SkinIndex].RightArm;
+        LeftLeg.sprite = PlayerSkins[SkinIndex].LeftLeg;
+        RightLeg.sprite = PlayerSkins[SkinIndex].RightLeg;
+
         SkinIndex += 1;
         SkinIndex = (SkinIndex >= SkinSprites.Count) ? 0 : SkinIndex;
         Debug.Log("Current Skin Index: " + SkinIndex);

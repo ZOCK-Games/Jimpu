@@ -23,6 +23,12 @@ public class SaveSceneOnStart : MonoBehaviour, IDataPersitence
                 Debug.Log("Manuelles Speichern ausgelöst!");
             }
     }
+    public void Save()
+    {
+        DataPersitenceManger.Instance.SaveGame();
+        Debug.Log("Saved Game");
+
+    }
     
 
     void Awake()

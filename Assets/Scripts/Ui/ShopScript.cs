@@ -87,7 +87,7 @@ public class Shop : MonoBehaviour, IDataPersitence
     }
     public void BuyButtonClick() // This function is called when the Player clicks the buy button in the shop
     {
-        if (CoinValue >= CurentItemPrice && CurentItem == "")
+        if (CoinValue >= CurentItemPrice)
         {
             CoinValue -= CurentItemPrice;
 
@@ -102,10 +102,10 @@ public class Shop : MonoBehaviour, IDataPersitence
         }
         else // If the Player does not have enough money to buy the item or an error occurs this message will be displayed
         {
-            ShopMassage.text = "You don't have enough money! or an error occured!";
+            ShopMassage.text = "You don't have enough money! or have an Item!";
             ShopMassage.color = Color.red;
             StartCoroutine(TextFade());
-            Debug.LogError("You don't have enough money! or an error occured!");
+            Debug.LogWarning("You don't have enough money! or have a Item!");
             ShopKeeper.GetComponent<Animator>().SetTrigger("Shake");
 
         }

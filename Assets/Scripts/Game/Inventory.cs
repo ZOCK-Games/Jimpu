@@ -42,6 +42,7 @@ public class Inventory : MonoBehaviour, IDataPersitence
                 Item[i].SetActive(false);
             }
             ClearCurentItem = false;
+            DataPersitenceManger.Instance.SaveGame();
         }
         for (int i = 0; i < Item.Count; i++)
             if (Item[i].activeSelf)

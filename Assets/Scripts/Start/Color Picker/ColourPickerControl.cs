@@ -35,7 +35,12 @@ public class ColourPickerControl : MonoBehaviour, IDataPersitence
         // Versuche Farbe zu parsen
         if (UnityEngine.ColorUtility.TryParseHtmlString("#" + hex, out colorHex))
         {
-            garderobenScribt.SkinShowcase.color = colorHex;
+            garderobenScribt.Head.color = colorHex;
+            garderobenScribt.Body.color = colorHex;
+            garderobenScribt.LeftArm.color = colorHex;
+            garderobenScribt.RightArm.color = colorHex;
+            garderobenScribt.LeftLeg.color = colorHex;
+            garderobenScribt.RightLeg.color = colorHex;
             colorDisplay.color = colorHex;
             Debug.Log("Hex value is now: " + hex);
         }
