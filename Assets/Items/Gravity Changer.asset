@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f124ddd1cb9aad4a9673da794119387, type: 3}
   m_Name: Gravity Changer
   m_EditorClassIdentifier: 
-  ItemImagePrev1: {fileID: 5653395479336818855, guid: d5e06e441a913584dac9af72a0201d9d, type: 3}
+  ItemImagePrev1: {fileID: 6835824012722241415, guid: 848d5d6fab2a83d46b418456f5fba775, type: 3}
   ItemImageInHand: {fileID: 6835824012722241415, guid: 848d5d6fab2a83d46b418456f5fba775, type: 3}
   ItemNameText: Gravaty Changer
   ItemPriceInt: 3

@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
+using NUnit.Framework;
 using NUnit.Framework.Constraints;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -8,17 +10,19 @@ using Random = UnityEngine.Random;
 public class ChestScribt : MonoBehaviour
 {
     public Collider2D PlayerCollider;
-    public GameObject ChestGameObjekt;
-    public SpriteRenderer ItemsToChangeSprite;
-    public GameObject ItemsToChange;
+    public GameObject ChestContainer;
+    public GameObject ItemDisplayContainer;
     public Inventory inventory;
+    public List<GameObject> Chests = new List<GameObject>();
     public bool FreeSlot;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public GameObject ItemPrefab;
+    private int CurrentChest;
+
+    public delegate void CheckChest();
+    public event CheckChest OnChestContainerChanged;
     void Start()
     {
-        ChestGameObjekt.GetComponent<Animation>().Stop("Chest Open");
-        FreeSlot = false;
-
+        StartCoroutine(CheckChestContainer());
     }
 
     // Update is called once per frame
@@ -29,37 +33,69 @@ public class ChestScribt : MonoBehaviour
             {
                 FreeSlot = true;
             }
+            else
+            {
+                FreeSlot = false;
+            }
+        for (int i = 0; i < Chests.Count; i++)
 
-        if (PlayerCollider.IsTouching(ChestGameObjekt.GetComponent<BoxCollider2D>()) && FreeSlot == true)
         {
-            ChestInteraction();
-            Animator anim = ChestGameObjekt.GetComponent<Animator>();
-            anim.SetTrigger("Chest Open");
-            StartCoroutine(WaytToDestroy());
-            Debug.Log("Player Berührt Chest: " + ChestGameObjekt.name);
-        }
+            if (PlayerCollider.IsTouching(Chests[i].GetComponent<BoxCollider2D>()) && FreeSlot == true)
+            {
+                FreeSlot = false;
+                CurrentChest = i;
+                StartCoroutine(WaytToDestroy());
+                Debug.Log("Player Berührt Chest: " + Chests[i].name);
+            }
 
-        else if (PlayerCollider.IsTouching(ChestGameObjekt.GetComponent<BoxCollider2D>()))
-        {
-            Debug.LogWarning("Player Hatt schon ein item ausgerüstet");
-            ChestInteraction();
-        }
+            else if (PlayerCollider.IsTouching(Chests[i].GetComponent<BoxCollider2D>()))
+            {
 
+                Chests[i].GetComponent<Animator>().SetTrigger("Chest Interact");
+            }
+        }
     }
+
+    IEnumerator CheckChestContainer()
+    {
+        Chests.Clear();
+        for (int i = 0; i < ChestContainer.transform.childCount; i++)
+        {
+            Chests.Add(ChestContainer.transform.GetChild(i).gameObject);
+        }
+        yield return new WaitUntil(() => ChestContainer.transform.childCount != Chests.Count);
+        StartCoroutine(CheckChestContainer());
+    }
+
+
     private IEnumerator WaytToDestroy()
     {
+        int ChestSave = CurrentChest;
+        GameObject ItemDisplay = Instantiate(ItemPrefab);
+        ItemDisplay.transform.parent = ItemDisplayContainer.transform;
+        Vector3 ChestPosition = Chests[ChestSave].transform.position;
+        ItemDisplay.transform.position = new Vector3(ChestPosition.x, ChestPosition.y + 0.8f, 0);
+        for (int i = 0; i < 20; i++)
+        {
+            int DisplayItem = Random.Range(0, inventory.itemData.Count);
+            yield return new WaitForSeconds(0.2f);
+            ItemDisplay.GetComponent<SpriteRenderer>().sprite = inventory.itemData[DisplayItem].ItemImagePrev1;
+        }
         int CurrentItemInt = Random.Range(0, inventory.itemData.Count);
         Debug.Log(CurrentItemInt);
-        ItemsToChangeSprite.sprite = inventory.itemData[CurrentItemInt].ItemImagePrev1;
-        yield return new WaitForSeconds(0.75f);
+        Chests[ChestSave].GetComponent<Animator>().SetTrigger("Chest Open");
+        ItemDisplay.GetComponent<SpriteRenderer>().sprite = inventory.itemData[CurrentItemInt].ItemImagePrev1;
+        yield return new WaitForSeconds(0.8f);
+        for (int i = 0; i < inventory.Item.Count; i++)
+        {
+            inventory.Item[i].SetActive(false);
+        }
         inventory.Item[CurrentItemInt].SetActive(true);
-        ChestGameObjekt.SetActive(false);
-    }
-    private IEnumerator ChestInteraction()
-    {
-        Debug.Log("Started Interaction Aniamtion");
-        ChestGameObjekt.GetComponent<Animator>().Play("TriggerChestInteract");
-        yield return new WaitForSeconds(0.1f);
-        Debug.Log("Stop Interaction Aniamtion");
+        for (int i = 0; i < ItemDisplayContainer.transform.childCount; i++)
+        {
+            Destroy(ItemDisplayContainer.transform.GetChild(i).gameObject);
+        }
+        Destroy(Chests[ChestSave]);
+        StartCoroutine(CheckChestContainer());
     }
 }

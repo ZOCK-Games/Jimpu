@@ -28,11 +28,11 @@ public class FPSManager : MonoBehaviour, IDataPersitence
     {
         switch (ShowFPS)
         {
-            case false:
+            case true:
                 FPSDisplayText.SetActive(true);
                 FPSDisplayText.GetComponent<TextMeshProUGUI>().text = "FPS: " + math.round(1.0f / Time.deltaTime).ToString() ;
                 break;
-            case true:
+            case false:
                 FPSDisplayText.SetActive(false);
                 break;
             default:

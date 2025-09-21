@@ -69,7 +69,6 @@ public class Shop : MonoBehaviour, IDataPersitence
     public void SelectedItem()                  // This function is called when the Player selects an item in the shop
     {
         ShopKeeper.GetComponent<Animator>().SetTrigger("Bounce");
-        ShopMassage.text = "You have selected an item!";
         ShopMassage.color = Color.white;
         StartCoroutine(TextFade());
         ItemImage.sprite = Itemdata[CurentPaperButton].ItemImagePrev1;
@@ -78,7 +77,7 @@ public class Shop : MonoBehaviour, IDataPersitence
         ItemPrice.SetText(Itemdata[CurentPaperButton].Price + "$");
         ItemInfos.SetText(Itemdata[CurentPaperButton].ItemInfosText);
 
-        if (CurentItem != null)
+        if (CurentItem == "")
         {
             ShopMassage.color = Color.yellow;
             ShopMassage.text = "You already have an item!";
@@ -88,14 +87,15 @@ public class Shop : MonoBehaviour, IDataPersitence
     }
     public void BuyButtonClick() // This function is called when the Player clicks the buy button in the shop
     {
-        if (CoinValue >= CurentItemPrice && CurentItem == null)
+        if (CoinValue >= CurentItemPrice && CurentItem == "")
         {
+            CoinValue -= CurentItemPrice;
+
             CurentItem = Itemdata[CurentPaperButton].name;
             Debug.Log("Das Aktuelle Item Ist: " + CurentItem + "Preis: " + CurentItemPrice);
 
-            ShopMassage.text = "You have sucesfully bought an item!";
             ShopMassage.color = Color.green;
-            CoinValue -= CurentItemPrice;
+            ShopMassage.text = "You have sucesfully bought an item!";
             DataPersitenceManger.Instance.SaveGame();
 
 

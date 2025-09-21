@@ -37,12 +37,18 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
     public GameObject RobeSagment;
     public float HoldOnRadius;
     private bool IsHoldingOn;
+    private PolygonCollider2D playerCollider;
+    private Rigidbody2D PlayerRb;
     private void Start()
     {
+        playerCollider = Player.GetComponent<PolygonCollider2D>();
+        PlayerRb = Player.GetComponent<Rigidbody2D>();
+
         PlayerIsTouchingGround = false;
         UnityEngine.Debug.Log("Tutorial Game Has Startet");
         rb = Player.GetComponent<Rigidbody2D>();
         PlayerAniamtor.SetBool("Walk", false);
+
         for (int i = 0; i < CollidersGameObjekt.transform.childCount - 1; i++)
         {
             if (CollidersGameObjekt.transform.GetChild(i).gameObject.CompareTag("Ground"))
@@ -68,19 +74,16 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
         /*/if (PlayerHealth == 0)              // Aktiviert Den Dead Screen
         SceneManager.LoadScene("Death");*/
 
-        PlayerIsTouchingGround = false;
-        PolygonCollider2D playerCollider = Player.GetComponent<PolygonCollider2D>();
+        PlayerIsTouchingGround = false; 
 
         foreach (var ground in Grounds)
         {
-            if (PlayerIsTouchingGround == false && ground != null && playerCollider.IsTouching(ground))
+            if (ground != null && playerCollider.IsTouching(ground))
             {
-                PlayerIsTouchingGround = true;
-                break;
+                PlayerIsTouchingGround = true; 
+                break; 
             }
-
         }
-
 
         Vector2 position = Player.transform.position;
 
@@ -111,8 +114,7 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
         {
             IsHoldingOn = false;
             CanMove = true;
-            Rigidbody2D rb = Player.GetComponent<Rigidbody2D>();
-            rb.constraints = RigidbodyConstraints2D.None;
+            PlayerRb.constraints = RigidbodyConstraints2D.None;
             Debug.Log("Player is no longer holding on");
 
         }
@@ -134,8 +136,7 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
                 Vector3 PosTile = new Vector3(Posx, Posy, 0);
                 Vector3Int cellPos = CollidersGameObjekt.transform.GetChild(1).GetComponent<Tilemap>().WorldToCell(PosTile);
                 Debug.Log("Player Can Hold On To Position : " + cellPos);
-                Rigidbody2D rb = Player.GetComponent<Rigidbody2D>();
-                rb.constraints = RigidbodyConstraints2D.FreezeAll;
+                PlayerRb.constraints = RigidbodyConstraints2D.FreezeAll;
                 Player.transform.position = cellPos;
                 CanMove = false;
                 Debug.DrawRay(cellPos, cellPos * 2, Color.red);

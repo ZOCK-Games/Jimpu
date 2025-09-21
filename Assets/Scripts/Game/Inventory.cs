@@ -37,6 +37,10 @@ public class Inventory : MonoBehaviour, IDataPersitence
         {
             Debug.Log("Curent Item Is Cleard item: " + CurentItem);
             CurentItem = null;
+            for (int i = 0; i < Item.Count; i++)
+            {
+                Item[i].SetActive(false);
+            }
             ClearCurentItem = false;
         }
         for (int i = 0; i < Item.Count; i++)

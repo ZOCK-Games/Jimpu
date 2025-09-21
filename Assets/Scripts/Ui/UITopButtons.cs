@@ -1,10 +1,12 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UITopButtons : MonoBehaviour
 {
     public Button saveButton;
     public Button SettingsButton;
+    public Button ToStartButton;
     public GameObject settingsCanvas;
     public DataPersitenceManger dataPersistenceManager;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -12,6 +14,10 @@ public class UITopButtons : MonoBehaviour
     {
         saveButton.onClick.AddListener(SaveGame);
         SettingsButton.onClick.AddListener(OpenSettings);
+        ToStartButton.onClick.AddListener(() =>
+        {
+            SceneManager.LoadScene("Start Screen");
+        });
     }
     void SaveGame()
     {
@@ -30,13 +36,13 @@ public class UITopButtons : MonoBehaviour
     void OpenSettings()
     {
         Debug.Log("Settings opened");
-        if (settingsCanvas = null)
+        if (settingsCanvas != null && !settingsCanvas.activeSelf)
         {
-            Debug.LogError("Settings Canvas is not assigned in the inspector!");
+            settingsCanvas.SetActive(true);
         }
         else
         {
-            settingsCanvas.SetActive(true);
+            Debug.LogError("Settings Canvas is not assigned in the inspector!");
         }
     }
 

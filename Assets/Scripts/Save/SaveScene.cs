@@ -15,8 +15,17 @@ public class SaveSceneOnStart : MonoBehaviour, IDataPersitence
     {
         data.CurentScene = SceneManager.GetActiveScene().name;
     }
+    void OnSceneUnloaded(Scene scene)
+    {
+            if (DataPersitenceManger.Instance != null)
+            {
+                DataPersitenceManger.Instance.SaveGame();
+                Debug.Log("Manuelles Speichern ausgelöst!");
+            }
+    }
+    
 
-    void Start()
+    void Awake()
     {
         if (LoadScene == true)
         {
