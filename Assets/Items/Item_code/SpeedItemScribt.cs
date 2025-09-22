@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class SpeedItemScribt : MonoBehaviour
 {
-    public Inventory InvScribt;
-    public float Adding;
-    public ItemData SpeedItemData;
-    public PlayerControll PlayerScribt;
-    public GameObject SpeedObjekt;
-    public Inventory inventory;
+    [SerializeField] private float Adding;
+    [SerializeField] private ItemData SpeedItemData;
+    [SerializeField] private PlayerControll PlayerScribt;
+    [SerializeField] private GameObject SpeedObjekt;
+    [SerializeField] private Inventory inventory;
     private bool PowerAktive;
+    private float MoveBevoreR;
+    private float MoveBevoreL;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -22,32 +24,37 @@ public class SpeedItemScribt : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E) && SpeedObjekt.activeSelf && !PowerAktive)
         {
             PowerAktive = true;
+            MoveBevoreR = PlayerScribt.move_speed_R;
+            MoveBevoreL = PlayerScribt.move_speed_L;
+
             PlayerScribt.move_speed_R += Adding;
             PlayerScribt.move_speed_L += Adding;
             Debug.Log("Power Used Power is aktive");
-            StartCoroutine(Wayt());
-            inventory.ClearCurentItem = true;
+            StartCoroutine(Waiting());
         }
 
 
     }
     public void ResetStats()
     {
-        PlayerScribt.move_speed_R -= Adding;
-        PlayerScribt.move_speed_L -= Adding;
+        PlayerScribt.move_speed_R = MoveBevoreR;
+        PlayerScribt.move_speed_L = MoveBevoreL;
+
         PowerAktive = false;
+        inventory.Clear();
         Debug.Log("Power Used Power is Disabled & reset");
+        PlayerScribt.Jump_speed = 350; // to prevent it from making it to low soe how..
         SpeedObjekt.SetActive(false);
     }
             
         
     
-    public IEnumerator Wayt()
+    public IEnumerator Waiting()
     {
         Debug.Log("Wayt Stardet 5 sec to reset");
-            yield return new WaitForSeconds(5);
-            Debug.Log("Wayt_Aktive end");
-            ResetStats();
+        yield return new WaitForSeconds(5);
+        Debug.Log("Wayt_Aktive end");
+        ResetStats();
     }
     
 }

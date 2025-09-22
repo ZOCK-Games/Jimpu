@@ -6,11 +6,11 @@ public class ShowFPS : MonoBehaviour, IDataPersitence
 {
     public Button showFPSButton;
     public TextMeshProUGUI fpsText;
-    public bool isFPSVisible = false;
+    public bool isFPSVisible;
 
     public void LoadGame(GameData data)
     {
-        data.isFPSVisible = this.isFPSVisible;
+        this.isFPSVisible = data.isFPSVisible;
     }
 
     public void SaveGame(ref GameData data)
@@ -20,12 +20,11 @@ public class ShowFPS : MonoBehaviour, IDataPersitence
 
     void Start()
     {
+        fpsText.text = isFPSVisible ? "true" : "false";
         showFPSButton.onClick.AddListener(() =>
         {
-        DataPersitenceManger.Instance.LoadGame();
             ToggleFPSVisibility();
         });
-        fpsText.text = isFPSVisible ? "false" : "true";
         
     }
 
@@ -33,22 +32,8 @@ public class ShowFPS : MonoBehaviour, IDataPersitence
     void ToggleFPSVisibility()
     {
         isFPSVisible = !isFPSVisible;
-        //kukt den status der FPS-Anzeige
-
-        switch (isFPSVisible)
-        {
-            case true:
-                fpsText.text = "true";
-                DataPersitenceManger.Instance.SaveGame();
-                break;
-            case false:
-                fpsText.text = "false";
-                DataPersitenceManger.Instance.SaveGame();
-                break;
-            default:
-                fpsText.text = "false";
-                break;
-        }
-        
+        DataPersitenceManger.Instance.SaveGame();
+        DataPersitenceManger.Instance.LoadGame();
+        fpsText.text = isFPSVisible ? "true" : "false";
     }
 }

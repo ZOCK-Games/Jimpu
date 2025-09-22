@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class FPSManager : MonoBehaviour, IDataPersitence
 {
     public GameObject FPSDisplayText;
-    public bool ShowFPS;
+    private bool ShowFPS = false;
 
     public void LoadGame(GameData data)
     {
@@ -20,6 +20,8 @@ public class FPSManager : MonoBehaviour, IDataPersitence
 
     void Start()
     {
+        FPSWayting();
+        FPSDisplayText.SetActive(false);
         StartCoroutine(FPSUpdate());
     }
 
@@ -35,9 +37,7 @@ public class FPSManager : MonoBehaviour, IDataPersitence
             case false:
                 FPSDisplayText.SetActive(false);
                 break;
-            default:
-                FPSDisplayText.SetActive(false);
-                break;
+
         }
 
     }

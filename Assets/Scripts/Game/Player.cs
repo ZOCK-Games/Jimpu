@@ -13,7 +13,7 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
     public Camera Camera1;
     public float move_speed_R = 3.5f;
     public float move_speed_L = 3.5f;
-    public float Jump_speed = 20f;
+    public float Jump_speed = 350;
     public bool CanMove = true;
     public int run_speed = 5;
     public Rigidbody2D rb;

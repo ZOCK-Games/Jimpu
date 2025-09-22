@@ -12,7 +12,6 @@ public class Inventory : MonoBehaviour, IDataPersitence
     public List<GameObject> Item;
     public string CurentItem;
     public int CurentItemData;
-    public bool ClearCurentItem;
 
     public void Start()
     {
@@ -33,17 +32,6 @@ public class Inventory : MonoBehaviour, IDataPersitence
     }
     void Update()
     {
-        if (ClearCurentItem == true)
-        {
-            Debug.Log("Curent Item Is Cleard item: " + CurentItem);
-            CurentItem = null;
-            for (int i = 0; i < Item.Count; i++)
-            {
-                Item[i].SetActive(false);
-            }
-            ClearCurentItem = false;
-            DataPersitenceManger.Instance.SaveGame();
-        }
         for (int i = 0; i < Item.Count; i++)
             if (Item[i].activeSelf)
             {
@@ -52,7 +40,17 @@ public class Inventory : MonoBehaviour, IDataPersitence
 
 
     }
+    public void Clear()
+    {
+            Debug.Log("Curent Item Is Cleard item: " + CurentItem);
+            CurentItem = null;
+            for (int i = 0; i < Item.Count; i++)
+            {
+                Item[i].SetActive(false);
+            }
+            DataPersitenceManger.Instance.SaveGame();
 
+    }
     public void LoadGame(GameData data)
     {
         this.CurentItem = data.CurentItem;

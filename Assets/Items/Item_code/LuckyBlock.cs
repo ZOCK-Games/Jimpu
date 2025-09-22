@@ -27,6 +27,6 @@ public class LuckyBlock : MonoBehaviour
         chest_p.transform.position = pos;
         LuckyBlockI.SetActive(false);
         Debug.Log("Spawned Chest for Player at: " + pos);
-        inventory.ClearCurentItem = true;
+        inventory.Clear();
     }
 }

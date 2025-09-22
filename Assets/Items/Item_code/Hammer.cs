@@ -27,7 +27,7 @@ public class Hammer : MonoBehaviour
         {     // Plays the attack hit animation when enemy is in range and the player presses E
             if (HamerObjekt.GetComponent<BoxCollider2D>().IsTouching(EnemyContainer.transform.GetChild(i).GetComponent<PolygonCollider2D>()) && CanAttack && Input.GetKey(KeyCode.E))
             {
-                inventory.ClearCurentItem = true;
+                inventory.Clear();
                 Debug.Log("There was an Enemy in the radius of the hammer!");
                 currentenemy = i;
                 StartCoroutine(Inaktive());

@@ -27,7 +27,6 @@ public class GravityChanger : MonoBehaviour
             PlayerScribt.PlayerRotation = 180;
             PlayerScribt.Jump_speed = -55;
             StartCoroutine(IsAktive());
-            inventory.ClearCurentItem = true;
         }
         if (reset == true && Input.GetKey(KeyCode.E))
         {
@@ -60,7 +59,7 @@ public class GravityChanger : MonoBehaviour
         Debug.Log("Wayt start");
         yield return new WaitForSeconds(2);
         BlockUse = false;
-        inventory.ClearCurentItem = true;
+        inventory.Clear();
         GravityChangingObjekt.SetActive(false);
     }
 }
