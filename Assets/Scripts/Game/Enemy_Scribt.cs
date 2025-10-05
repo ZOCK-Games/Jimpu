@@ -82,7 +82,7 @@ public class EnemyScript : MonoBehaviour//, IDataPersitence
 
         for (int i = 0; i < EnemyContainer.transform.childCount; i++)
         {
-            if (Player.GetComponent<PolygonCollider2D>().IsTouching(EnemyContainer.transform.GetChild(i).gameObject.GetComponent<PolygonCollider2D>()) && canTakeDamage) //Checkt ob der spiler Chaden bekom
+            if (Player.GetComponent<PolygonCollider2D>().IsTouching(EnemyContainer.transform.GetChild(i).gameObject.GetComponent<CapsuleCollider2D>()) && canTakeDamage) //Checkt ob der spiler Chaden bekom
             {
                 StartCoroutine(DamagePlayer());
                 Debug.Log("-1 leben");
@@ -118,54 +118,48 @@ public class EnemyScript : MonoBehaviour//, IDataPersitence
             }
             else if (agent != null)
             {
+                agent.updateRotation = false;
+                enemy.transform.rotation =  Quaternion.Euler(0, 0, 0);
                 agent.SetDestination(Player.transform.position);
             }
-            else
-            {
-                Debug.LogWarning("Enemy nicht auf NavMesh platziert!");
-            }
-
-
-            enemy.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
     }
 
     public void SpawnEnemy()
     {
-            if (Grid.transform.GetChild(1).gameObject.tag == "Ground")
+        if (Grid.transform.GetChild(1).gameObject.tag == "Ground")
+        {
+            Tilemap CurentT = Grid.transform.GetChild(1).gameObject.GetComponent<Tilemap>();
+
+            int Posy = Random.Range(0, 50);
+            int Posx = Random.Range(0, 50);
+
+            Vector3 PosTile = new Vector3(Posx, Posy, 0);
+            Vector3Int cellPos = CurentT.WorldToCell(PosTile);
+
+            if (!CurentT.HasTile(cellPos))
             {
-                Tilemap CurentT = Grid.transform.GetChild(1).gameObject.GetComponent<Tilemap>();
-
-                int Posy = Random.Range(0, 50);
-                int Posx = Random.Range(0, 50);
-
-                Vector3 PosTile = new Vector3(Posx, Posy, 0);
-                Vector3Int cellPos = CurentT.WorldToCell(PosTile);
-
-                if (!CurentT.HasTile(cellPos))
-                {
-                    int TypeEnemy = Random.Range(0, EnemyPrefab.Count);
-                    GameObject CE = Instantiate(EnemyPrefab[TypeEnemy]);
-                    CE.transform.position = cellPos;
-                    CE.name = "Enemy_" + TypeEnemy;
-                    CE.transform.SetParent(EnemyContainer.transform);
-
-                    Debug.Log("Keien Tile: " + cellPos);
-                    Debug.DrawRay(cellPos, Vector3.up * 0.2f, Color.red);
-                for (int i = 0; i < EnemyContainer.transform.childCount; i ++)
+                int TypeEnemy = Random.Range(0, EnemyPrefab.Count);
+                GameObject CE = Instantiate(EnemyPrefab[TypeEnemy]);
+                CE.transform.position = cellPos;
+                CE.name = "Enemy_" + TypeEnemy + "_" + EnemyContainer.transform.childCount;
+                CE.transform.SetParent(EnemyContainer.transform);
+                Debug.Log("Keien Tile: " + cellPos);
+                Debug.DrawRay(cellPos, Vector3.up * 0.2f, Color.red);
+                for (int i = 0; i < EnemyContainer.transform.childCount; i++)
                     EnemyContainer.transform.GetChild(i).gameObject.GetComponent<EnemyInfo>().EnemyHealt = 1;
-                }
-                else
-                {
-                    Debug.Log("Cant Place there is a tile");
-                    SpawnEnemy();
-                }
-
             }
             else
             {
-                Debug.LogError("No Tilemap With Layer was found");
+                Debug.Log("Cant Place there is a tile");
+                SpawnEnemy();
             }
+
+        }
+        else
+        {
+            Debug.LogError("No Tilemap With Layer was found");
+        }
     }
     public IEnumerator DamagePlayer()   //Damage the Player 
     {
@@ -228,5 +222,5 @@ public void LoadGame(GameData data)
         else
             Debug.LogWarning("EnemyInfo fehlt auf Prefab!");
     } */
- 
+
 }

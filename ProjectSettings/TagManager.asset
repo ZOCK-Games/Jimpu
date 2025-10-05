@@ -45,6 +45,9 @@ TagManager:
   - name: Light
     uniqueID: 2515931847
     locked: 0
+  - name: Sky
+    uniqueID: 1793145987
+    locked: 0
   - name: Background
     uniqueID: 495585517
     locked: 0
