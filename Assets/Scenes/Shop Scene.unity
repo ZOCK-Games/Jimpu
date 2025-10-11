@@ -3253,7 +3253,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FPSManager
   FPSDisplayText: {fileID: 958920527}
-  ShowFPS: 0
 --- !u!114 &1807801133
 MonoBehaviour:
   m_ObjectHideFlags: 0

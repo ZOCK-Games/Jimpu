@@ -45,7 +45,6 @@ public class ChestScribt : MonoBehaviour
                 FreeSlot = false;
                 CurrentChest = i;
                 StartCoroutine(WaytToDestroy());
-                Debug.Log("Player Berührt Chest: " + Chests[i].name);
             }
 
             else if (PlayerCollider.IsTouching(Chests[i].GetComponent<BoxCollider2D>()))

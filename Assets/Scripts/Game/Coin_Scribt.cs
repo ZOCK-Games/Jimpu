@@ -22,12 +22,9 @@ public class Coin_scribt : MonoBehaviour
         {
             Coin_Collider.gameObject.SetActive(false);
             gameData.CoinValue += 1;
-            PLayer_Coin_Counter.text = "Coins:" + gameData.CoinValue;
+            PLayer_Coin_Counter.text = $"Coins:{gameData.CoinValue}";
         }
-        
-        
     }
-
     private void GetComponent(GameObject gameObject)
     {
         throw new NotImplementedException();

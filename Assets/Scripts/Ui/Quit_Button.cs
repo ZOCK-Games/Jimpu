@@ -11,18 +11,11 @@ public class QuitButton : MonoBehaviour
         QuitButtonClick.onClick.AddListener(ButtonClick);
 
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
     public void ButtonClick()
     {
         Debug.Log("Ending Game ...");
         Application.targetFrameRate = 1;
         Screen.brightness = 0f;
-        UnloadSceneOptions unloadOptions = UnloadSceneOptions.UnloadAllEmbeddedSceneObjects;
         Application.Quit();
     }
 }

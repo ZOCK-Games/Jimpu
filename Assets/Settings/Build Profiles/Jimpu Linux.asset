@@ -20,15 +20,15 @@ MonoBehaviour:
     rid: 4222498819070230783
   m_OverrideGlobalSceneList: 1
   m_Scenes:
-  - m_enabled: 1
+  - m_enabled: 0
     m_path: Assets/Scenes/Start Screen.unity
-  - m_enabled: 1
+  - m_enabled: 0
     m_path: Assets/Scenes/Shop Scene.unity
-  - m_enabled: 1
+  - m_enabled: 0
     m_path: Assets/Scenes/Multiplayer/Multiplayer.unity
-  - m_enabled: 1
+  - m_enabled: 0
     m_path: Assets/Scenes/Settings.unity
-  - m_enabled: 1
+  - m_enabled: 0
     m_path: Assets/Scenes/Game Levels/GameTutorial.unity
   m_ScriptingDefines: []
   m_PlayerSettingsYaml:

@@ -39,7 +39,7 @@ public class UI_All : MonoBehaviour
         {
             for (int i = 0; i < to_close_when_close.Count; i++)
             to_close_when_close[i].SetActive(false);
-            Debug.Log("Escape Has Closen" + to_close_when_close);  
+            Debug.Log($"Escape Has Closen {to_close_when_close}");  
         }
 
     }

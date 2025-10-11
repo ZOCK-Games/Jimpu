@@ -1,24 +1,15 @@
 using System.Collections;
-using Unity.Services.Lobbies.Models;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
 public class HousDoor : MonoBehaviour
 {
     public Animator HousAnimator;
     public Animator PlayerAnimator;
-    public Animator GUIAnimator;
-    public Animator InfoTextAnimator;
+    public GameObject SpeachBubbel;
     public BoxCollider2D HousTriggerZone;
     public GameObject PlayerObj;
     [Header("Animator Trigger Names")]
-
-    public string PlayerGoIn;
-    public string GUIDarkPanel;
-    public string InfoTrigger;
-    public string DoorTrigger;
     public string GoToScene;
     private bool CanOpenDoor;
     void Start()
@@ -31,25 +22,26 @@ public class HousDoor : MonoBehaviour
     {
         if (PlayerObj.GetComponent<PolygonCollider2D>().IsTouching(HousTriggerZone))
         {
-            InfoTextAnimator.SetTrigger(InfoTrigger);
+            SpeachBubbel.SetActive(true);
             if (Input.GetKey(KeyCode.E) && CanOpenDoor == true)
             {
-                Debug.Log("Opening Door");
-                HousAnimator.SetTrigger(DoorTrigger);
-                PlayerAnimator.SetTrigger(PlayerGoIn);
-                GUIAnimator.SetTrigger(GUIDarkPanel);
+                HousAnimator.Play("OpenDoor");
+                PlayerAnimator.Play("PlayerGoIn");
                 CanOpenDoor = false;
                 StartCoroutine(Wayt());
 
             }
         }
+        else
+        {
+            SpeachBubbel.SetActive(false);
+        }
     }
     public IEnumerator Wayt()
     {
-        GUIAnimator.SetTrigger("Transition");
-        Debug.Log("Started Wayt");
         yield return new WaitForSeconds(1.14f);
         CanOpenDoor = true;
+        SpeachBubbel.SetActive(false);
         SceneManager.LoadScene(GoToScene);
     }
 }

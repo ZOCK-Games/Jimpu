@@ -6,17 +6,6 @@ public class SkinApplay : MonoBehaviour, IDataPersitence
     public GameObject BodyPartsContainer;
     public List<Skins> PlayerSkins;
     private int SkinIndex;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
     public void CheckSkin()
     {
         BodyPartsContainer.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = PlayerSkins[SkinIndex].Head;

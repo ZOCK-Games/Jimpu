@@ -11,13 +11,4 @@ public class Volum_Slider : MonoBehaviour
         Slider1.SetValueWithoutNotify(2);
         
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //Slider1.value
-        
-
-        
-    }
 }

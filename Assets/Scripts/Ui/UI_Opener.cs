@@ -17,14 +17,6 @@ public class UI_Opener : MonoBehaviour
         Button_closer.onClick.AddListener(closeButtonClick);
         Garderobe_Button.onClick.AddListener(Garderobe_Button_clicked);
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-
-
-    }
     private void openButtonClick()
     {
         Canvas_settings.SetActive(true); 

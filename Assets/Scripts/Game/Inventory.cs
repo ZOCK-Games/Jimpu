@@ -21,12 +21,12 @@ public class Inventory : MonoBehaviour, IDataPersitence
                 CurentItemData = i;
                 Item[CurentItemData].SetActive(true);
                 CurentItem = Item[CurentItemData].name;
-                Debug.Log("Aktueles Item " + CurentItem + ".  the int is: " + CurentItemData + "The Game Obj is: " + Item[CurentItemData]);
+                Debug.Log($"Aktueles Item {CurentItem}.  the int is: {CurentItemData} The Game Obj is: {Item[CurentItemData]}");
             }
             else
             {
                 Item[i].SetActive(false);
-                Debug.Log("Kein Item Mit Gleichen namen gefunden Aktueles Item " + CurentItem + ". And the int is: " + CurentItemData);
+                Debug.Log($"Kein Item Mit Gleichen namen gefunden Aktueles Item {CurentItem}. And the int is: {CurentItemData}");
 
             }
     }
@@ -42,7 +42,7 @@ public class Inventory : MonoBehaviour, IDataPersitence
     }
     public void Clear()
     {
-            Debug.Log("Curent Item Is Cleard item: " + CurentItem);
+            Debug.Log($"Curent Item Is Cleard item: {CurentItem}");
             CurentItem = null;
             for (int i = 0; i < Item.Count; i++)
             {

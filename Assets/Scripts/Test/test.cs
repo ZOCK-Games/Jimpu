@@ -46,13 +46,13 @@ public class test : MonoBehaviour  // Klasse erbt von MonoBehaviour, damit sie U
 
             int Alo = Random.Range(1, 6);
             if (Alo > Würfel)
-                Chatt.text = "Alo War besser als du mit: " + Alo;
+                Chatt.text = $"Alo War besser als du mit: {Alo}";
             Alo1++;
             if (Alo < Würfel)
-                Chatt.text = "Alo hatt ales gegeben aber am ende war es nicht genug. " + Würfel + " Das ist gut gewürfelt";
+                Chatt.text = $"Alo hatt ales gegeben aber am ende war es nicht genug. {Würfel } Das ist gut gewürfelt";
             Würfel2++;
         }
         if (Input.GetKeyDown(KeyCode.J))
-            Chatt.text = "Punkte stand: | Alo: " + Alo1 + "   |    User: " + Würfel2;
+            Chatt.text = $"Punkte stand: | Alo: {Alo1}   |    User: {Würfel2}";
     }
 }

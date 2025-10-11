@@ -54,7 +54,7 @@ public class EnemyScript : MonoBehaviour//, IDataPersitence
 
             if (enemy != null && enemy.EnemyHealt <= 0)
             {
-                Debug.Log("Removed Enemy: " + child.gameObject.name);
+                Debug.Log($"Removed Enemy: {child.gameObject.name}");
                 Destroy(child.gameObject);
             }
 
@@ -63,7 +63,7 @@ public class EnemyScript : MonoBehaviour//, IDataPersitence
         if (EnemyContainer.transform.childCount >= MaxEnemys)
         {
             Transform child = EnemyContainer.transform.GetChild(0);
-            Debug.Log("Removed Enemy due to MaxEnemys: " + child.gameObject.name);
+            Debug.Log($"Removed Enemy due to MaxEnemys: {child.gameObject.name}");
             Destroy(child.gameObject);
 
         }

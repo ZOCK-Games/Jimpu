@@ -12,8 +12,6 @@ public class BombScribt : MonoBehaviour
     [SerializeField] private Button SubtractButton;
     [SerializeField] private TextMeshProUGUI TextExplosionRadius;
     public float ExplosionRadius;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         TextExplosionRadius.text = ExplosionRadius.ToString();
@@ -28,12 +26,6 @@ public class BombScribt : MonoBehaviour
             TextExplosionRadius.text = ExplosionRadius.ToString();
             ExplosionRadius -= 0.5f;
         });
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
     public void SetBombPosition()
     {

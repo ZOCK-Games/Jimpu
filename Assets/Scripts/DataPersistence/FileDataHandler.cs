@@ -85,7 +85,7 @@ public class FileDataHandler
         }
         catch (Exception e)
         {
-            Debug.LogError("Error saving data: " + fullPath + "\n" + e);
+            Debug.LogError($"Error saving data: {fullPath + "\n" + e}");
         }
     }
 

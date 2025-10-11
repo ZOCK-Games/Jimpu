@@ -14,6 +14,6 @@ public class SoundController : MonoBehaviour
     {
         float dB = Mathf.Lerp(0f, 1f, VolumeSlider.value);
         AudioMusic.SetFloat(volumeParameter, dB);
-        VolumeText.text = (VolumeSlider.value * 100f).ToString("F0") + "%";
+        VolumeText.text = $"{ (VolumeSlider.value * 100f):F0}%";
     }
 }

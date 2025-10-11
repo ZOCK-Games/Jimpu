@@ -134,7 +134,7 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
 
                 Vector3 PosTile = new Vector3(Posx, Posy, 0);
                 Vector3Int cellPos = CollidersGameObjekt.transform.GetChild(1).GetComponent<Tilemap>().WorldToCell(PosTile);
-                Debug.Log("Player Can Hold On To Position : " + cellPos);
+                Debug.Log("Player Can Hold On To Position: {cellPos}");
                 PlayerRb.constraints = RigidbodyConstraints2D.FreezeAll;
                 Player.transform.position = cellPos;
                 CanMove = false;
