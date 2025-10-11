@@ -14,9 +14,9 @@ I'm currently developing my first game. It's a fun and simple 2D jump 'n' run ma
 
 ## Roadmap
 
-- Adding more levels
-- Better enemy movement
-- New UI
+- enemy attacking
+- mobile support 
+- level 1 finsihed 
 
 ## Support
 
