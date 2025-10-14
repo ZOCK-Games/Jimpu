@@ -100,8 +100,6 @@ public class DataPersitenceManger : MonoBehaviour
 
         if (dataHandler != null)
             dataHandler.Save(gameData);
-
-        Debug.Log("Game data gespeichert.");
     }
 
     private List<IDataPersitence> FindAllDataPersistenceObjects()

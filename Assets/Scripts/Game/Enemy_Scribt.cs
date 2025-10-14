@@ -54,7 +54,6 @@ public class EnemyScript : MonoBehaviour//, IDataPersitence
 
             if (enemy != null && enemy.EnemyHealt <= 0)
             {
-                Debug.Log($"Removed Enemy: {child.gameObject.name}");
                 Destroy(child.gameObject);
             }
 
@@ -79,15 +78,6 @@ public class EnemyScript : MonoBehaviour//, IDataPersitence
 
         if (EnemyCanMove == true)
             MoveEnemy();
-
-        for (int i = 0; i < EnemyContainer.transform.childCount; i++)
-        {
-            if (Player.GetComponent<PolygonCollider2D>().IsTouching(EnemyContainer.transform.GetChild(i).gameObject.GetComponent<CapsuleCollider2D>()) && canTakeDamage) //Checkt ob der spiler Chaden bekom
-            {
-                StartCoroutine(DamagePlayer());
-                Debug.Log("-1 leben");
-            }
-        }
         ////////////////////////////////////////////////////////
         ///             Heart System                         ///
         ////////////////////////////////////////////////////////
@@ -114,7 +104,7 @@ public class EnemyScript : MonoBehaviour//, IDataPersitence
 
             if (agent == null)
             {
-                enemy.AddComponent<NavMeshAgent>();
+                Debug.LogError($"No Agent on {enemy.name}");
             }
             else if (agent != null)
             {

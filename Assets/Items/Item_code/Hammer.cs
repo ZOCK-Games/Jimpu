@@ -28,7 +28,6 @@ public class Hammer : MonoBehaviour
             if (HamerObjekt.GetComponent<BoxCollider2D>().IsTouching(EnemyContainer.transform.GetChild(i).GetComponent<CapsuleCollider2D>()) && CanAttack && Input.GetKey(KeyCode.E))
             {
                 inventory.Clear();
-                Debug.Log("There was an Enemy in the radius of the hammer!");
                 currentenemy = i;
                 StartCoroutine(Inaktive());
 
@@ -37,7 +36,6 @@ public class Hammer : MonoBehaviour
             else if (Input.GetKey(KeyCode.E)) // Plays the attack animation but dose not hit
             {
                 ItemAnimator.SetTrigger("HammerUse");
-                Debug.Log("There was no Enemy in the radius of the hammer!");
             }
         }
         

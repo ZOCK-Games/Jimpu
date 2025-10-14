@@ -14,17 +14,18 @@ public class EnemyAttackController : MonoBehaviour
     public float decisionTime = 3f;
     public float travelDuration = 3f;
     [SerializeField] private PlayerControll playerControll;
+    [SerializeField] private EnemyScript enemyScript;
 
     private GameObject Bullet;
     private Animator BulletAnimator;
     private GameObject Jimpu;
     private Transform Target;
-    private bool IsLoading = false;
-    private bool CanFire = false;
     private bool Shoting;
+    private CapsuleCollider2D BulletCollider;
     void Start()
     {
         Jimpu = this.gameObject;
+        BulletCollider = Bullet.GetComponent<CapsuleCollider2D>();
         Bullet = Jimpu.transform.GetChild(0).gameObject;
         BulletAnimator = Bullet.GetComponent<Animator>();
         Target = playerControll.Player.transform;
@@ -32,9 +33,13 @@ public class EnemyAttackController : MonoBehaviour
     }
     void Update()
     {
-        if (IsPlayerInReach() && !IsLoading && !Shoting)
+        if (IsPlayerInReach() && !Shoting)
         {
-            StartCoroutine(LoadAttack());
+            StartCoroutine(ShotBullet());
+        }
+        if (playerControll.playerCollider.IsTouching(BulletCollider))
+        {
+            StartCoroutine(enemyScript.DamagePlayer());
         }
 
     }
@@ -47,82 +52,35 @@ public class EnemyAttackController : MonoBehaviour
         float radiusSq = sichtRadius * sichtRadius;
         return distSq <= radiusSq;
     }
-
-
-    public IEnumerator LoadAttack()
-    {
-        Debug.Log("Starting LoadAttack...");
-        IsLoading = true;
-        CanFire = false;
-
-        if (BulletAnimator != null)
-        {
-            BulletAnimator.SetBool("Load", true);
-        }
-
-        yield return new WaitForSeconds(loadTime);
-
-        CanFire = true;
-        Debug.Log($"Attack window OPEN for {decisionTime} seconds.");
-
-        float timer = 0f;
-
-        while (timer < decisionTime && CanFire)
-        {
-            timer += Time.deltaTime;
-            yield return null;
-        }
-
-        if (!CanFire)
-        {
-            StartCoroutine(ShotBullet());
-        }
-        else
-        {
-            Debug.Log("Attack window CLOSED");
-            if (BulletAnimator != null)
-            {
-                BulletAnimator.SetBool("Load", false);
-                BulletAnimator.Play("Exit");
-            }
-        }
-        // reset
-        IsLoading = false;
-        CanFire = false;
-    }
-
-    public void TriggerShot()
-    {
-        if (CanFire)
-        {
-            CanFire = false;
-        }
-    }
-
     public IEnumerator ShotBullet()
     {
         Shoting = true;
         Debug.Log("Executing ShotBullet");
         if (BulletAnimator != null)
         {
-            BulletAnimator.SetBool("Load", false);
-            BulletAnimator.Play("JimpuAttacking");
+            BulletAnimator.SetBool("Attack", true);
         }
 
         if (Bullet == null || Target == null) yield break;
 
         Vector3 startPos = Bullet.transform.position;
+        Vector3 TargetPosition = Target.position;
         float s = 0;
-
+        StartCoroutine(DestroyTimer());
         while (s < travelDuration)
         {
             float t = s / travelDuration;
-            Bullet.transform.position = Vector3.Lerp(startPos, Target.position, t); // moving the object
+            Bullet.transform.position = Vector3.Lerp(startPos, TargetPosition, t); // moving the object
             s += Time.deltaTime;
             yield return null;
         }
+        BulletAnimator.SetBool("Attack", false);
         Debug.Log("Bullet reached target position");
         Shoting = false;
+    }
+    public IEnumerator DestroyTimer()
+    {
+        yield return new WaitForSeconds(Random.Range(travelDuration, travelDuration * 1.1f));
     }
 }
         

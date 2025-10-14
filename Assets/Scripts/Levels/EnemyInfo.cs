@@ -27,12 +27,10 @@ public class EnemyInfo : MonoBehaviour
         if (rb.linearVelocity.x > 0)
         {
             sr.flipX = true;
-            Debug.Log("Bewegt sich nach rechts");
         }
         else if (rb.linearVelocity.x < 0)
         {
             sr.flipX = false;
-            Debug.Log("Bewegt sich nach links");
         }
     }
 

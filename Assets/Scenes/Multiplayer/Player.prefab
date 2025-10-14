@@ -95,6 +95,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -116,6 +118,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
@@ -143,15 +146,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 1162203169426018216}
-  PlayerSpriteRenderer: {fileID: 5715861188087976698}
+  PlayerAniamtor: {fileID: 0}
   PlayerRotation: 0
-  Player_collider: {fileID: 7080806093740912530}
-  Ground_Collider: {fileID: 0}
-  Player_pos_reset: {fileID: 0}
+  CollidersGameObjekt: {fileID: 0}
   Camera1: {fileID: 3715078436708055536}
   move_speed_R: 3.5
   move_speed_L: 3.5
   Jump_speed: 30
+  CanMove: 1
   run_speed: 5
   rb: {fileID: 6233424640839426119}
   Walkking_animation: {fileID: 755291370158757008}
@@ -162,9 +164,20 @@ MonoBehaviour:
   - {fileID: -7768891086787294385, guid: 340aef7411414e681a028d8dcf55362c, type: 3}
   - {fileID: -5800530567114307789, guid: 25b5c23fac73568eaa617d6e9078996d, type: 3}
   - {fileID: -6322978359443986386, guid: 014e8b11dd8c41dbca0ebb1da83a2652, type: 3}
+  BodyPartsContainer: {fileID: 0}
+  garderobenScribt: {fileID: 0}
   MovePlayerR: 0
   MovePlayerL: 0
   MovePlayerUP: 0
+  PlayerHealth: 0
+  Grounds: []
+  PlayerSkins: []
+  PlayerIsTouchingGround: 0
+  RobeSagment: {fileID: 0}
+  LoadPlayerPos: 0
+  SavePlayerPos: 0
+  HoldOnRadius: 0
+  playerCollider: {fileID: 0}
 --- !u!50 &6233424640839426119
 Rigidbody2D:
   serializedVersion: 5
@@ -230,7 +243,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1.5}
+    oldSize: {x: 0.625, y: 0.5}
     newSize: {x: 1, y: 1.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -323,7 +336,6 @@ MonoBehaviour:
   - {fileID: 3298969993098178550}
   CurentItem: 
   CurentItemData: 0
-  ClearCurentItem: 0
 --- !u!95 &186588098990108316
 Animator:
   serializedVersion: 7
@@ -358,7 +370,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2585622356
+  GlobalObjectIdHash: 69535536
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 7
@@ -489,6 +501,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -510,6 +524,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
@@ -521,7 +536,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &4947682116647049431
@@ -537,11 +552,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HamerObjekt: {fileID: 1524823333218538675}
-  Enemy:
-  - {fileID: 0}
-  enemy_Scribt: {fileID: 0}
+  EnemyContainer: {fileID: 0}
+  ItemAnimator: {fileID: 0}
   Demage: 1
+  Range: 0.8
+  ObjektTilemap: {fileID: 0}
+  BlocksTilemap: {fileID: 0}
+  ExplsionTile: {fileID: 0}
   inventory: {fileID: 4510316871405086273}
+  ExplosionPrefab: {fileID: 0}
+  GroundCollider: {fileID: 0}
 --- !u!111 &557162090488273114
 Animation:
   m_ObjectHideFlags: 0
@@ -657,6 +677,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -678,6 +700,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
@@ -689,7 +712,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &9012527347979330032
@@ -765,6 +788,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -786,6 +811,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
@@ -797,7 +823,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &8676363938159326895
@@ -812,7 +838,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 507e12a2ab6733e4a9b33c208f72e66a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InvScribt: {fileID: 4510316871405086273}
+  Adding: 0
   SpeedItemData: {fileID: 11400000, guid: b2e2f64c8e06a9328b2e9cee5d48f38d, type: 2}
   PlayerScribt: {fileID: 2199693659404841793}
   SpeedObjekt: {fileID: 3298969993098178550}
@@ -887,6 +913,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -908,6 +936,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
@@ -919,7 +948,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &5468589843876362224
@@ -936,7 +965,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LuckyBlockI: {fileID: 5102399189946631628}
   chest: {fileID: 0}
-  PlayerTransform: {fileID: 1162203169426018216}
+  playerControll: {fileID: 0}
+  ChestContainer: {fileID: 0}
   inventory: {fileID: 4510316871405086273}
 --- !u!1 &6758470437000984814
 GameObject:
@@ -1067,7 +1097,6 @@ MonoBehaviour:
   m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
-  m_Version: 2
   m_TaaSettings:
     m_Quality: 3
     m_FrameInfluence: 0.1
@@ -1075,6 +1104,7 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+  m_Version: 2
 --- !u!1 &8045754770594682276
 GameObject:
   m_ObjectHideFlags: 0

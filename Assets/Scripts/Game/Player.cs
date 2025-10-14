@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -33,9 +34,11 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
     public bool PlayerIsTouchingGround; // if the player is touching a ground tile collider
     [Header("Player Hold On to settings")]
     public GameObject RobeSagment;
+    public bool LoadPlayerPos;
+    public bool SavePlayerPos;
     public float HoldOnRadius;
     private bool IsHoldingOn;
-    private PolygonCollider2D playerCollider;
+    public PolygonCollider2D playerCollider;
     private Rigidbody2D PlayerRb;
     private void Start()
     {
@@ -73,14 +76,14 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
         /*/if (PlayerHealth == 0)              // Aktiviert Den Dead Screen
         SceneManager.LoadScene("Death");*/
 
-        PlayerIsTouchingGround = false; 
+        PlayerIsTouchingGround = false;
 
         foreach (var ground in Grounds)
         {
             if (ground != null && playerCollider.IsTouching(ground))
             {
-                PlayerIsTouchingGround = true; 
-                break; 
+                PlayerIsTouchingGround = true;
+                break;
             }
         }
 
@@ -160,7 +163,10 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
 
     public void LoadGame(GameData data)
     {
-        Player.transform.localPosition = new Vector3(data.PlayerPositionX, data.PlayerPositionY, 0);
+        if (LoadPlayerPos)
+        {
+            Player.transform.localPosition = new Vector3(data.PlayerPositionX, data.PlayerPositionY, 0);
+        }
         SkinIndex = data.SkinIndex;
         CheckSkin();
         //Player.GetComponent<SpriteRenderer>().sprite = SkinSprite[SkinIndex];
@@ -174,8 +180,11 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
     }
     public void SaveGame(ref GameData data) // Save the current Data to GameData
     {
-        data.PlayerPositionX = this.Player.transform.localPosition.x;
-        data.PlayerPositionY = this.Player.transform.localPosition.y;
+        if (SavePlayerPos)
+        {
+            data.PlayerPositionX = this.Player.transform.localPosition.x;
+            data.PlayerPositionY = this.Player.transform.localPosition.y;
+        }
         data.Health = this.PlayerHealth;
 
         data.SkinIndex = SkinIndex;

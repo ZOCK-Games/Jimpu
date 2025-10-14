@@ -18,3 +18,4 @@ MonoBehaviour:
   RightArm: {fileID: -1755415161, guid: 340aef7411414e681a028d8dcf55362c, type: 3}
   LeftLeg: {fileID: -1563089329, guid: 340aef7411414e681a028d8dcf55362c, type: 3}
   RightLeg: {fileID: 1562092977, guid: 340aef7411414e681a028d8dcf55362c, type: 3}
+  SkinName: 
