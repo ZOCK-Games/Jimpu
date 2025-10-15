@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: a62378195aaf74c93ae30ad6448996e2
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 271338
+  packageName: Asset Validator
+  packageVersion: 1.0.1
+  assetPath: Assets/Asset Validator/Demo/Prefabs/Ground.prefab
+  uploadId: 749955

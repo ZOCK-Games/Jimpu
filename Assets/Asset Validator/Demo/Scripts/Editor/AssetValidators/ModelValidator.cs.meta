@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: cbbc2fd37da2c41be8baafa95ce7ee69
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 271338
+  packageName: Asset Validator
+  packageVersion: 1.0.1
+  assetPath: Assets/Asset Validator/Demo/Scripts/Editor/AssetValidators/ModelValidator.cs
+  uploadId: 749955

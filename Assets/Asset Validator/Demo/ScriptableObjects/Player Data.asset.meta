@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 6cd6a2544ef244a308cb07355523372a
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 271338
+  packageName: Asset Validator
+  packageVersion: 1.0.1
+  assetPath: Assets/Asset Validator/Demo/ScriptableObjects/Player Data.asset
+  uploadId: 749955

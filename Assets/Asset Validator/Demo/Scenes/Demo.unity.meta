@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 1e1ae8d5d278b48a1b2b7e4be4fb4e79
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 271338
+  packageName: Asset Validator
+  packageVersion: 1.0.1
+  assetPath: Assets/Asset Validator/Demo/Scenes/Demo.unity
+  uploadId: 749955

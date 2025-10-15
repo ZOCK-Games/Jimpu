@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 9c987edd6325d4ea7afc94ccd98a644d
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 271338
+  packageName: Asset Validator
+  packageVersion: 1.0.1
+  assetPath: Assets/Asset Validator/Demo/Prefabs/Monster.prefab
+  uploadId: 749955

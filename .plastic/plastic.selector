@@ -1,4 +1,0 @@
-repository "Jimpu 2025-07-15_14-49-06/Jimpu@9072232581960@cloud"
-  path "/"
-    br "/main"
-    co "/main"

@@ -1,0 +1,19 @@
+{
+    "name": "Demo.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:7a4aae3cedecd6d43a8b38d9a6c83dee",
+        "GUID:1f412f94fd25b4f8087a348122fce158"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

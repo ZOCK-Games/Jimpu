@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: a1e026e09b2d243e2b14df520b886af3
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 271338
+  packageName: Asset Validator
+  packageVersion: 1.0.1
+  assetPath: Assets/Asset Validator/Demo/Materials/Grass.mat
+  uploadId: 749955

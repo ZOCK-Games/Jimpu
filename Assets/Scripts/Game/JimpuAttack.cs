@@ -1,13 +1,10 @@
 using UnityEngine;
 using System.Collections;
-using Unity.VisualScripting;
-using Unity.Services.Lobbies.Models;
+using System.Collections.Generic;
+using UnityEngine.Tilemaps;
 
 public class EnemyAttackController : MonoBehaviour
 {
-    // --- UNITY-REFERENCES ---
-    [Header("Target & Movement")]
-
     [Header("Attack Settings")]
     public float sichtRadius = 10f;
     public float loadTime = 1f;
@@ -15,72 +12,120 @@ public class EnemyAttackController : MonoBehaviour
     public float travelDuration = 3f;
     [SerializeField] private PlayerControll playerControll;
     [SerializeField] private EnemyScript enemyScript;
-
-    private GameObject Bullet;
-    private Animator BulletAnimator;
-    private GameObject Jimpu;
-    private Transform Target;
-    private bool Shoting;
-    private CapsuleCollider2D BulletCollider;
+    [SerializeField] private GameObject EnemyContainer;
+    [SerializeField] private GameObject GridTilemaps;
+    [SerializeField] private GameObject BulletPrefab;
+    [SerializeField] private GameObject BulletContainer;
+    [SerializeField] private int MaxBullets;
+    public List<Tilemap> tilemaps;
     void Start()
     {
-        Jimpu = this.gameObject;
-        BulletCollider = Bullet.GetComponent<CapsuleCollider2D>();
-        Bullet = Jimpu.transform.GetChild(0).gameObject;
-        BulletAnimator = Bullet.GetComponent<Animator>();
-        Target = playerControll.Player.transform;
-        Shoting = false;
+        for (int i = 0; i < GridTilemaps.transform.childCount; i++)
+        {
+            var Tielamp = GridTilemaps.transform.GetChild(i);
+            if (Tielamp.gameObject.tag == "Ground")
+            {
+                tilemaps.Add(Tielamp.GetComponent<Tilemap>());
+            }
+        }
     }
+
     void Update()
     {
-        if (IsPlayerInReach() && !Shoting)
+        ////////////////////////////
+        /// Checks if an Jimpu Wants to shoot
+        ////////////////////////////
+
+        for (int i = 0; i < EnemyContainer.transform.childCount; i++)
         {
-            StartCoroutine(ShotBullet());
+            EnemyInfo enemyInfo = EnemyContainer.transform.GetChild(i).GetComponent<EnemyInfo>();
+            if (enemyInfo.WantsToAttack && !enemyInfo.IsAttacking && BulletContainer.transform.childCount < MaxBullets)
+            {
+                enemyInfo.WantsToAttack = false;
+                StartCoroutine(ShotBullet(enemyInfo, enemyInfo.Target));
+            }
+
         }
-        if (playerControll.playerCollider.IsTouching(BulletCollider))
+
+        ////////////////////////////
+        ///  Checks if the Bullet hits a wall or the player
+        ////////////////////////////
+
+        for (int i = 0; i < BulletContainer.transform.childCount; i++)
         {
-            StartCoroutine(enemyScript.DamagePlayer());
+            GameObject Bullet = BulletContainer.transform.GetChild(i).gameObject;
+            EnemyInfo enemyInfo = Bullet.GetComponent<EnemyInfo>();
+
+
+            for (int t = 0; t < tilemaps.Count; t++)
+            {
+                if (Bullet.GetComponent<CircleCollider2D>().IsTouching(tilemaps[t].GetComponent<TilemapCollider2D>()))
+                {
+                    StartCoroutine(BulletHit(Bullet, enemyInfo));
+                }
+
+            }
+            if (playerControll.playerCollider.IsTouching(Bullet.GetComponent<CircleCollider2D>()) && Bullet != null && enemyInfo != null)
+            {
+                StartCoroutine(BulletHit(Bullet, enemyInfo));
+            }
         }
-
     }
-
-    public bool IsPlayerInReach()
+    public IEnumerator ShotBullet(EnemyInfo enemyInfo, Transform Target)
     {
-        if (Target == null || Jimpu == null) return false;
+        enemyInfo.WantsToAttack = false;
+        enemyInfo.IsCharging = false;
+        if (enemyInfo.IsAttacking || enemyInfo.EnemyPosition == null) yield break;
+        enemyInfo.IsAttacking = true;
 
-        float distSq = (Target.position - Jimpu.transform.position).sqrMagnitude;
-        float radiusSq = sichtRadius * sichtRadius;
-        return distSq <= radiusSq;
-    }
-    public IEnumerator ShotBullet()
-    {
-        Shoting = true;
         Debug.Log("Executing ShotBullet");
-        if (BulletAnimator != null)
-        {
-            BulletAnimator.SetBool("Attack", true);
-        }
 
-        if (Bullet == null || Target == null) yield break;
-
-        Vector3 startPos = Bullet.transform.position;
-        Vector3 TargetPosition = Target.position;
-        float s = 0;
-        StartCoroutine(DestroyTimer());
-        while (s < travelDuration)
+        GameObject Bullet = Instantiate(BulletPrefab);
+        Bullet.transform.SetParent(BulletContainer.transform);
+        Bullet.GetComponent<BulletObj>().enemyInfo = enemyInfo;
+        Bullet.name = Bullet + BulletContainer.transform.childCount.ToString();
+        Bullet.transform.position = enemyInfo.EnemyPosition;
+        Bullet.GetComponent<Animator>().SetBool("Attack", true);
+        Vector3 direction = (Target.position - Bullet.transform.position).normalized;
+        float speed = 1f;
+        float elapsedTime = 0;
+        while (elapsedTime < travelDuration)
         {
-            float t = s / travelDuration;
-            Bullet.transform.position = Vector3.Lerp(startPos, TargetPosition, t); // moving the object
-            s += Time.deltaTime;
+            Bullet.transform.position += direction * speed * Time.deltaTime;
+            elapsedTime += Time.deltaTime;
             yield return null;
         }
-        BulletAnimator.SetBool("Attack", false);
-        Debug.Log("Bullet reached target position");
-        Shoting = false;
+
+        yield return new WaitForSeconds(1f);
+        StartCoroutine(BulletHit(Bullet, enemyInfo));
+
     }
-    public IEnumerator DestroyTimer()
+    public IEnumerator Charging(EnemyInfo enemyInfo)
     {
-        yield return new WaitForSeconds(Random.Range(travelDuration, travelDuration * 1.1f));
+        if (!enemyInfo.IsCharging)
+        {
+            Debug.Log("Charging");
+            enemyInfo.WantsToAttack = false;
+            enemyInfo.IsAttacking = false;
+            enemyInfo.IsCharging = true;
+            enemyInfo.JimpuAnimator.SetBool("Charge", true);
+            yield return new WaitForSeconds(Random.Range(1, 5)); //the time in that the jimpu(enemy) can not shoot 
+            enemyInfo.WantsToAttack = true;
+        }
+    }
+    public IEnumerator BulletHit(GameObject Bullet, EnemyInfo enemyInfo)
+    {
+        enemyInfo.IsAttacking = false;
+        enemyInfo.IsCharging = true;
+        Debug.Log("Bullet has hit a Obj");
+        Animator BulletAniamtor = Bullet.GetComponent<Animator>();
+        BulletAniamtor.Play("Hit");
+        BulletAniamtor.SetBool("Attack", false);
+        enemyInfo.IsAttacking = false;
+        yield return new WaitForSeconds(0.8f);
+        enemyInfo.IsCharging = false;
+        Destroy(Bullet);
+        StartCoroutine(Charging(enemyInfo));
     }
 }
-        
+

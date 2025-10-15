@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: cf3670e928d8c49c188ea5d30dc3938f
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 271338
+  packageName: Asset Validator
+  packageVersion: 1.0.1
+  assetPath: Assets/Asset Validator/Demo/Scripts/Editor/AssetValidator.Demo.Editor.asmdef
+  uploadId: 749955

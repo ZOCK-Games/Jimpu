@@ -1,0 +1,16 @@
+{
+    "name": "AssetValidator.Demo",
+    "rootNamespace": "",
+    "references": [
+        "GUID:d670485e7a11a2f49a4a217f5da569e0"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 877a4256221b440e5987c3a8c5549735
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 271338
+  packageName: Asset Validator
+  packageVersion: 1.0.1
+  assetPath: Assets/Asset Validator/Demo/Prefabs/Alien.prefab
+  uploadId: 749955

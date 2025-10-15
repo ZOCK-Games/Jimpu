@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: a6b998a6326aa43daa4a674c312e001d
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 271338
+  packageName: Asset Validator
+  packageVersion: 1.0.1
+  assetPath: Assets/Asset Validator/Demo/Prefabs/Player.prefab
+  uploadId: 749955

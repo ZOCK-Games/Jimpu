@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: a9df675df9ab94c06a8bc46c97f179b2
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 271338
+  packageName: Asset Validator
+  packageVersion: 1.0.1
+  assetPath: Assets/Asset Validator/Demo/Prefabs/Claw.prefab
+  uploadId: 749955

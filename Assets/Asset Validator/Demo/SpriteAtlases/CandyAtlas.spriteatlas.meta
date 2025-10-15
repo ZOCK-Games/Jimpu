@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: a8af3e1b89a7a4c3cbe83f2e600c8726
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4343727234628468602
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 271338
+  packageName: Asset Validator
+  packageVersion: 1.0.1
+  assetPath: Assets/Asset Validator/Demo/SpriteAtlases/CandyAtlas.spriteatlas
+  uploadId: 749955

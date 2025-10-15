@@ -8,18 +8,21 @@ public class EnemyScript : MonoBehaviour//, IDataPersitence
 {
     public Transform GoTo;
     public GameObject Player;
-    public GameObject EnemyContainer;
-    public int AttackRange;
-    public int EnemyHealt;
     public GameObject HeartContainer;
     public GameObject HeartPrefab;
+    public GameObject JimbuBulletPrefab;
+    public GameObject BulletContainer;
     public string DeathScene;
-    public bool EnemyCanMove = true;
-    public bool canTakeDamage = true;
+    private bool EnemyCanMove = true;
+    private bool canTakeDamage = true;
     public PlayerControll playerControll;
     public GameObject Grid;
+    [Header("Enemy Settings")]
     public List<GameObject> EnemyPrefab;
     public int MaxEnemys;
+    public int EnemyHealt;
+    public GameObject EnemyContainer;
+    public int AttackRange;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

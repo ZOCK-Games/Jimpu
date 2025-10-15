@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 7a01b66e601534902bd10049ded852d0
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 271338
+  packageName: Asset Validator
+  packageVersion: 1.0.1
+  assetPath: Assets/Asset Validator/Demo/Materials/Leather.mat
+  uploadId: 749955

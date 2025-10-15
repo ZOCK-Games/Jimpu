@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 41587bb5cd3eb4e95b50b2013ba5c83d
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 271338
+  packageName: Asset Validator
+  packageVersion: 1.0.1
+  assetPath: Assets/Asset Validator/Demo/ScriptableObjects/Alien Data.asset
+  uploadId: 749955

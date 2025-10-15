@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 11860e238141c46ab89b5c175a3335bd
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 271338
+  packageName: Asset Validator
+  packageVersion: 1.0.1
+  assetPath: Assets/Asset Validator/Demo/Materials/Moss.mat
+  uploadId: 749955

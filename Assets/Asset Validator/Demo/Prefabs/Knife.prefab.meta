@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 6a0da219ac1264a9eb4e67f9c9abb64b
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 271338
+  packageName: Asset Validator
+  packageVersion: 1.0.1
+  assetPath: Assets/Asset Validator/Demo/Prefabs/Knife.prefab
+  uploadId: 749955

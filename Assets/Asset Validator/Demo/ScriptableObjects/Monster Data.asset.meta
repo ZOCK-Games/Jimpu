@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 0983a9a03d3974f0b8a8283d9a01919d
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 271338
+  packageName: Asset Validator
+  packageVersion: 1.0.1
+  assetPath: Assets/Asset Validator/Demo/ScriptableObjects/Monster Data.asset
+  uploadId: 749955
