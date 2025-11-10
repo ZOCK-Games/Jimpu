@@ -10,6 +10,7 @@ public class TimeLightColor : MonoBehaviour
     
     public float Light;
     [SerializeField] private List<Light2D> Lights;
+    [SerializeField] private Light2D HousLight;
     public GameObject SkyObj;
     public GameObject SkyObjNight;
     public Color Color1;
@@ -37,7 +38,7 @@ public class TimeLightColor : MonoBehaviour
         if (h >= 20 || h <= 6)
         {
             Color SkyColorNight = SkyObjNight.GetComponent<SpriteRenderer>().color;
-            SkyColorNight.a = Light = 1 - Light;
+            SkyColorNight.a = 0.8f - Light;
             SkyNight = SkyColorNight.a;
             SkyObjNight.GetComponent<SpriteRenderer>().color = SkyColorNight;
         }
@@ -69,6 +70,19 @@ public class TimeLightColor : MonoBehaviour
         for (int i = 0; i < Lights.Count; i++)
         {
             Lights[i].intensity = Light;
+        }
+
+        if (Light > 0.1f)
+        {
+            ColorUtility.TryParseHtmlString("#00C1FF", out Color WindowColor);
+            HousLight.color = WindowColor;
+            HousLight.intensity = Light + 0.2f;
+        }
+        else
+        {
+            ColorUtility.TryParseHtmlString("#ebc803ff", out Color LampColor);
+            HousLight.color = LampColor;
+            HousLight.intensity = 0.7f;
         }
         
 
