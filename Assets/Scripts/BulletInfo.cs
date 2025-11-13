@@ -8,7 +8,8 @@ public class BulletInfo : MonoBehaviour
         if (other.gameObject.layer == 3)
         {
             Debug.Log("Destroying OBj");
-            Destroy(gameObject);
+            gameObject.GetComponent<Animator>().SetTrigger("Hit");
+            Destroy(gameObject,  0.5f);
         }
     }
 }
