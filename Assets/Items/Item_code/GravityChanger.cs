@@ -10,6 +10,12 @@ public class GravityChanger : MonoBehaviour
     public bool reset;
     public bool BlockUse;
     public Inventory inventory;
+    private InputSystem_Actions inputActions;
+
+    void Awake()
+    {
+        inputActions = new InputSystem_Actions();
+    }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -21,7 +27,7 @@ public class GravityChanger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GravityChangingObjekt.activeSelf && IsAktive1 == false && Input.GetKey(KeyCode.E) && BlockUse == false)
+        if (GravityChangingObjekt.activeSelf && IsAktive1 == false && inputActions.Player.Interact.WasCompletedThisFrame() && BlockUse == false)
         {
             PlayerGameObjekt.GetComponent<Rigidbody2D>().gravityScale = -0.25f;
             PlayerScribt.PlayerRotation = 180;

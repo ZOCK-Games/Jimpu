@@ -9,25 +9,32 @@ public class SpeedItemScribt : MonoBehaviour
     [SerializeField] private GameObject SpeedObjekt;
     [SerializeField] private Inventory inventory;
     private bool PowerAktive;
-    private float MoveBevoreR;
-    private float MoveBevoreL;
+    private float MoveBevore;
+    private InputSystem_Actions inputActions;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
+        inputActions = new InputSystem_Actions();
+    }
+    private void OnEnable()
+    {
+        inputActions.Player.Enable();
     }
 
+    private void OnDisable()
+    {
+        inputActions.Player.Disable();
+    }
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && SpeedObjekt.activeSelf && !PowerAktive)
+        if (inputActions.Player.Interact.WasPerformedThisFrame() && SpeedObjekt.activeSelf && !PowerAktive)
         {
             PowerAktive = true;
-            MoveBevoreR = PlayerScribt.move_speed_R;
-            MoveBevoreL = PlayerScribt.move_speed_L;
+            MoveBevore = PlayerScribt.MoveSpeed;
 
-            PlayerScribt.move_speed_R += Adding;
-            PlayerScribt.move_speed_L += Adding;
+            PlayerScribt.MoveSpeed += Adding;
             Debug.Log("Power Used Power is aktive");
             StartCoroutine(Waiting());
         }
@@ -36,18 +43,16 @@ public class SpeedItemScribt : MonoBehaviour
     }
     public void ResetStats()
     {
-        PlayerScribt.move_speed_R = MoveBevoreR;
-        PlayerScribt.move_speed_L = MoveBevoreL;
-
+        PlayerScribt.MoveSpeed = MoveBevore;
         PowerAktive = false;
         inventory.Clear();
         Debug.Log("Power Used Power is Disabled & reset");
         PlayerScribt.Jump_speed = 350; // to prevent it from making it to low soe how..
         SpeedObjekt.SetActive(false);
     }
-            
-        
-    
+
+
+
     public IEnumerator Waiting()
     {
         Debug.Log("Wayt Stardet 5 sec to reset");
@@ -55,5 +60,5 @@ public class SpeedItemScribt : MonoBehaviour
         Debug.Log("Wayt_Aktive end");
         ResetStats();
     }
-    
+
 }

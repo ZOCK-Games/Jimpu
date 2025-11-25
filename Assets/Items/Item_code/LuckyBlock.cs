@@ -8,10 +8,24 @@ public class LuckyBlock : MonoBehaviour
     public PlayerControll playerControll;
     public GameObject ChestContainer;
     public Inventory inventory;
+    private InputSystem_Actions inputActions;
 
+    void Awake()
+    {
+        inputActions = new InputSystem_Actions();
+    }
+    private void OnEnable()
+    {
+        inputActions.Player.Enable();
+    }
+
+    private void OnDisable()
+    {
+        inputActions.Player.Disable();
+    }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && LuckyBlockI.activeSelf)
+        if (inputActions.Player.Interact.WasCompletedThisFrame() && LuckyBlockI.activeSelf)
         {
             SpawnChest();
         }

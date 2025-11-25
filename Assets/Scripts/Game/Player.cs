@@ -12,7 +12,7 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
     public float PlayerRotation;
     public GameObject CollidersGameObjekt; // the TilemapContainer
     public Camera Camera1;
-    public float move_speed_R = 3.5f;
+    public float MoveSpeed = 3.5f;
     public float move_speed_L = 3.5f;
     public float Jump_speed = 350;
     public bool CanMove = true;
@@ -40,6 +40,24 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
     private bool IsHoldingOn;
     public PolygonCollider2D playerCollider;
     private Rigidbody2D PlayerRb;
+    private InputSystem_Actions inputActions;
+    private Vector2 moveInput;
+    void Awake()
+    {
+        inputActions = new InputSystem_Actions();
+    }
+    private void OnEnable()
+    {
+        inputActions.Player.Enable();
+
+        inputActions.Player.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
+        inputActions.Player.Move.canceled += ctx => moveInput = Vector2.zero;
+    }
+
+    private void OnDisable()
+    {
+        inputActions.Player.Disable();
+    }
     private void Start()
     {
         playerCollider = Player.GetComponent<PolygonCollider2D>();
@@ -73,6 +91,9 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
     // Update is called once per frame
     void Update()
     {
+        Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
+        transform.Translate(move * MoveSpeed * Time.deltaTime);
+
         /*/if (PlayerHealth == 0)              // Aktiviert Den Dead Screen
         SceneManager.LoadScene("Death");*/
 
@@ -86,33 +107,13 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
                 break;
             }
         }
-
-        Vector2 position = Player.transform.position;
-
-        if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.LeftControl) && CanMove || Input.GetKey(KeyCode.LeftArrow) && Input.GetKey(KeyCode.LeftControl) && CanMove || MovePlayerR == true && CanMove)
+        if (inputActions.Player.Jump.WasPerformedThisFrame())
         {
-            PlayerAniamtor.SetBool("Walk", true);
-            position.x += run_speed * Time.deltaTime;
-            Player.transform.position = position;
-        }
-        else if (Input.GetKey(KeyCode.RightArrow) && CanMove || Input.GetKey(KeyCode.D) && CanMove || MovePlayerR == true && CanMove)
-        {
-            PlayerAniamtor.SetBool("Walk", true);
-            position.x += move_speed_R * Time.deltaTime;
-            Player.transform.position = position;//position.x = x cordinaten Time.deltaTime weil sonst per frames abhängig 
-        }
-        else if (Input.GetKey(KeyCode.LeftArrow) && CanMove || Input.GetKey(KeyCode.A) && CanMove || MovePlayerL == true && CanMove)
-        {
-            position.x -= move_speed_L * Time.deltaTime;
-            Player.transform.position = position;
-            PlayerAniamtor.SetBool("Walk", true);
-        }
-        else
-        {
-            PlayerAniamtor.SetBool("Walk", false);
+            move.y += Jump_speed * Time.deltaTime;
+            PlayerRb.AddForceY(2);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && IsHoldingOn)
+        if (inputActions.Player.Jump.WasPerformedThisFrame() && IsHoldingOn)
         {
             IsHoldingOn = false;
             CanMove = true;
@@ -120,13 +121,13 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
             Debug.Log("Player is no longer holding on");
 
         }
-        if (Input.GetKeyDown(KeyCode.Space) && PlayerIsTouchingGround && CanMove || MovePlayerUP && CanMove)
+        if (inputActions.Player.Jump.WasPerformedThisFrame() && PlayerIsTouchingGround && CanMove || MovePlayerUP && CanMove)
         {
             rb.AddForce(new Vector2(0, Jump_speed));
             PlayerAniamtor.SetTrigger("Jump");
         }
 
-        if (Input.GetKey(KeyCode.F))
+        if (inputActions.Player.Attack.WasPerformedThisFrame())
         {
 
             // Checks if there is a tilemap near the player to hold on to

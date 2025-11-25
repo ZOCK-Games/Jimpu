@@ -17,6 +17,12 @@ public class Hammer : MonoBehaviour
     public Inventory inventory;
     public GameObject ExplosionPrefab;
     public TilemapCollider2D GroundCollider;
+    private InputSystem_Actions inputActions;
+
+    void Awake()
+    {
+        inputActions = new InputSystem_Actions();
+    }
     void Start()
     {
         CanAttack = true;
@@ -25,7 +31,7 @@ public class Hammer : MonoBehaviour
     {
         for (int i = 0; i < EnemyContainer.transform.childCount; i++)
         {     // Plays the attack hit animation when enemy is in range and the player presses E
-            if (HamerObjekt.GetComponent<BoxCollider2D>().IsTouching(EnemyContainer.transform.GetChild(i).GetComponent<CapsuleCollider2D>()) && CanAttack && Input.GetKey(KeyCode.E))
+            if (HamerObjekt.GetComponent<BoxCollider2D>().IsTouching(EnemyContainer.transform.GetChild(i).GetComponent<CapsuleCollider2D>()) && CanAttack && inputActions.Player.Interact.WasCompletedThisFrame())
             {
                 inventory.Clear();
                 currentenemy = i;
@@ -33,7 +39,7 @@ public class Hammer : MonoBehaviour
 
             }
 
-            else if (Input.GetKey(KeyCode.E)) // Plays the attack animation but dose not hit
+            else if (inputActions.Player.Interact.WasCompletedThisFrame()) // Plays the attack animation but dose not hit
             {
                 ItemAnimator.SetTrigger("HammerUse");
             }
