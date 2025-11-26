@@ -1,0 +1,12 @@
+[
+    {
+        "dialog_id": "tutorialdialog_001",
+        "dialog_text": "Willkomen spieler",
+        "dialog_ended": false,
+        "action": "none , shoot",
+        "action_to_do": "Input:Walk:WalkRight",
+        "action_to_do_time": 1,
+        "next_id_done": "tutorialdialog_002",
+        "next_id_not_done": "tutorialdialog_001_not_done"
+    }
+]

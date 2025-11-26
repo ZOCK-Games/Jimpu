@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7f4a7beab4281a44a81b00f869850fb, type: 3}
+  m_Name: DialogData
+  m_EditorClassIdentifier: Assembly-CSharp::DialogLine
+  dialog_id: tutorialdialog_001
+  dialog_text: Willkomen spieler
+  action: none , shoot
+  action_to_do: Input:Walk:WalkRight
+  action_to_do_time: 1
+  next_id_done: tutorialdialog_002
+  next_id_not_done: tutorialdialog_001_not_done

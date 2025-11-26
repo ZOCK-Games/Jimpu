@@ -7,9 +7,35 @@ public class BulletShootVoice : MonoBehaviour
 {
     public List<GameObject> Bullets;
     public Transform BulletContainer;
-    void Start()
+    public bool ShootAllsided;
+    void Update()
     {
+        if (ShootAllsided)
+        {
+            ShootAllsided = false;
+            Transform transformPos = GetComponent<Transform>();
+            transformPos.position = new Vector3(0, 0, 0);
+            ShotToRadius(transformPos);
+        }
     }
+    public void ShotToRadius(Transform ShotingPosition)
+    {
+        List<Vector3> Positions = new List<Vector3>{
+            ShotingPosition.up * UnityEngine.Random.Range(1,3),
+            ShotingPosition.right * UnityEngine.Random.Range(1,3),
+            -ShotingPosition.up * UnityEngine.Random.Range(1,3),
+            -ShotingPosition.right * UnityEngine.Random.Range(1,3),
+        };
+        ;
+        for (int i = 0; i < Positions.Count; i++)
+        {
+            Transform transformPos = GetComponent<Transform>();
+            transformPos.position = Positions[i];
+            Debug.Log("StartetShotion to " + transformPos);
+            StartCoroutine(Shoot(transformPos, Bullets[0], ShotingPosition, 2, 2, 0));
+        }
+    }
+
 
     // Update is called once per frame
     public IEnumerator Shoot(Transform Target, GameObject Bullet, Transform ShotingPosition, float BulletSpeed, int BulletCount, float BulletShotCountdown)
