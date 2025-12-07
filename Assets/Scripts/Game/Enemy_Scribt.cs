@@ -15,7 +15,7 @@ public class EnemyScript : MonoBehaviour//, IDataPersitence
     public string DeathScene;
     private bool EnemyCanMove = true;
     private bool canTakeDamage = true;
-    public PlayerControll playerControll;
+    public HealthManagerPlayer healthManagerPlayer;
     public GameObject Grid;
     [Header("Enemy Settings")]
     public List<GameObject> EnemyPrefab;
@@ -81,22 +81,6 @@ public class EnemyScript : MonoBehaviour//, IDataPersitence
 
         if (EnemyCanMove == true)
             MoveEnemy();
-        ////////////////////////////////////////////////////////
-        ///             Heart System                         ///
-        ////////////////////////////////////////////////////////
-
-        if (HeartContainer.transform.childCount != playerControll.PlayerHealth)
-        {
-            foreach (Transform child in HeartContainer.transform)
-            {
-                Destroy(child.gameObject);
-            }
-            for (int i = 0; i < playerControll.PlayerHealth; i++)
-            {
-                GameObject HeartObj = Instantiate(HeartPrefab, HeartContainer.transform);
-            }
-        }
-        ////////////////////////////////////////////////////////
     }
     public void MoveEnemy()
     {
@@ -156,7 +140,7 @@ public class EnemyScript : MonoBehaviour//, IDataPersitence
     }
     public IEnumerator DamagePlayer()   //Damage the Player 
     {
-        playerControll.PlayerHealth -= 1;
+        healthManagerPlayer.PlayerHealth -= 1;
         canTakeDamage = false;
         yield return new WaitForSeconds(0.5f);
         canTakeDamage = true;

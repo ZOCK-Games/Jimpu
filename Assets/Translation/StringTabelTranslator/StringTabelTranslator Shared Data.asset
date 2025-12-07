@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: StringTabelTranslator Shared Data
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.SharedTableData
+  m_TableCollectionName: StringTabelTranslator
+  m_TableCollectionNameGuidString: d2fab90b57acc3488b76bd35127d667b
+  m_Entries:
+  - m_Id: 12988100608
+    m_Key: Ui_Start_Play
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747880493056
+    m_Key: UI_Start_Shop
+    m_Metadata:
+      m_Items: []
+  - m_Id: 856018038784
+    m_Key: UI_Start_Skins
+    m_Metadata:
+      m_Items: []
+  - m_Id: 902579007488
+    m_Key: UI_Start_Settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 953053261824
+    m_Key: UI_Start_Leav
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3258098251116544
+    m_Key: Ui_Settings_Music
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3258275183636480
+    m_Key: Ui_Settings_Effects
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3258442536366080
+    m_Key: Ui_Settings_Ambient
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3258597864026112
+    m_Key: Ui_Settings_Global
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3258749211291648
+    m_Key: Ui_Settings_ShowFPS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3258860360347648
+    m_Key: Ui_Settings_Language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3258978153181184
+    m_Key: Ui_Settings_KeyBinds
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3259289026605056
+    m_Key: Ui_Settings_DevOptions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3259462465269760
+    m_Key: Ui_Settings_FindInstall
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3259762852933632
+    m_Key: Ui_Settings_ClearData
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3259913222926336
+    m_Key: Ui_Settings_LoadData
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3260056814923776
+    m_Key: Ui_Settings_AboutUs
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 4611627269446959475
+  references:
+    version: 2
+    RefIds:
+    - rid: 4611627269446959475
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1764255850986

@@ -1,0 +1,91 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: StringTabelTranslator_de-DE
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: de
+  m_SharedData: {fileID: 11400000, guid: d2fab90b57acc3488b76bd35127d667b, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 12988100608
+    m_Localized: Start
+    m_Metadata:
+      m_Items: []
+  - m_Id: 747880493056
+    m_Localized: Shop
+    m_Metadata:
+      m_Items: []
+  - m_Id: 856018038784
+    m_Localized: Ausehen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 902579007488
+    m_Localized: Einstellung
+    m_Metadata:
+      m_Items: []
+  - m_Id: 953053261824
+    m_Localized: Benden
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3258098251116544
+    m_Localized: musik
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3258275183636480
+    m_Localized: Effekte
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3258442536366080
+    m_Localized: Ambiente
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3258597864026112
+    m_Localized: Allgemein
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3258749211291648
+    m_Localized: Fps Anzeigen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3258860360347648
+    m_Localized: Sprache
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3258978153181184
+    m_Localized: Tasten Belegung
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3259289026605056
+    m_Localized: Entwickler Optionen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3259462465269760
+    m_Localized: Installations finden
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3259762852933632
+    m_Localized: "Daten L\xF6schen"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3259913222926336
+    m_Localized: Daten Laden
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3260056814923776
+    m_Localized: "\xDCber Uns"
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

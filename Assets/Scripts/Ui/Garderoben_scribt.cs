@@ -29,7 +29,7 @@ public class GarderobenScribt : MonoBehaviour, IDataPersitence
     {
         NextSkinButton.onClick.AddListener(NextSkin);
         CloseButton.onClick.AddListener(CloseGarderobe);
-        SkinSaveButton.onClick.AddListener(SaveSkin);
+        SkinSaveButton.onClick.AddListener(() => SaveSkin());
         Garderobe.SetActive(false);
         LoadSkin();
     }
