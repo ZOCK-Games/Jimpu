@@ -5,27 +5,32 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Start Screen.unity
     guid: 3a30f2322545f38c48bfc3dfd2c69b63
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Shop Scene.unity
     guid: adf5ceb359fc816ffbffb2cf6cc1de95
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Settings.unity
     guid: d543250f227591a52ae1a64869304418
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Death.unity
     guid: 55426fadc8f20d1698ef4c1266df52d8
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Game Levels/GameTutorial.unity
     guid: aa4c579c305672b58b88033aac517157
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Multiplayer/Multiplayer.unity
     guid: 4f6f7503ddad560c6ba86096a6596ee4
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Game Levels/Party.unity
     guid: 42208344b6d6930158188e82ad453c11
+  - enabled: 0
+    path: Assets/Scenes/LoadingScene.unity
+    guid: 1d37f17619596e0f79f399220496c6c2
   m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: cabfead460a73d888bacd5c620188ae2, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+    com.unity.localization.settings: {fileID: 11400000, guid: 771f463d4c23d42da85d7a0c60743edc, type: 2}
   m_UseUCBPForAssetBundles: 0

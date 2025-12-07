@@ -14,10 +14,7 @@ public class DeveloperButton : MonoBehaviour
 
     void OnDeveloperButtonClick()
     {
-        Debug.Log("Developer button clicked!");
         Debug.developerConsoleVisible = true;
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(transform.position, Vector3.one);
         Debug.Log("Developer mode activated!");
         
     }

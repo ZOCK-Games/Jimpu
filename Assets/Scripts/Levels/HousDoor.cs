@@ -1,17 +1,36 @@
 using System.Collections;
+using TMPro;
+using Unity.AppUI.UI;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class HousDoor : MonoBehaviour
 {
-    public Animator HousAnimator;
-    public Animator PlayerAnimator;
-    public GameObject SpeachBubbel;
-    public BoxCollider2D HousTriggerZone;
-    public GameObject PlayerObj;
     [Header("Animator Trigger Names")]
+    public DialogManager dialogManager;
+    public PlayerControll playerControll;
+    public float InfoTextRange;
     public string GoToScene;
+    public GameObject UILoading;
+    public float LoadingTime;
     private bool CanOpenDoor;
+    private InputSystem_Actions inputActions;
+    void Awake()
+    {
+        inputActions = new InputSystem_Actions();
+    }
+    private void OnEnable()
+    {
+        inputActions.Player.Enable();
+    }
+
+    private void OnDisable()
+    {
+        inputActions.Player.Disable();
+    }
     void Start()
     {
         CanOpenDoor = true;
@@ -20,28 +39,45 @@ public class HousDoor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (PlayerObj.GetComponent<PolygonCollider2D>().IsTouching(HousTriggerZone))
+        float Distance = Vector3.Distance(transform.position, playerControll.Player.transform.position);
+        if (Distance < InfoTextRange && dialogManager.currentDialogData.dialog_id != "tutorial_dialog_house_001")
         {
-            SpeachBubbel.SetActive(true);
-            if (Input.GetKey(KeyCode.E) && CanOpenDoor == true)
+            dialogManager.LoadDialog("Dialogs/The_Voice/Tutorial_Dialog/House_Dialog/House_Dialog_1");
+        }
+        if (playerControll.rb.IsTouching(this.gameObject.GetComponent<BoxCollider2D>()))
+        {
+            Debug.Log("Can Open Door");
+            if (inputActions.Player.Interact.WasPressedThisFrame())
             {
-                HousAnimator.Play("OpenDoor");
-                PlayerAnimator.Play("PlayerGoIn");
-                CanOpenDoor = false;
-                StartCoroutine(Wayt());
-
+                StartCoroutine(LoadSceneAsync());
             }
         }
-        else
-        {
-            SpeachBubbel.SetActive(false);
-        }
+
     }
-    public IEnumerator Wayt()
+    IEnumerator LoadSceneAsync()
     {
-        yield return new WaitForSeconds(1.14f);
-        CanOpenDoor = true;
-        SpeachBubbel.SetActive(false);
-        SceneManager.LoadScene(GoToScene);
+        GameObject LoadingCanvas = Instantiate(UILoading);
+        TextMeshProUGUI LoadingText = LoadingCanvas.transform.GetChild(1).transform.GetComponent<TextMeshProUGUI>();
+        Slider LoadingSlider = LoadingCanvas.transform.GetChild(2).transform.GetComponent<Slider>();
+        AsyncOperation operation = SceneManager.LoadSceneAsync(GoToScene);
+        operation.allowSceneActivation = false;
+
+        float StartTime = Time.time;
+        while (operation.progress < 0.9f || Time.time < StartTime + LoadingTime)
+        {
+            float currentProgress = operation.progress;
+            if (operation.progress < 0.9f)
+            {
+                currentProgress = 1;
+            }
+            yield return null;
+            float timeElapsed = Time.time - StartTime;
+            float timeProgress = timeElapsed / LoadingTime;
+            float displayProgress = Mathf.Min(currentProgress, timeProgress);
+            LoadingText.text = $"{Mathf.RoundToInt(displayProgress *100)}%";
+            LoadingSlider.value = displayProgress;
+        }
+        operation.allowSceneActivation = true;
     }
+
 }

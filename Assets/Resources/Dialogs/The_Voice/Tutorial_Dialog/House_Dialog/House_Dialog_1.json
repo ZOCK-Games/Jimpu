@@ -1,0 +1,12 @@
+[
+    {
+        "dialog_id": "tutorial_dialog_house_001",
+        "dialog_text": "Interagiere mit der tür um in nächste level zu komen",
+        "dialog_ended": false,
+        "action": "none",
+        "action_to_do": "Input:Key:Presed:E",
+        "action_to_do_time": 1,
+        "next_id_done": "",
+        "next_id_not_done": ""
+    }
+]

@@ -43,7 +43,7 @@ public class VoiceManager : MonoBehaviour
         Random.Range(MinBulletSpeed,
         MaxBulletSpeed),
         10,
-        Random.Range(MaxBulletShotCountdown,MinBulletShotCountdown)));
+        Random.Range(MaxBulletShotCountdown,MinBulletShotCountdown), false));
 
         playerControll.rb.linearVelocityX = 0.31f;
 

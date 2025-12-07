@@ -1,4 +1,3 @@
-using Unity.Services.Lobbies.Models;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,10 +7,12 @@ public class CheatCode : MonoBehaviour
     [SerializeField] private Button EnemyButton;
     [SerializeField] private Button LuckyBlockButton;
     [SerializeField] private Button BombButton;
+    [SerializeField] private Button ShotVoiceButton;
     [SerializeField] private GameObject CheatCodeUi;
- 
+     [SerializeField] private GameObject CheatShootVoiceUI;
+
     private int CurentInt;
-    [SerializeField] private PlayerControll playerControll;
+    [SerializeField] private HealthManagerPlayer healthManagerPlayer;
     [SerializeField] private LuckyBlock luckyBlock;
     [SerializeField] private EnemyScript enemyScript;
     [SerializeField] private BombScribt bombScribt;
@@ -37,6 +38,7 @@ public class CheatCode : MonoBehaviour
             CurentInt = 3;
             CheckCheat();
         });
+        ShotVoiceButton.onClick.AddListener(() => CheatShootVoiceUI.SetActive(true));
     }
     void Update()
     {
@@ -52,7 +54,7 @@ public class CheatCode : MonoBehaviour
         switch (CurentInt)
         {
             case 0:
-                playerControll.PlayerHealth += 1;
+                healthManagerPlayer.PlayerHealth += 1;
                 Debug.Log("added 1 Health for player");
                 break;
             case 1:

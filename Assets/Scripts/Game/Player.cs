@@ -13,7 +13,6 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
     public GameObject CollidersGameObjekt; // the TilemapContainer
     public Camera Camera1;
     public float MoveSpeed = 3.5f;
-    public float move_speed_L = 3.5f;
     public float Jump_speed = 350;
     public bool CanMove = true;
     public int run_speed = 5;
@@ -28,7 +27,6 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
     public bool MovePlayerR;
     public bool MovePlayerL;
     public bool MovePlayerUP;
-    public int PlayerHealth;
     public List<TilemapCollider2D> Grounds;
     [SerializeField] private List<Skins> PlayerSkins;
     public bool PlayerIsTouchingGround; // if the player is touching a ground tile collider
@@ -42,6 +40,7 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
     private Rigidbody2D PlayerRb;
     private InputSystem_Actions inputActions;
     private Vector2 moveInput;
+    public HealthManagerPlayer healthManagerPlayer;
     void Awake()
     {
         inputActions = new InputSystem_Actions();
@@ -176,7 +175,7 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
             {
                 BodyPartsContainer.transform.GetChild(i).GetComponent<SpriteRenderer>().color = colorHex;
             }
-        PlayerHealth = data.Health;
+        healthManagerPlayer.PlayerHealth = data.Health;
 
     }
     public void SaveGame(ref GameData data) // Save the current Data to GameData
@@ -186,7 +185,7 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
             data.PlayerPositionX = this.Player.transform.localPosition.x;
             data.PlayerPositionY = this.Player.transform.localPosition.y;
         }
-        data.Health = this.PlayerHealth;
+        data.Health = healthManagerPlayer.PlayerHealth;
 
         data.SkinIndex = SkinIndex;
     }

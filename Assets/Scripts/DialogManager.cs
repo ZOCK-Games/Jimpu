@@ -9,23 +9,18 @@ public class DialogManager : MonoBehaviour
 {
     public string DialogFile;
     public CurrentDialogData currentDialogData;
-    public TextMeshProUGUI TextDisplay;
+    public TextMeshPro TextDisplay;
     public ActionSystem actionSystem;
 
     void Start()
     {
         if (currentDialogData != null)
         {
-            TextAsset CurrentDialog = FindPrefabsByName("Dialogs", currentDialogData.dialog_id)[0];
-            Debug.Log($"Current Dialog: {CurrentDialog.name}");
+            TextDisplay.text = currentDialogData.dialog_text;
         }
-
-
-        LoadDialog("Dialogs/The_Voice/Tutorial_Dialog/Welcone_Dialog/TurorialDialog_1");
-        StartCoroutine(actionSystem.NewAction(10, currentDialogData.action_to_do));
     }
 
-    void LoadDialog(string Path)
+    public void LoadDialog(string Path)
     {
 
         TextAsset jsonTextAsset = Resources.Load<TextAsset>(Path);
