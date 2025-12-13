@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Net.NetworkInformation;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -23,6 +22,15 @@ public class StartScreenButtons : MonoBehaviour //this script manges all buttons
     public GameObject Gaderobe;
     public GameObject Settings;
     [SerializeField] private GameObject TransitionUi;
+    private InputSystem_Actions inputActions;
+    void OnEnable()
+    {
+        inputActions.UI.Enable();
+    }
+    void OnDisable()
+    {
+        inputActions.UI.Disable();
+    }
 
     void Start()
     {
@@ -71,7 +79,8 @@ public class StartScreenButtons : MonoBehaviour //this script manges all buttons
     }
     public void OpeningSkin() //is executed when SkinButton is being clicked
     {
-        Gaderobe.SetActive(true);
+        SceneManager.LoadScene("SkinChanger");
+
         Debug.Log(Gaderobe.name + " Has been aktivated becaus of a button");
     }
     public void ExecutingQuit() //is executed when QuitButton is being clicked

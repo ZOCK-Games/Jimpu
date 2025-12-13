@@ -9,13 +9,27 @@ public class CheatCode : MonoBehaviour
     [SerializeField] private Button BombButton;
     [SerializeField] private Button ShotVoiceButton;
     [SerializeField] private GameObject CheatCodeUi;
-     [SerializeField] private GameObject CheatShootVoiceUI;
+    [SerializeField] private GameObject CheatShootVoiceUI;
 
     private int CurentInt;
     [SerializeField] private HealthManagerPlayer healthManagerPlayer;
     [SerializeField] private LuckyBlock luckyBlock;
     [SerializeField] private EnemyScript enemyScript;
     [SerializeField] private BombScribt bombScribt;
+    private InputSystem_Actions inputActions;
+    void Awake()
+    {
+        inputActions = new InputSystem_Actions();
+    }
+    private void OnEnable()
+    {
+        inputActions.Player.Enable();
+    }
+
+    private void OnDisable()
+    {
+        inputActions.Player.Disable();
+    }
     void Start()
     {
         HeartsButton.onClick.AddListener(() =>
@@ -42,7 +56,7 @@ public class CheatCode : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.C))
+        if (inputActions.Player.CheatMenue.WasPerformedThisFrame())
         {
             CheatCodeUi.SetActive(!CheatCodeUi.activeSelf);
         }
@@ -70,10 +84,10 @@ public class CheatCode : MonoBehaviour
                 bombScribt.SetBombPosition();
                 Debug.Log("SetBomb");
                 break;
-                
-              
-                
+
+
+
         }
-        
+
     }
 }

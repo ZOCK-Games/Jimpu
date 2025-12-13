@@ -127,7 +127,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1.5}
+  m_Size: {x: 0.625, y: 0.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -150,8 +150,7 @@ MonoBehaviour:
   PlayerRotation: 0
   CollidersGameObjekt: {fileID: 0}
   Camera1: {fileID: 3715078436708055536}
-  move_speed_R: 3.5
-  move_speed_L: 3.5
+  MoveSpeed: 3.5
   Jump_speed: 30
   CanMove: 1
   run_speed: 5
@@ -169,15 +168,15 @@ MonoBehaviour:
   MovePlayerR: 0
   MovePlayerL: 0
   MovePlayerUP: 0
-  PlayerHealth: 0
   Grounds: []
   PlayerSkins: []
   PlayerIsTouchingGround: 0
-  RobeSagment: {fileID: 0}
+  PlayerInfoInteractionKey: {fileID: 0}
   LoadPlayerPos: 0
   SavePlayerPos: 0
-  HoldOnRadius: 0
   playerCollider: {fileID: 0}
+  JumpCollider: {fileID: 0}
+  healthManagerPlayer: {fileID: 0}
 --- !u!50 &6233424640839426119
 Rigidbody2D:
   serializedVersion: 5
@@ -244,7 +243,7 @@ PolygonCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 0.625, y: 0.5}
-    newSize: {x: 1, y: 1.5}
+    newSize: {x: 0.625, y: 0.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -370,7 +369,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 69535536
+  GlobalObjectIdHash: 2585622356
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 7

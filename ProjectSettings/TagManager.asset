@@ -46,5 +46,8 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Pixel
+    uniqueID: 2191943337
+    locked: 0
   m_RenderingLayers:
   - Default

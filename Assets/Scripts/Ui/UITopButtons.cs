@@ -5,19 +5,49 @@ using UnityEngine.UI;
 public class UITopButtons : MonoBehaviour
 {
     public Button saveButton;
-    public Button SettingsButton;
     public Button ToStartButton;
-    public GameObject settingsCanvas;
     public DataPersitenceManger dataPersistenceManager;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public InputSystem_Actions inputActions;
+    public GameObject SettingsOverlay;
+    void Awake()
+    {
+        inputActions = new InputSystem_Actions();
+    }
+    private void OnEnable()
+    {
+        inputActions.UI.Enable();
+    }
+
+    private void OnDisable()
+    {
+        inputActions.UI.Disable();
+    }
     void Start()
     {
+        SettingsOverlay.SetActive(false);
         saveButton.onClick.AddListener(SaveGame);
-        SettingsButton.onClick.AddListener(OpenSettings);
         ToStartButton.onClick.AddListener(() =>
         {
             SceneManager.LoadScene("Start Screen");
         });
+    }
+    void Update()
+    {
+        if (inputActions.Player.Settings.WasPerformedThisFrame())
+        {
+            Debug.Log("DDD");
+            SettingsOverlay.SetActive(true);
+        }
+        if (SettingsOverlay.activeSelf && !inputActions.UI.enabled)
+        {
+            inputActions.UI.Enable();
+            inputActions.Player.Disable();
+        }
+        else if (!inputActions.Player.enabled)
+        {
+            inputActions.UI.Disable();
+            inputActions.Player.Enable();
+        }
     }
     void SaveGame()
     {
@@ -33,17 +63,4 @@ public class UITopButtons : MonoBehaviour
             }
         }
     }
-    void OpenSettings()
-    {
-        Debug.Log("Settings opened");
-        if (settingsCanvas != null && !settingsCanvas.activeSelf)
-        {
-            settingsCanvas.SetActive(true);
-        }
-        else
-        {
-            Debug.LogError("Settings Canvas is not assigned in the inspector!");
-        }
-    }
-
 }

@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
 using Image = UnityEngine.UI.Image;
 
 public class GarderobenScribt : MonoBehaviour, IDataPersitence
@@ -30,7 +29,6 @@ public class GarderobenScribt : MonoBehaviour, IDataPersitence
         NextSkinButton.onClick.AddListener(NextSkin);
         CloseButton.onClick.AddListener(CloseGarderobe);
         SkinSaveButton.onClick.AddListener(() => SaveSkin());
-        Garderobe.SetActive(false);
         LoadSkin();
     }
 
@@ -47,7 +45,7 @@ public class GarderobenScribt : MonoBehaviour, IDataPersitence
     }
     private void CloseGarderobe()
     {
-        Garderobe.SetActive(false);
+        SceneManager.LoadScene("Start Screen");
     }
 
     private void LoadSkin()

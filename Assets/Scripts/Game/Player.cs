@@ -1,6 +1,6 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -31,16 +31,19 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
     [SerializeField] private List<Skins> PlayerSkins;
     public bool PlayerIsTouchingGround; // if the player is touching a ground tile collider
     [Header("Player Hold On to settings")]
-    public GameObject RobeSagment;
+    public GameObject PlayerInfoInteractionKey;
     public bool LoadPlayerPos;
     public bool SavePlayerPos;
-    public float HoldOnRadius;
     private bool IsHoldingOn;
     public PolygonCollider2D playerCollider;
+    public BoxCollider2D JumpCollider;
     private Rigidbody2D PlayerRb;
     private InputSystem_Actions inputActions;
     private Vector2 moveInput;
     public HealthManagerPlayer healthManagerPlayer;
+    [Header("Player Attacks")]
+    private bool CanDodgeRoll;
+    public float DodgeRollStrength;
     void Awake()
     {
         inputActions = new InputSystem_Actions();
@@ -62,7 +65,9 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
         playerCollider = Player.GetComponent<PolygonCollider2D>();
         PlayerRb = Player.GetComponent<Rigidbody2D>();
 
+        PlayerInfoInteractionKey.SetActive(false);
         PlayerIsTouchingGround = false;
+        CanDodgeRoll = true;
         UnityEngine.Debug.Log("Tutorial Game Has Startet");
         rb = Player.GetComponent<Rigidbody2D>();
         PlayerAniamtor.SetBool("Walk", false);
@@ -90,8 +95,12 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
     // Update is called once per frame
     void Update()
     {
-        Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
-        transform.Translate(move * MoveSpeed * Time.deltaTime);
+        if (CanMove)
+        {
+            Vector3 move = new Vector3(moveInput.x, 0, 0);
+            transform.Translate(move * MoveSpeed * Time.deltaTime);
+        }
+
 
         /*/if (PlayerHealth == 0)              // Aktiviert Den Dead Screen
         SceneManager.LoadScene("Death");*/
@@ -100,23 +109,20 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
 
         foreach (var ground in Grounds)
         {
-            if (ground != null && playerCollider.IsTouching(ground))
+            if (ground != null && JumpCollider.IsTouching(ground))
             {
                 PlayerIsTouchingGround = true;
                 break;
             }
         }
-        if (inputActions.Player.Jump.WasPerformedThisFrame())
-        {
-            move.y += Jump_speed * Time.deltaTime;
-            PlayerRb.AddForceY(2);
-        }
 
-        if (inputActions.Player.Jump.WasPerformedThisFrame() && IsHoldingOn)
+        if (!inputActions.Player.Interact.IsPressed() && IsHoldingOn)
         {
             IsHoldingOn = false;
             CanMove = true;
             PlayerRb.constraints = RigidbodyConstraints2D.None;
+            PlayerRb.constraints = RigidbodyConstraints2D.FreezeRotation;
+            rb.AddForce(new Vector2(0, Jump_speed / 2));
             Debug.Log("Player is no longer holding on");
 
         }
@@ -126,29 +132,52 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
             PlayerAniamtor.SetTrigger("Jump");
         }
 
-        if (inputActions.Player.Attack.WasPerformedThisFrame())
-        {
 
-            // Checks if there is a tilemap near the player to hold on to
-            if (PlayerIsTouchingGround && !IsHoldingOn)
-            {
-                float Posy = UnityEngine.Random.Range(Player.transform.position.y, Player.transform.position.y + HoldOnRadius);
-                float Posx = UnityEngine.Random.Range(Player.transform.position.x, Player.transform.position.x + HoldOnRadius);
 
-                Vector3 PosTile = new Vector3(Posx, Posy, 0);
-                Vector3Int cellPos = CollidersGameObjekt.transform.GetChild(1).GetComponent<Tilemap>().WorldToCell(PosTile);
-                Debug.Log("Player Can Hold On To Position: {cellPos}");
-                PlayerRb.constraints = RigidbodyConstraints2D.FreezeAll;
-                Player.transform.position = cellPos;
-                CanMove = false;
-                Debug.DrawRay(cellPos, cellPos * 2, Color.red);
-                IsHoldingOn = true;
-                GameObject previousSegment = null;
-            }
-        }
+
 
 
         Player.transform.rotation = Quaternion.Euler(0f, 0f, PlayerRotation);
+    }
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.gameObject.layer == 3)
+        {
+            Debug.Log("HOld");
+            Vector3 myPosition = transform.position;
+            Vector3 otherPosition = collider.transform.position;
+            Vector3 collisionDirection = myPosition - otherPosition;
+            if (collisionDirection.x > 0)
+            {
+                Debug.Log("Wall Right");
+                StartCoroutine(HoldOnToWall("Right", collisionDirection));
+            }
+            if (collisionDirection.x < 0)
+            {
+                Debug.Log("Wall Left");
+                StartCoroutine(HoldOnToWall("Left", collisionDirection));
+            }
+        }
+    }
+    IEnumerator HoldOnToWall(string Direction, Vector3 Pos)
+    {
+        PlayerInfoInteractionKey.SetActive(true);
+        float ElapsedTime = 0f;
+        while (ElapsedTime < 0.8f)
+        {
+            if (inputActions.Player.Interact.WasPerformedThisFrame() && !PlayerIsTouchingGround)
+            {
+                Debug.Log($"Holding On to: {Pos}");
+                Debug.DrawRay(Pos, Pos *2, Color.red);
+                rb.constraints = RigidbodyConstraints2D.FreezeAll;
+                CanMove = false;
+                IsHoldingOn = true;
+                break;
+            }
+            ElapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        PlayerInfoInteractionKey.SetActive(false);
     }
     public void CheckSkin()
     {
