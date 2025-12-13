@@ -16,6 +16,7 @@ public class HealthManagerPlayer : MonoBehaviour
     public GameObject HeartPrefab;
     public GameObject DamageParticle;
     public GameObject HealParticle;
+    public VibrateControllerManager vibrateController;
     void Start()
     {
 
@@ -58,6 +59,7 @@ public class HealthManagerPlayer : MonoBehaviour
                     Particel.transform.position = collision.gameObject.transform.position;
                     Destroy(Particel, 0.2f);
                 }
+                vibrateController.VibrateController(0.5f, 0f, 2f);
                 PlayerHealth += DamageInfo[i].Damage;
                 Debug.Log("New Health for player: " + PlayerHealth);
             }

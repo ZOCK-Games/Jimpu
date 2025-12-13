@@ -26,6 +26,10 @@ public class SpeedItemScribt : MonoBehaviour
     {
         inputActions.Player.Disable();
     }
+    void Start()
+    {
+        PowerAktive = false;
+    }
     // Update is called once per frame
     void Update()
     {

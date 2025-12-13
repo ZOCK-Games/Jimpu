@@ -86,6 +86,26 @@ MonoBehaviour:
     m_Localized: "\xDCber Uns"
     m_Metadata:
       m_Items: []
+  - m_Id: 5859709351800832
+    m_Localized: "\xC4ndern"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5859920329486336
+    m_Localized: Laufen Rechts
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5860078739959808
+    m_Localized: Laufen Links
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5860146691878912
+    m_Localized: Springen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5860315168681984
+    m_Localized: Interagieren
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

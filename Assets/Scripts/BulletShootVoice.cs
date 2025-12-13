@@ -67,6 +67,7 @@ public class BulletShootVoice : MonoBehaviour
 
             BulletObj.transform.SetParent(BulletContainer);
             BulletObj.transform.position = ShotingPos;
+            BulletObj.gameObject.tag = "Bullet";
 
             GameObject Particle = Instantiate(ParticleShoot);
             Particle.transform.position = BulletObj.transform.position;

@@ -86,6 +86,26 @@ MonoBehaviour:
     m_Localized: about us
     m_Metadata:
       m_Items: []
+  - m_Id: 5859709351800832
+    m_Localized: Change
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5859920329486336
+    m_Localized: Walk Right
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5860078739959808
+    m_Localized: Walk Left
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5860146691878912
+    m_Localized: Jump
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5860315168681984
+    m_Localized: Interact
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

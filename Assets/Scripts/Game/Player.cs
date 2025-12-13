@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 
 public class PlayerControll : MonoBehaviour, IDataPersitence
@@ -41,6 +42,8 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
     private InputSystem_Actions inputActions;
     private Vector2 moveInput;
     public HealthManagerPlayer healthManagerPlayer;
+    public EnergyManager energyManager;
+    public VibrateControllerManager vibrateController;
     [Header("Player Attacks")]
     private bool CanDodgeRoll;
     public float DodgeRollStrength;
@@ -132,12 +135,40 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
             PlayerAniamtor.SetTrigger("Jump");
         }
 
+        ////
+        /// Dodge Roll
+        /// 
 
+        if (inputActions.Player.DodgeRoll.WasPerformedThisFrame() && CanDodgeRoll && energyManager.EnergyAmount >= 25)
+        {
+            Debug.Log("Attack");
+            float Direction = inputActions.Player.Move.ReadValue<Vector2>().x;
+            if(Direction > 0)
+            {
+                Debug.Log("Attack R");
+                PlayerAniamtor.Play("PlayerDogeRoll");
+                moveInput.x += DodgeRollStrength;
+                vibrateController.VibrateController(0.2f, 0.1f, 2);
+                StartCoroutine(energyManager.RemoveEnergy(-25));
+            }
+            else
+            {
+                Debug.Log("Attack L");
+                PlayerAniamtor.Play("PlayerDogeRoll");
+                moveInput.x -= DodgeRollStrength;
+                vibrateController.VibrateController(0.2f, 0.1f, 2);
+                StartCoroutine(energyManager.RemoveEnergy(-25));
+            }
+        } 
 
 
 
 
         Player.transform.rotation = Quaternion.Euler(0f, 0f, PlayerRotation);
+    }
+    IEnumerator DodgeRollReset()
+    {
+        yield return new WaitForSeconds(3);
     }
     void OnTriggerEnter2D(Collider2D collider)
     {

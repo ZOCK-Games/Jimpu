@@ -83,6 +83,26 @@ MonoBehaviour:
     m_Key: Ui_Settings_AboutUs
     m_Metadata:
       m_Items: []
+  - m_Id: 5859709351800832
+    m_Key: Ui_Settings_KeyBinds_Change
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5859920329486336
+    m_Key: Ui_Settings_KeyBinds_WalkR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5860078739959808
+    m_Key: Ui_Settings_KeyBinds_WalkL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5860146691878912
+    m_Key: Ui_Settings_KeyBinds_Jump
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5860315168681984
+    m_Key: Ui_Settings_KeyBinds_Interact
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

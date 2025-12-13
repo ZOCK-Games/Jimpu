@@ -10,12 +10,14 @@ public class CheatCode : MonoBehaviour
     [SerializeField] private Button ShotVoiceButton;
     [SerializeField] private GameObject CheatCodeUi;
     [SerializeField] private GameObject CheatShootVoiceUI;
+    [SerializeField] private Button EnergyButton;
 
     private int CurentInt;
     [SerializeField] private HealthManagerPlayer healthManagerPlayer;
     [SerializeField] private LuckyBlock luckyBlock;
     [SerializeField] private EnemyScript enemyScript;
     [SerializeField] private BombScribt bombScribt;
+    [SerializeField] private EnergyManager energyManager;
     private InputSystem_Actions inputActions;
     void Awake()
     {
@@ -32,6 +34,11 @@ public class CheatCode : MonoBehaviour
     }
     void Start()
     {
+        EnergyButton.onClick.AddListener(() =>
+        {
+            StartCoroutine(energyManager.AddEnergy(25));
+            
+        });
         HeartsButton.onClick.AddListener(() =>
         {
             CurentInt = 0;

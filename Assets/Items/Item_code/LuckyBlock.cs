@@ -6,8 +6,8 @@ public class LuckyBlock : MonoBehaviour
     public GameObject LuckyBlockI;
     public GameObject chest;
     public PlayerControll playerControll;
-    public GameObject ChestContainer;
     public Inventory inventory;
+    public ChestManager chestManager;
     private InputSystem_Actions inputActions;
 
     void Awake()
@@ -25,7 +25,7 @@ public class LuckyBlock : MonoBehaviour
     }
     void Update()
     {
-        if (inputActions.Player.Interact.WasCompletedThisFrame() && LuckyBlockI.activeSelf)
+        if (inputActions.Player.Interact.WasPerformedThisFrame() && LuckyBlockI.activeSelf)
         {
             SpawnChest();
         }
@@ -33,12 +33,8 @@ public class LuckyBlock : MonoBehaviour
     }
     public void SpawnChest()
     {
-        GameObject chest_p = Instantiate(chest);
-        chest_p.name = "ChestLukyBlock";
-        chest_p.transform.parent = ChestContainer.transform;
-        Vector3 pos = playerControll.transform.position;
-        pos.y = playerControll.Player.transform.position.y + 1.5f;
-        chest_p.transform.position = pos;
+        Vector3 Position = new Vector3(playerControll.Player.transform.position.x, playerControll.Player.transform.position.y + 1.5f, 0);
+        chestManager.AddChest(Position);
         LuckyBlockI.SetActive(false);
         inventory.Clear();
     }

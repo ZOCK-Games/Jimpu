@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Intro.unity
+    guid: 1b0d387857c21cb5ba22a27e48d2357f
+  - enabled: 1
     path: Assets/Scenes/Start Screen.unity
     guid: 3a30f2322545f38c48bfc3dfd2c69b63
   - enabled: 1
@@ -13,22 +16,25 @@ EditorBuildSettings:
     guid: adf5ceb359fc816ffbffb2cf6cc1de95
   - enabled: 1
     path: Assets/Scenes/Settings.unity
-    guid: d543250f227591a52ae1a64869304418
+    guid: db833f2efa7aace2dbd3e30b8be39faa
   - enabled: 1
     path: Assets/Scenes/Death.unity
     guid: 55426fadc8f20d1698ef4c1266df52d8
   - enabled: 1
     path: Assets/Scenes/Game Levels/GameTutorial.unity
-    guid: aa4c579c305672b58b88033aac517157
+    guid: 33367d5d4a5fdb1df9b9a3d857488d40
   - enabled: 1
     path: Assets/Scenes/Multiplayer/Multiplayer.unity
     guid: 4f6f7503ddad560c6ba86096a6596ee4
   - enabled: 1
     path: Assets/Scenes/Game Levels/Party.unity
     guid: 42208344b6d6930158188e82ad453c11
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/LoadingScene.unity
     guid: 1d37f17619596e0f79f399220496c6c2
+  - enabled: 1
+    path: Assets/Scenes/SkinChanger.unity
+    guid: 6926451e99d15023b82f2502843d06c8
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: cabfead460a73d888bacd5c620188ae2, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
