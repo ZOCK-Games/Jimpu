@@ -28,7 +28,7 @@
                     "name": "Attack",
                     "type": "Button",
                     "id": "6c2ab1b8-8984-453a-af3d-a3c78ae1679a",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -40,15 +40,6 @@
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "Hold(duration=0.22,pressPoint=0.3)",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Crouch",
-                    "type": "Button",
-                    "id": "27c5f898-bc57-4ee1-8800-db469aca5fe3",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
                     "initialStateCheck": false
                 },
                 {
@@ -91,6 +82,15 @@
                     "name": "Dodge Roll",
                     "type": "Button",
                     "id": "8ad0ee79-6527-4708-af68-93b468a97658",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Inventory",
+                    "type": "Button",
+                    "id": "a1736bdb-ff45-4ba9-a540-59443a93a709",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -419,28 +419,6 @@
                 },
                 {
                     "name": "",
-                    "id": "4f4649ac-64a8-4a73-af11-b3faef356a4d",
-                    "path": "<Gamepad>/buttonEast",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Crouch",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "36e52cba-0905-478e-a818-f4bfcb9f3b9a",
-                    "path": "<Keyboard>/g",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Crouch",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "6cf53a5e-c2d9-4deb-9b18-9697a169409b",
                     "path": "<Gamepad>/start",
                     "interactions": "",
@@ -497,11 +475,33 @@
                 {
                     "name": "",
                     "id": "5379e2b4-001b-49c0-b0b0-a291a58719d7",
-                    "path": "<Keyboard>/r",
+                    "path": "<Keyboard>/shift",
                     "interactions": "MultiTap",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "Dodge Roll",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6ca34fa4-dada-426c-b435-9434d0efa401",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Inventory",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "167995f9-6e62-45ea-a419-e66d1486d6e0",
+                    "path": "<Keyboard>/g",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Inventory",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

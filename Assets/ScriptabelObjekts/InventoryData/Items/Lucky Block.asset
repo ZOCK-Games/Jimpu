@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71d9166a2e8155b17a686d5558e7a530, type: 3}
+  m_Name: Lucky Block
+  m_EditorClassIdentifier: Assembly-CSharp::ItemData
+  ItemImagePrev: {fileID: -6831884610337485332, guid: 848d5d6fab2a83d46b418456f5fba775, type: 3}
+  ItemImageInHand: {fileID: -6831884610337485332, guid: 848d5d6fab2a83d46b418456f5fba775, type: 3}
+  ItemNameText: Lucky Block
+  ItemInfosText: This is a Lucky Block
+  ItemDescription: fff
+  ItemRarity: 0
+  ItemCanBeFoundIn: fff
+  BuyPrice: 0
+  SellPrice: 0
+  itemType: 0
+  ItemObject: {fileID: 2692864394147549482, guid: 7197acf4d87be7f86ad19d7df89a9500, type: 3}

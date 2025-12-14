@@ -46,13 +46,13 @@ public class ChestManager : MonoBehaviour
         int ItemNumber = 0;
         while (ElapsedTime < 1f)
         {
-            ItemNumber = Random.Range(0, inventory.Item.Count);
-            Display.GetComponent<SpriteRenderer>().sprite = inventory.Item[ItemNumber].GetComponent<SpriteRenderer>().sprite;
+            ItemNumber = Random.Range(0, inventory.itemData.Count);
+            Display.GetComponent<SpriteRenderer>().sprite = inventory.itemData[ItemNumber].ItemImagePrev;
             yield return new WaitForSeconds(0.12f);
             ElapsedTime += Time.deltaTime;
             ChestTilemap.SetTile(Pos, null);
         }
         Destroy(Display, 0.6f);
-        inventory.Item[ItemNumber].SetActive(true);
+        inventory.AddItem(inventory.itemData[ItemNumber]);
     }
 }
