@@ -39,7 +39,7 @@ public class Shop : MonoBehaviour, IDataPersitence
 
         for (int i = 0; i < ItemPaperButtons.Count; i++)
         {
-            ItemPaperButtons[i].transform.GetChild(0).GetComponent<Image>().sprite = Itemdata[i].ItemImagePrev1;
+            ItemPaperButtons[i].transform.GetChild(0).GetComponent<Image>().sprite = Itemdata[i].ItemImagePrev;
         }
 
               
@@ -71,10 +71,10 @@ public class Shop : MonoBehaviour, IDataPersitence
         ShopKeeper.GetComponent<Animator>().SetTrigger("Bounce");
         ShopMassage.color = Color.white;
         StartCoroutine(TextFade());
-        ItemImage.sprite = Itemdata[CurentPaperButton].ItemImagePrev1;
+        ItemImage.sprite = Itemdata[CurentPaperButton].ItemImagePrev;
         ItemName.SetText(Itemdata[CurentPaperButton].ItemNameText);
-        CurentItemPrice = Itemdata[CurentPaperButton].ItemPriceInt;
-        ItemPrice.SetText(Itemdata[CurentPaperButton].Price + "$");
+        CurentItemPrice = Itemdata[CurentPaperButton].BuyPrice;
+        ItemPrice.SetText(Itemdata[CurentPaperButton].BuyPrice + "$");
         ItemInfos.SetText(Itemdata[CurentPaperButton].ItemInfosText);
 
         if (CurentItem == "")

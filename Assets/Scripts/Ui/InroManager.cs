@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class InroManager : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class InroManager : MonoBehaviour
     public GameObject StartInfo;
     public GameObject Intro;
     public VibrateControllerManager vibrateController;
+    public Button ContinueButton;
     void Awake()
     {
         inputActions = new InputSystem_Actions();
@@ -19,13 +21,10 @@ public class InroManager : MonoBehaviour
     void OnEnable()
     {
         inputActions.UI.Enable();
-        inputActions.Player.Enable();
     }
     void OnDisable()
     {
         inputActions.UI.Disable();
-        inputActions.Player.Disable();
-
     }
     IEnumerator StartWarning()
     {
@@ -36,11 +35,19 @@ public class InroManager : MonoBehaviour
         StartInfo.SetActive(false);
         Intro.SetActive(true);
     }
+    void Start()
+    {
+        ContinueButton.onClick.AddListener(() => SceneManager.LoadScene("Start Screen"));
+    }
 
     // Update is called once per frame
     void Update()
     {
-        if (InfoButton.activeSelf && inputActions.UI.Submit.WasPerformedThisFrame())
+        if (inputActions.UI.RightClick.WasPerformedThisFrame())
+        {
+            SceneManager.LoadScene("Start Screen");
+        }
+        if (inputActions.UI.Submit.WasPerformedThisFrame())
         {
             SceneManager.LoadScene("Start Screen");
         }

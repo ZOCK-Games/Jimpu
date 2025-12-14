@@ -18,7 +18,7 @@ MonoBehaviour:
   m_PlatformId: cb423bfea44b4d658edb8bc5d91a3024
   m_PlatformBuildProfile:
     rid: 4222498819070230783
-  m_OverrideGlobalSceneList: 1
+  m_OverrideGlobalSceneList: 0
   m_Scenes:
   - m_enabled: 0
     m_path: Assets/Scenes/Start Screen.unity
@@ -103,6 +103,7 @@ MonoBehaviour:
     - line: '|   androidStartInFullscreen: 1'
     - line: '|   androidRenderOutsideSafeArea: 1'
     - line: '|   androidUseSwappy: 1'
+    - line: '|   androidDisplayOptions: 1'
     - line: '|   androidBlitType: 0'
     - line: '|   androidResizeableActivity: 1'
     - line: '|   androidDefaultWindowWidth: 1920'
@@ -119,6 +120,7 @@ MonoBehaviour:
     - line: '|   muteOtherAudioSources: 0'
     - line: '|   Prepare IOS For Recording: 0'
     - line: '|   Force IOS Speakers When Recording: 0'
+    - line: '|   audioSpatialExperience: 0'
     - line: '|   deferSystemGesturesMode: 0'
     - line: '|   hideHomeButton: 0'
     - line: '|   submitAnalytics: 1'
@@ -139,7 +141,7 @@ MonoBehaviour:
     - line: '|   xboxEnableFitness: 0'
     - line: '|   visibleInBackground: 1'
     - line: '|   allowFullscreenSwitch: 1'
-    - line: '|   fullscreenMode: 3'
+    - line: '|   fullscreenMode: 0'
     - line: '|   xboxSpeechDB: 0'
     - line: '|   xboxEnableHeadOrientation: 0'
     - line: '|   xboxEnableGuest: 0'
@@ -832,6 +834,7 @@ MonoBehaviour:
     - line: '|   androidVulkanDenyFilterList: []'
     - line: '|   androidVulkanAllowFilterList: []'
     - line: '|   androidVulkanDeviceFilterListAsset: {instanceID: 0}'
+    - line: '|   d3d12DeviceFilterListAsset: {instanceID: 0}'
     - line: '| '
   references:
     version: 2

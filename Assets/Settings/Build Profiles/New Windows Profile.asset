@@ -36,7 +36,8 @@ MonoBehaviour:
     - line: '|   accelerometerFrequency: 60'
     - line: '|   companyName: ZOCK Games'
     - line: '|   productName: Jimpu'
-    - line: '|   defaultCursor: {instanceID: 0}'
+    - line: '|   defaultCursor: {fileID: 2800000, guid: 35b8bd2592ca49bbebdd59833e4672ea,
+        type: 3}'
     - line: '|   cursorHotspot: {x: 0, y: 0}'
     - line: '|   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b:
         0.1254902, a: 1}'
@@ -97,6 +98,7 @@ MonoBehaviour:
     - line: '|   androidStartInFullscreen: 1'
     - line: '|   androidRenderOutsideSafeArea: 1'
     - line: '|   androidUseSwappy: 1'
+    - line: '|   androidDisplayOptions: 1'
     - line: '|   androidBlitType: 0'
     - line: '|   androidResizeableActivity: 1'
     - line: '|   androidDefaultWindowWidth: 1920'
@@ -113,6 +115,7 @@ MonoBehaviour:
     - line: '|   muteOtherAudioSources: 0'
     - line: '|   Prepare IOS For Recording: 0'
     - line: '|   Force IOS Speakers When Recording: 0'
+    - line: '|   audioSpatialExperience: 0'
     - line: '|   deferSystemGesturesMode: 0'
     - line: '|   hideHomeButton: 0'
     - line: '|   submitAnalytics: 1'
@@ -133,7 +136,7 @@ MonoBehaviour:
     - line: '|   xboxEnableFitness: 0'
     - line: '|   visibleInBackground: 1'
     - line: '|   allowFullscreenSwitch: 1'
-    - line: '|   fullscreenMode: 3'
+    - line: '|   fullscreenMode: 2'
     - line: '|   xboxSpeechDB: 0'
     - line: '|   xboxEnableHeadOrientation: 0'
     - line: '|   xboxEnableGuest: 0'
@@ -168,10 +171,12 @@ MonoBehaviour:
     - line: '|   loadStoreDebugModeEnabled: 0'
     - line: '|   visionOSBundleVersion: 1.0'
     - line: '|   tvOSBundleVersion: 1.0'
-    - line: '|   bundleVersion: 0.1'
+    - line: '|   bundleVersion: 0.5.42'
     - line: '|   preloadedAssets:'
     - line: '|   - {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100,
         type: 3}'
+    - line: '|   - {fileID: 11400000, guid: 771f463d4c23d42da85d7a0c60743edc, type:
+        2}'
     - line: '|   metroInputSource: 0'
     - line: '|   wsaTransparentSwapchain: 0'
     - line: '|   m_HolographicPauseOnTrackingLoss: 1'
@@ -421,7 +426,10 @@ MonoBehaviour:
     - line: '|       m_Height: 36'
     - line: '|       m_Kind: 0'
     - line: '|       m_SubKind: '
-    - line: '|   m_BuildTargetBatching: []'
+    - line: '|   m_BuildTargetBatching:'
+    - line: '|   - m_BuildTarget: Standalone'
+    - line: '|     m_StaticBatching: 1'
+    - line: '|     m_DynamicBatching: 0'
     - line: '|   m_BuildTargetShaderSettings: []'
     - line: '|   m_BuildTargetGraphicsJobs: []'
     - line: '|   m_BuildTargetGraphicsJobMode: []'
@@ -839,16 +847,15 @@ MonoBehaviour:
     - line: '|   androidVulkanDenyFilterList: []'
     - line: '|   androidVulkanAllowFilterList: []'
     - line: '|   androidVulkanDeviceFilterListAsset: {instanceID: 0}'
+    - line: '|   d3d12DeviceFilterListAsset: {instanceID: 0}'
     - line: '| '
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
     - rid: 2220316840161968195
       type: {class: WindowsPlatformSettings, ns: UnityEditor.WindowsStandalone, asm: UnityEditor.WindowsStandalone.Extensions}
       data:
-        m_Development: 0
+        m_Development: 1
         m_ConnectProfiler: 0
         m_BuildWithDeepProfilingSupport: 0
         m_AllowDebugging: 0
@@ -859,6 +866,8 @@ MonoBehaviour:
         m_ExplicitArrayBoundsChecks: 0
         m_CompressionType: 0
         m_InstallInBuildFolder: 0
+        m_InsightsSettingsContainer:
+          m_BuildProfileEngineDiagnosticsState: 2
         m_WindowsBuildAndRunDeployTarget: 0
         m_Architecture: 0
         m_CreateSolution: 0
