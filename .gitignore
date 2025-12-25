@@ -78,3 +78,20 @@ crashlytics-build.properties
 Assets/_Recovery/
 
 thrrfzh.adoc
+
+JimpuLinuxBuild Intel64 Linux.x86_64
+
+JimpuWindowsBuild Intel64 Linux_s.debug
+
+libdecor-0.so.0
+
+libdecor-cairo.so
+
+Jimpu_BurstDebugInformation_DoNotShip/
+
+JimpuWindowsBuild Intel64/
+
+JimpuWindowsBuild Intel64 Linux_Data/
+
+# Scraps local notes
+.scraps/

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71d9166a2e8155b17a686d5558e7a530, type: 3}
+  m_Name: Speed
+  m_EditorClassIdentifier: Assembly-CSharp::ItemData
+  itemID: 222
+  ItemImagePrev: {fileID: 1078891832723462022, guid: 848d5d6fab2a83d46b418456f5fba775, type: 3}
+  ItemImageInHand: {fileID: 1078891832723462022, guid: 848d5d6fab2a83d46b418456f5fba775, type: 3}
+  ItemNameText: Speed
+  ItemInfosText: Speed
+  ItemDescription: fff
+  ItemRarity: 0
+  ItemCanBeFoundIn: fff
+  BuyPrice: 0
+  SellPrice: 0
+  itemType: 0
+  ItemObject: {fileID: 2329754553756424303, guid: 492d10c6c86a8e0b8b59b9fd222c4360, type: 3}

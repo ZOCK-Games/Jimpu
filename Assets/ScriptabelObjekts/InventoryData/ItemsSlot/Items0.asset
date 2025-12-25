@@ -15,6 +15,6 @@ MonoBehaviour:
   SlotName: Items0
   SlotNumber: 4
   MaxItems: 8
-  ItemCount: 0
+  ItemCount: 2
   itemType: 0
-  ItemStored: {fileID: 0}
+  ItemStored: {fileID: 11400000, guid: 96ec0ce838a933a26b4261de7e4fa9d4, type: 2}

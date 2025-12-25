@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: Items3
   m_EditorClassIdentifier: Assembly-CSharp::InventorySlot
-  SlotName: Slot3
+  SlotName: Items3
   SlotNumber: 7
   MaxItems: 8
-  ItemCount: 7
+  ItemCount: 0
   itemType: 0
-  ItemStored: {fileID: 11400000, guid: 64c011e7f4e9fb88088451f6657bb1d2, type: 2}
+  ItemStored: {fileID: 0}
