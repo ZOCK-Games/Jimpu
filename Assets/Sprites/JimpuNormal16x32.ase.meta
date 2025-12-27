@@ -1,5 +1,7 @@
 fileFormatVersion: 2
 guid: b481afa5fb0ebbee594006dea82b6f2a
+labels:
+- Character
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}

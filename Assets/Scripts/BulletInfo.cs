@@ -13,7 +13,6 @@ public class BulletInfo : MonoBehaviour
     {
         if (other.gameObject.layer == 3)
         {
-            Debug.Log("Destroying OBj");
             gameObject.GetComponent<Animator>().SetTrigger("Hit");
             if (DuplicateOnWallHit)
             {

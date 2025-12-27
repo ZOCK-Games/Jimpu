@@ -54,7 +54,6 @@ public class BulletShootVoice : MonoBehaviour
     // Update is called once per frame
     public IEnumerator Shoot(Transform Target, GameObject Bullet, Transform ShotingPosition, float BulletSpeed, int BulletCount, float BulletShotCountdown, bool DuplicateOnWallHit)
     {
-        Debug.Log($"Summoning {BulletCount} Bullets");
         for (int i = 0; i < BulletCount; i++)
         {
             Vector3 TargetPos = Target.position;
@@ -62,7 +61,6 @@ public class BulletShootVoice : MonoBehaviour
 
             float duration = Vector3.Distance(ShotingPos, TargetPos) / BulletSpeed;
             float elapsedTime = 0f;
-            Debug.Log($"Duration: {duration}");
             GameObject BulletObj = Instantiate(Bullet);
 
             BulletObj.transform.SetParent(BulletContainer);

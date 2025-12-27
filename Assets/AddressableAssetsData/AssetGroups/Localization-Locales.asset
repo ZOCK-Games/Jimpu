@@ -28,7 +28,7 @@ MonoBehaviour:
     - Locale
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ef57878a4c9c96da6ae4c683947ba9d9
-    m_Address: German (Germany) (de-DE)
+    m_Address: German (Germany) (de)
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale
