@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Diagnostics;
+using System.IO;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,6 +15,7 @@ public class HousDoor : MonoBehaviour
     public string GoToScene;
     public GameObject UILoading;
     public float LoadingTime;
+    public DeviceManger deviceManger;
     private bool CanOpenDoor;
     private InputSystem_Actions inputActions;
     void Awake()
@@ -43,10 +46,11 @@ public class HousDoor : MonoBehaviour
         }
         if (playerControll.rb.IsTouching(this.gameObject.GetComponent<BoxCollider2D>()))
         {
-            Debug.Log("Can Open Door");
+            UnityEngine.Debug.Log("Can Open Door");
             if (inputActions.Player.Interact.WasPressedThisFrame())
             {
-                StartCoroutine(LoadSceneAsync());
+                string path = Path.Combine(Application.streamingAssetsPath,$"Crash/{deviceManger.DesktopOS}/CrashWindow");
+                Process.Start(path);
             }
         }
 
@@ -71,7 +75,7 @@ public class HousDoor : MonoBehaviour
             float timeElapsed = Time.time - StartTime;
             float timeProgress = timeElapsed / LoadingTime;
             float displayProgress = Mathf.Min(currentProgress, timeProgress);
-            LoadingText.text = $"{Mathf.RoundToInt(displayProgress *100)}%";
+            LoadingText.text = $"{Mathf.RoundToInt(displayProgress * 100)}%";
             LoadingSlider.value = displayProgress;
         }
         operation.allowSceneActivation = true;

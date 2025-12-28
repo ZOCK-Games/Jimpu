@@ -4,6 +4,7 @@ using UnityEngine;
 public class DeviceManger : MonoBehaviour, IDataPersitence
 {
     public string Device;
+    public string DesktopOS;
     public string SimpleDevice;
     [Header("Device Buttons")]
     public GameObject MoveRButton;
@@ -17,6 +18,10 @@ public class DeviceManger : MonoBehaviour, IDataPersitence
         {
             Debug.LogError("Something is wrong with your Device Pleas Contact owner!!! Your Device Is: " + Device);
             Application.OpenURL("https://github.com/ZOCK-Games/Jimpu");
+        }
+        if (SimpleDevice == "PC")
+        {
+            DesktopOS = GetDesktopOS();
         }
         StartCoroutine(Wayt());
         string GetSimpleDeviceType() // Used to get the Current device 
@@ -48,10 +53,29 @@ public class DeviceManger : MonoBehaviour, IDataPersitence
                 default:
                     return "Unknown";
             }
-            
-    }
+        }
 
         DataPersitenceManger.Instance.LoadGame();
+    }
+    public static string GetDesktopOS()
+    {
+        switch (Application.platform)
+        {
+            case RuntimePlatform.WindowsPlayer:
+            case RuntimePlatform.WindowsEditor:
+                return "Windows";
+
+            case RuntimePlatform.LinuxPlayer:
+            case RuntimePlatform.LinuxEditor:
+                return "Linux";
+
+            case RuntimePlatform.OSXPlayer:
+            case RuntimePlatform.OSXEditor:
+                return "macOS";
+
+            default:
+                return "Other";
+        }
     }
     IEnumerator Wayt()
     {
@@ -93,7 +117,7 @@ public class DeviceManger : MonoBehaviour, IDataPersitence
 
         }
     }
-    
+
 
 
     public void SaveGame(ref GameData data)
