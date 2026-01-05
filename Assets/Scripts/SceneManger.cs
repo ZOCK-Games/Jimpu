@@ -8,8 +8,5 @@ public class SceneManger : MonoBehaviour
    [SerializeField] private PlayerControll playerControll;
     void awake()
     {
-        playerControll.LoadPlayerPos = UseSavedPlayerPosition;
-        playerControll.SavePlayerPos = SavePlayerPosition;
-        
     }
 }

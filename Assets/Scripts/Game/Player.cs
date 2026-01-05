@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
@@ -10,15 +11,12 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
 {
     public GameObject Player;
     public Animator PlayerAniamtor;
-    public float PlayerRotation;
     public GameObject CollidersGameObjekt; // the TilemapContainer
-    public Camera Camera1;
     public float MoveSpeed = 3.5f;
     public float Jump_speed = 350;
     public bool CanMove = true;
     public int run_speed = 5;
     public Rigidbody2D rb;
-    public GameObject Walkking_animation;
     public List<Sprite> SkinSprite;
     private int SkinIndex;
     public GameObject BodyPartsContainer;
@@ -33,8 +31,7 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
     public bool PlayerIsTouchingGround; // if the player is touching a ground tile collider
     [Header("Player Hold On to settings")]
     public GameObject PlayerInfoInteractionKey;
-    public bool LoadPlayerPos;
-    public bool SavePlayerPos;
+
     private bool IsHoldingOn;
     public PolygonCollider2D playerCollider;
     public BoxCollider2D JumpCollider;
@@ -45,8 +42,9 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
     public EnergyManager energyManager;
     public VibrateControllerManager vibrateController;
     [Header("Player Attacks")]
-    private bool CanDodgeRoll;
-    public float DodgeRollStrength;
+    public string CurrentAttack;
+    private bool CanAttack;
+    public float AttackRollStrength;
     void Awake()
     {
         inputActions = new InputSystem_Actions();
@@ -70,7 +68,7 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
 
         PlayerInfoInteractionKey.SetActive(false);
         PlayerIsTouchingGround = false;
-        CanDodgeRoll = true;
+        CanAttack = true;
         UnityEngine.Debug.Log("Tutorial Game Has Startet");
         rb = Player.GetComponent<Rigidbody2D>();
         PlayerAniamtor.SetBool("Walk", false);
@@ -139,15 +137,16 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
         /// Dodge Roll
         /// 
 
-        if (inputActions.Player.DodgeRoll.WasPerformedThisFrame() && CanDodgeRoll && energyManager.EnergyAmount >= 25)
+        if (inputActions.Player.DodgeRoll.WasPerformedThisFrame() && CanAttack && energyManager.EnergyAmount >= 25)
         {
             Debug.Log("Attack");
             float Direction = inputActions.Player.Move.ReadValue<Vector2>().x;
-            if(Direction > 0)
+            CurrentAttack = "DodgeRoll";
+            if (Direction > 0)
             {
                 Debug.Log("Attack R");
                 PlayerAniamtor.Play("PlayerDogeRoll");
-                moveInput.x += DodgeRollStrength;
+                moveInput.x += AttackRollStrength;
                 vibrateController.VibrateController(0.2f, 0.1f, 2);
                 StartCoroutine(energyManager.RemoveEnergy(-25));
             }
@@ -155,37 +154,44 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
             {
                 Debug.Log("Attack L");
                 PlayerAniamtor.Play("PlayerDogeRoll");
-                moveInput.x -= DodgeRollStrength;
+                moveInput.x -= AttackRollStrength;
                 vibrateController.VibrateController(0.2f, 0.1f, 2);
                 StartCoroutine(energyManager.RemoveEnergy(-25));
             }
-        } 
+            StartCoroutine(AttackWait(1.5f,0.18f));
+        }
+        ////
+        /// Hand Bumm
+        /// 
 
-
-
-
-        Player.transform.rotation = Quaternion.Euler(0f, 0f, PlayerRotation);
+        if (inputActions.Player.Attack.WasPerformedThisFrame() && CanAttack)
+        {
+            CurrentAttack = "HandBumm";
+            PlayerAniamtor.Play("HandBumm");
+            StartCoroutine(AttackWait(0.8f,0.1f));
+        }
     }
-    IEnumerator DodgeRollReset()
+    IEnumerator AttackWait(float ResetTime, float DelayTime)
     {
-        yield return new WaitForSeconds(3);
+        CanAttack = false;
+        yield return new WaitForSeconds(ResetTime);
+        CurrentAttack = null;
+        yield return new WaitForSeconds(DelayTime);
+        CanAttack = true;
     }
     void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.gameObject.layer == 3)
         {
-            Debug.Log("HOld");
             Vector3 myPosition = transform.position;
             Vector3 otherPosition = collider.transform.position;
             Vector3 collisionDirection = myPosition - otherPosition;
             if (collisionDirection.x > 0)
             {
-                Debug.Log("Wall Right");
                 StartCoroutine(HoldOnToWall("Right", collisionDirection));
             }
             if (collisionDirection.x < 0)
             {
-                Debug.Log("Wall Left");
                 StartCoroutine(HoldOnToWall("Left", collisionDirection));
             }
         }
@@ -199,7 +205,7 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
             if (inputActions.Player.Interact.WasPerformedThisFrame() && !PlayerIsTouchingGround)
             {
                 Debug.Log($"Holding On to: {Pos}");
-                Debug.DrawRay(Pos, Pos *2, Color.red);
+                Debug.DrawRay(Pos, Pos * 2, Color.red);
                 rb.constraints = RigidbodyConstraints2D.FreezeAll;
                 CanMove = false;
                 IsHoldingOn = true;
@@ -223,10 +229,7 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
 
     public void LoadGame(GameData data)
     {
-        if (LoadPlayerPos)
-        {
-            Player.transform.localPosition = new Vector3(data.PlayerPositionX, data.PlayerPositionY, 0);
-        }
+        Player.transform.localPosition = new Vector3(data.PlayerPositionX, data.PlayerPositionY, 0);
         SkinIndex = data.SkinIndex;
         CheckSkin();
         //Player.GetComponent<SpriteRenderer>().sprite = SkinSprite[SkinIndex];
@@ -240,13 +243,9 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
     }
     public void SaveGame(ref GameData data) // Save the current Data to GameData
     {
-        if (SavePlayerPos)
-        {
-            data.PlayerPositionX = this.Player.transform.localPosition.x;
-            data.PlayerPositionY = this.Player.transform.localPosition.y;
-        }
+        data.PlayerPositionX = this.Player.transform.localPosition.x;
+        data.PlayerPositionY = this.Player.transform.localPosition.y;
         data.Health = healthManagerPlayer.PlayerHealth;
-
         data.SkinIndex = SkinIndex;
     }
 }

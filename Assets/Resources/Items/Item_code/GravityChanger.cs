@@ -38,13 +38,13 @@ public class GravityChanger : MonoBehaviour
         if (GravityChangingObjekt.activeSelf && inputActions.Player.Interact.WasPerformedThisFrame() && !BlockUse)
         {
             PlayerScribt.rb.gravityScale = -0.25f;
-            PlayerScribt.PlayerRotation = 180;
+            PlayerScribt.transform.rotation = new Quaternion(180,0,0,0);
             PlayerScribt.Jump_speed = -DefaultJump / 3;
             StartCoroutine(IsAktive());
         }
         if (reset == true && inputActions.Player.Interact.WasPerformedThisFrame())
         {
-            PlayerScribt.PlayerRotation = 0f;
+            PlayerScribt.transform.rotation = new Quaternion(0,0,0,0);
             PlayerScribt.rb.gravityScale = 1f;
             PlayerScribt.Jump_speed = 350;
             StartCoroutine(GoDown());

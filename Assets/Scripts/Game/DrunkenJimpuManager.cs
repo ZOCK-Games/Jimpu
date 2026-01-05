@@ -1,7 +1,9 @@
 using System.Collections;
 using NavMeshPlus.Components;
+using TMPro;
 using Unity.Mathematics;
 using Unity.Services.Matchmaker.Models;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -14,9 +16,12 @@ public class DrunkenJimpuManager : MonoBehaviour
     public Animator Animation;
     public GameObject Botel;
     public Transform BotelContainer;
+    public TextMeshPro HealthText;
     private bool IsAttacking;
+    private UniversalHealthInfo universalHealth;
     void Start()
     {
+        universalHealth = this.gameObject.GetComponent<UniversalHealthInfo>();
         navMeshAgent = this.gameObject.GetComponent<NavMeshAgent>();
         rigidbody2D = this.gameObject.GetComponent<Rigidbody2D>();
         navMeshAgent.updateRotation = false;
@@ -43,6 +48,11 @@ public class DrunkenJimpuManager : MonoBehaviour
             // The player is on his left side
             transform.rotation = new Quaternion(0, 180, 0, 0);
         }
+        if (universalHealth.Health <= 0)
+        {
+            StopAllCoroutines();
+        }
+        HealthText.text = universalHealth.Health.ToString();
 
         Animation.SetFloat("Walk", rigidbody2D.linearVelocityX);
         Animation.SetFloat("Jump", rigidbody2D.linearVelocityY);

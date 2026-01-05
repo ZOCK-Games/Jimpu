@@ -1,3 +1,4 @@
+using NavMeshPlus.Components;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -11,6 +12,7 @@ public class BombScribt : MonoBehaviour
     [SerializeField] private Button AddButton;
     [SerializeField] private Button SubtractButton;
     [SerializeField] private TextMeshProUGUI TextExplosionRadius;
+    [SerializeField] private NavMeshSurface navMeshSurface;
     public float ExplosionRadius;
     void Start()
     {
@@ -44,5 +46,6 @@ public class BombScribt : MonoBehaviour
             Vector3Int cellPos = BlockTilemap.WorldToCell(TilePos3);
             BlockTilemap.SetTile(cellPos, null);
         }
+        navMeshSurface.UpdateNavMesh(navMeshSurface.navMeshData);
     }
 }

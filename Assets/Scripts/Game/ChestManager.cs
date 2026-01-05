@@ -22,7 +22,7 @@ public class ChestManager : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             Vector2 contactPoint = collision.GetContact(0).point;
-            contactPoint.y -= 0.001f;
+            contactPoint.y -= 0.01f;
             Vector3Int cellPosition = ChestTilemap.WorldToCell(contactPoint);
             Debug.Log("interacting with chest!");
             if (ChestTilemap.GetTile(cellPosition) == ChestNormalTile)

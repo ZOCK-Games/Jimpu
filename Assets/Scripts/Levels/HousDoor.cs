@@ -9,7 +9,6 @@ using UnityEngine.UI;
 public class HousDoor : MonoBehaviour
 {
     [Header("Animator Trigger Names")]
-    public DialogManager dialogManager;
     public PlayerControll playerControll;
     public float InfoTextRange;
     public string GoToScene;
@@ -39,11 +38,6 @@ public class HousDoor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float Distance = Vector3.Distance(transform.position, playerControll.Player.transform.position);
-        if (Distance < InfoTextRange && dialogManager.currentDialogData.dialog_id != "tutorial_dialog_house_001")
-        {
-            dialogManager.LoadDialog("Dialogs/The_Voice/Tutorial_Dialog/House_Dialog/House_Dialog_1");
-        }
         if (playerControll.rb.IsTouching(this.gameObject.GetComponent<BoxCollider2D>()))
         {
             UnityEngine.Debug.Log("Can Open Door");
