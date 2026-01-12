@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.AI;
+using Unity.VisualScripting;
 
 public class EnemyScript : MonoBehaviour//, IDataPersitence
 {
@@ -13,9 +14,10 @@ public class EnemyScript : MonoBehaviour//, IDataPersitence
     public GameObject JimbuBulletPrefab;
     public GameObject BulletContainer;
     public string DeathScene;
-    private bool EnemyCanMove = true;
+    private bool JimpusCanMove = true;
     private bool canTakeDamage = true;
     public HealthManagerPlayer healthManagerPlayer;
+    public PlayerControll playerControll;
     public GameObject Grid;
     [Header("Enemy Settings")]
     public List<GameObject> EnemyPrefab;
@@ -24,120 +26,101 @@ public class EnemyScript : MonoBehaviour//, IDataPersitence
     public GameObject EnemyContainer;
     public int AttackRange;
 
+    public static List<EnemyInfo> JimpusInfos;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     void Start()
     {
-
-        SpawnEnemy();
-
-        for (int i = 0; i < EnemyContainer.transform.childCount; i++)
+        JimpusInfos = new List<EnemyInfo>();
+        for (int i = 0; i < 4; i++)
         {
-            if (EnemyContainer.transform.GetChild(i).gameObject.GetComponent<NavMeshAgent>() == null)
-            {
-                EnemyContainer.transform.GetChild(i).gameObject.AddComponent<NavMeshAgent>();
-            }
-            if (EnemyContainer.transform.GetChild(i).gameObject.GetComponent<EnemyInfo>() == null)
-            {
-                EnemyContainer.transform.GetChild(i).gameObject.AddComponent<EnemyInfo>();
-                EnemyContainer.transform.GetChild(i).gameObject.GetComponent<EnemyInfo>().EnemyHealt = 1;
-            }
-            EnemyContainer.transform.GetChild(i).gameObject.GetComponent<EnemyInfo>().EnemyHealt = 1;
-            EnemyContainer.transform.GetChild(i).gameObject.name = "Enemy" + i;
+            SpawnEnemy();
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
-        for (int i = EnemyContainer.transform.childCount - 1; i >= 0; i--)
+        if (JimpusInfos != null && JimpusInfos.Count < MaxEnemys)
         {
-            Transform child = EnemyContainer.transform.GetChild(i);
-            EnemyInfo enemy = child.GetComponent<EnemyInfo>();
-
-            if (enemy != null && enemy.EnemyHealt <= 0)
-            {
-                Destroy(child.gameObject);
-            }
-
+            SpawnEnemy();
         }
 
-        if (EnemyContainer.transform.childCount >= MaxEnemys)
+        if (JimpusCanMove == true)
         {
-            Transform child = EnemyContainer.transform.GetChild(0);
-            Debug.Log($"Removed Enemy due to MaxEnemys: {child.gameObject.name}");
-            Destroy(child.gameObject);
+            if (JimpusInfos == null) return;
 
-        }
-
-
-        for (int i = 0; i < EnemyContainer.transform.childCount; i++)
-        {
-            if (EnemyContainer.transform.GetChild(i).gameObject.GetComponent<EnemyInfo>().EnemyHealt <= -11)
+            for (int i = 0; i < JimpusInfos.Count; i++)
             {
-                Destroy(EnemyContainer.transform.GetChild(i).gameObject);
-            }
-        }
+                if (JimpusInfos[i].Target == null)
+                {
+                    NavMeshAgent agent = JimpusInfos[i].meshAgent;
 
-        if (EnemyCanMove == true)
-            MoveEnemy();
-    }
-    public void MoveEnemy()
-    {
-        for (int i = 0; i < EnemyContainer.transform.childCount; i++)
-        {
-            GameObject enemy = EnemyContainer.transform.GetChild(i).gameObject;
-            NavMeshAgent agent = enemy.GetComponent<NavMeshAgent>();
-
-            if (agent == null)
-            {
-                Debug.LogError($"No Agent on {enemy.name}");
-            }
-            else if (agent != null)
-            {
-                agent.updateRotation = false;
-                enemy.transform.rotation =  Quaternion.Euler(0, 0, 0);
-                agent.SetDestination(Player.transform.position);
+                    if (agent == null)
+                    {
+                        Debug.LogError($"No Agent on {agent.gameObject.name}");
+                    }
+                    else if (agent != null)
+                    {
+                        JimpusInfos[i].SetTarget(Player);
+                    }
+                }
             }
         }
     }
+
 
     public void SpawnEnemy()
     {
-        if (Grid.transform.GetChild(1).gameObject.tag == "Ground")
+        bool FoundTile = false;
+        int maxAttempts = 0;
+        List<Tilemap> Grounds = new List<Tilemap>();
+        for (int i = 0; i < Grid.transform.childCount; i++)
         {
+            if (Grid.transform.GetChild(i).gameObject.tag == "Ground" && Grid.transform.GetChild(i).gameObject.GetComponent<Tilemap>() != null)
+            {
+                Grounds.Add(Grid.transform.GetChild(i).gameObject.GetComponent<Tilemap>());
+            }
+        }
+        while (!FoundTile && maxAttempts <= 15)
+        {
+            maxAttempts += 1;
             Tilemap CurentT = Grid.transform.GetChild(1).gameObject.GetComponent<Tilemap>();
-
-            int Posy = Random.Range(0, 50);
-            int Posx = Random.Range(0, 50);
+            Vector3Int PlayerPos = new Vector3Int((int)playerControll.transform.position.x, (int)playerControll.transform.position.y);
+            int Posy = Random.Range(PlayerPos.y - 10, PlayerPos.y + 10);
+            int Posx = Random.Range(PlayerPos.x - 25, PlayerPos.x + 25);
 
             Vector3 PosTile = new Vector3(Posx, Posy, 0);
             Vector3Int cellPos = CurentT.WorldToCell(PosTile);
 
             if (!CurentT.HasTile(cellPos))
             {
+                FoundTile = true;
                 int TypeEnemy = Random.Range(0, EnemyPrefab.Count);
                 GameObject CE = Instantiate(EnemyPrefab[TypeEnemy]);
                 CE.transform.position = cellPos;
                 CE.name = "Enemy_" + TypeEnemy + "_" + EnemyContainer.transform.childCount;
                 CE.transform.SetParent(EnemyContainer.transform);
-                Debug.Log("Keien Tile: " + cellPos);
-                Debug.DrawRay(cellPos, Vector3.up * 0.2f, Color.red);
-                for (int i = 0; i < EnemyContainer.transform.childCount; i++)
-                    EnemyContainer.transform.GetChild(i).gameObject.GetComponent<EnemyInfo>().EnemyHealt = 1;
+                if (CE.GetComponent<NavMeshAgent>() == null)
+                {
+                    CE.AddComponent<NavMeshAgent>();
+                }
+                NavMeshAgent agent = CE.GetComponent<NavMeshAgent>();
+                agent.updateRotation = false;
+                agent.updateUpAxis = false;
+                EnemyInfo info = CE.GetComponent<EnemyInfo>();
+                if (info == null)
+                {
+                    CE.AddComponent<EnemyInfo>();
+                }
+                info.EnemyHealt = 5;
+                info.playerControll = this.playerControll;
+                JimpusInfos.Add(info);
+                Debug.Log("Spawned jimpu");
             }
-            else
-            {
-                Debug.Log("Cant Place there is a tile");
-                SpawnEnemy();
-            }
-
-        }
-        else
-        {
-            Debug.LogError("No Tilemap With Layer was found");
         }
     }
+
+
     public IEnumerator DamagePlayer()   //Damage the Player 
     {
         healthManagerPlayer.PlayerHealth -= 1;

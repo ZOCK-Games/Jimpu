@@ -4,5 +4,6 @@
   <Project Path="AssetValidator.Editor.csproj" />
   <Project Path="Assembly-CSharp.csproj" />
   <Project Path="AssetValidator.Demo.csproj" />
+  <Project Path="Discord.Sdk.csproj" />
   <Project Path="AssetValidator.Tests.csproj" />
 </Solution>

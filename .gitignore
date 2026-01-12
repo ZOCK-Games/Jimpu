@@ -95,3 +95,7 @@ JimpuWindowsBuild Intel64 Linux_Data/
 
 # Scraps local notes
 .scraps/
+
+Assets/Addons.meta
+
+Assets/Addons/

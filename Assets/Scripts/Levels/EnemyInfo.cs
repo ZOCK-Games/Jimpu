@@ -1,28 +1,30 @@
 
 using System.Collections;
+using Unity.Mathematics;
+using Unity.Services.Lobbies.Models;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyInfo : MonoBehaviour
 {
-    public int EnemyHealt;
-    public Vector3 EnemyPosition;
+    public float EnemyHealt;
+    public PlayerControll playerControll;
     public Transform Target;
     public GameObject JimpuObj;
     public float ViewField;
     public bool IsMoving;
-    public bool IsCharging;
-    public bool IsAttacking;
     public Animator JimpuAnimator;
     private Rigidbody2D rb;
-    private SpriteRenderer sr;
-    public bool WantsToAttack;
+    private UniversalHealthInfo universalHealth;
+    public NavMeshAgent meshAgent;
+    public string Status = "null";
     void Start()
     {
+        meshAgent = this.gameObject.GetComponent<NavMeshAgent>();
+        universalHealth = this.gameObject.GetComponent<UniversalHealthInfo>();
         JimpuObj = this.gameObject;
         JimpuAnimator = this.gameObject.GetComponent<Animator>();
-        sr = this.gameObject.GetComponent<SpriteRenderer>();
         rb = this.gameObject.GetComponent<Rigidbody2D>();
-        WantsToAttack = false;
     }
     public bool IsPlayerInReach()
     {
@@ -32,23 +34,37 @@ public class EnemyInfo : MonoBehaviour
         float radiusSq = ViewField * ViewField;
         return distSq <= radiusSq;
     }
+
+    public void SetTarget(GameObject TargetPosition)
+    {
+        if (meshAgent.isActiveAndEnabled)
+        {
+            meshAgent.Warp(transform.position);
+            Target = TargetPosition.transform;
+            Debug.LogError("Jimpu Is not placed on an Nav Mesh Surface");
+        }
+    }
     void Update()
     {
-        EnemyPosition = JimpuObj.transform.position;
-        Vector3 PlayerPosBevore = this.gameObject.transform.position;
-        if (this.gameObject.transform.position == PlayerPosBevore)
+        meshAgent.SetDestination(Target.position);
+        if (EnemyHealt <= 0)
         {
-            JimpuAnimator.SetBool("Walk", true);
+            EnemyScript.JimpusInfos.Remove(this.gameObject.GetComponent<EnemyInfo>());
+            JimpuAnimator.Play("Death");
+            Destroy(this.gameObject, 0.8f);
         }
-        JimpuAnimator.SetBool("Walk", false);
 
-        if (rb.linearVelocity.x > 0)
+        EnemyHealt = universalHealth.Health;
+        JimpuAnimator.SetFloat("VelocityX", meshAgent.velocity.magnitude);
+        JimpuAnimator.SetFloat("VelocityY", meshAgent.velocity.y);
+
+        if (transform.position.x > playerControll.Player.transform.position.x)
         {
-            sr.flipX = true;
+            transform.rotation = new Quaternion(0, 0, 0, 0);
         }
-        else if (rb.linearVelocity.x < 0)
+        else if (transform.position.x < playerControll.Player.transform.position.x)
         {
-            sr.flipX = false;
+            transform.rotation = new Quaternion(0, 180, 0, 0);
         }
     }
 }
