@@ -39,11 +39,6 @@ public class EnemyAttackController : MonoBehaviour
         for (int i = 0; i < EnemyContainer.transform.childCount; i++)
         {
             EnemyInfo enemyInfo = EnemyContainer.transform.GetChild(i).GetComponent<EnemyInfo>();
-            if (enemyInfo.WantsToAttack && !enemyInfo.IsAttacking && BulletContainer.transform.childCount < MaxBullets)
-            {
-                enemyInfo.WantsToAttack = false;
-                StartCoroutine(ShotBullet(enemyInfo, enemyInfo.Target));
-            }
 
         }
 
@@ -57,26 +52,11 @@ public class EnemyAttackController : MonoBehaviour
             EnemyInfo enemyInfo = Bullet.GetComponent<EnemyInfo>();
 
 
-            for (int t = 0; t < tilemaps.Count; t++)
-            {
-                if (Bullet.GetComponent<CircleCollider2D>().IsTouching(tilemaps[t].GetComponent<TilemapCollider2D>()))
-                {
-                    StartCoroutine(BulletHit(Bullet, enemyInfo));
-                }
-
-            }
-            if (playerControll.playerCollider.IsTouching(Bullet.GetComponent<CircleCollider2D>()) && Bullet != null && enemyInfo != null)
-            {
-                StartCoroutine(BulletHit(Bullet, enemyInfo));
-            }
         }
     }
     public IEnumerator ShotBullet(EnemyInfo enemyInfo, Transform Target)
     {
-        enemyInfo.WantsToAttack = false;
-        enemyInfo.IsCharging = false;
-        if (enemyInfo.IsAttacking || enemyInfo.EnemyPosition == null) yield break;
-        enemyInfo.IsAttacking = true;
+
 
         Debug.Log("Executing ShotBullet");
 
@@ -84,7 +64,6 @@ public class EnemyAttackController : MonoBehaviour
         Bullet.transform.SetParent(BulletContainer.transform);
         Bullet.GetComponent<BulletObj>().enemyInfo = enemyInfo;
         Bullet.name = Bullet + BulletContainer.transform.childCount.ToString();
-        Bullet.transform.position = enemyInfo.EnemyPosition;
         Bullet.GetComponent<Animator>().SetBool("Attack", true);
         Vector3 direction = (Target.position - Bullet.transform.position).normalized;
         float speed = 1f;
@@ -97,35 +76,8 @@ public class EnemyAttackController : MonoBehaviour
         }
 
         yield return new WaitForSeconds(1f);
-        StartCoroutine(BulletHit(Bullet, enemyInfo));
 
     }
-    public IEnumerator Charging(EnemyInfo enemyInfo)
-    {
-        if (!enemyInfo.IsCharging)
-        {
-            Debug.Log("Charging");
-            enemyInfo.WantsToAttack = false;
-            enemyInfo.IsAttacking = false;
-            enemyInfo.IsCharging = true;
-            enemyInfo.JimpuAnimator.SetBool("Charge", true);
-            yield return new WaitForSeconds(Random.Range(1, 5)); //the time in that the jimpu(enemy) can not shoot 
-            enemyInfo.WantsToAttack = true;
-        }
-    }
-    public IEnumerator BulletHit(GameObject Bullet, EnemyInfo enemyInfo)
-    {
-        enemyInfo.IsAttacking = false;
-        enemyInfo.IsCharging = true;
-        Debug.Log("Bullet has hit a Obj");
-        Animator BulletAniamtor = Bullet.GetComponent<Animator>();
-        BulletAniamtor.Play("Hit");
-        BulletAniamtor.SetBool("Attack", false);
-        enemyInfo.IsAttacking = false;
-        yield return new WaitForSeconds(0.8f);
-        enemyInfo.IsCharging = false;
-        Destroy(Bullet);
-        StartCoroutine(Charging(enemyInfo));
-    }
+
 }
 

@@ -30,6 +30,7 @@ public class DialogEvent : MonoBehaviour
     [HideInInspector] public Vector3 Vector3Position;
     [HideInInspector] public float Distance = 1.0f;
     private bool Performed = false;
+    private bool InCollision = false;
     void OnEnable()
     {
         Performed = false;
@@ -103,20 +104,25 @@ public class DialogEvent : MonoBehaviour
     {
         if (SelectedTriggerType != TriggerType.OnCollisionEnter2d)
         {
+            Action.Invoke();
             return;
         }
     }
     void OnCollisionExit2D(Collision2D collision)
     {
+        InCollision = false;
         if (SelectedTriggerType != TriggerType.OnCollisionExit2d)
         {
+            Action.Invoke();
             return;
         }
     }
     void OnCollisionStay2D(Collision2D collision)
     {
-        if (SelectedTriggerType != TriggerType.OnCollisionStay2d)
+        if (SelectedTriggerType != TriggerType.OnCollisionStay2d && !InCollision)
         {
+            InCollision = true;
+            Action.Invoke();
             return;
         }
     }
