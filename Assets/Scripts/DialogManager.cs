@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TMPro;
 using Unity.AppUI.UI;
 using UnityEngine;
@@ -11,14 +12,45 @@ public class DialogManager : MonoBehaviour
     public CurrentDialogData currentDialogData;
     public TextMeshPro TextDisplay;
     public ActionSystem actionSystem;
-
+    private bool WaitingDone;
+    public List<string> QueuedDialogs;
+    private int DialogPriority;
     void Start()
     {
+        QueuedDialogs = new List<string>(QueuedDialogs);
         if (currentDialogData != null)
         {
             TextDisplay.text = currentDialogData.dialog_text;
         }
+        WaitingDone = false;
     }
+    public void AddQueueDialog(string Path)
+    {
+        if (Resources.Load(Path) != null)
+        {
+            QueuedDialogs.Add(Path);
+        }
+    }
+    public void LoadMultipleDialog(float Time)
+    {
+        LoadMultipleDialogTask(Time);
+    }
+    public async Task LoadMultipleDialogTask(float Time)
+    {
+        List<string> CurentPaths = new List<string>(QueuedDialogs);
+        QueuedDialogs.Clear();
+        for (int i = 0; i < CurentPaths.Count; i++)
+        {
+            LoadDialog(CurentPaths[i]);
+            WaitingDone = false;
+            int DelayTime = (int)(Time * 1000);
+            await Task.Delay(DelayTime);
+        }
+        TextDisplay.text = null;
+        DialogPriority = -99;
+        DialogFile = null;
+    }
+
 
     public void LoadDialog(string Path)
     {
@@ -28,8 +60,15 @@ public class DialogManager : MonoBehaviour
         if (jsonTextAsset != null)
         {
             CovertJson(jsonTextAsset);
+            DialogFile = jsonTextAsset.name;
+                    if (DialogPriority <= currentDialogData.dialog_priority || DialogFile == null)
+        {
+            {
+                DialogPriority = currentDialogData.dialog_priority;
+                TextDisplay.text = currentDialogData.dialog_text;
+            }
         }
-        TextDisplay.text = currentDialogData.dialog_text;
+        }
     }
 
 
@@ -81,4 +120,5 @@ public class DialogJsonData
     public float action_to_do_time;
     public string next_id_done;
     public string next_id_not_done;
+    public int dialog_priority;
 }

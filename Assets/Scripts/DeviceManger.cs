@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class DeviceManger : MonoBehaviour, IDataPersitence
+public class DeviceManger : MonoBehaviour
 {
     public string Device;
     public string DesktopOS;
@@ -55,7 +55,6 @@ public class DeviceManger : MonoBehaviour, IDataPersitence
             }
         }
 
-        DataPersitenceManger.Instance.LoadGame();
     }
     public static string GetDesktopOS()
     {
@@ -120,13 +119,9 @@ public class DeviceManger : MonoBehaviour, IDataPersitence
 
 
 
-    public void SaveGame(ref GameData data)
+    public void SaveGame(SaveManager manager)
     {
-        data.Device = this.Device;
-        data.SimpleDevice = this.SimpleDevice;
-    }
-
-    public void LoadGame(GameData data)
-    {
+        manager.userSettingsSO.Device = this.Device;
+        manager.userSettingsSO.Device = this.SimpleDevice;
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class Shop : MonoBehaviour, IDataPersitence
+public class Shop : MonoBehaviour
 {
     [Header("The ItemPaper Buttons must be in the same order as the ItemData")]
     public List<GameObject> ItemPaperButtons; // Buttons for selecting items in the shop
@@ -30,8 +30,8 @@ public class Shop : MonoBehaviour, IDataPersitence
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-    DataPersitenceManger.Instance.SaveGame();
-    DataPersitenceManger.Instance.LoadGame();
+    //DataPersitenceManger.Instance.SaveGame();
+    //DataPersitenceManger.Instance.LoadGame();
 
         SelectedItem(); // Initialize the first item as selected
 
@@ -96,7 +96,7 @@ public class Shop : MonoBehaviour, IDataPersitence
 
             ShopMassage.color = Color.green;
             ShopMassage.text = "You have sucesfully bought an item!";
-            DataPersitenceManger.Instance.SaveGame();
+            //DataPersitenceManger.Instance.SaveGame();
 
 
         }
@@ -123,7 +123,7 @@ public class Shop : MonoBehaviour, IDataPersitence
 
     }
 
-    public void LoadGame(GameData data)
+    /*public void LoadGame(GameData data)
     {
         this.PrevScene = data.CurentScene;
         this.CoinValue = data.CoinValue;
@@ -135,4 +135,5 @@ public class Shop : MonoBehaviour, IDataPersitence
         data.CoinValue = this.CoinValue;
         data.CurentItem = this.CurentItem;
     }
+    /*/
 }

@@ -26,7 +26,7 @@ public class ItemInfo
     public TextMeshProUGUI ItemBuyPrice;
 }
 
-public class Inventory : MonoBehaviour, IDataPersitence
+public class Inventory : MonoBehaviour
 {
     public List<ItemData> ItemDatas;
     public List<GameObject> Items;
@@ -379,15 +379,7 @@ public class Inventory : MonoBehaviour, IDataPersitence
         HandSlot.ItemStored = null;
         ReloadAllItemInfos();
     }
-    public void LoadGame(GameData data)
-    {
-        this.CurentItem = data.CurentItem;
-    }
 
-    public void SaveGame(ref GameData data)
-    {
-        data.CurentItem = this.CurentItem;
-    }
 }
 
 [CreateAssetMenu(fileName = "NewItemSlotData", menuName = "Game Data/Item Slot Data")] // The Singel Item slot 

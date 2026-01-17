@@ -65,16 +65,16 @@ public class ColourPickerControl : MonoBehaviour, IDataPersitence
         FeedbackText.text = "";
         Debug.Log("TextDeaktivate coroutine ended. Text:" + FeedbackText.text);
     }
-    public void LoadGame(GameData data)
+    public void LoadData(SaveManager manager)
     {
-        HexInputField.text = data.colorhex;
-        if (UnityEngine.ColorUtility.TryParseHtmlString("#" + data.colorhex, out colorHex))
+        HexInputField.text = manager.playerDataSO.colorHex;
+        if (UnityEngine.ColorUtility.TryParseHtmlString("#" + manager.playerDataSO.colorHex, out colorHex))
         colorHex = colorHex; 
         OnHexInputFieldChanged(HexInputField.text); 
     }
 
-    public void SaveGame(ref GameData data) // Save the current Data to GameData
+    public void SaveData(SaveManager manager) // Save the current Data to GameData
     {
-        data.colorhex = HexInputField.text.TrimStart('#').ToString();
+        manager.playerDataSO.colorHex = HexInputField.text.TrimStart('#').ToString();
     }
 }

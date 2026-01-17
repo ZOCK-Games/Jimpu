@@ -28,7 +28,7 @@ public class GarderobenScribt : MonoBehaviour, IDataPersitence
     {
         NextSkinButton.onClick.AddListener(NextSkin);
         CloseButton.onClick.AddListener(CloseGarderobe);
-        SkinSaveButton.onClick.AddListener(() => SaveSkin());
+        SkinSaveButton.onClick.AddListener(() => SaveManager.instance.Save());
         LoadSkin();
     }
 
@@ -57,20 +57,18 @@ public class GarderobenScribt : MonoBehaviour, IDataPersitence
         LeftLeg.sprite = PlayerSkins[SkinIndex].LeftLeg;
         RightLeg.sprite = PlayerSkins[SkinIndex].RightLeg;
     }
-    public void LoadGame(GameData data) // Load the value from GameData
+
+
+
+
+    public void LoadData(SaveManager manager)
     {
-        this.SkinIndex = data.SkinIndex; 
+        this.SkinIndex = manager.playerDataSO.SkinIndex;
         LoadSkin();
-        Debug.Log("Loaded Skin Index: " + SkinIndex);
-    }
-    public void SaveGame(ref GameData data) // Save the current value to GameData
-    {
-        data.SkinIndex = this.SkinIndex; //Value to saved data
-    }
-    public void SaveSkin()
-    {
-        DataPersitenceManger.Instance.SaveGame();
-        Debug.Log("Skin saved: " + SkinIndex);
     }
 
+    public void SaveData(SaveManager manager)
+    {
+        manager.playerDataSO.SkinIndex = this.SkinIndex;
+    }
 }

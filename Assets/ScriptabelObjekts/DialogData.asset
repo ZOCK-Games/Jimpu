@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7f4a7beab4281a44a81b00f869850fb, type: 3}
   m_Name: DialogData
   m_EditorClassIdentifier: Assembly-CSharp::DialogLine
-  dialog_id: tutorial_dialog_house_001
-  dialog_text: "Interagiere mit der t\xFCr um in n\xE4chste level zu komen"
+  dialog_id: tutorialdialog_001
+  dialog_text: Willkomen spieler
   dialog_ended: 0
-  action: none
-  action_to_do: Input:Key:Presed:E
+  action: none , shoot
+  action_to_do: Input:Walk:WalkRight
   action_to_do_time: 1
-  next_id_done: 
-  next_id_not_done: 
+  next_id_done: tutorialdialog_002
+  next_id_not_done: tutorialdialog_001_not_done
+  dialog_priority: -1

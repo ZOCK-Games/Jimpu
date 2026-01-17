@@ -6,7 +6,6 @@ public class UITopButtons : MonoBehaviour
 {
     public Button saveButton;
     public Button ToStartButton;
-    public DataPersitenceManger dataPersistenceManager;
     public InputSystem_Actions inputActions;
     public GameObject SettingsOverlay;
     void Awake()
@@ -25,7 +24,6 @@ public class UITopButtons : MonoBehaviour
     void Start()
     {
         SettingsOverlay.SetActive(false);
-        saveButton.onClick.AddListener(SaveGame);
         ToStartButton.onClick.AddListener(() =>
         {
             SceneManager.LoadScene("Start Screen");
@@ -49,7 +47,7 @@ public class UITopButtons : MonoBehaviour
             inputActions.Player.Enable();
         }
     }
-    void SaveGame()
+    /*void SaveGame()
     {
         dataPersistenceManager.SaveGame();
         Debug.Log("Game saved successfully!");
@@ -62,5 +60,5 @@ public class UITopButtons : MonoBehaviour
                 return;
             }
         }
-    }
+    }/*/
 }
