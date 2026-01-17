@@ -1,10 +1,12 @@
 using System;
 using System.Collections;
+using Unity.Services.Lobbies.Models;
 using UnityEngine;
 
 public class ActionSystem : MonoBehaviour
 {
     public Rigidbody2D PlayerRB;
+    public PlayerControll playerControll;
     public enum ActionType
     {
         Input,
@@ -31,9 +33,7 @@ public class ActionSystem : MonoBehaviour
     }
     public enum PositionType
     {
-        Position,
-        Transform,
-        Radius
+        Radius // as float
     }
     public enum Level
     {
@@ -135,6 +135,7 @@ public class ActionSystem : MonoBehaviour
                 case "Item":
                     return false;
                 default:
+
                     return false;
             }
         }
@@ -143,6 +144,7 @@ public class ActionSystem : MonoBehaviour
             return false;
         }
     }
+
     public IEnumerator NewAction(float ActionTime, string Action)
     {
         float TimePassed = 0;

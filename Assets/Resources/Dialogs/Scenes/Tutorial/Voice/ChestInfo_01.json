@@ -1,0 +1,13 @@
+[
+{
+"dialog_id": "ChestInfo_01", 
+"dialog_text": "Oh, look! A chest!", 
+ "dialog_ended": "null", 
+"action": "null", 
+"action_to_do": "null:Avalonia.Controls.TextBox", 
+"action_to_do_time": 3, 
+"next_id_done": "", 
+"next_id_not_done": "",
+"dialog_priority": 2
+}
+]

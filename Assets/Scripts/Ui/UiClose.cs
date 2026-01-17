@@ -7,7 +7,6 @@ public class UiClose : MonoBehaviour
 {
     public List<Button> CloseButton;
     public List<GameObject> ToClose;
-    public GameData GameData;
     public string sceneName = "StartScene"; // Default scene name
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -24,7 +23,7 @@ public class UiClose : MonoBehaviour
             if (ToClose[i] != null)
             {
                 ToClose[i].SetActive(false);
-                GameData.Health = 3;
+                //GameData.Health = 3;
                 Debug.Log("Closed: " + ToClose[i].name);
                 SceneManager.LoadScene(sceneName);
             }

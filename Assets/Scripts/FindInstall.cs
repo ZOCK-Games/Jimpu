@@ -4,7 +4,6 @@ using UnityEngine.UI;
 public class FindInstall : MonoBehaviour
 {
     public Button button;
-    public FileDataHandler fileDataHandler;
     void Start()
     {
         button.onClick.AddListener(GetInstall);

@@ -7,6 +7,7 @@
         "action_to_do": "Input:Walk:WalkRight",
         "action_to_do_time": 1,
         "next_id_done": "tutorialdialog_002",
-        "next_id_not_done": "tutorialdialog_001_not_done"
+        "next_id_not_done": "tutorialdialog_001_not_done",
+        "dialog_priority": -1
     }
 ]

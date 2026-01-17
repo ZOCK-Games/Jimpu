@@ -4,19 +4,16 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FPSManager : MonoBehaviour, IDataPersitence
+public class FPSManager : MonoBehaviour
 {
     public GameObject FPSDisplayText;
     private bool ShowFPS = false;
 
-    public void LoadGame(GameData data)
+    public void LoadGame(SaveManager manager)
     {
-        this.ShowFPS = data.isFPSVisible;
+        this.ShowFPS = manager.userSettingsSO.ShowFPS;
     }
 
-    public void SaveGame(ref GameData data)
-    {
-    }
 
     void Start()
     {

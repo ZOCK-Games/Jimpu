@@ -9,7 +9,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Animations;
 
-public class TutorialManager : MonoBehaviour, IDataPersitence
+public class TutorialManager : MonoBehaviour
 {
     public Animator PlayerAnimator;
     public Animator DinoAnimator;
@@ -107,13 +107,5 @@ public class TutorialManager : MonoBehaviour, IDataPersitence
         GetDialog();
     }
 
-    public void LoadGame(GameData data)
-    {
-        this.TutorialHasPlayed = data.TutorialHasPlayed;
-    }
 
-    public void SaveGame(ref GameData data)
-    {
-        data.TutorialHasPlayed = this.TutorialHasPlayed;
-    }
 }

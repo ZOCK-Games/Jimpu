@@ -1,0 +1,13 @@
+[
+{
+"dialog_id": "Welcome_04", 
+"dialog_text": "Ich bin hier um ähhh…", 
+ "dialog_ended": "null", 
+"action": "null", 
+"action_to_do": "null:Avalonia.Controls.TextBox", 
+"action_to_do_time": 3, 
+"next_id_done": "Welcome_05", 
+"next_id_not_done": "Welcome_05",
+"dialog_priority": 4
+}
+]

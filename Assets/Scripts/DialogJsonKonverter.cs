@@ -12,6 +12,8 @@ public class CurrentDialogData : ScriptableObject
     public float action_to_do_time;
     public string next_id_done;
     public string next_id_not_done;
+    public int dialog_priority;
+
     public void LoadFromData(DialogJsonData data)
     {
         this.dialog_id = data.dialog_id;
@@ -22,6 +24,7 @@ public class CurrentDialogData : ScriptableObject
         this.action_to_do_time = data.action_to_do_time;
         this.next_id_done = data.next_id_done;
         this.next_id_not_done = data.next_id_not_done;  
+        this.dialog_priority = data.dialog_priority;
 
 #if UNITY_EDITOR
         UnityEditor.EditorUtility.SetDirty(this);

@@ -72,7 +72,7 @@ public class StartScreenButtons : MonoBehaviour //this script manges all buttons
     }
     public void OpeningShop() //is executed when ShopButton is being clicked
     {
-        DataPersitenceManger.Instance.SaveGame();
+        //DataPersitenceManger.Instance.SaveGame();
         Debug.Log("Automatic Save Aktivated!");
         SceneManager.LoadScene(ShopCanvas);
         Debug.Log(ShopCanvas + " Has been aktivated becaus of a button");

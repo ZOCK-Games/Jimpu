@@ -227,25 +227,25 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
     }
 
 
-    public void LoadGame(GameData data)
+    public void LoadData(SaveManager manager)
     {
-        Player.transform.localPosition = new Vector3(data.PlayerPositionX, data.PlayerPositionY, 0);
-        SkinIndex = data.SkinIndex;
+
+        Player.transform.localPosition = manager.playerDataSO.PlayerPosition;
+        SkinIndex = manager.playerDataSO.SkinIndex;
         CheckSkin();
         //Player.GetComponent<SpriteRenderer>().sprite = SkinSprite[SkinIndex];
-        if (UnityEngine.ColorUtility.TryParseHtmlString("#" + data.colorhex, out Color colorHex))
+        if (UnityEngine.ColorUtility.TryParseHtmlString("#" + manager.playerDataSO.colorHex, out Color colorHex))
             for (int i = 0; i < BodyPartsContainer.transform.childCount; i++)
             {
                 BodyPartsContainer.transform.GetChild(i).GetComponent<SpriteRenderer>().color = colorHex;
             }
-        healthManagerPlayer.PlayerHealth = data.Health;
+        healthManagerPlayer.PlayerHealth = manager.playerDataSO.Health;
 
     }
-    public void SaveGame(ref GameData data) // Save the current Data to GameData
+    public void SaveData(SaveManager manager) 
     {
-        data.PlayerPositionX = this.Player.transform.localPosition.x;
-        data.PlayerPositionY = this.Player.transform.localPosition.y;
-        data.Health = healthManagerPlayer.PlayerHealth;
-        data.SkinIndex = SkinIndex;
+        manager.playerDataSO.PlayerPosition = this.Player.transform.localPosition;
+        manager.playerDataSO.Health = healthManagerPlayer.PlayerHealth;
+        manager.playerDataSO.SkinIndex = SkinIndex;
     }
 }
