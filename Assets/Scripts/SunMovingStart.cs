@@ -4,6 +4,7 @@ using UnityEngine.Rendering.Universal;
 public class SunMovingStart : MonoBehaviour
 {
     public GameObject SunObject;
+    public TimeManager timeManager;
     public SpriteRenderer SkySprite;
     public Light2D light2D;
     public float TimeUser;
@@ -44,6 +45,9 @@ public class SunMovingStart : MonoBehaviour
             float t = (TimeUser - NightTimeStart) / (NightTineDone - NightTimeStart);
             SkySprite.color = Color.Lerp(Color.red, Color.black, t);
         }
+
+        Hour = timeManager.Hour;
+        Minute = timeManager.Minute;
     }
     void OnDrawGizmos()
     {

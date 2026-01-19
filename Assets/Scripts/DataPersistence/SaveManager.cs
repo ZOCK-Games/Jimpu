@@ -1,12 +1,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
 
 public class SaveManager : MonoBehaviour
 {
-    public static SaveManager instance { get; private set; }
+    public static SaveManager instance { get; private set; } //
     public PlayerDataSO playerDataSO;
     public JimpuListData JimpuListData;
     public UserSettingsSO userSettingsSO;
