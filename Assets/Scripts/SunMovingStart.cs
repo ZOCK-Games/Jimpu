@@ -1,16 +1,20 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
 public class SunMovingStart : MonoBehaviour
 {
     public GameObject SunObject;
+    public TimeManager timeManager;
     public SpriteRenderer SkySprite;
-    public Light2D light2D;
-    public float TimeUser;
+    public List<Light2D> Lights2d;
+    public float LightMultiply;
+    private float TimeUser;
     public float Hour;
     public float Minute;
     public GameObject PointA;
     public GameObject PointB;
+    public Gradient SunGradient;
 
     void Start()
     {
@@ -22,28 +26,18 @@ public class SunMovingStart : MonoBehaviour
     {
         TimeUser = ((Minute / 60f) + Hour) / 24f;
         SunObject.transform.position = Vector3.Slerp(PointA.transform.position, PointB.transform.position, TimeUser);
-        float UpTimeStart = 0.15f;
-        float UpTineDone = 0.19f;
-        if (TimeUser >= UpTimeStart && TimeUser <= UpTineDone)
+
+        float smoothIntensity = Mathf.Sin((TimeUser * 2f * Mathf.PI) - Mathf.PI / 2f);
+        smoothIntensity = (smoothIntensity + 1f) / 2f;
+        for (int i = 0; i < Lights2d.Count; i++)
         {
-            float t = (TimeUser - UpTimeStart) / (UpTineDone - UpTimeStart);
-            SkySprite.color = Color.Lerp(Color.red, Color.lightBlue, t);
+            Lights2d[i].intensity = smoothIntensity * LightMultiply;
         }
 
-        float DownTimeStart = 0.7f;
-        float DownTineDone = 0.74f;
-        if (TimeUser >= DownTimeStart && TimeUser <= DownTineDone)
-        {
-            float t = (TimeUser - DownTimeStart) / (DownTineDone - DownTimeStart);
-            SkySprite.color = Color.Lerp(Color.lightBlue, Color.red, t);
-        }
-        float NightTimeStart = 0.741f;
-        float NightTineDone = 0.75f;
-        if (TimeUser >= NightTimeStart && TimeUser <= NightTineDone)
-        {
-            float t = (TimeUser - NightTimeStart) / (NightTineDone - NightTimeStart);
-            SkySprite.color = Color.Lerp(Color.red, Color.black, t);
-        }
+        Color c = SunGradient.Evaluate(TimeUser);
+        SkySprite.color = c;
+        Hour = timeManager.Hour;
+        Minute = timeManager.Minute;
     }
     void OnDrawGizmos()
     {

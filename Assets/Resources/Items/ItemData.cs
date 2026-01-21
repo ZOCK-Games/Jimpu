@@ -1,6 +1,4 @@
 using System;
-using Microsoft.Unity.VisualStudio.Editor;
-using UnityEditor;
 using UnityEngine;
 [CreateAssetMenu(fileName = "NewItem", menuName = "Item/New Item")]
 

@@ -41,7 +41,6 @@ public class StartScreenButtons : MonoBehaviour //this script manges all buttons
         QuitButton.onClick.AddListener(ExecutingQuit);
         SettingsButton.onClick.AddListener(OpeningSettings);
         MultiplayerButton.onClick.AddListener(OpeningSceneMuliplayer);
-
     }
     public IEnumerator ExecutingStart() //is executed when StartButton is being clicked
     {
@@ -66,13 +65,10 @@ public class StartScreenButtons : MonoBehaviour //this script manges all buttons
             Debug.LogError("Aniamtion Time = " + clipLenght);
             yield return new WaitForSeconds(clipLenght);
             operation.allowSceneActivation = true;
-            yield return new WaitUntil(() => operation.isDone);
-            TransitionUi.SetActive(false);
         }
     }
     public void OpeningShop() //is executed when ShopButton is being clicked
     {
-        //DataPersitenceManger.Instance.SaveGame();
         Debug.Log("Automatic Save Aktivated!");
         SceneManager.LoadScene(ShopCanvas);
         Debug.Log(ShopCanvas + " Has been aktivated becaus of a button");

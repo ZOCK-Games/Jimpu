@@ -10,14 +10,4 @@ public class ItemInfoManager : MonoBehaviour //Can be used by the items for gett
     public Tilemap DecoTilemap;
     public Tilemap BlockTilemapDestroyable;
     public TilemapCollider2D GroundCollider;
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

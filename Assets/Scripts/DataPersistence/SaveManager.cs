@@ -1,12 +1,14 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
 
 public class SaveManager : MonoBehaviour
 {
-    public static SaveManager instance { get; private set; }
+    public static SaveManager instance { get; private set; } //
     public PlayerDataSO playerDataSO;
     public JimpuListData JimpuListData;
     public UserSettingsSO userSettingsSO;
@@ -101,6 +103,22 @@ public class SaveManager : MonoBehaviour
         if (File.Exists(SettingsPath))
         {
             JsonUtility.FromJsonOverwrite(SettingsPath, userSettingsSO);
+        }
+        StartCoroutine(AfterLoad());
+    }
+
+
+
+    IEnumerator AfterLoad()
+    {
+        if (instance.userSettingsSO.Language != null)
+        {
+            yield return LocalizationSettings.InitializationOperation;
+            Locale desiredLocale = LocalizationSettings.AvailableLocales.GetLocale(instance.userSettingsSO.Language);
+            if (desiredLocale != null)
+            {
+                LocalizationSettings.SelectedLocale = desiredLocale;
+            }
         }
     }
 

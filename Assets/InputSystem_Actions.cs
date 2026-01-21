@@ -517,7 +517,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""c53e67ae-9230-46ae-9216-19b3cfcf9848"",
-                    ""path"": ""<Keyboard>/u"",
+                    ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",

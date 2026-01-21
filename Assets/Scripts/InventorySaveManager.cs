@@ -33,7 +33,7 @@ public class InventorySaveManager : MonoBehaviour
         }
         slots = NewSlots;
     }
-    void OnApplicationQuit()
+    void OnDisable()
     {
         SaveInventory();
     }

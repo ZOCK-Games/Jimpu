@@ -243,6 +243,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -380,6 +381,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 39.11
   m_lineSpacingMax: 0
@@ -585,6 +587,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -787,6 +790,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 39.11
   m_lineSpacingMax: 0
@@ -1031,6 +1035,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -1303,6 +1308,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: -2.81
+  m_characterHorizontalScale: 1
   m_wordSpacing: -9.6
   m_lineSpacing: 39.11
   m_lineSpacingMax: 0
@@ -1722,6 +1728,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -1887,6 +1894,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -2052,6 +2060,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -2189,6 +2198,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 39.11
   m_lineSpacingMax: 0
@@ -2662,7 +2672,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000289917}
+  m_AnchoredPosition: {x: 0, y: 0.0002822876}
   m_SizeDelta: {x: 0, y: 79.385}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!1 &456479839
@@ -2761,6 +2771,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 39.11
   m_lineSpacingMax: 0
@@ -2938,6 +2949,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 39.11
   m_lineSpacingMax: 0
@@ -3115,6 +3127,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: -3.74
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 39.11
   m_lineSpacingMax: 0
@@ -3292,6 +3305,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 39.11
   m_lineSpacingMax: 0
@@ -3903,7 +3917,6 @@ GameObject:
   m_Component:
   - component: {fileID: 629976035}
   - component: {fileID: 629976034}
-  - component: {fileID: 629976033}
   m_Layer: 0
   m_Name: Sound Manger
   m_TagString: Untagged
@@ -3911,20 +3924,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &629976033
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 629976032}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c68d50780834484dab42dd600f119354, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioSource: {fileID: 0}
-  AudioButton: {fileID: 0}
 --- !u!82 &629976034
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4133,6 +4132,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: -0.54
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -4349,6 +4349,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 39.11
   m_lineSpacingMax: 0
@@ -4600,6 +4601,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 39.11
   m_lineSpacingMax: 0
@@ -4948,7 +4950,7 @@ GameObject:
   - component: {fileID: 761438084}
   - component: {fileID: 761438085}
   m_Layer: 5
-  m_Name: Volum Controll
+  m_Name: Music
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5185,6 +5187,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -5321,6 +5324,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 39.11
   m_lineSpacingMax: 0
@@ -5672,6 +5676,7 @@ Animator:
   m_WriteDefaultValuesOnDisable: 0
 --- !u!212 &979074265
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -5717,6 +5722,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_Sprite: {fileID: 4178255475056209793, guid: f22b6ea42b23fa7d7bedef3126d9b948, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -5726,7 +5732,6 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &985812022
 GameObject:
@@ -5823,6 +5828,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 39.11
   m_lineSpacingMax: 0
@@ -6317,6 +6323,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 39.11
   m_lineSpacingMax: 0
@@ -6522,6 +6529,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -6659,6 +6667,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 39.11
   m_lineSpacingMax: 0
@@ -6821,8 +6830,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a88ac2912862dc74a7d91275d7a639a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FileName: Jimpu.json
-  useEncryption: 0
 --- !u!4 &1109683578
 Transform:
   m_ObjectHideFlags: 0
@@ -7004,7 +7011,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 63.45
+  m_fontSize: 60.85
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -7015,6 +7022,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -7800,8 +7808,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1967668062}
   m_HandleRect: {fileID: 1967668061}
   m_Direction: 2
-  m_Value: 0.048780486
-  m_Size: 0.99999607
+  m_Value: 0.024390243
+  m_Size: 0.024389649
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -8014,6 +8022,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 39.11
   m_lineSpacingMax: 0
@@ -8066,7 +8075,7 @@ GameObject:
   - component: {fileID: 1314822014}
   - component: {fileID: 1314822015}
   m_Layer: 5
-  m_Name: Volum Controll
+  m_Name: Environment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8278,6 +8287,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1410274964}
   - component: {fileID: 1410274965}
+  - component: {fileID: 1410274966}
   m_Layer: 0
   m_Name: Tabel Left
   m_TagString: Untagged
@@ -8334,6 +8344,18 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &1410274966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1410274963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7d368465cde17a9b0d966fc41628e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!1 &1410983831
 GameObject:
   m_ObjectHideFlags: 0
@@ -8345,7 +8367,7 @@ GameObject:
   - component: {fileID: 1410983832}
   - component: {fileID: 1410983833}
   m_Layer: 5
-  m_Name: Volum Controll
+  m_Name: Global
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8607,6 +8629,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 39.11
   m_lineSpacingMax: 0
@@ -9010,10 +9033,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1476724845}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9034449b28b8f8ad8877df1c48926ba, type: 3}
+  m_Script: {fileID: 11500000, guid: adb1c64eadc3238ed83a3795e9df6de1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
   dropdown: {fileID: 1476724847}
+  localeCode: 
 --- !u!1 &1482700892
 GameObject:
   m_ObjectHideFlags: 0
@@ -9138,6 +9162,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -9704,6 +9729,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -10291,6 +10317,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -10541,6 +10568,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 39.11
   m_lineSpacingMax: 0
@@ -10677,6 +10705,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: -2.81
+  m_characterHorizontalScale: 1
   m_wordSpacing: -9.6
   m_lineSpacing: 39.11
   m_lineSpacingMax: 0
@@ -10729,7 +10758,7 @@ GameObject:
   - component: {fileID: 1895345037}
   - component: {fileID: 1895345038}
   m_Layer: 5
-  m_Name: Volum Controll
+  m_Name: Effects
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

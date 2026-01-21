@@ -2,18 +2,18 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShowFPS : MonoBehaviour
+public class ShowFPS : MonoBehaviour, IDataPersitence
 {
     public Button showFPSButton;
     public TextMeshProUGUI fpsText;
     public bool isFPSVisible;
 
-    public void LoadGame(SaveManager manager)
+
+    public void LoadData(SaveManager manager)
     {
         this.isFPSVisible = manager.userSettingsSO.ShowFPS;
     }
-
-    public void SaveGame(SaveManager manager)
+    public void SaveData(SaveManager manager)
     {
         manager.userSettingsSO.ShowFPS = this.isFPSVisible;
     }
@@ -33,5 +33,6 @@ public class ShowFPS : MonoBehaviour
     {
         isFPSVisible = !isFPSVisible;
         fpsText.text = isFPSVisible ? "true" : "false";
+        SaveManager.instance.Save();
     }
 }

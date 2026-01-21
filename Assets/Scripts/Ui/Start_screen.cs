@@ -24,11 +24,8 @@ public class Start_screen : MonoBehaviour
         Debug.Log("Start Button Clicked Load Scene: " + StartSceneName);
 
         TransitionUi.SetActive(true);
-
         yield return new WaitForSecondsRealtime(30f);
-                TransitionUi.SetActive(false);
-
-
+        TransitionUi.SetActive(false);
 
     }
 }
