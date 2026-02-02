@@ -106,6 +106,12 @@ MonoBehaviour:
     m_Localized: baguett
     m_Metadata:
       m_Items: []
+  - m_Id: 24287745528999936
+    m_Localized: "Merci d'avoir jou\xE9 \xE0 Jimpu !\n\nIl faudra encore beaucoup
+      de temps avant que\n Jimpu ne soit termin\xE9, mais l'objectif est de le \nrendre
+      aussi passionnant et cr\xE9atif que possible.\n\n~"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

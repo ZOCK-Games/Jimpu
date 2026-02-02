@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Diagnostics;
 using System.IO;
@@ -20,10 +21,18 @@ public class HousDoor : MonoBehaviour
     void Awake()
     {
         inputActions = new InputSystem_Actions();
+
     }
     private void OnEnable()
     {
         inputActions.Player.Enable();
+        inputActions.Player.Interact.performed += ctx =>
+        {
+            if (CanOpenDoor)
+            {
+                OpenApplication();
+            }
+        };
     }
 
     private void OnDisable()
@@ -34,21 +43,27 @@ public class HousDoor : MonoBehaviour
     {
         CanOpenDoor = true;
     }
-
-    // Update is called once per frame
-    void Update()
+    void OnTriggerEnter2D(Collider2D collision)
     {
-        if (playerControll.rb.IsTouching(this.gameObject.GetComponent<BoxCollider2D>()))
+        if (collision.tag == "Player")
         {
-            UnityEngine.Debug.Log("Can Open Door");
-            if (inputActions.Player.Interact.WasPressedThisFrame())
-            {
-                string path = Path.Combine(Application.streamingAssetsPath,$"Crash/{deviceManger.DesktopOS}/CrashWindow");
-                Process.Start(path);
-            }
+            CanOpenDoor = true;
         }
-
     }
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            CanOpenDoor = false;
+        }
+    }
+    void OpenApplication()
+    {
+        string path = Path.Combine(Application.streamingAssetsPath, $"Crash/{deviceManger.DesktopOS}/CrashWindow");
+        Process.Start(path);
+        Application.Quit();
+    }
+
     IEnumerator LoadSceneAsync()
     {
         GameObject LoadingCanvas = Instantiate(UILoading);
