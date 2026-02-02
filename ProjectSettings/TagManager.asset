@@ -50,5 +50,8 @@ TagManager:
   - name: Pixel
     uniqueID: 2191943337
     locked: 0
+  - name: ForGround
+    uniqueID: 2525650109
+    locked: 0
   m_RenderingLayers:
   - Default

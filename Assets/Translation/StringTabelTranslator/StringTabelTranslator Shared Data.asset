@@ -103,6 +103,10 @@ MonoBehaviour:
     m_Key: Ui_Settings_KeyBinds_Interact
     m_Metadata:
       m_Items: []
+  - m_Id: 24287745528999936
+    m_Key: Post-Credits-Message
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
