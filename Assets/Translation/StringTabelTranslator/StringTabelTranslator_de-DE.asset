@@ -106,6 +106,12 @@ MonoBehaviour:
     m_Localized: Interagieren
     m_Metadata:
       m_Items: []
+  - m_Id: 24287745528999936
+    m_Localized: "Danke f\xFCrs Spielen von Jimpu! \n\nJimpu wird noch lange brauchen
+      bis \nes fertig ist aber das Ziel ist jimpu\nso spannend und kreativ zu machen
+      wie\nes nur geht \n\n~"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

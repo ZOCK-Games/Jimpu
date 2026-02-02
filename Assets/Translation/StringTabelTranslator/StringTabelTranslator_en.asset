@@ -106,6 +106,12 @@ MonoBehaviour:
     m_Localized: Interact
     m_Metadata:
       m_Items: []
+  - m_Id: 24287745528999936
+    m_Localized: "Thanks for playing Jimpu!\n\nJimpu still has a long way to go until
+      \nit\u2019s finished, but the goal is to make it\n as exciting and creative
+      as it \ncan possibly be.\n\n~"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
