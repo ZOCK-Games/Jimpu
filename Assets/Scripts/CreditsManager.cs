@@ -17,7 +17,11 @@ public class CreditsManager : MonoBehaviour
         AnimatorClipInfo[] Info = EndAnimation.GetCurrentAnimatorClipInfo(0);
         AsyncOperation operation = SceneManager.LoadSceneAsync("Intro");
         operation.allowSceneActivation = false;
+<<<<<<< HEAD
+        yield return new WaitForSeconds(Info[0].clip.length -0.05f);
+=======
         yield return new WaitForSeconds(Info[0].clip.length -0.3f);
+>>>>>>> origin/main
         operation.allowSceneActivation = true;
     }
 }

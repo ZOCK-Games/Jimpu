@@ -2672,7 +2672,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.0002822876}
+  m_AnchoredPosition: {x: 0, y: 0.0002746582}
   m_SizeDelta: {x: 0, y: 79.385}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!1 &456479839
@@ -4235,7 +4235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 393442377}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &642935321
@@ -7011,7 +7011,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60.85
+  m_fontSize: 63.45
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -7808,8 +7808,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1967668062}
   m_HandleRect: {fileID: 1967668061}
   m_Direction: 2
-  m_Value: 0.024390243
-  m_Size: 0.024389649
+  m_Value: 0.15
+  m_Size: 0.024389556
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
