@@ -28,6 +28,21 @@ public class DrunkenJimpuManager : MonoBehaviour
         navMeshAgent.updateUpAxis = false;
         this.gameObject.transform.rotation = new quaternion(0, 0, 0, 0);
         IsAttacking = false;
+        FixPosition();
+    }
+    void FixPosition()
+    {
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(transform.position, out hit, 2.0f, NavMesh.AllAreas))
+        {
+            navMeshAgent.Warp(hit.position);
+        }
+        if (!navMeshAgent.isOnNavMesh)
+        {
+            navMeshAgent.enabled = false;
+            this.enabled = false;
+        }
+        
     }
     void Update()
     {

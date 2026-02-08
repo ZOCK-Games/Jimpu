@@ -8,10 +8,11 @@ using UnityEngine.Localization.Settings;
 
 public class SaveManager : MonoBehaviour
 {
-    public static SaveManager instance { get; private set; } //
+    public static SaveManager instance { get; private set; }
     public PlayerDataSO playerDataSO;
     public JimpuListData JimpuListData;
     public UserSettingsSO userSettingsSO;
+    public InventorDataSO inventorDataSO;
     public string secretKey = "ChangeOnPublish";
     public bool encrypt;
     private void Awake()
@@ -73,12 +74,24 @@ public class SaveManager : MonoBehaviour
         }
         File.WriteAllText(Application.persistentDataPath + "/SettingsData.dat", JsonFileJUserSettings);
         Debug.Log("Saved User Settings Data");
+        string JsonFileInventorySettings = JsonUtility.ToJson(inventorDataSO);
+        if (encrypt)
+        {
+            JsonFileInventorySettings = Encrypt(JsonFileInventorySettings);
+        }
+        File.WriteAllText(Application.persistentDataPath + "/InventoryData.dat", JsonFileInventorySettings);
+        Debug.Log("Saved Inventory Data");
     }
     /// <summary>
     /// Loads All Currently added SOs
     /// </summary>
     public void Load()
     {
+        LoadFile("/PlayerData.dat", playerDataSO);
+        LoadFile("/JimpuData.dat", JimpuListData);
+        LoadFile("/SettingsData.dat", userSettingsSO);
+        LoadFile("/InventoryData.dat", inventorDataSO);
+
         IEnumerable<IDataPersitence> dataPersistenceObjects =
             FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None).OfType<IDataPersitence>();
 
@@ -87,24 +100,29 @@ public class SaveManager : MonoBehaviour
             dataObject.LoadData(this);
         }
 
-        string PlayerPath = Application.persistentDataPath + "PlayerData.json";
-        if (File.Exists(PlayerPath))
-        {
-            JsonUtility.FromJsonOverwrite(PlayerPath, playerDataSO);
-        }
-
-        string JimpuData = Application.persistentDataPath + "JimpuData.json";
-        if (File.Exists(JimpuData))
-        {
-            JsonUtility.FromJsonOverwrite(JimpuData, JimpuListData);
-        }
-
-        string SettingsPath = Application.persistentDataPath + "SettingsData.json";
-        if (File.Exists(SettingsPath))
-        {
-            JsonUtility.FromJsonOverwrite(SettingsPath, userSettingsSO);
-        }
         StartCoroutine(AfterLoad());
+    }
+
+    private void LoadFile(string fileName, ScriptableObject targetSO)
+    {
+        string fullPath = Application.persistentDataPath + fileName;
+
+        if (File.Exists(fullPath))
+        {
+            string jsonContent = File.ReadAllText(fullPath);
+
+            if (encrypt)
+            {
+                jsonContent = Encrypt(jsonContent);
+            }
+
+            JsonUtility.FromJsonOverwrite(jsonContent, targetSO);
+            Debug.Log($"Loaded and Decrypted: {fileName}");
+        }
+        else
+        {
+            Debug.LogWarning($"Savefile {fileName} not found");
+        }
     }
 
 

@@ -9,6 +9,7 @@ using UnityEngine.Tilemaps;
 public class PlayerControll : MonoBehaviour, IDataPersitence
 
 {
+    public static PlayerControll instance { get; private set; }
     public GameObject Player;
     public Animator PlayerAniamtor;
     public GameObject CollidersGameObjekt; // the TilemapContainer
@@ -20,18 +21,12 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
     public List<Sprite> SkinSprite;
     private int SkinIndex;
     public GameObject BodyPartsContainer;
-
-    public GarderobenScribt garderobenScribt;
     [Header("Can Player perform this inputs?")]
-    public bool MovePlayerR;
-    public bool MovePlayerL;
-    public bool MovePlayerUP;
     public List<TilemapCollider2D> Grounds;
     [SerializeField] private List<Skins> PlayerSkins;
     public bool PlayerIsTouchingGround; // if the player is touching a ground tile collider
     [Header("Player Hold On to settings")]
     public GameObject PlayerInfoInteractionKey;
-
     private bool IsHoldingOn;
     public PolygonCollider2D playerCollider;
     public BoxCollider2D JumpCollider;
@@ -41,18 +36,25 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
     public HealthManagerPlayer healthManagerPlayer;
     public EnergyManager energyManager;
     public VibrateControllerManager vibrateController;
+    [Space]
     [Header("Player Attacks")]
     public string CurrentAttack;
-    private bool CanAttack;
+    public bool CanAttack;
     public float AttackRollStrength;
+    [Space]
+    [Header("Audio Settings")]
+    public PlayerAudios playerAudios;
     void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
         inputActions = new InputSystem_Actions();
     }
     private void OnEnable()
     {
         inputActions.Player.Enable();
-
         inputActions.Player.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
         inputActions.Player.Move.canceled += ctx => moveInput = Vector2.zero;
     }
@@ -127,7 +129,7 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
             Debug.Log("Player is no longer holding on");
 
         }
-        if (inputActions.Player.Jump.WasPerformedThisFrame() && PlayerIsTouchingGround && CanMove || MovePlayerUP && CanMove)
+        if (inputActions.Player.Jump.WasPerformedThisFrame() && PlayerIsTouchingGround && CanMove)
         {
             rb.AddForce(new Vector2(0, Jump_speed));
             PlayerAniamtor.SetTrigger("Jump");
@@ -142,6 +144,7 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
             Debug.Log("Attack");
             float Direction = inputActions.Player.Move.ReadValue<Vector2>().x;
             CurrentAttack = "DodgeRoll";
+            AudioManager.instance.PlayAudio("Player_Punch", transform, true, 1);
             if (Direction > 0)
             {
                 Debug.Log("Attack R");
@@ -166,6 +169,7 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
 
         if (inputActions.Player.Attack.WasPerformedThisFrame() && CanAttack)
         {
+            AudioManager.instance.PlayAudio("Player_Punch", transform, true, 1);
             CurrentAttack = "HandBumm";
             PlayerAniamtor.Play("HandBumm");
             StartCoroutine(AttackWait(0.8f,0.1f));
@@ -248,4 +252,13 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
         manager.playerDataSO.Health = healthManagerPlayer.PlayerHealth;
         manager.playerDataSO.SkinIndex = SkinIndex;
     }
+}
+
+[System.Serializable]
+public class PlayerAudios
+{
+    public AudioSource PlayerJump;
+    public AudioSource PlayerAttacking;
+    public AudioSource PlayerDamage;
+    public AudioSource PlayerDeath;
 }

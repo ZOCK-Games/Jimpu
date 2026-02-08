@@ -30,7 +30,7 @@ public class HousDoor : MonoBehaviour
         {
             if (CanOpenDoor)
             {
-                OpenApplication();
+                StartCoroutine(LoadSceneAsync());
             }
         };
     }
@@ -57,13 +57,6 @@ public class HousDoor : MonoBehaviour
             CanOpenDoor = false;
         }
     }
-    void OpenApplication()
-    {
-        string path = Path.Combine(Application.streamingAssetsPath, $"Crash/{deviceManger.DesktopOS}/CrashWindow");
-        Process.Start(path);
-        Application.Quit();
-    }
-
     IEnumerator LoadSceneAsync()
     {
         GameObject LoadingCanvas = Instantiate(UILoading);

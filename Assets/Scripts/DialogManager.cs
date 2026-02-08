@@ -59,13 +59,11 @@ public class DialogManager : MonoBehaviour
         {
             CovertJson(jsonTextAsset);
             DialogFile = jsonTextAsset.name;
-                    if (DialogPriority <= currentDialogData.dialog_priority || DialogFile == null)
-        {
+            if (DialogPriority <= currentDialogData.dialog_priority || DialogFile == null)
             {
-                DialogPriority = currentDialogData.dialog_priority;
-                TextDisplay.text = currentDialogData.dialog_text;
+                    DialogPriority = currentDialogData.dialog_priority;
+                    TextDisplay.text = currentDialogData.dialog_text;
             }
-        }
         }
     }
 

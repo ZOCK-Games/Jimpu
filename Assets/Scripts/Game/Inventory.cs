@@ -13,6 +13,16 @@ public class SlotInfo
     public InventorySlot inventorySlot;
     public GameObject ItemSlot;
 }
+
+[System.Serializable]
+public class SlotSaveData //for saving 
+{
+    public string slotName;
+    public int slotNumber;
+    public int itemCount;
+    public string ItemName;
+}
+
 [System.Serializable]
 public class ItemInfo
 {
@@ -26,8 +36,9 @@ public class ItemInfo
     public TextMeshProUGUI ItemBuyPrice;
 }
 
-public class Inventory : MonoBehaviour
+public class Inventory : MonoBehaviour, IDataPersitence
 {
+    public static Inventory instance { get; private set; }
     public List<ItemData> ItemDatas;
     public List<GameObject> Items;
     public string CurentItem;
@@ -89,28 +100,40 @@ public class Inventory : MonoBehaviour
             }
         }
 
-
-    }
+        SaveManager.instance.Load();    }
 
     void OnDisable()
     {
-        inputActions.Player.Enable();
-        inputActions.UI.Disable();
-        InventorySaveManager.Instance.SaveInventory();
+        inputActions.Player.Disable();
     }
     public void OnEnable()
     {
-        inputActions.Player.Disable();
-        inputActions.UI.Enable();
-
-        InventorySaveManager.Instance.LoadInventory();
+        inputActions.Player.Enable();
         MovingItem = false;
         MouseItemPrefab.SetActive(false);
         currentInvSlotMovingItem = null;
 
-        CloseButton.onClick.AddListener(() => InventoryUI.SetActive(false));
+        inputActions.Player.Inventory.performed += ctx => ToggleInventory();
+        CloseButton.onClick.AddListener(() => ToggleInventory());
+        
         HandButton.Select();
         ReloadAllItemInfos();
+    }
+    public void ToggleInventory()
+    {
+        bool IsActive = InventoryUI.activeSelf;
+        if (!IsActive)
+        {
+            CloseButton.Select();
+            PlayerControll.instance.CanMove = false;
+            PlayerControll.instance.CanAttack = false;
+        }
+        else
+        {
+            PlayerControll.instance.CanMove = true;
+            PlayerControll.instance.CanAttack = true;
+        }
+        InventoryUI.SetActive(!IsActive);
     }
     public void LoadItemInfo(ItemData itemData)
     {
@@ -157,6 +180,26 @@ public class Inventory : MonoBehaviour
                 Slot.transform.GetChild(0).GetComponent<Image>().sprite = null;
             }
         }
+        List<SlotSaveData> saveDatas = new List<SlotSaveData>();
+        saveDatas.Clear();
+        for (int i = 0; i < InvSlots.Count; i++)
+        {
+            SlotSaveData X = new SlotSaveData();
+            X.itemCount = InvSlots[i].inventorySlot.ItemCount;
+            if (InvSlots[i].inventorySlot.ItemStored != null)
+            {
+                X.ItemName = InvSlots[i].inventorySlot.ItemStored.ItemNameText;
+            }
+            else
+            {
+                X.ItemName = "null";
+            }
+            X.slotName = InvSlots[i].inventorySlot.SlotName;
+            X.slotNumber = InvSlots[i].inventorySlot.SlotNumber;
+
+            saveDatas.Add(X);
+        }
+        SaveManager.instance.inventorDataSO.SaveFromInventory(saveDatas);
     }
     public void AddItem(ItemData item, InventorySlot slot, int? ItemCount)
     {
@@ -182,7 +225,6 @@ public class Inventory : MonoBehaviour
                             }
                             Inv.ItemStored = item;
                             Inv.itemType = item.itemType;
-                            InventorySaveManager.Instance.SaveInventory();
                             ReloadAllItemInfos();
                             return;
                         }
@@ -197,7 +239,6 @@ public class Inventory : MonoBehaviour
                                 Inv.ItemCount += 1;
                             }
                             Slot.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = Inv.ItemCount.ToString();
-                            InventorySaveManager.Instance.SaveInventory();
                             return;
                         }
                         else
@@ -256,7 +297,6 @@ public class Inventory : MonoBehaviour
                         Inv.ItemStored = null;
 
                     }
-                    InventorySaveManager.Instance.SaveInventory();
                     ReloadAllItemInfos();
                     Debug.Log($"Removed Items");
                     return;
@@ -275,7 +315,6 @@ public class Inventory : MonoBehaviour
                 {
                     Inv.ItemStored = null;
                 }
-                InventorySaveManager.Instance.SaveInventory();
                 ReloadAllItemInfos();
 
                 Debug.Log($"Removed Items");
@@ -318,7 +357,6 @@ public class Inventory : MonoBehaviour
             }
             RemoveItem(item, -ItemMovingCount, InvSlot);
             AddItem(item, currentInvSlotMovingItem, ItemMovingCount);
-            InventorySaveManager.Instance.SaveInventory();
             ReloadAllItemInfos();
             MouseItem.SetActive(false);
         }
@@ -336,7 +374,7 @@ public class Inventory : MonoBehaviour
         if (Add)
         {
             Debug.Log("add");
-            AddItem(ItemDatas[1], null, null);
+            AddItem(ItemDatas[1], InvSlots[0].inventorySlot, 1);
             Add = false;
         }
         if (Remove)
@@ -345,10 +383,6 @@ public class Inventory : MonoBehaviour
             Remove = false;
         }
 
-        if (inputActions.Player.Inventory.WasPerformedThisFrame())
-        {
-            InventoryUI.SetActive(!InventoryUI.activeSelf);
-        }
         if (HandSlot.ItemStored != null &&
         (
             HandItemParent.transform.childCount == 0 ||
@@ -380,19 +414,57 @@ public class Inventory : MonoBehaviour
         ReloadAllItemInfos();
     }
 
+    public void LoadData(SaveManager manager)
+    {
+
+        for (int i = 0; i < manager.inventorDataSO.InventoryDatas.Count; i++)
+        {
+            SlotSaveData SavedSlot = manager.inventorDataSO.InventoryDatas[i];
+            var foundInfo = InvSlots.Find(InventorySlot => InventorySlot.inventorySlot.SlotNumber == SavedSlot.slotNumber);
+            if (foundInfo != null)
+            {
+                InventorySlot slot = foundInfo.inventorySlot;
+                if (slot != null)
+                {
+                    ItemData StoredItem = ItemDatas.Find(ItemData => ItemData.name == SavedSlot.ItemName);
+                    if (StoredItem != null)
+                    {
+                        slot.ItemCount = SavedSlot.itemCount;
+                        slot.ItemStored = StoredItem;
+                        slot.itemType = StoredItem.itemType;
+                    }
+                }
+            }
+        }
+        ReloadAllItemInfos();
+    }
+
+    public void SaveData(SaveManager manager)
+    {
+        List<SlotSaveData> saveDatas = new List<SlotSaveData>();
+        saveDatas.Clear();
+        for (int i = 0; i < InvSlots.Count; i++)
+        {
+            SlotSaveData X = new SlotSaveData();
+            X.itemCount = InvSlots[i].inventorySlot.ItemCount;
+            if (InvSlots[i].inventorySlot.ItemStored != null)
+            {
+                X.ItemName = InvSlots[i].inventorySlot.ItemStored.ItemNameText;
+            }
+            else
+            {
+                X.ItemName = "null";
+            }
+            X.slotName = InvSlots[i].inventorySlot.SlotName;
+            X.slotNumber = InvSlots[i].inventorySlot.SlotNumber;
+
+            saveDatas.Add(X);
+        }
+        SaveManager.instance.inventorDataSO.SaveFromInventory(saveDatas);
+    }
 }
 
-[CreateAssetMenu(fileName = "NewItemSlotData", menuName = "Game Data/Item Slot Data")] // The Singel Item slot 
-public class InventorySlot : ScriptableObject
-{
-    public String SlotName;
-    public int SlotNumber;
-    public int MaxItems;
-    public int ItemCount;
-    public ItemType itemType;
-    public ItemData ItemStored;
-    public bool IsEmpty => ItemStored == null;
-}
+
 
 [System.Serializable]
 public class ItemSlotSaveData
@@ -401,13 +473,6 @@ public class ItemSlotSaveData
     public string itemID;
     public int ItemAmount;
 }
-
-[System.Serializable]
-public class InventorySaveData
-{
-    public List<ItemSlotSaveData> slots = new List<ItemSlotSaveData>();
-}
-
 
 public enum ItemType
 {

@@ -84,14 +84,15 @@ public class BulletShootVoice : MonoBehaviour
             }
             while (elapsedTime < duration && BulletObj != null)
             {
-                if (BulletObj != null && elapsedTime > 0.1f)
+                float t = (elapsedTime / duration);
+                if (t > 0.5 && Particle != null || BulletObj == null)
                 {
-                    BulletObj.transform.position = TargetPos;
-                    Destroy(BulletObj, 5f);
+                    Destroy(Particle);
                 }
+
                 BulletObj.transform.Rotate(Vector3.up, (elapsedTime * 30) * Time.deltaTime, Space.World);
                 BulletObj.transform.Rotate(Vector3.left, (elapsedTime * 30) * Time.deltaTime, Space.World);
-                BulletObj.transform.position = Vector3.Lerp(ShotingPos, TargetPos, (elapsedTime / duration));
+                BulletObj.transform.position = Vector3.Lerp(ShotingPos, TargetPos, t);
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
