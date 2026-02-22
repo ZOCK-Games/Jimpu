@@ -5,6 +5,10 @@ using UnityEngine.InputSystem;
 
 public class VibrateControllerManager : MonoBehaviour
 {
+    public void Start()
+    {
+        DontDestroyOnLoad(this.gameObject);
+    }
     public void VibrateController(float lowFrequency, float highFrequency, float duration)
     {
         var gamepad = Gamepad.current;

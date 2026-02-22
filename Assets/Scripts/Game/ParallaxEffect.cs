@@ -19,16 +19,16 @@ public class ParallaxEffect : MonoBehaviour
         {
             startPositions.Add(ParallaxObjects[i].Objects.transform.position);
         }
-        }
+    }
 
     // Update is called once per frame
     void Update()
     {
         for (int i = 0; i < ParallaxObjects.Count; i++)
         {
-            float distanz = (camera.transform.position.x * ParallaxObjects[i].parallaxFaktor);
-
-            ParallaxObjects[i].Objects.transform.position = new Vector3(startPositions[i].x + distanz, startPositions[i].y, startPositions[i].z);
+            float distX = camera.transform.position.x * ParallaxObjects[i].parallaxFaktor;
+            float distY = camera.transform.position.y * (ParallaxObjects[i].parallaxFaktor * 0.5f);
+            ParallaxObjects[i].Objects.transform.position = new Vector3(startPositions[i].x + distX, startPositions[i].y + distY / 2, startPositions[i].z);
         }
     }
 }

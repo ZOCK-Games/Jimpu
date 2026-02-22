@@ -9,6 +9,8 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance { get; private set; }
     public List<AudioClip> audioClips = new List<AudioClip>();
+    public List<GameObject> LoopedAudios = new List<GameObject>();
+    public List<GameObject> NormalAudios = new List<GameObject>();
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     static void OnBeforeSceneLoadRuntimeMethod()
@@ -73,7 +75,8 @@ public class AudioManager : MonoBehaviour
             }
             else
             {
-                GameObject Source = new GameObject($"Source: {AudioName}");
+                GameObject Source = new GameObject($"{AudioName}");
+                NormalAudios.Add(Source);
                 Source.transform.SetParent(Position);
                 Source.transform.localPosition = Vector3.zero;
                 AudioSource Audio = Source.AddComponent<AudioSource>();
@@ -81,6 +84,67 @@ public class AudioManager : MonoBehaviour
                 Audio.clip = audio;
                 Audio.Play();
                 Destroy(Source, audio.length);
+            }
+        }
+    }
+
+    public void PlayAudioLoop(string Name, Transform Position, string AudioName, float Volume = 1, bool IsChild = false)
+    {
+        AudioClip audio = audioClips.Find(audioClips => audioClips.name == AudioName);
+        if (audio != null)
+        {
+            if (!IsChild)
+            {
+                AudioSource.PlayClipAtPoint(audio, Position.position);
+            }
+            else
+            {
+                GameObject Source = new GameObject($"{Name}");
+                Source.name = Name;
+                LoopedAudios.Add(Source);
+                Source.transform.SetParent(Position);
+                Source.transform.localPosition = Vector3.zero;
+                AudioSource Audio = Source.AddComponent<AudioSource>();
+                Audio.volume = Volume;
+                Audio.clip = audio;
+                Audio.Play();
+            }
+        }
+    }
+
+    public void StopAudio(string Name)
+    {
+        GameObject Object = LoopedAudios.Find(GameObject => GameObject.name == Name);
+        if (Object != null)
+        {
+            Destroy(Object);
+        }
+        else
+        {
+            Object = NormalAudios.Find(GameObject => GameObject.name == Name);
+            if (Object != null)
+            {
+                Destroy(Object);
+            }
+        }
+    }
+    public bool isPlaying(string name)
+    {
+        GameObject ObjLooped = LoopedAudios.Find(obj => obj != null && obj.name == name); 
+        if (ObjLooped != null)
+        {
+            return true;
+        }
+        else
+        {
+            GameObject ObjNormal = NormalAudios.Find(obj => obj != null && obj.name == name);
+            if (ObjNormal != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
     }

@@ -100,8 +100,22 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
     {
         if (CanMove)
         {
+            if (Mathf.Abs(moveInput.x) > 0.3f)
+            {
+                if (!AudioManager.instance.isPlaying("Walk"))
+                {
+                    AudioManager.instance.PlayAudio("Walk", transform, true, 1);
+                }
+            }
             Vector3 move = new Vector3(moveInput.x, 0, 0);
             transform.Translate(move * MoveSpeed * Time.deltaTime);
+        }
+        else
+        {
+            if (AudioManager.instance.isPlaying("Walk"))
+            {
+                AudioManager.instance.StopAudio("Walk");
+            }
         }
 
 
@@ -131,6 +145,7 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
         }
         if (inputActions.Player.Jump.WasPerformedThisFrame() && PlayerIsTouchingGround && CanMove)
         {
+            AudioManager.instance.PlayAudio("jump", transform);
             rb.AddForce(new Vector2(0, Jump_speed));
             PlayerAniamtor.SetTrigger("Jump");
         }
@@ -161,7 +176,7 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
                 vibrateController.VibrateController(0.2f, 0.1f, 2);
                 StartCoroutine(energyManager.RemoveEnergy(-25));
             }
-            StartCoroutine(AttackWait(1.5f,0.18f));
+            StartCoroutine(AttackWait(1.5f, 0.18f));
         }
         ////
         /// Hand Bumm
@@ -172,7 +187,7 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
             AudioManager.instance.PlayAudio("Player_Punch", transform, true, 1);
             CurrentAttack = "HandBumm";
             PlayerAniamtor.Play("HandBumm");
-            StartCoroutine(AttackWait(0.8f,0.1f));
+            StartCoroutine(AttackWait(0.8f, 0.1f));
         }
     }
     IEnumerator AttackWait(float ResetTime, float DelayTime)
@@ -234,19 +249,18 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
     public void LoadData(SaveManager manager)
     {
 
-        Player.transform.localPosition = manager.playerDataSO.PlayerPosition;
+        Player.transform.localPosition = manager.playerDataSO.PlayerPosition != null? manager.playerDataSO.PlayerPosition : Vector3.zero;
         SkinIndex = manager.playerDataSO.SkinIndex;
         CheckSkin();
-        //Player.GetComponent<SpriteRenderer>().sprite = SkinSprite[SkinIndex];
         if (UnityEngine.ColorUtility.TryParseHtmlString("#" + manager.playerDataSO.colorHex, out Color colorHex))
             for (int i = 0; i < BodyPartsContainer.transform.childCount; i++)
             {
                 BodyPartsContainer.transform.GetChild(i).GetComponent<SpriteRenderer>().color = colorHex;
             }
-        healthManagerPlayer.PlayerHealth = manager.playerDataSO.Health;
+        healthManagerPlayer.PlayerHealth = manager.playerDataSO.Health !<= 0? manager.playerDataSO.Health : 3;
 
     }
-    public void SaveData(SaveManager manager) 
+    public void SaveData(SaveManager manager)
     {
         manager.playerDataSO.PlayerPosition = this.Player.transform.localPosition;
         manager.playerDataSO.Health = healthManagerPlayer.PlayerHealth;

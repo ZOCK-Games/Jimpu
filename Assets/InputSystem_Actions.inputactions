@@ -1022,6 +1022,45 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Global",
+            "id": "8c9817ca-3c55-4fa3-b81f-b49bb5ae8f11",
+            "actions": [
+                {
+                    "name": "ScreenShoot",
+                    "type": "Button",
+                    "id": "57d95922-4a50-48c0-b519-b9c6e3cb4cbd",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "cf47d0d2-f278-472f-9d70-2e5658ca09b4",
+                    "path": "<Keyboard>/f2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ScreenShoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4b0331d6-9ea2-49d3-8da8-060e0d7c860e",
+                    "path": "<SwitchProControllerHID>/capture",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ScreenShoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [
