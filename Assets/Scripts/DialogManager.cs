@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TMPro;
@@ -61,13 +62,20 @@ public class DialogManager : MonoBehaviour
             DialogFile = jsonTextAsset.name;
             if (DialogPriority <= currentDialogData.dialog_priority || DialogFile == null)
             {
-                    DialogPriority = currentDialogData.dialog_priority;
-                    TextDisplay.text = currentDialogData.dialog_text;
+                DialogPriority = currentDialogData.dialog_priority;
+                TextDisplay.text = currentDialogData.dialog_text;
+                StartCoroutine(ClearDialog(6));
             }
         }
     }
 
-
+    public IEnumerator ClearDialog(float time)
+    {
+        yield return new WaitForSeconds(time);
+        TextDisplay.text = null;
+        DialogPriority = -99;
+        DialogFile = null;
+    }
     public void CovertJson(TextAsset jsonFile)
     {
         if (jsonFile == null) return;

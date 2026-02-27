@@ -25,6 +25,7 @@ public class HousDoor : MonoBehaviour
     }
     private void OnEnable()
     {
+        CanOpenDoor = false;
         inputActions.Player.Enable();
         inputActions.Player.Interact.performed += ctx =>
         {
@@ -38,10 +39,6 @@ public class HousDoor : MonoBehaviour
     private void OnDisable()
     {
         inputActions.Player.Disable();
-    }
-    void Start()
-    {
-        CanOpenDoor = true;
     }
     void OnTriggerEnter2D(Collider2D collision)
     {

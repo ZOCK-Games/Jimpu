@@ -41,12 +41,13 @@ public class ChestManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         float ElapsedTime = 0;
         GameObject Display = Instantiate(DisplayItem);
-        Display.transform.position = new Vector3(Pos.x, Pos.y + 1.5f, 0);
+        Display.transform.position = new Vector3Int(Pos.x, Mathf.RoundToInt(Pos.y + 1.5f), 0);
+        SpriteRenderer DisplaySprite = Display.GetComponent<SpriteRenderer>();
         int ItemNumber = 0;
         while (ElapsedTime < 1f)
         {
             ItemNumber = Random.Range(0, inventory.ItemDatas.Count);
-            Display.GetComponent<SpriteRenderer>().sprite = inventory.ItemDatas[ItemNumber].ItemImagePrev;
+            DisplaySprite.sprite = inventory.ItemDatas[ItemNumber].ItemImagePrev;
             yield return new WaitForSeconds(0.12f);
             ElapsedTime += Time.deltaTime;
             ChestTilemap.SetTile(Pos, null);

@@ -100,7 +100,8 @@ public class Inventory : MonoBehaviour, IDataPersitence
             }
         }
 
-        SaveManager.instance.Load();    }
+        SaveManager.instance.Load();
+    }
 
     void OnDisable()
     {
@@ -115,7 +116,7 @@ public class Inventory : MonoBehaviour, IDataPersitence
 
         inputActions.Player.Inventory.performed += ctx => ToggleInventory();
         CloseButton.onClick.AddListener(() => ToggleInventory());
-        
+
         HandButton.Select();
         ReloadAllItemInfos();
     }
@@ -394,6 +395,7 @@ public class Inventory : MonoBehaviour, IDataPersitence
                 Destroy(HandItemParent.transform.GetChild(i).gameObject);
             }
             GameObject HandItem = Instantiate(HandSlot.ItemStored.ItemObject);
+            HandItem.transform.position = HandItemParent.transform.position;
             HandItem.transform.SetParent(HandItemParent.transform);
             HandItem.name = HandSlot.ItemStored.ItemObject.name;
         }

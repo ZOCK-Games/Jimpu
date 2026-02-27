@@ -39,6 +39,10 @@ public class NoteBookManager : MonoBehaviour, IDataPersitence
                 UIParts[i].SetActive(!UIParts[i].activeSelf);
             }
         };
+        for (int i = 0; i < UIParts.Count; i++)
+        {
+            UIParts[i].SetActive(false);
+        }
     }
     void CreateLine()
     {

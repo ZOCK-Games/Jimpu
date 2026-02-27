@@ -30,6 +30,7 @@ public class BulletShootVoice : MonoBehaviour
         {
             ShootAllsided = false;
             Transform transformPos = playerControll.Player.transform;
+            ShotToRadius(playerControll.Player.transform, Bullets[0], ShotingPositionShooter, 2, 2, 0, true);
         }
     }
     public void ShotToRadius(Transform transformPos, GameObject BulletType, Transform ShotingPosition, float BulletSpeed, int BulletCount, float BulletShotCountdown, bool DuplicateOnWallHit)

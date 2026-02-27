@@ -20,8 +20,6 @@ public class ParallaxEffect : MonoBehaviour
             startPositions.Add(ParallaxObjects[i].Objects.transform.position);
         }
     }
-
-    // Update is called once per frame
     void Update()
     {
         for (int i = 0; i < ParallaxObjects.Count; i++)
