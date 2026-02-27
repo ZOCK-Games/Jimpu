@@ -56,6 +56,8 @@ public class HousDoor : MonoBehaviour
     }
     IEnumerator LoadSceneAsync()
     {
+        VibrateControllerManager.instance.VibrateController(0.6f,0.3f,0.3f);
+        VibrateControllerManager.instance.VibrateController(0.3f,0.6f,0.3f);
         GameObject LoadingCanvas = Instantiate(UILoading);
         TextMeshProUGUI LoadingText = LoadingCanvas.transform.GetChild(1).transform.GetComponent<TextMeshProUGUI>();
         Slider LoadingSlider = LoadingCanvas.transform.GetChild(2).transform.GetComponent<Slider>();

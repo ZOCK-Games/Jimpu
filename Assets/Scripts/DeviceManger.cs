@@ -79,7 +79,7 @@ public class DeviceManger : MonoBehaviour
     IEnumerator Wayt()
     {
         yield return new WaitForFixedUpdate();
-        if (SimpleDevice == "PC")
+        /*if (SimpleDevice == "PC")
         {
             MoveLButton.SetActive(false);
             MoveRButton.SetActive(false);
@@ -114,7 +114,7 @@ public class DeviceManger : MonoBehaviour
             MoveUPButton.SetActive(false);
             Debug.Log("Current Device is" + SimpleDevice + "Handy movement disabled");
 
-        }
+        }*/
     }
 
 

@@ -1,13 +1,9 @@
 using System.Collections;
-using NavMeshPlus.Components;
-using TMPro;
 using Unity.Mathematics;
-using Unity.Services.Matchmaker.Models;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class DrunkenJimpuManager : MonoBehaviour
+public class DrunkenJimpuManager : NPCManager
 {
     private NavMeshAgent navMeshAgent;
     public PlayerControll playerControll;
@@ -16,12 +12,10 @@ public class DrunkenJimpuManager : MonoBehaviour
     public Animator Animation;
     public GameObject Botel;
     public Transform BotelContainer;
-    public TextMeshPro HealthText;
     private bool IsAttacking;
-    private UniversalHealthInfo universalHealth;
-    void Start()
+    protected override void Start()
     {
-        universalHealth = this.gameObject.GetComponent<UniversalHealthInfo>();
+        base.Start();
         navMeshAgent = this.gameObject.GetComponent<NavMeshAgent>();
         rigidbody2D = this.gameObject.GetComponent<Rigidbody2D>();
         navMeshAgent.updateRotation = false;
@@ -44,7 +38,7 @@ public class DrunkenJimpuManager : MonoBehaviour
         }
         
     }
-    void Update()
+    protected override void Update()
     {
         navMeshAgent.SetDestination(playerControll.Player.transform.position);
         float Distance = Vector3.Distance(playerControll.Player.transform.position, this.gameObject.transform.position);
@@ -63,11 +57,10 @@ public class DrunkenJimpuManager : MonoBehaviour
             // The player is on his left side
             transform.rotation = new Quaternion(0, 180, 0, 0);
         }
-        if (universalHealth.Health <= 0)
+        if (Health <= 0)
         {
             StopAllCoroutines();
         }
-        HealthText.text = universalHealth.Health.ToString();
 
         Animation.SetFloat("Walk", rigidbody2D.linearVelocityX);
         Animation.SetFloat("Jump", rigidbody2D.linearVelocityY);

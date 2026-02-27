@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 
-public class PlayerControll : MonoBehaviour, IDataPersitence
+public class PlayerControll : NPCManager, IDataPersitence
 
 {
     public static PlayerControll instance { get; private set; }
@@ -71,7 +71,6 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
         PlayerInfoInteractionKey.SetActive(false);
         PlayerIsTouchingGround = false;
         CanAttack = true;
-        UnityEngine.Debug.Log("Tutorial Game Has Startet");
         rb = Player.GetComponent<Rigidbody2D>();
         PlayerAniamtor.SetBool("Walk", false);
 
@@ -96,7 +95,7 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
 
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
         if (CanMove)
         {
@@ -123,7 +122,7 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
         SceneManager.LoadScene("Death");*/
 
         PlayerIsTouchingGround = false;
-
+ 
         foreach (var ground in Grounds)
         {
             if (ground != null && JumpCollider.IsTouching(ground))

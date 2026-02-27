@@ -5,9 +5,21 @@ using UnityEngine.InputSystem;
 
 public class VibrateControllerManager : MonoBehaviour
 {
-    public void Start()
+    public static VibrateControllerManager instance { get; private set; }
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    static void OnBeforeSceneLoadRuntimeMethod()
     {
-        DontDestroyOnLoad(this.gameObject);
+        GameObject vc = new GameObject("VibrateControllerManager");
+        instance = vc.AddComponent<VibrateControllerManager>();
+        DontDestroyOnLoad(vc);
+    }
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
     }
     public void VibrateController(float lowFrequency, float highFrequency, float duration)
     {
@@ -31,7 +43,7 @@ public class VibrateControllerManager : MonoBehaviour
         var gamepad = Gamepad.current;
         if (gamepad != null)
         {
-            gamepad.SetMotorSpeeds(0f, 0f); 
+            gamepad.SetMotorSpeeds(0f, 0f);
         }
     }
 }

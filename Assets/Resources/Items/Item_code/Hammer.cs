@@ -92,7 +92,7 @@ public IEnumerator Inaktive()
 
         yield return new WaitForSeconds(0.4f);
         ObjektTilemap.SetTile(cellPos, null);
-        enemy.GetComponent<EnemyInfo>().EnemyHealt -= 1;
+        enemy.GetComponent<EnemyInfo>().TakeDamage(1);
         Destroy(enemy, 0.1f);
         currentenemy = -1;
         yield return new WaitForSeconds(0.8f);

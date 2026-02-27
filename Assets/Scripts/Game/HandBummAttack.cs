@@ -12,7 +12,7 @@ public class HandBummAttack : MonoBehaviour
     {
         if (HandBummActive && collision.tag == "Attackable" && CanDealDamage)
         {
-            collision.gameObject.GetComponent<UniversalHealthInfo>().Health -= Damage;
+            collision.gameObject.GetComponent<NPCManager>().TakeDamage(Damage);
             GameObject Particle = Instantiate(HitParticle);
             Particle.transform.position = collision.transform.position;
             Destroy(Particle, 0.7f);

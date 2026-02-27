@@ -6,27 +6,24 @@ using UnityEngine;
 using UnityEngine.AI;
 using WebSocketSharp;
 
-public class EnemyInfo : MonoBehaviour
+public class EnemyInfo : NPCManager
 {
-    public float EnemyHealt;
     public string JimpuID;
     public PlayerControll playerControll;
     public Transform Target;
     public GameObject JimpuObj;
-    public float ViewField;
+    public float ViewField = 6;
     public bool IsMoving;
     public Animator JimpuAnimator;
     private Rigidbody2D rb;
-    public UniversalHealthInfo universalHealth;
     public NavMeshAgent meshAgent;
     public string Status = "null";
-    void Start()
+
+    protected override void Start()
     {
-        universalHealth = this.gameObject.GetComponent<UniversalHealthInfo>();
-        if (EnemyHealt != 0)
-        {
-            universalHealth.Health = EnemyHealt;
-        }
+        base.Start();
+        ViewField = 25;
+
         meshAgent = GetComponent<NavMeshAgent>();
         JimpuObj = this.gameObject;
         JimpuAnimator = this.gameObject.GetComponent<Animator>();
@@ -47,16 +44,8 @@ public class EnemyInfo : MonoBehaviour
                 meshAgent.Warp(hit.position);
             }
         }
+        StartCoroutine(CheckDistanceRoutine());
     }
-    public bool IsPlayerInReach()
-    {
-        if (Target == null || JimpuObj == null) return false;
-
-        float distSq = (Target.position - JimpuObj.transform.position).sqrMagnitude;
-        float radiusSq = ViewField * ViewField;
-        return distSq <= radiusSq;
-    }
-
     public void SetTarget(GameObject TargetPosition)
     {
         if (meshAgent == null)
@@ -70,18 +59,10 @@ public class EnemyInfo : MonoBehaviour
         }
         Target = TargetPosition.transform;
     }
-    void Update()
+    protected override void Update()
     {
         meshAgent.SetDestination(Target.position);
-
-        if (EnemyHealt <= 0)
-        {
-            EnemyScript.JimpusInfos.Remove(this.gameObject.GetComponent<EnemyInfo>());
-            JimpuAnimator.Play("Death");
-            Destroy(this.gameObject, 0.8f);
-        }
-
-        EnemyHealt = universalHealth.Health;
+        
         JimpuAnimator.SetFloat("VelocityX", meshAgent.velocity.magnitude);
         JimpuAnimator.SetFloat("VelocityY", meshAgent.velocity.y);
 
@@ -97,6 +78,15 @@ public class EnemyInfo : MonoBehaviour
         if (!meshAgent.isOnNavMesh)
         {
             StartCoroutine(IsOnNavMesh());
+        }
+    }
+    IEnumerator CheckDistanceRoutine()
+    {
+        while (true)
+        {
+            float sqrDistance = (playerControll.Player.transform.position - transform.position).sqrMagnitude;
+            meshAgent.isStopped = sqrDistance > (ViewField * ViewField);
+            yield return new WaitForSeconds(0.5f);
         }
     }
     public IEnumerator IsOnNavMesh()

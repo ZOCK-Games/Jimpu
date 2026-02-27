@@ -9,7 +9,7 @@ public class DamageRoll : MonoBehaviour
     {
         if (DamageRollActive && collision.gameObject.tag == "Attackable")
         {
-            collision.gameObject.GetComponent<UniversalHealthInfo>().Health -= Damage;
+            collision.gameObject.GetComponent<NPCManager>().TakeDamage(Damage);
         }
     }
 

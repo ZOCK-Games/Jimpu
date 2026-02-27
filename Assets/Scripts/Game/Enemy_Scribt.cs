@@ -8,7 +8,6 @@ using Unity.VisualScripting;
 public class EnemyScript : MonoBehaviour, IDataPersitence
 {
     public Transform GoTo;
-    public GameObject Player;
     public GameObject HeartContainer;
     public GameObject HeartPrefab;
     public GameObject JimbuBulletPrefab;
@@ -20,6 +19,7 @@ public class EnemyScript : MonoBehaviour, IDataPersitence
     public PlayerControll playerControll;
     public GameObject Grid;
     [Header("Enemy Settings")]
+    public GameObject DeathParticle;
     public List<GameObject> EnemyPrefab;
     public int MaxEnemys;
     public int EnemyHealt;
@@ -35,10 +35,6 @@ public class EnemyScript : MonoBehaviour, IDataPersitence
 
     void Update()
     {
-        if (JimpusInfos != null && JimpusInfos.Count < MaxEnemys)
-        {
-        }
-
         if (JimpusCanMove == true)
         {
             if (JimpusInfos == null) return;
@@ -55,7 +51,8 @@ public class EnemyScript : MonoBehaviour, IDataPersitence
                     }
                     else if (agent != null)
                     {
-                        JimpusInfos[i].SetTarget(Player);
+                        JimpusInfos[i].SetTarget(playerControll.Player
+                        );
                     }
                 }
             }
@@ -106,9 +103,10 @@ public class EnemyScript : MonoBehaviour, IDataPersitence
                 {
                     CE.AddComponent<EnemyInfo>();
                 }
-                info.EnemyHealt = 5;
+                info.Health = 5;
                 info.playerControll = this.playerControll;
-                info.SetTarget(Player);
+                info.SetTarget(playerControll.Player);
+                info.DeathParticle = DeathParticle;
                 JimpusInfos.Add(info);
                 Debug.Log("Spawned jimpu");
             }
@@ -154,7 +152,7 @@ public class EnemyScript : MonoBehaviour, IDataPersitence
                     jimpuData = new JimpuDataSO { JimpuID = JimpusInfos[i].JimpuID };
                     manager.dataSOs.JimpuListData.jimpuDatas.Add(jimpuData);
                 }
-                jimpuData.Health = JimpusInfos[i].EnemyHealt;
+                jimpuData.Health = JimpusInfos[i].Health;
                 jimpuData.Position = JimpusInfos[i].JimpuObj.transform.position;
             }
         }
@@ -183,9 +181,10 @@ public class EnemyScript : MonoBehaviour, IDataPersitence
                 {
                     CE.AddComponent<EnemyInfo>();
                 }
-                info.EnemyHealt = (int)jimpuList[i].Health;
+                info.Health = (int)jimpuList[i].Health;
                 info.JimpuID = jimpuList[i].JimpuID;
                 info.playerControll = this.playerControll;
+                info.DeathParticle = DeathParticle;
                 JimpusInfos.Add(info);
                 Debug.Log("Spawned jimpu");
             }

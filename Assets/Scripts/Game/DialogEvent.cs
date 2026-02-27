@@ -45,10 +45,6 @@ public class DialogEvent : MonoBehaviour
             Action.Invoke();
             Debug.Log("Executed Trigger");
         }
-        if (this.gameObject.GetComponent<Tilemap>())
-        {
-            tilemap = this.gameObject.GetComponent<Tilemap>();
-        }
     }
     void OnDisable()
     {
@@ -129,17 +125,6 @@ public class DialogEvent : MonoBehaviour
             Action.Invoke();
             return;
         }
-        if (SelectedTriggerType != TriggerType.OnCollisionEnter2d)
-        {
-            Vector2 contactPoint = collision.GetContact(0).point;
-            contactPoint.y -= 0.01f;
-            Vector3Int cellPosition = tilemap.WorldToCell(contactPoint);
-            if (tilemap.GetTile(cellPosition) == Tile)
-            {
-                Action.Invoke();
-                return;
-            }
-        }
     }
     void OnCollisionExit2D(Collision2D collision)
     {
@@ -168,7 +153,7 @@ public class UniversalTriggerEditor : UnityEditor.Editor
     {
         DialogEvent script = (DialogEvent)target;
 
-        // Zeichne das Standard-Dropdown
+        // Zeichnet das Standard-Dropdown
         script.SelectedTriggerType = (DialogEvent.TriggerType)UnityEditor.EditorGUILayout.EnumPopup("Modus", script.SelectedTriggerType);
         UnityEditor.EditorGUILayout.Space();
         if (script.SelectedTriggerType == DialogEvent.TriggerType.OnCollisionEnter2d ||
