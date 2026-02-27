@@ -64,17 +64,17 @@ public class SettingsAudioManager : MonoBehaviour, IDataPersitence
 
     public void LoadData(SaveManager manager)
     {
-        Music = manager.userSettingsSO.MusicValue;
-        Effects = manager.userSettingsSO.EffectsValue;
-        Environment = manager.userSettingsSO.EnvironmentValue;
-        Global = manager.userSettingsSO.GlobalValue;
+        Music = manager.dataSOs.userSettingsSO.MusicValue;
+        Effects = manager.dataSOs.userSettingsSO.EffectsValue;
+        Environment = manager.dataSOs.userSettingsSO.EnvironmentValue;
+        Global = manager.dataSOs.userSettingsSO.GlobalValue;
     }
 
     public void SaveData(SaveManager manager)
     {
-        manager.userSettingsSO.MusicValue = Music;
-        manager.userSettingsSO.EffectsValue = Effects;
-        manager.userSettingsSO.EnvironmentValue = Environment;
-        manager.userSettingsSO.GlobalValue = Global;
+        manager.dataSOs.userSettingsSO.MusicValue = Music;
+        manager.dataSOs.userSettingsSO.EffectsValue = Effects;
+        manager.dataSOs.userSettingsSO.EnvironmentValue = Environment;
+        manager.dataSOs.userSettingsSO.GlobalValue = Global;
     }
 }

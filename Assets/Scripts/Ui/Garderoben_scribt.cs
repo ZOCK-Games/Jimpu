@@ -63,12 +63,12 @@ public class GarderobenScribt : MonoBehaviour, IDataPersitence
 
     public void LoadData(SaveManager manager)
     {
-        this.SkinIndex = manager.playerDataSO.SkinIndex;
+        this.SkinIndex = manager.dataSOs.playerDataSO.SkinIndex;
         LoadSkin();
     }
 
     public void SaveData(SaveManager manager)
     {
-        manager.playerDataSO.SkinIndex = this.SkinIndex;
+        manager.dataSOs.playerDataSO.SkinIndex = this.SkinIndex;
     }
 }

@@ -121,7 +121,7 @@ public class DeviceManger : MonoBehaviour
 
     public void SaveGame(SaveManager manager)
     {
-        manager.userSettingsSO.Device = this.Device;
-        manager.userSettingsSO.Device = this.SimpleDevice;
+        manager.dataSOs.userSettingsSO.Device = this.Device;
+        manager.dataSOs.userSettingsSO.Device = this.SimpleDevice;
     }
 }

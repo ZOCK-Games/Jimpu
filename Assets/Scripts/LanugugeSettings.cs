@@ -67,14 +67,14 @@ public class LangugeSetting : MonoBehaviour, IDataPersitence
 
     public void LoadData(SaveManager manager)
     {
-        localeCode = manager.userSettingsSO.Language;
+        localeCode = manager.dataSOs.userSettingsSO.Language;
     }
 
     public void SaveData(SaveManager manager)
     {
         if (localeCode != null)
         {
-            manager.userSettingsSO.Language = localeCode;
+            manager.dataSOs.userSettingsSO.Language = localeCode;
         }
     }
 }

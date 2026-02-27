@@ -11,7 +11,7 @@ public class FPSManager : MonoBehaviour
 
     public void LoadGame(SaveManager manager)
     {
-        this.ShowFPS = manager.userSettingsSO.ShowFPS;
+        this.ShowFPS = manager.dataSOs.userSettingsSO.ShowFPS;
     }
 
 

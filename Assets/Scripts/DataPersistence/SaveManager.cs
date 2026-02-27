@@ -2,18 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Unity.Android.Gradle.Manifest;
 using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
 
-public class SaveManager : MonoBehaviour
+[System.Serializable]
+public class DataSOs
 {
-    public static SaveManager instance { get; private set; }
     public PlayerDataSO playerDataSO;
     public JimpuListData JimpuListData;
     public UserSettingsSO userSettingsSO;
     public InventorDataSO inventorDataSO;
+    public NoteBookListSO noteBookDataSO;
+}
+
+public class SaveManager : MonoBehaviour
+{
+    public static SaveManager instance { get; private set; }
     public string secretKey = "ChangeOnPublish";
+    public DataSOs dataSOs;
     public bool encrypt;
     private void Awake()
     {
@@ -50,47 +58,46 @@ public class SaveManager : MonoBehaviour
             Debug.Log($"ERFOLG: {dataObject.GetType().Name} hat Daten ins SO geschrieben.");
         }
 
-        string JsonFilePlayer = JsonUtility.ToJson(playerDataSO);
-        if (encrypt)
+
+        WriteData(dataSOs.playerDataSO, "PlayerData.dat");
+        WriteData(dataSOs.JimpuListData, "JimpuData.dat");
+        WriteData(dataSOs.userSettingsSO, "SettingsData.dat");
+        WriteData(dataSOs.inventorDataSO, "InventoryData.dat");
+        WriteData(dataSOs.noteBookDataSO, "NoteBookData.dat");
+
+        /// <summary>
+        /// Writes the data from the Scriptable Objects
+        /// to the .dat file with the FileName
+        /// </summary>
+        void WriteData(ScriptableObject scriptableObject, string FileName)
         {
-            JsonFilePlayer = Encrypt(JsonFilePlayer);
+
+            string JsonFile = JsonUtility.ToJson(scriptableObject);
+            if (encrypt)
+            {
+                JsonFile = Encrypt(JsonFile);
+            }
+
+            /// <summary>
+            /// Combines the PersistentDataPath with the file name
+            /// to ensure cross-platform compatibility
+            /// </summary>
+            string FullPath = Path.Combine(UnityEngine.Application.persistentDataPath, FileName);
+
+            File.WriteAllText(FullPath, JsonFile);
+            Debug.Log($"Saved {FileName}");
         }
 
-        File.WriteAllText(Application.persistentDataPath + "/PlayerData.dat", JsonFilePlayer);
-        Debug.Log("Saved Player Data");
-
-        string JsonFileJimpu = JsonUtility.ToJson(JimpuListData);
-        if (encrypt)
-        {
-            JsonFileJimpu = Encrypt(JsonFileJimpu);
-        }
-        File.WriteAllText(Application.persistentDataPath + "/JimpuData.dat", JsonFileJimpu);
-        Debug.Log("Saved Jimpu Data");
-
-        string JsonFileJUserSettings = JsonUtility.ToJson(userSettingsSO);
-        if (encrypt)
-        {
-            JsonFileJUserSettings = Encrypt(JsonFileJUserSettings);
-        }
-        File.WriteAllText(Application.persistentDataPath + "/SettingsData.dat", JsonFileJUserSettings);
-        Debug.Log("Saved User Settings Data");
-        string JsonFileInventorySettings = JsonUtility.ToJson(inventorDataSO);
-        if (encrypt)
-        {
-            JsonFileInventorySettings = Encrypt(JsonFileInventorySettings);
-        }
-        File.WriteAllText(Application.persistentDataPath + "/InventoryData.dat", JsonFileInventorySettings);
-        Debug.Log("Saved Inventory Data");
     }
     /// <summary>
     /// Loads All Currently added SOs
     /// </summary>
     public void Load()
     {
-        LoadFile("/PlayerData.dat", playerDataSO);
-        LoadFile("/JimpuData.dat", JimpuListData);
-        LoadFile("/SettingsData.dat", userSettingsSO);
-        LoadFile("/InventoryData.dat", inventorDataSO);
+        LoadFile("/PlayerData.dat", dataSOs.playerDataSO);
+        LoadFile("/JimpuData.dat", dataSOs.JimpuListData);
+        LoadFile("/SettingsData.dat", dataSOs.userSettingsSO);
+        LoadFile("/InventoryData.dat", dataSOs.inventorDataSO);
 
         IEnumerable<IDataPersitence> dataPersistenceObjects =
             FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None).OfType<IDataPersitence>();
@@ -105,7 +112,7 @@ public class SaveManager : MonoBehaviour
 
     private void LoadFile(string fileName, ScriptableObject targetSO)
     {
-        string fullPath = Application.persistentDataPath + fileName;
+        string fullPath = UnityEngine.Application.persistentDataPath + fileName;
 
         if (File.Exists(fullPath))
         {
@@ -129,10 +136,10 @@ public class SaveManager : MonoBehaviour
 
     IEnumerator AfterLoad()
     {
-        if (instance.userSettingsSO.Language != null)
+        if (instance.dataSOs.userSettingsSO.Language != null)
         {
             yield return LocalizationSettings.InitializationOperation;
-            Locale desiredLocale = LocalizationSettings.AvailableLocales.GetLocale(instance.userSettingsSO.Language);
+            Locale desiredLocale = LocalizationSettings.AvailableLocales.GetLocale(instance.dataSOs.userSettingsSO.Language);
             if (desiredLocale != null)
             {
                 LocalizationSettings.SelectedLocale = desiredLocale;

@@ -199,7 +199,7 @@ public class Inventory : MonoBehaviour, IDataPersitence
 
             saveDatas.Add(X);
         }
-        SaveManager.instance.inventorDataSO.SaveFromInventory(saveDatas);
+        SaveManager.instance.dataSOs.inventorDataSO.SaveFromInventory(saveDatas);
     }
     public void AddItem(ItemData item, InventorySlot slot, int? ItemCount)
     {
@@ -417,9 +417,9 @@ public class Inventory : MonoBehaviour, IDataPersitence
     public void LoadData(SaveManager manager)
     {
 
-        for (int i = 0; i < manager.inventorDataSO.InventoryDatas.Count; i++)
+        for (int i = 0; i < manager.dataSOs.inventorDataSO.InventoryDatas.Count; i++)
         {
-            SlotSaveData SavedSlot = manager.inventorDataSO.InventoryDatas[i];
+            SlotSaveData SavedSlot = manager.dataSOs.inventorDataSO.InventoryDatas[i];
             var foundInfo = InvSlots.Find(InventorySlot => InventorySlot.inventorySlot.SlotNumber == SavedSlot.slotNumber);
             if (foundInfo != null)
             {
@@ -460,7 +460,7 @@ public class Inventory : MonoBehaviour, IDataPersitence
 
             saveDatas.Add(X);
         }
-        SaveManager.instance.inventorDataSO.SaveFromInventory(saveDatas);
+        SaveManager.instance.dataSOs.inventorDataSO.SaveFromInventory(saveDatas);
     }
 }
 

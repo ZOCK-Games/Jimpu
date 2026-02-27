@@ -80,7 +80,7 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
             if (CollidersGameObjekt.transform.GetChild(i).gameObject.CompareTag("Ground"))
             {
                 Grounds.Add(CollidersGameObjekt.transform.GetChild(i).gameObject.GetComponent<TilemapCollider2D>());
-                Debug.LogError("Found Ground: " + CollidersGameObjekt.transform.GetChild(i).gameObject.name);
+                Debug.Log("Found Ground: " + CollidersGameObjekt.transform.GetChild(i).gameObject.name);
             }
             else if (Grounds == null)
             {
@@ -249,22 +249,22 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
     public void LoadData(SaveManager manager)
     {
 
-        Player.transform.localPosition = manager.playerDataSO.PlayerPosition != null? manager.playerDataSO.PlayerPosition : Vector3.zero;
-        SkinIndex = manager.playerDataSO.SkinIndex;
+        Player.transform.localPosition = manager.dataSOs.playerDataSO.PlayerPosition != null? manager.dataSOs.playerDataSO.PlayerPosition : Vector3.zero;
+        SkinIndex = manager.dataSOs.playerDataSO.SkinIndex;
         CheckSkin();
-        if (UnityEngine.ColorUtility.TryParseHtmlString("#" + manager.playerDataSO.colorHex, out Color colorHex))
+        if (UnityEngine.ColorUtility.TryParseHtmlString("#" + manager.dataSOs.playerDataSO.colorHex, out Color colorHex))
             for (int i = 0; i < BodyPartsContainer.transform.childCount; i++)
             {
                 BodyPartsContainer.transform.GetChild(i).GetComponent<SpriteRenderer>().color = colorHex;
             }
-        healthManagerPlayer.PlayerHealth = manager.playerDataSO.Health !<= 0? manager.playerDataSO.Health : 3;
+        healthManagerPlayer.PlayerHealth = manager.dataSOs.playerDataSO.Health !<= 0? manager.dataSOs.playerDataSO.Health : 3;
 
     }
     public void SaveData(SaveManager manager)
     {
-        manager.playerDataSO.PlayerPosition = this.Player.transform.localPosition;
-        manager.playerDataSO.Health = healthManagerPlayer.PlayerHealth;
-        manager.playerDataSO.SkinIndex = SkinIndex;
+        manager.dataSOs.playerDataSO.PlayerPosition = this.Player.transform.localPosition;
+        manager.dataSOs.playerDataSO.Health = healthManagerPlayer.PlayerHealth;
+        manager.dataSOs.playerDataSO.SkinIndex = SkinIndex;
     }
 }
 

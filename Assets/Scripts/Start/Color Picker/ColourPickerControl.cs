@@ -67,14 +67,14 @@ public class ColourPickerControl : MonoBehaviour, IDataPersitence
     }
     public void LoadData(SaveManager manager)
     {
-        HexInputField.text = manager.playerDataSO.colorHex;
-        if (UnityEngine.ColorUtility.TryParseHtmlString("#" + manager.playerDataSO.colorHex, out colorHex))
+        HexInputField.text = manager.dataSOs.playerDataSO.colorHex;
+        if (UnityEngine.ColorUtility.TryParseHtmlString("#" + manager.dataSOs.playerDataSO.colorHex, out colorHex))
         colorHex = colorHex; 
         OnHexInputFieldChanged(HexInputField.text); 
     }
 
     public void SaveData(SaveManager manager) // Save the current Data to GameData
     {
-        manager.playerDataSO.colorHex = HexInputField.text.TrimStart('#').ToString();
+        manager.dataSOs.playerDataSO.colorHex = HexInputField.text.TrimStart('#').ToString();
     }
 }

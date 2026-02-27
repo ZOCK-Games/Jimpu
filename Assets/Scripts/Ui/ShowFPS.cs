@@ -11,11 +11,11 @@ public class ShowFPS : MonoBehaviour, IDataPersitence
 
     public void LoadData(SaveManager manager)
     {
-        this.isFPSVisible = manager.userSettingsSO.ShowFPS;
+        this.isFPSVisible = manager.dataSOs.userSettingsSO.ShowFPS;
     }
     public void SaveData(SaveManager manager)
     {
-        manager.userSettingsSO.ShowFPS = this.isFPSVisible;
+        manager.dataSOs.userSettingsSO.ShowFPS = this.isFPSVisible;
     }
 
     void Start()

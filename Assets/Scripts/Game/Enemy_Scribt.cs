@@ -86,7 +86,7 @@ public class EnemyScript : MonoBehaviour, IDataPersitence
             Vector3 PosTile = new Vector3(Posx, Posy, 0);
             Vector3Int cellPos = CurentT.WorldToCell(PosTile);
 
-            if (!CurentT.HasTile(cellPos))
+            if (!CurentT.HasTile(cellPos) && CheckJimpuLimit())
             {
                 FoundTile = true;
                 int TypeEnemy = Random.Range(0, EnemyPrefab.Count);
@@ -123,6 +123,23 @@ public class EnemyScript : MonoBehaviour, IDataPersitence
         yield return new WaitForSeconds(0.5f);
         canTakeDamage = true;
     }
+    public bool CheckJimpuLimit()
+    {
+        if (transform.childCount > MaxEnemys)
+        {
+            int EnemyDeletCount = transform.childCount - MaxEnemys;
+            for (int i = 0; i < EnemyDeletCount; i++)
+            {
+                Destroy(transform.GetChild(i));
+            }
+            return false;
+        }
+        else if (transform.childCount == MaxEnemys)
+        {
+            return false;
+        }
+        return true;
+    }
 
     public void SaveData(SaveManager manager)
     {
@@ -131,11 +148,11 @@ public class EnemyScript : MonoBehaviour, IDataPersitence
             List<EnemyInfo> JimpuInfos = new List<EnemyInfo>(JimpusInfos);
             for (int i = 0; i < JimpuInfos.Count; i++)
             {
-                JimpuDataSO jimpuData = manager.JimpuListData.jimpuDatas.Find(x => x.JimpuID == JimpuInfos[i].JimpuID);
+                JimpuDataSO jimpuData = manager.dataSOs.JimpuListData.jimpuDatas.Find(x => x.JimpuID == JimpuInfos[i].JimpuID);
                 if (jimpuData == null)
                 {
                     jimpuData = new JimpuDataSO { JimpuID = JimpusInfos[i].JimpuID };
-                    manager.JimpuListData.jimpuDatas.Add(jimpuData);
+                    manager.dataSOs.JimpuListData.jimpuDatas.Add(jimpuData);
                 }
                 jimpuData.Health = JimpusInfos[i].EnemyHealt;
                 jimpuData.Position = JimpusInfos[i].JimpuObj.transform.position;
@@ -144,10 +161,10 @@ public class EnemyScript : MonoBehaviour, IDataPersitence
     }
     public void LoadData(SaveManager manager)
     {
-        List<JimpuDataSO> jimpuList = manager.JimpuListData.jimpuDatas;
+        List<JimpuDataSO> jimpuList = manager.dataSOs.JimpuListData.jimpuDatas;
         for (int i = 0; i < jimpuList.Count; i++)
         {
-            if (jimpuList[i] != null)
+            if (jimpuList[i] != null && CheckJimpuLimit())
             {
                 int TypeEnemy = Random.Range(0, EnemyPrefab.Count);
                 GameObject CE = Instantiate(EnemyPrefab[TypeEnemy]);

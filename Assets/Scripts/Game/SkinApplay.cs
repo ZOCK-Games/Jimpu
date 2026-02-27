@@ -17,10 +17,10 @@ public class SkinApplay : MonoBehaviour
     }
         public void LoadGame(SaveManager manager)
     {
-        SkinIndex = manager.playerDataSO.SkinIndex;
+        SkinIndex = manager.dataSOs.playerDataSO.SkinIndex;
         CheckSkin();
         //Player.GetComponent<SpriteRenderer>().sprite = SkinSprite[SkinIndex];
-        if (UnityEngine.ColorUtility.TryParseHtmlString("#" + manager.playerDataSO.colorHex, out Color colorHex))
+        if (UnityEngine.ColorUtility.TryParseHtmlString("#" + manager.dataSOs.playerDataSO.colorHex, out Color colorHex))
             for (int i = 0; i < BodyPartsContainer.transform.childCount; i++)
             {
                 BodyPartsContainer.transform.GetChild(i).GetComponent<SpriteRenderer>().color = colorHex;

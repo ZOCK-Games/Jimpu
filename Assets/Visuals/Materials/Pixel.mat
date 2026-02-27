@@ -78,7 +78,7 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DebugColor: {r: 1, g: 0, b: 1, a: 1}
     - _EdgeColor: {r: 0, g: 0, b: 0, a: 1}
-    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &378855195800464895
