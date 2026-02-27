@@ -16,6 +16,7 @@ public class DrunkenJimpuManager : NPCManager
     protected override void Start()
     {
         base.Start();
+        Health = 3;
         navMeshAgent = this.gameObject.GetComponent<NavMeshAgent>();
         rigidbody2D = this.gameObject.GetComponent<Rigidbody2D>();
         navMeshAgent.updateRotation = false;

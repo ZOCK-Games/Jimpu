@@ -33,33 +33,6 @@ public class EnemyScript : MonoBehaviour, IDataPersitence
         SpawnEnemy();
     }
 
-    void Update()
-    {
-        if (JimpusCanMove == true)
-        {
-            if (JimpusInfos == null) return;
-
-            for (int i = 0; i < JimpusInfos.Count; i++)
-            {
-                if (JimpusInfos[i].Target == null)
-                {
-                    NavMeshAgent agent = JimpusInfos[i].meshAgent;
-
-                    if (agent == null)
-                    {
-                        Debug.LogError($"No Agent on {agent.gameObject.name}");
-                    }
-                    else if (agent != null)
-                    {
-                        JimpusInfos[i].SetTarget(playerControll.Player
-                        );
-                    }
-                }
-            }
-        }
-    }
-
-
     public void SpawnEnemy()
     {
         bool FoundTile = false;
