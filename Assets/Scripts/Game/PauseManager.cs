@@ -4,8 +4,6 @@ using UnityEngine.SceneManagement;
 public class PauseManager : MonoBehaviour
 {
     public static PauseManager instance {get; set;}
-    public float speedtime;
-
     void Awake()
     {
         if (instance == null)
