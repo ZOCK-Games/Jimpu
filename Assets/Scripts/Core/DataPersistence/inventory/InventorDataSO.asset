@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a6d01b6857b404488c42881aa9ed87b, type: 3}
+  m_Name: InventorDataSO
+  m_EditorClassIdentifier: Assembly-CSharp::InventorDataSO
+  jimpuDatas:
+  - inventorySlot: {fileID: 0}
+    ItemSlot: {fileID: 0}

@@ -1,0 +1,19 @@
+{
+    "name": "CoreAssembly",
+    "rootNamespace": "",
+    "references": [
+        "Unity.InputSystem",
+        "Unity.InputSystem.IntegrationTests",
+        "DataPersistenceAssembly",
+        "Unity.TextMeshPro"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
