@@ -32,7 +32,7 @@ public class DialogManager : MonoBehaviour
     }
     public void LoadMultipleDialog(float Time)
     {
-        LoadMultipleDialogTask(Time);
+        _ = LoadMultipleDialogTask(Time);
     }
     public async Task LoadMultipleDialogTask(float Time)
     {

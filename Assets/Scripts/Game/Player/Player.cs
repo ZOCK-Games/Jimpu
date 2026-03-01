@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Codice.CM.Client.Differences.Graphic;
 using Unity.VisualScripting;
+using UnityEditor.EditorTools;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
@@ -10,38 +12,53 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
 
 {
     public static PlayerControll instance { get; private set; }
-    public GameObject Player;
-    public Animator PlayerAniamtor;
-    public GameObject CollidersGameObjekt; // the TilemapContainer
+    [Header("Player Settings")]
+    [Space(0.5f)]
     public float MoveSpeed = 3.5f;
-    public float Jump_speed = 350;
-    public bool CanMove = true;
-    public int run_speed = 5;
-    public Rigidbody2D rb;
-    public List<Sprite> SkinSprite;
-    private int SkinIndex;
+    public float JumpSpeed = 350;
+    public int RunSpeed = 5;
+    public float FallDamage = 1;
+    public LayerMask FallLayerMask;
+    public float AttackRollStrength;
     public bool AnimationsCanPlay;
-    public GameObject BodyPartsContainer;
-    [Header("Can Player perform this inputs?")]
-    public List<TilemapCollider2D> Grounds;
-    [SerializeField] private List<Skins> PlayerSkins;
+    public string CurrentAttack;
+    /// <summary>
+    /// The Damage that the 
+    /// Attack Roll dose
+    /// </summary>
+    private int SkinIndex; // The Current Skin number
     public bool PlayerIsTouchingGround; // if the player is touching a ground tile collider
-    [Header("Player Hold On to settings")]
+    private bool IsPlayerAttacking;
+    public bool CanMove = true;
+    public bool CanAttack;
+    private bool IsCheckingGround;
+    [Space(1)]
+    [Header("Player Components")]
+    [Space(0.5f)]
+    [Tooltip("The Player Game Object")]
+    public GameObject Player;
+    [Tooltip("The Player Animator for body parts")]
+    public Animator PlayerAniamtor;
+    [Tooltip("The Player Rigidbody2D")]
+    public Rigidbody2D rb;
+    public PolygonCollider2D playerCollider;
+    public GameObject CollidersGameObjekt;
+    public BoxCollider2D JumpCollider;
+    public List<TilemapCollider2D> Grounds;
+    public GameObject BodyPartsContainer;
+    public List<Sprite> SkinSprite;
+    [SerializeField] private List<Skins> PlayerSkins;
     public GameObject PlayerInfoInteractionKey;
     private bool IsHoldingOn;
-    public PolygonCollider2D playerCollider;
-    public BoxCollider2D JumpCollider;
-    private InputSystem_Actions inputActions;
     private Vector2 moveInput;
+    [Space(1)]
+    [Header("Scripts")]
+    [Space(0.5f)]
+    private InputSystem_Actions inputActions;
+
     public HealthManagerPlayer healthManagerPlayer;
     public EnergyManager energyManager;
     public VibrateControllerManager vibrateController;
-    [Space]
-    [Header("Player Attacks")]
-    private bool IsPlayerAttacking;
-    public string CurrentAttack;
-    public bool CanAttack;
-    public float AttackRollStrength;
     void Awake()
     {
         if (instance == null)
@@ -69,6 +86,7 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
         PlayerInfoInteractionKey.SetActive(false);
         PlayerIsTouchingGround = false;
         CanAttack = true;
+        IsCheckingGround = false;
         PlayerAniamtor.SetBool("Walk", false);
 
         for (int i = 0; i < CollidersGameObjekt.transform.childCount - 1; i++)
@@ -106,7 +124,7 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
             }
             else
             {
-                                PlayerAniamtor.SetBool("Walk", false);
+                PlayerAniamtor.SetBool("Walk", false);
             }
             Vector3 move = new Vector3(moveInput.x, 0, 0);
             transform.Translate(move * MoveSpeed * Time.deltaTime);
@@ -140,7 +158,7 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
             CanMove = true;
             rb.constraints = RigidbodyConstraints2D.None;
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-            rb.AddForce(new Vector2(0, Jump_speed / 2));
+            rb.AddForce(new Vector2(0, JumpSpeed / 2));
             Debug.Log("Player is no longer holding on");
 
         }
@@ -148,12 +166,21 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
         {
             IsPlayerAttacking = true;
             AudioManager.instance.PlayAudio("jump", transform);
-            rb.AddForce(new Vector2(0, Jump_speed));
+            rb.AddForce(new Vector2(0, JumpSpeed));
             if (AnimationsCanPlay)
             {
                 PlayerAniamtor.SetTrigger("Jump");
             }
         }
+        /// 
+        /// Falling System
+        /// 
+        if (!PlayerIsTouchingGround && !IsCheckingGround)
+        {
+            IsCheckingGround = true;
+            StartCoroutine(CheckFall());
+        }
+
 
         ////
         /// Dodge Roll
@@ -251,6 +278,28 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
             yield return null;
         }
         PlayerInfoInteractionKey.SetActive(false);
+    }
+
+    public IEnumerator CheckFall()
+    {
+        Debug.Log($"Fall Started");
+        float Highest = 0;
+        while (!PlayerIsTouchingGround)
+        {
+            RaycastHit2D hit2D = Physics2D.Raycast(Player.transform.position, Vector2.down, 100f, FallLayerMask);
+
+            if (hit2D.collider != null)
+                if (hit2D.distance > Highest)
+                {
+                    Highest = hit2D.distance;
+                }
+            yield return null;
+        }
+        if (Highest > FallDamage)
+        {
+            Debug.Log($"Fall: {Highest}");
+        }
+        IsCheckingGround = false;
     }
     public void CheckSkin()
     {

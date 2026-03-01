@@ -34,19 +34,19 @@ public class GravityChanger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float DefaultJump = PlayerScribt.Jump_speed;
+        float DefaultJump = PlayerScribt.JumpSpeed;
         if (GravityChangingObjekt.activeSelf && inputActions.Player.Interact.WasPerformedThisFrame() && !BlockUse)
         {
             PlayerScribt.rb.gravityScale = -0.25f;
             PlayerScribt.transform.rotation = new Quaternion(180,0,0,0);
-            PlayerScribt.Jump_speed = -DefaultJump / 3;
+            PlayerScribt.JumpSpeed = -DefaultJump / 3;
             StartCoroutine(IsAktive());
         }
         if (reset == true && inputActions.Player.Interact.WasPerformedThisFrame())
         {
             PlayerScribt.transform.rotation = new Quaternion(0,0,0,0);
             PlayerScribt.rb.gravityScale = 1f;
-            PlayerScribt.Jump_speed = 350;
+            PlayerScribt.JumpSpeed = 350;
             StartCoroutine(GoDown());
             Debug.Log("Reset");
         }

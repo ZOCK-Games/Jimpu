@@ -27,24 +27,15 @@ public class CheatGoodMode : MonoBehaviour
         IsActive = false;
         NormalGravity = playerControll.rb.gravityScale;
         GoodButton.onClick.AddListener(ToggleMode);
+        inputActions.Player.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
+        inputActions.Player.Move.canceled += ctx => moveInput = Vector2.zero;
     }
     void Update()
     {
-        if (IsActive)
+        if (IsActive);
         {
-            playerControll.playerCollider.isTrigger = true;
-            if (Input.GetKey(KeyCode.W))
-            {
-                playerControll.rb.AddForceY(5);
-            }
-            if (Input.GetKey(KeyCode.S))
-            {
-                playerControll.rb.AddForceY(-5);
-            }
-        }
-        else
-        {
-            playerControll.playerCollider.isTrigger = false;
+            Vector3 move = new Vector3(moveInput.x, moveInput.y, 0);
+            playerControll.transform.position += move * 5 * Time.deltaTime;
         }
     }
 
@@ -62,12 +53,16 @@ public class CheatGoodMode : MonoBehaviour
     }
     void Activate()
     {
-        playerControll.rb.gravityScale = -0.01f;
+        playerControll.playerCollider.isTrigger = true;
+        playerControll.CanMove = false;
+        playerControll.rb.bodyType = RigidbodyType2D.Kinematic;
         IsActive = true;
     }
     void Deactivate()
     {
-        playerControll.rb.gravityScale = NormalGravity;
+        playerControll.CanMove = true;
+        playerControll.rb.bodyType = RigidbodyType2D.Dynamic;
+        playerControll.playerCollider.isTrigger = false;
         IsActive = false;
     }
 }

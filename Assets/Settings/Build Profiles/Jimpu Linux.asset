@@ -28,8 +28,6 @@ MonoBehaviour:
     m_path: Assets/Scenes/Multiplayer/Multiplayer.unity
   - m_enabled: 0
     m_path: Assets/Scenes/Settings.unity
-  - m_enabled: 0
-    m_path: Assets/Scenes/Game Levels/GameTutorial.unity
   m_HasScriptingDefines: 0
   m_ScriptingDefines: []
   m_PlayerSettingsYaml:

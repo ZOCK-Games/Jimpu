@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.AI;
-using Unity.VisualScripting;
 
 public class EnemyScript : MonoBehaviour, IDataPersitence
 {

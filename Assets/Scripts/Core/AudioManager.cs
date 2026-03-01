@@ -23,6 +23,10 @@ public class AudioManager : MonoBehaviour
 
     void Start()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
         DontDestroyOnLoad(gameObject);
         LoadAudios();
         StartCoroutine(LoadAudioFromDirectory("/home/zock/Music/Games/Jimpu"));
@@ -129,7 +133,7 @@ public class AudioManager : MonoBehaviour
     }
     public bool isPlaying(string name)
     {
-        GameObject ObjLooped = LoopedAudios.Find(obj => obj != null && obj.name == name); 
+        GameObject ObjLooped = LoopedAudios.Find(obj => obj != null && obj.name == name);
         if (ObjLooped != null)
         {
             return true;

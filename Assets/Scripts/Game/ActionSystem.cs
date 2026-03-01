@@ -82,7 +82,6 @@ public class ActionSystem : MonoBehaviour
                                             return false;
 
                                     }
-                                    break;
                                 }
 
                             case "Walk":
@@ -105,7 +104,6 @@ public class ActionSystem : MonoBehaviour
                                                 // Check if the player jumps whit new input system
                                                 return false;
 
-                                                break;
                                             }
                                         case "WalkSpeed":
                                             {

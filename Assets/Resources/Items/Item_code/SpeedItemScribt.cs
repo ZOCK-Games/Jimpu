@@ -53,7 +53,7 @@ public class SpeedItemScribt : MonoBehaviour
         PowerAktive = false;
         inventory.RemoveItem(inventory.HandSlot.ItemStored, -10, null);
         Debug.Log("Power Used Power is Disabled & reset");
-        PlayerScribt.Jump_speed = 350; // to prevent it from making it to low soe how..
+        PlayerScribt.JumpSpeed = 350; // to prevent it from making it to low soe how..
         SpeedObjekt.SetActive(false);
     }
 
