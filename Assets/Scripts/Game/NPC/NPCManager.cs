@@ -4,7 +4,7 @@ using TMPro;
 public class NPCManager : MonoBehaviour
 {
     public string npcName;
-    public float Health = 100;
+    [SerializeField ]private float Health;
     public GameObject DeathParticle;
     public Animator DeathAnimator;
     public TextMeshPro HealthText;
@@ -19,19 +19,21 @@ public class NPCManager : MonoBehaviour
         }
         HealthText = (TextMeshPro)GetComponentInChildren<TMPro.TMP_Text>(true);
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        if (HealthText != null)
-        {
-            HealthText.text = Health.ToString(); // Refreshes the HealthText
-        }
+        RefreshHealthText();
     }
 
-    protected virtual void Update()
+    public virtual void SetHealth(float Amount)
     {
-
+        Health = Amount;
+        RefreshHealthText();
     }
-    public virtual void TakeDamage(float damage)
+
+    public virtual float GetHealth()
     {
-        Health -= damage;
+        return Health;
+    }
+    public virtual void RefreshHealthText()
+    {
         if (HealthText != null)
         {
             HealthText.text = Health.ToString(); // Refreshes the HealthText
@@ -40,6 +42,11 @@ public class NPCManager : MonoBehaviour
         {
             Debug.LogError($"There is no health text at {gameObject.name}");
         }
+    }
+    public virtual void TakeDamage(float damage)
+    {
+        Health -= damage;
+        RefreshHealthText();
         if (Health <= 0)
         {
             Die();
