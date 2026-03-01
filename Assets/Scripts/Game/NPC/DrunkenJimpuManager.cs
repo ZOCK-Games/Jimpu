@@ -1,4 +1,5 @@
 using System.Collections;
+using System.ComponentModel;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.AI;
@@ -16,7 +17,7 @@ public class DrunkenJimpuManager : NPCManager
     protected override void Start()
     {
         base.Start();
-        Health = 3;
+        SetHealth(3f);
         navMeshAgent = this.gameObject.GetComponent<NavMeshAgent>();
         rigidbody2D = this.gameObject.GetComponent<Rigidbody2D>();
         navMeshAgent.updateRotation = false;
@@ -39,7 +40,7 @@ public class DrunkenJimpuManager : NPCManager
         }
         
     }
-    protected override void Update()
+    protected  void Update()
     {
         navMeshAgent.SetDestination(playerControll.Player.transform.position);
         float Distance = Vector3.Distance(playerControll.Player.transform.position, this.gameObject.transform.position);
@@ -58,11 +59,6 @@ public class DrunkenJimpuManager : NPCManager
             // The player is on his left side
             transform.rotation = new Quaternion(0, 180, 0, 0);
         }
-        if (Health <= 0)
-        {
-            StopAllCoroutines();
-        }
-
         Animation.SetFloat("Walk", rigidbody2D.linearVelocityX);
         Animation.SetFloat("Jump", rigidbody2D.linearVelocityY);
     }

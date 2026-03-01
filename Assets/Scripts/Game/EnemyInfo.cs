@@ -63,7 +63,7 @@ public class EnemyInfo : NPCManager
         }
 
     }
-    protected override void Update()
+    protected void Update()
     {
         if (Target != null && meshAgent.isOnNavMesh)
         {

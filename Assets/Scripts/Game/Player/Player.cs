@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 
-public class PlayerControll : NPCManager, IDataPersitence
+public class PlayerControll : MonoBehaviour, IDataPersitence
 
 {
     public static PlayerControll instance { get; private set; }
@@ -20,6 +20,7 @@ public class PlayerControll : NPCManager, IDataPersitence
     public Rigidbody2D rb;
     public List<Sprite> SkinSprite;
     private int SkinIndex;
+    public bool AnimationsCanPlay;
     public GameObject BodyPartsContainer;
     [Header("Can Player perform this inputs?")]
     public List<TilemapCollider2D> Grounds;
@@ -30,7 +31,6 @@ public class PlayerControll : NPCManager, IDataPersitence
     private bool IsHoldingOn;
     public PolygonCollider2D playerCollider;
     public BoxCollider2D JumpCollider;
-    private Rigidbody2D PlayerRb;
     private InputSystem_Actions inputActions;
     private Vector2 moveInput;
     public HealthManagerPlayer healthManagerPlayer;
@@ -38,12 +38,10 @@ public class PlayerControll : NPCManager, IDataPersitence
     public VibrateControllerManager vibrateController;
     [Space]
     [Header("Player Attacks")]
+    private bool IsPlayerAttacking;
     public string CurrentAttack;
     public bool CanAttack;
     public float AttackRollStrength;
-    [Space]
-    [Header("Audio Settings")]
-    public PlayerAudios playerAudios;
     void Awake()
     {
         if (instance == null)
@@ -66,12 +64,11 @@ public class PlayerControll : NPCManager, IDataPersitence
     private void Start()
     {
         playerCollider = Player.GetComponent<PolygonCollider2D>();
-        PlayerRb = Player.GetComponent<Rigidbody2D>();
+        rb = Player.GetComponent<Rigidbody2D>();
 
         PlayerInfoInteractionKey.SetActive(false);
         PlayerIsTouchingGround = false;
         CanAttack = true;
-        rb = Player.GetComponent<Rigidbody2D>();
         PlayerAniamtor.SetBool("Walk", false);
 
         for (int i = 0; i < CollidersGameObjekt.transform.childCount - 1; i++)
@@ -95,16 +92,21 @@ public class PlayerControll : NPCManager, IDataPersitence
 
 
     // Update is called once per frame
-    protected override void Update()
+    protected void Update()
     {
         if (CanMove)
         {
-            if (Mathf.Abs(moveInput.x) > 0.3f)
+            if (Mathf.Abs(moveInput.x) > 0.3f && !IsPlayerAttacking)
             {
                 if (!AudioManager.instance.isPlaying("Walk"))
                 {
                     AudioManager.instance.PlayAudio("Walk", transform, true, 1);
                 }
+                PlayerAniamtor.SetBool("Walk", true);
+            }
+            else
+            {
+                                PlayerAniamtor.SetBool("Walk", false);
             }
             Vector3 move = new Vector3(moveInput.x, 0, 0);
             transform.Translate(move * MoveSpeed * Time.deltaTime);
@@ -122,7 +124,7 @@ public class PlayerControll : NPCManager, IDataPersitence
         SceneManager.LoadScene("Death");*/
 
         PlayerIsTouchingGround = false;
- 
+
         foreach (var ground in Grounds)
         {
             if (ground != null && JumpCollider.IsTouching(ground))
@@ -136,17 +138,21 @@ public class PlayerControll : NPCManager, IDataPersitence
         {
             IsHoldingOn = false;
             CanMove = true;
-            PlayerRb.constraints = RigidbodyConstraints2D.None;
-            PlayerRb.constraints = RigidbodyConstraints2D.FreezeRotation;
+            rb.constraints = RigidbodyConstraints2D.None;
+            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
             rb.AddForce(new Vector2(0, Jump_speed / 2));
             Debug.Log("Player is no longer holding on");
 
         }
         if (inputActions.Player.Jump.WasPerformedThisFrame() && PlayerIsTouchingGround && CanMove)
         {
+            IsPlayerAttacking = true;
             AudioManager.instance.PlayAudio("jump", transform);
             rb.AddForce(new Vector2(0, Jump_speed));
-            PlayerAniamtor.SetTrigger("Jump");
+            if (AnimationsCanPlay)
+            {
+                PlayerAniamtor.SetTrigger("Jump");
+            }
         }
 
         ////
@@ -155,6 +161,7 @@ public class PlayerControll : NPCManager, IDataPersitence
 
         if (inputActions.Player.DodgeRoll.WasPerformedThisFrame() && CanAttack && energyManager.EnergyAmount >= 25)
         {
+            IsPlayerAttacking = true;
             Debug.Log("Attack");
             float Direction = inputActions.Player.Move.ReadValue<Vector2>().x;
             CurrentAttack = "DodgeRoll";
@@ -162,7 +169,10 @@ public class PlayerControll : NPCManager, IDataPersitence
             if (Direction > 0)
             {
                 Debug.Log("Attack R");
-                PlayerAniamtor.Play("PlayerDogeRoll");
+                if (AnimationsCanPlay)
+                {
+                    PlayerAniamtor.Play("PlayerDogeRoll");
+                }
                 moveInput.x += AttackRollStrength;
                 vibrateController.VibrateController(0.2f, 0.1f, 2);
                 StartCoroutine(energyManager.RemoveEnergy(-25));
@@ -170,7 +180,10 @@ public class PlayerControll : NPCManager, IDataPersitence
             else
             {
                 Debug.Log("Attack L");
-                PlayerAniamtor.Play("PlayerDogeRoll");
+                if (AnimationsCanPlay)
+                {
+                    PlayerAniamtor.Play("PlayerDogeRoll");
+                }
                 moveInput.x -= AttackRollStrength;
                 vibrateController.VibrateController(0.2f, 0.1f, 2);
                 StartCoroutine(energyManager.RemoveEnergy(-25));
@@ -183,9 +196,13 @@ public class PlayerControll : NPCManager, IDataPersitence
 
         if (inputActions.Player.Attack.WasPerformedThisFrame() && CanAttack)
         {
+            IsPlayerAttacking = true;
             AudioManager.instance.PlayAudio("Player_Punch", transform, true, 1);
             CurrentAttack = "HandBumm";
-            PlayerAniamtor.Play("HandBumm");
+            if (AnimationsCanPlay)
+            {
+                PlayerAniamtor.Play("HandBumm");
+            }
             StartCoroutine(AttackWait(0.8f, 0.1f));
         }
     }
@@ -196,6 +213,7 @@ public class PlayerControll : NPCManager, IDataPersitence
         CurrentAttack = null;
         yield return new WaitForSeconds(DelayTime);
         CanAttack = true;
+        IsPlayerAttacking = false;
     }
     void OnTriggerEnter2D(Collider2D collider)
     {
@@ -248,7 +266,7 @@ public class PlayerControll : NPCManager, IDataPersitence
     public void LoadData(SaveManager manager)
     {
 
-        Player.transform.localPosition = manager.dataSOs.playerDataSO.PlayerPosition != null? manager.dataSOs.playerDataSO.PlayerPosition : Vector3.zero;
+        Player.transform.localPosition = manager.dataSOs.playerDataSO.PlayerPosition != null ? manager.dataSOs.playerDataSO.PlayerPosition : Vector3.zero;
         SkinIndex = manager.dataSOs.playerDataSO.SkinIndex;
         CheckSkin();
         if (UnityEngine.ColorUtility.TryParseHtmlString("#" + manager.dataSOs.playerDataSO.colorHex, out Color colorHex))
@@ -256,7 +274,7 @@ public class PlayerControll : NPCManager, IDataPersitence
             {
                 BodyPartsContainer.transform.GetChild(i).GetComponent<SpriteRenderer>().color = colorHex;
             }
-        healthManagerPlayer.PlayerHealth = manager.dataSOs.playerDataSO.Health !<= 0? manager.dataSOs.playerDataSO.Health : 3;
+        healthManagerPlayer.PlayerHealth = manager.dataSOs.playerDataSO.Health! <= 0 ? manager.dataSOs.playerDataSO.Health : 3;
 
     }
     public void SaveData(SaveManager manager)
@@ -267,11 +285,4 @@ public class PlayerControll : NPCManager, IDataPersitence
     }
 }
 
-[System.Serializable]
-public class PlayerAudios
-{
-    public AudioSource PlayerJump;
-    public AudioSource PlayerAttacking;
-    public AudioSource PlayerDamage;
-    public AudioSource PlayerDeath;
-}
+

@@ -822,7 +822,7 @@ MonoBehaviour:
     - line: '|   qnxGraphicConfPath: '
     - line: '|   apiCompatibilityLevel: 6'
     - line: '|   captureStartupLogs: {}'
-    - line: '|   activeInputHandler: 2'
+    - line: '|   activeInputHandler: 1'
     - line: '|   windowsGamepadBackendHint: 0'
     - line: '|   cloudProjectId: 67e573b1-f9d9-402e-a0b5-77bdc49d08ae'
     - line: '|   framebufferDepthMemorylessMode: 0'
@@ -868,3 +868,23 @@ MonoBehaviour:
         m_RemoteDeviceUsername: 
         m_RemoteDeviceExports: 
         m_PathOnRemoteDevice: 
+--- !u!114 &3922016490897342295
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 15010, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: Quality Settings
+  m_EditorClassIdentifier: UnityEditor.dll::UnityEditor.Build.Profile.BuildProfileQualitySettings
+  m_DefaultQualityLevel: Very Low
+  m_QualityLevels:
+  - Very Low
+  - Low
+  - Medium
+  - High
+  - Very High
+  - Ultra
