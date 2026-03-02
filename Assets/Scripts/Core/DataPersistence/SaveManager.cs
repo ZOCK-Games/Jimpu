@@ -22,6 +22,15 @@ public class SaveManager : MonoBehaviour
     public string secretKey = "ChangeOnPublish";
     public DataSOs dataSOs;
     public bool encrypt;
+    private string DataSOsResourcePath = "SaveManager";
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    static void OnBeforeSceneLoadRuntimeMethod()
+    {
+        GameObject SM = new GameObject("SaveManager");
+        SM.AddComponent<SaveManager>();
+
+    }
     private void Awake()
     {
         if (instance == null)
@@ -29,6 +38,21 @@ public class SaveManager : MonoBehaviour
             instance = this;
         }
         DontDestroyOnLoad(gameObject);
+
+        if (DataSOsResourcePath != null)
+        {
+            List<ScriptableObject> scriptableObjects = Resources.LoadAll<ScriptableObject>(DataSOsResourcePath).ToList();
+            DataSOs data = new DataSOs()
+            {
+                playerDataSO = scriptableObjects.OfType<PlayerDataSO>().FirstOrDefault(),
+                JimpuListData =  scriptableObjects.OfType<JimpuListData>().FirstOrDefault(),
+                userSettingsSO =  scriptableObjects.OfType<UserSettingsSO>().FirstOrDefault(),
+                inventorDataSO =  scriptableObjects.OfType<InventorDataSO>().FirstOrDefault(),
+                noteBookDataSO =  scriptableObjects.OfType<NoteBookListSO>().FirstOrDefault()
+            };
+            dataSOs = data;
+
+        }
     }
     void OnApplicationQuit()
     {

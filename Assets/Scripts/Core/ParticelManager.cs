@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [System.Serializable]
@@ -11,11 +12,16 @@ public class ParticleInfo
 
 public class ParticelManager : MonoBehaviour
 {
-    public static ParticelManager instance {get; set;}
+    public static ParticelManager instance { get; set; }
     public GameObject ParticleParent;
     public List<ParticleInfo> particleInfos;
+    [Tooltip("If not set the manager uses the current particleInfos")]
+    public string ParticleResourcesPath;
+    /// <summary>
+    /// Can Only Be used with ParticleResourcesPath
+    /// </summary>
 
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)] 
     static void OnBeforeSceneLoadRuntimeMethod()
     {
         GameObject PM = new GameObject("ParticleManager");
@@ -32,6 +38,26 @@ public class ParticelManager : MonoBehaviour
         {
             GameObject Parent = new GameObject("ParticleParent");
             ParticleParent = Parent;
+        }
+    }
+    void Start()
+    {
+        if (ParticleResourcesPath != null)
+        {
+            particleInfos.Clear();
+            List<GameObject> Particels = Resources.LoadAll<GameObject>(ParticleResourcesPath).ToList();
+            for (int i = 0; i < Particels.Count; i++)
+            {
+                if (Particels[i].GetComponent<ParticleSystem>())
+                {
+                    ParticleInfo info = new ParticleInfo
+                    {
+                        name = Particels[i].name,
+                        particle = Particels[i]
+                    };
+                    particleInfos.Add(info);
+                }
+            }
         }
     }
 

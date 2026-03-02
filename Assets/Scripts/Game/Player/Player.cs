@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Codice.CM.Client.Differences.Graphic;
+using Codice.CM.Common.Tree;
 using Unity.VisualScripting;
 using UnityEditor.EditorTools;
 using UnityEngine;
@@ -297,6 +298,7 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
         }
         if (Highest > FallDamage)
         {
+            ParticelManager.instance.SpawnParticle(transform.position, "Fall", 0.4f);
             Debug.Log($"Fall: {Highest}");
         }
         IsCheckingGround = false;

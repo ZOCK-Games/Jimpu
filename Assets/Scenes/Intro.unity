@@ -11571,6 +11571,7 @@ MonoBehaviour:
     name: Shoot
   - particle: {fileID: 5072333619071031651, guid: b099a732fc733ee0d8905f5c3d2c3db3, type: 3}
     name: Heal
+  ParticleResourcesPath: 
 --- !u!1 &1432279789
 GameObject:
   m_ObjectHideFlags: 0
