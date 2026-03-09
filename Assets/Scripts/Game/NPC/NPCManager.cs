@@ -1,15 +1,14 @@
 using UnityEngine;
 using TMPro;
+using System.Collections;
 
 public class NPCManager : MonoBehaviour
 {
     public string npcName;
-    [SerializeField ]private float Health;
+    [SerializeField] private float Health;
     public GameObject DeathParticle;
     public Animator DeathAnimator;
     public TextMeshPro HealthText;
-    protected Transform player;
-
     protected virtual void Start()
     {
         DeathAnimator = GetComponent<Animator>();
@@ -18,22 +17,23 @@ public class NPCManager : MonoBehaviour
             DeathAnimator = GetComponentInChildren<Animator>();
         }
         HealthText = (TextMeshPro)GetComponentInChildren<TMPro.TMP_Text>(true);
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-        RefreshHealthText();
+
+        StartCoroutine(RefreshHealthText());
     }
 
     public virtual void SetHealth(float Amount)
     {
         Health = Amount;
-        RefreshHealthText();
+        StartCoroutine(RefreshHealthText());
     }
 
     public virtual float GetHealth()
     {
         return Health;
     }
-    public virtual void RefreshHealthText()
+    public virtual IEnumerator RefreshHealthText()
     {
+        yield return null;
         if (HealthText != null)
         {
             HealthText.text = Health.ToString(); // Refreshes the HealthText
@@ -58,12 +58,19 @@ public class NPCManager : MonoBehaviour
     /// </summary>
     protected virtual void Die()
     {
-        GameObject ParticleGo = Instantiate(DeathParticle);
-        ParticleGo.transform.position = transform.position;
-        ParticleSystem ParticleSy = ParticleGo.GetComponent<ParticleSystem>();
-        ParticleSy.Play();
-        DeathAnimator.SetTrigger("Death");
-        Destroy(ParticleGo, 0.6f);
+        ParticelManager.instance.SpawnParticle(transform.position, "Particle System Damage", 0.6f);
+
+        if (DeathAnimator != null)
+        {
+            DeathAnimator.SetBool("Death", true);
+        }
+
+        else if (DeathAnimator == null)
+        {
+            DeathAnimator = GetComponentInChildren<Animator>();
+            DeathAnimator.SetBool("Death", true);
+        }
+        
         Destroy(gameObject, 0.6f);
     }
 }

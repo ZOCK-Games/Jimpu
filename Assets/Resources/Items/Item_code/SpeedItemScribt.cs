@@ -31,11 +31,12 @@ public class SpeedItemScribt : MonoBehaviour
         PlayerScribt = GetComponentInParent<ItemInfoManager>().playerControll;
         SpeedObjekt = this.gameObject;
         PowerAktive = false;
+        inputActions.Player.Interact.performed += ctx => CheckInput();
     }
     // Update is called once per frame
-    void Update()
+    void CheckInput()
     {
-        if (inputActions.Player.Interact.WasPerformedThisFrame() && SpeedObjekt.activeSelf && !PowerAktive)
+        if (SpeedObjekt.activeSelf && !PowerAktive)
         {
             PowerAktive = true;
             MoveBevore = PlayerScribt.MoveSpeed;

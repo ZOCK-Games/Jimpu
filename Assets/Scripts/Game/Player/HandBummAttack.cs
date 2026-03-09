@@ -5,7 +5,6 @@ public class HandBummAttack : MonoBehaviour
     public PlayerControll playerControll;
     public GameObject ParticleContainer;
     public float Damage;
-    public GameObject HitParticle;
     private bool HandBummActive => playerControll.CurrentAttack == "HandBumm";
     private bool CanDealDamage; 
     void OnTriggerStay2D(Collider2D collision)
@@ -13,9 +12,7 @@ public class HandBummAttack : MonoBehaviour
         if (HandBummActive && collision.tag == "Attackable" && CanDealDamage)
         {
             collision.gameObject.GetComponent<NPCManager>().TakeDamage(Damage);
-            GameObject Particle = Instantiate(HitParticle);
-            Particle.transform.position = collision.transform.position;
-            Destroy(Particle, 0.7f);
+            ParticelManager.instance.SpawnParticle(collision.transform.position, "Particle System Attack", 0.4f);
             CanDealDamage = false;
         }
     }

@@ -1,6 +1,4 @@
-
 using System.Collections;
-
 using UnityEngine;
 using UnityEngine.AI;
 using WebSocketSharp;
@@ -17,6 +15,7 @@ public class EnemyInfo : NPCManager
     private Rigidbody2D rb;
     public NavMeshAgent meshAgent;
     public string Status = "null";
+    private bool IsOnNavMeshChecking;
 
     protected override void Start()
     {
@@ -72,17 +71,18 @@ public class EnemyInfo : NPCManager
         JimpuAnimator.SetFloat("VelocityX", meshAgent.velocity.magnitude);
         JimpuAnimator.SetFloat("VelocityY", meshAgent.velocity.y);
 
-        if (transform.position.x > playerControll.Player.transform.position.x)
+        if (playerControll != null && transform.position.x > playerControll.Player.transform.position.x)
         {
             transform.rotation = new Quaternion(0, 0, 0, 0);
         }
-        else if (transform.position.x < playerControll.Player.transform.position.x)
+        else if (playerControll != null && transform.position.x < playerControll.Player.transform.position.x)
         {
             transform.rotation = new Quaternion(0, 180, 0, 0);
         }
 
-        if (!meshAgent.isOnNavMesh)
+        if (!meshAgent.isOnNavMesh && IsOnNavMeshChecking == false)
         {
+            IsOnNavMeshChecking = true;
             StartCoroutine(IsOnNavMesh());
         }
     }
@@ -90,12 +90,12 @@ public class EnemyInfo : NPCManager
     {
         while (true)
         {
-            if (meshAgent.isOnNavMesh)
+            if (meshAgent.isOnNavMesh && playerControll != null)
             {
                 float sqrDistance = (playerControll.Player.transform.position - transform.position).sqrMagnitude;
                 meshAgent.isStopped = sqrDistance > (ViewField * ViewField);
-                yield return new WaitForSeconds(0.5f);
             }
+            yield return new WaitForSeconds(0.5f); // Needs to bee here so it doesn't crash
         }
     }
     public IEnumerator IsOnNavMesh()
@@ -104,6 +104,10 @@ public class EnemyInfo : NPCManager
         if (!meshAgent.isOnNavMesh)
         {
             Destroy(gameObject);
+        }
+        else
+        {
+            IsOnNavMeshChecking = false;
         }
     }
 }

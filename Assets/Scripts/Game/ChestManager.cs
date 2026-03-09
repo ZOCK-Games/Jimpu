@@ -38,11 +38,13 @@ public class ChestManager : MonoBehaviour
     }
     IEnumerator DeleteTile(Vector3Int Pos)
     {
-        yield return new WaitForSeconds(1f);
         float ElapsedTime = 0;
         GameObject Display = Instantiate(DisplayItem);
-        Display.transform.position = new Vector3Int(Pos.x, Mathf.RoundToInt(Pos.y + 1.5f), 0);
+        Vector3Int DisplayPosition = new Vector3Int(Pos.x, Mathf.RoundToInt(Pos.y + 1.5f), 0);
+        DisplayPosition = (ChestTilemap.WorldToCell(DisplayPosition));
         SpriteRenderer DisplaySprite = Display.GetComponent<SpriteRenderer>();
+        
+        Display.transform.position = DisplayPosition;
         int ItemNumber = 0;
         while (ElapsedTime < 1f)
         {
@@ -52,6 +54,7 @@ public class ChestManager : MonoBehaviour
             ElapsedTime += Time.deltaTime;
             ChestTilemap.SetTile(Pos, null);
         }
+        ParticelManager.instance.SpawnParticle(DisplayPosition, "Particle System Sparkle", 0.3f);
         Destroy(Display, 0.6f);
         inventory.AddItem(inventory.ItemDatas[ItemNumber], null, null);
     }

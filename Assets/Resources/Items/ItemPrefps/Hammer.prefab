@@ -37,6 +37,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -28.415}
 --- !u!212 &6516327030307237335
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -82,6 +83,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
+  m_MaskInteraction: 0
   m_Sprite: {fileID: 2550550485382746109, guid: 848d5d6fab2a83d46b418456f5fba775, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -91,7 +93,6 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &3949508082476575582
 MonoBehaviour:
@@ -109,6 +110,9 @@ MonoBehaviour:
   Range: 0.8
   ExplsionTile: {fileID: 11400000, guid: 9e93413e2ff4c6a339a9f627f53b648c, type: 2}
   ExplosionPrefab: {fileID: 4245082835525234468, guid: 4691eb3f9f7345e419e76b038860bcd8, type: 3}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!61 &6551146342266766844
 BoxCollider2D:
   m_ObjectHideFlags: 0

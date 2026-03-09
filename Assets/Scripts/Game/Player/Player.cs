@@ -1,12 +1,6 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using Codice.CM.Client.Differences.Graphic;
-using Codice.CM.Common.Tree;
-using Unity.VisualScripting;
-using UnityEditor.EditorTools;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 
 public class PlayerControll : MonoBehaviour, IDataPersitence
@@ -284,6 +278,7 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
     public IEnumerator CheckFall()
     {
         Debug.Log($"Fall Started");
+        IsCheckingGround = true;
         float Highest = 0;
         while (!PlayerIsTouchingGround)
         {

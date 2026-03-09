@@ -10,13 +10,10 @@ public class BulletShootVoice : MonoBehaviour
     public bool ShootAllsided;
     public PlayerControll playerControll;
     public Transform ShotingPositionShooter;
-    public GameObject ParticleShoot;
-    public GameObject ParticleContainer;
     public bool ShootBullet;
     void Start()
     {
         StartCoroutine(Shoot(playerControll.Player.transform, Bullets[0], ShotingPositionShooter, 2, 2, 0, true));
-
     }
     void Update()
     {
@@ -68,11 +65,8 @@ public class BulletShootVoice : MonoBehaviour
             BulletObj.transform.position = ShotingPos;
             BulletObj.gameObject.tag = "Bullet";
 
-            GameObject Particle = Instantiate(ParticleShoot);
-            Particle.transform.position = BulletObj.transform.position;
-            Particle.transform.SetParent(ParticleContainer.transform);
-            Particle.name = "Shoot:" + ParticleContainer.transform.childCount;
-            Particle.GetComponent<ParticleSystem>().Play();
+            ParticelManager.instance.SpawnParticle(BulletObj.transform.position, "Particle System Shoot", 0.5f);
+
 
             BulletObj.GetComponent<BulletInfo>().bulletShootVoice = gameObject.GetComponent<BulletShootVoice>();
             if (DuplicateOnWallHit)
@@ -86,10 +80,6 @@ public class BulletShootVoice : MonoBehaviour
             while (elapsedTime < duration && BulletObj != null)
             {
                 float t = (elapsedTime / duration);
-                if (t > 0.5 && Particle != null || BulletObj == null)
-                {
-                    Destroy(Particle);
-                }
 
                 BulletObj.transform.Rotate(Vector3.up, (elapsedTime * 30) * Time.deltaTime, Space.World);
                 BulletObj.transform.Rotate(Vector3.left, (elapsedTime * 30) * Time.deltaTime, Space.World);
@@ -97,11 +87,6 @@ public class BulletShootVoice : MonoBehaviour
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
-            if (Particle != null)
-            {
-                Destroy(Particle);
-            }
-
 
             yield return new WaitForSeconds(BulletShotCountdown);
         }

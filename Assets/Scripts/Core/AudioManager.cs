@@ -23,10 +23,6 @@ public class AudioManager : MonoBehaviour
 
     void Start()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
         DontDestroyOnLoad(gameObject);
         LoadAudios();
         StartCoroutine(LoadAudioFromDirectory("/home/zock/Music/Games/Jimpu"));
