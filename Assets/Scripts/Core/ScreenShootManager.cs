@@ -5,7 +5,25 @@ using System.Linq;
 
 public class ScreenShootManager : MonoBehaviour
 {
+    public static ScreenShootManager instance {get; private set;}
     private InputSystem_Actions inputActions;
+    public event Action TakeScreenShotEvent;
+    
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    static void OnBeforeSceneLoadRuntimeMethod()
+    {
+        GameObject SSM = new GameObject("ScreenShootManager");
+        SSM.AddComponent<ScreenShootManager>();
+        DontDestroyOnLoad(SSM);
+    }
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+    }
+
     void OnEnable()
     {
         DontDestroyOnLoad(this.gameObject);
@@ -22,8 +40,9 @@ public class ScreenShootManager : MonoBehaviour
     {
         inputActions.Global.Disable();
     }
-    void TakeScreenShot()
+    public void TakeScreenShot()
     {
+        TakeScreenShotEvent?.Invoke();
         string FullPath = Path.Combine(Application.persistentDataPath,"ScreenShots", $"{DateTime.Now:yy-MM-dd_HH-mm-ss}.png");
         ScreenCapture.CaptureScreenshot(FullPath);
         Debug.Log($"Saved Screen Shoot at: {FullPath}");

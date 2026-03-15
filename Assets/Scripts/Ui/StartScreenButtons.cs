@@ -22,16 +22,6 @@ public class StartScreenButtons : MonoBehaviour //this script manges all buttons
     public GameObject Gaderobe;
     public GameObject Settings;
     [SerializeField] private GameObject TransitionUi;
-    private InputSystem_Actions inputActions;
-    void OnEnable()
-    {
-        inputActions.UI.Enable();
-    }
-    void OnDisable()
-    {
-        inputActions.UI.Disable();
-    }
-
     void Start()
     {
         TransitionUi.SetActive(false);
@@ -62,7 +52,6 @@ public class StartScreenButtons : MonoBehaviour //this script manges all buttons
         }
         else
         {
-            Debug.LogError("Aniamtion Time = " + clipLenght);
             yield return new WaitForSeconds(clipLenght);
             operation.allowSceneActivation = true;
         }

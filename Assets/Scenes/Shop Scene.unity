@@ -2008,7 +2008,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 62.6
+  m_fontSize: 57.8
   m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3021,8 +3021,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1807801131}
-  - component: {fileID: 1807801130}
-  - component: {fileID: 1807801132}
   - component: {fileID: 1807801133}
   m_Layer: 0
   m_Name: DataPersitenceManger
@@ -3031,20 +3029,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1807801130
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1807801129}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a88ac2912862dc74a7d91275d7a639a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FileName: Jimpu.json
-  useEncryption: 0
 --- !u!4 &1807801131
 Transform:
   m_ObjectHideFlags: 0
@@ -3060,19 +3044,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1807801132
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1807801129}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9aa1d76dbaecdd4f28d463712a8b2fdb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FPSManager
-  FPSDisplayText: {fileID: 958920527}
 --- !u!114 &1807801133
 MonoBehaviour:
   m_ObjectHideFlags: 0

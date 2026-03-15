@@ -11,11 +11,11 @@ public class StartCrowMoving : MonoBehaviour
     private Vector3 StartPosition;
     void Start()
     {
-        WalkY = 8.6f;
+        WalkY = 8.65f;
         animator = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         rigidbody2D = GetComponent<Rigidbody2D>();
-        rigidbody2D.bodyType = RigidbodyType2D.Static;
+        rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
         StartPosition = transform.position;
         StartCoroutine(SetDestination());
     }
@@ -65,9 +65,7 @@ public class StartCrowMoving : MonoBehaviour
                 {
                     DestinationPosition = Pos;
                     FoundPosition = true;
-                    Debug.Log("Found Position");
                 }
-                Debug.Log("Found  no Position");
                 Tries += 1;
             }
         }

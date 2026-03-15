@@ -21,7 +21,8 @@ public class AudioManager : MonoBehaviour
     }
 
 
-    void Start()
+
+    void OnEnable()
     {
         DontDestroyOnLoad(gameObject);
         LoadAudios();
@@ -146,10 +147,5 @@ public class AudioManager : MonoBehaviour
                 return false;
             }
         }
-    }
-
-    void Update()
-    {
-
     }
 }

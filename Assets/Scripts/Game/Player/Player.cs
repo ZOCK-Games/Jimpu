@@ -12,10 +12,17 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
     public float MoveSpeed = 3.5f;
     public float JumpSpeed = 350;
     public int RunSpeed = 5;
-    public float FallDamage = 1;
+    [Header("The Setting for the player to get fall damage")]
+    public float FallDamage = 6;
     public LayerMask FallLayerMask;
     public float AttackRollStrength;
+    /// <summary>
+    /// Bool for checking if
+    /// Animations Can Play 
+    /// Used for Blocking All Animations 
+    /// </summary>
     public bool AnimationsCanPlay;
+    [Header("The Current Attack as a string for checking the current attack")]
     public string CurrentAttack;
     /// <summary>
     /// The Damage that the 
@@ -63,8 +70,8 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
         inputActions = new InputSystem_Actions();
     }
     private void OnEnable()
-    {
-        inputActions.Player.Enable();
+    { 
+        inputActions.Player.Enable(); // Activates Player Control for him self
         inputActions.Player.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
         inputActions.Player.Move.canceled += ctx => moveInput = Vector2.zero;
     }
@@ -109,9 +116,9 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
     {
         if (CanMove)
         {
-            if (Mathf.Abs(moveInput.x) > 0.3f && !IsPlayerAttacking)
+            if (Mathf.Abs(moveInput.x) > 0.1f && !IsPlayerAttacking) // Checks if The Player is moving or i the Player is Attacking
             {
-                if (!AudioManager.instance.isPlaying("Walk"))
+                if (!AudioManager.instance.isPlaying("Walk")) // Checks if the sound is already playing
                 {
                     AudioManager.instance.PlayAudio("Walk", transform, true, 1);
                 }
@@ -122,7 +129,7 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
                 PlayerAniamtor.SetBool("Walk", false);
             }
             Vector3 move = new Vector3(moveInput.x, 0, 0);
-            transform.Translate(move * MoveSpeed * Time.deltaTime);
+            transform.Translate(move * MoveSpeed * Time.deltaTime); // Sets the position where the player wants to move to
         }
         else
         {
@@ -135,6 +142,8 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
 
         /*/if (PlayerHealth == 0)              // Aktiviert Den Dead Screen
         SceneManager.LoadScene("Death");*/
+
+
 
         PlayerIsTouchingGround = false;
 
@@ -233,9 +242,9 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
         CanAttack = false;
         yield return new WaitForSeconds(ResetTime);
         CurrentAttack = null;
+        IsPlayerAttacking = false;
         yield return new WaitForSeconds(DelayTime);
         CanAttack = true;
-        IsPlayerAttacking = false;
     }
     void OnTriggerEnter2D(Collider2D collider)
     {
@@ -293,7 +302,8 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
         }
         if (Highest > FallDamage)
         {
-            ParticelManager.instance.SpawnParticle(transform.position, "Fall", 0.4f);
+            Vector3 position = new Vector3(transform.position.x,transform.position.y - 1, 0);
+            ParticelManager.instance.SpawnParticle(position, "Particle System Falling", 0.6f);
             Debug.Log($"Fall: {Highest}");
         }
         IsCheckingGround = false;

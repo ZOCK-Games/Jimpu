@@ -1,0 +1,7 @@
+{
+    "name": "InputSystem_Actions",
+    "references": [
+        "Unity.InputSystem"
+    ],
+    "autoReferenced": true
+}

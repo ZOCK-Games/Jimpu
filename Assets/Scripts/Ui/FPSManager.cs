@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
@@ -8,6 +9,23 @@ public class FPSManager : MonoBehaviour
 {
     public GameObject FPSDisplayText;
     private bool ShowFPS = false;
+    private InputSystem_Actions inputActions;
+    void OnEnable()
+    {
+        inputActions = new InputSystem_Actions();
+        inputActions.Enable();
+        inputActions.Global.ShowFps.performed += ctx => ToggleFps();
+    }
+    void ToggleFps()
+    {
+        ShowFPS = !ShowFPS;
+        StartCoroutine(CheckFPS());
+
+    }
+    void OnDisable()
+    {
+        inputActions.Disable();
+    }
 
     public void LoadGame(SaveManager manager)
     {
@@ -17,31 +35,26 @@ public class FPSManager : MonoBehaviour
 
     void Start()
     {
-        FPSWayting();
         FPSDisplayText.SetActive(false);
-        StartCoroutine(FPSUpdate());
     }
 
-    // Update is called once per frame
-    public void FPSWayting()
+    public IEnumerator CheckFPS()
     {
         switch (ShowFPS)
         {
             case true:
                 FPSDisplayText.SetActive(true);
-                FPSDisplayText.GetComponent<TextMeshProUGUI>().text = "FPS: " + math.round(1.0f / Time.deltaTime).ToString() ;
+                while (ShowFPS)
+                {
+                    FPSDisplayText.GetComponent<TextMeshProUGUI>().text = "FPS: " + math.round(1.0f / Time.deltaTime).ToString();
+                    yield return new WaitForSeconds(0.2f);
+                }
+                FPSDisplayText.SetActive(false);
                 break;
             case false:
                 FPSDisplayText.SetActive(false);
                 break;
-
         }
 
-    }
-    IEnumerator FPSUpdate()
-    {
-        yield return new WaitForSeconds(0.1f);
-        FPSWayting();
-        StartCoroutine(FPSUpdate());
     }
 }

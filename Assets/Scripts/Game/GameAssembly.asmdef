@@ -10,7 +10,8 @@
         "DataPersistenceAssembly",
         "Unity.InputSystem",
         "UnityUIExtensions",
-        "Unity.2D.Tilemap.Extras"
+        "Unity.2D.Tilemap.Extras",
+        "InputSystem_Actions"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

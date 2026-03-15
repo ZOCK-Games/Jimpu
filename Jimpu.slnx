@@ -5,13 +5,14 @@
   <Project Path="Demo.Editor.csproj" />
   <Project Path="UIAssembly.csproj" />
   <Project Path="DataPersistenceAssembly.csproj" />
-  <Project Path="Assembly-CSharp.csproj" />
   <Project Path="Unity.InputSystem.ForUI.csproj" />
   <Project Path="GameAssembly.csproj" />
   <Project Path="Unity.InputSystem.TestFramework.csproj" />
   <Project Path="CoreAssembly.csproj" />
   <Project Path="AssetValidator.Demo.csproj" />
   <Project Path="Unity.InputSystem.DocCodeSamples.csproj" />
+  <Project Path="InputSystem_Actions.csproj" />
+  <Project Path="Discord.Sdk.csproj" />
   <Project Path="AssetValidator.Tests.csproj" />
   <Project Path="Unity.InputSystem.IntegrationTests.csproj" />
 </Solution>

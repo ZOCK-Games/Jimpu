@@ -1,11 +1,8 @@
-using System;
 using System.Collections;
-using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
-using UnityEngine.iOS;
 using UnityEngine.UI;
 
 public class KeyBindsSettings : MonoBehaviour

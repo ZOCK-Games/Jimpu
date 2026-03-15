@@ -8,7 +8,6 @@ public class GarderobenScribt : MonoBehaviour, IDataPersitence
 {
     //public Image Skin1;
     public UnityEngine.UI.Button NextSkinButton;
-    public UnityEngine.UI.Button CloseButton;
     public GameObject Garderobe;
     public int SkinIndex = 0;
     [Header("Skin Sprites")]
@@ -27,7 +26,6 @@ public class GarderobenScribt : MonoBehaviour, IDataPersitence
     void Start()
     {
         NextSkinButton.onClick.AddListener(NextSkin);
-        CloseButton.onClick.AddListener(CloseGarderobe);
         SkinSaveButton.onClick.AddListener(() => SaveManager.instance.Save());
         LoadSkin();
     }
@@ -42,10 +40,6 @@ public class GarderobenScribt : MonoBehaviour, IDataPersitence
         }
         Debug.Log("Current Skin Index: " + SkinIndex);
         LoadSkin();
-    }
-    private void CloseGarderobe()
-    {
-        SceneManager.LoadScene("Start Screen");
     }
 
     private void LoadSkin()

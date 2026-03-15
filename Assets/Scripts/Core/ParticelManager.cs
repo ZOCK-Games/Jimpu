@@ -15,7 +15,7 @@ public class ParticleInfo
 /// On specific position and destroys them 
 /// after a specific time
 /// </summary>
-public class ParticelManager : MonoBehaviour
+public class ParticelManager : MonoBehaviour, ISceneEvents
 {
     public static ParticelManager instance { get; set; }
     public GameObject ParticleParent;
@@ -30,7 +30,18 @@ public class ParticelManager : MonoBehaviour
     static void OnBeforeSceneLoadRuntimeMethod()
     {
         GameObject PM = new GameObject("ParticleManager");
-        PM.AddComponent<ParticelManager>();
+        instance = PM.AddComponent<ParticelManager>();
+    }
+    public void OnSceneStart()
+    {
+        if (ParticleParent == null)
+        {
+            GameObject Parent = new GameObject("ParticleParent");
+            ParticleParent = Parent;
+        }
+    }
+    public void OnSceneUnload()
+    {
     }
     void Awake()
     {
@@ -39,17 +50,12 @@ public class ParticelManager : MonoBehaviour
             instance = this;
         }
         DontDestroyOnLoad(gameObject);
-        if (ParticleParent == null)
-        {
-            GameObject Parent = new GameObject("ParticleParent");
-            ParticleParent = Parent;
-        }
     }
     void Start()
     {
+        particleInfos = new List<ParticleInfo>();
         if (ParticleResourcesPath != null)
         {
-            particleInfos = new List<ParticleInfo>();
             List<GameObject> Particels = Resources.LoadAll<GameObject>("Particles").ToList();
             for (int i = 0; i < Particels.Count; i++)
             {
@@ -68,7 +74,7 @@ public class ParticelManager : MonoBehaviour
 
     public void SpawnParticle(Vector3 Position, string ParticleName, float DeleteTime)
     {
-        if (particleInfos.Count < 0)
+        if (particleInfos.Count > 0)
         {
             GameObject ParticleObject = particleInfos.Find(particleInfos => particleInfos.name == ParticleName).particle;
             GameObject gameObject = Instantiate(ParticleObject);
@@ -84,6 +90,10 @@ public class ParticelManager : MonoBehaviour
             {
                 Debug.LogError("There is no Particle GameObject");
             }
+        }
+        else
+        {
+            Debug.LogError("There Is no particle");
         }
     }
 }

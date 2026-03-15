@@ -27,6 +27,7 @@ public class SpeedItemScribt : MonoBehaviour
     }
     void Start()
     {
+        Adding = 2;
         inventory = GetComponentInParent<ItemInfoManager>().inventory;
         PlayerScribt = GetComponentInParent<ItemInfoManager>().playerControll;
         SpeedObjekt = this.gameObject;
