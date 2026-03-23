@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -14,24 +15,26 @@ public class AudioManager : MonoBehaviour
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     static void OnBeforeSceneLoadRuntimeMethod()
     {
-        GameObject go = new GameObject("GlobalSoundManager");
-        instance = go.AddComponent<AudioManager>();
-        DontDestroyOnLoad(go);
-        Debug.Log("SoundManager was created successfully!");
+        if (instance == null)
+        {
+            GameObject go = new GameObject("GlobalSoundManager");
+            instance = go.AddComponent<AudioManager>();
+            DontDestroyOnLoad(go);
+            Debug.Log("SoundManager was created successfully!");
+        }
     }
 
 
 
     void OnEnable()
     {
-        DontDestroyOnLoad(gameObject);
+        audioClips.Clear();
         LoadAudios();
-        StartCoroutine(LoadAudioFromDirectory("/home/zock/Music/Games/Jimpu"));
     }
 
     void LoadAudios()
     {
-        AudioClip[] audioClips = Resources.LoadAll<AudioClip>("Audio/Game");
+        audioClips = Resources.LoadAll<AudioClip>("Audio/Game").ToList();
     }
 
     public IEnumerator LoadAudioFromDirectory(string Path)
@@ -69,6 +72,7 @@ public class AudioManager : MonoBehaviour
         AudioClip audio = audioClips.Find(audioClips => audioClips.name == AudioName);
         if (audio != null)
         {
+            Debug.Log("Playing " + audio.name);
             if (!IsChild)
             {
                 AudioSource.PlayClipAtPoint(audio, Position.position);
@@ -85,6 +89,10 @@ public class AudioManager : MonoBehaviour
                 Audio.Play();
                 Destroy(Source, audio.length);
             }
+        }
+        else
+        {
+            Debug.LogWarning("There is no audio called: " + AudioName);
         }
     }
 

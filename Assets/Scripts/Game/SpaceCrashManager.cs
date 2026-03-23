@@ -7,6 +7,7 @@ public class SpaceCrashManager : MonoBehaviour
 {
     [SerializeField] private float Time = 9;
     [SerializeField] private string NextScene;
+    [SerializeField] private string AudioName;
     void Start()
     {
         PlayAudio();
@@ -14,9 +15,7 @@ public class SpaceCrashManager : MonoBehaviour
     async Task PlayAudio()
     {
         await Task.Delay((int)(0.3f * 1000));
-        AudioManager.instance.PlayAudio("SpaceCrashAudio", transform, true, 4);
-        Debug.Log("jjhjgj");
-
+        AudioManager.instance.PlayAudio(AudioName, transform, true, 4);
         int DelayTime = (int)(Time * 1000);
         AsyncOperation operation = SceneManager.LoadSceneAsync(NextScene);
         operation.allowSceneActivation = false;

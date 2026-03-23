@@ -95,7 +95,7 @@ public class SaveManager : MonoBehaviour
         void WriteData(ScriptableObject scriptableObject, string FileName)
         {
 
-            string JsonFile = JsonUtility.ToJson(scriptableObject);
+            string JsonFile = JsonUtility.ToJson(scriptableObject, true);
             if (encrypt)
             {
                 JsonFile = Encrypt(JsonFile);

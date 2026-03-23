@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bee1730e89bcfd00bf32b81e0687d6b, type: 3}
   m_Name: Player
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDataSO
-  PlayerPosition: {x: 0, y: 0, z: 0}
-  Health: 0
+  PlayerPosition: {x: -0.45000005, y: 37.2, z: 0}
+  Health: 300
+  SkinIndex: 4
+  colorHex: A52A2A

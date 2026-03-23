@@ -3,7 +3,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class DrunkenJimpuManager : NPCManager
+public class DrunkenJimpuManager : EntityManager
 {
     private NavMeshAgent navMeshAgent;
     public PlayerControll playerControll;
