@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using WebSocketSharp;
 
-public class EnemyInfo : NPCManager
+public class EnemyInfo : EntityManager
 {
     public string JimpuID;
     public PlayerControll playerControll;

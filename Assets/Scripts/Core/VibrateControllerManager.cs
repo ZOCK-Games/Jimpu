@@ -10,17 +10,14 @@ public class VibrateControllerManager : MonoBehaviour
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     static void OnBeforeSceneLoadRuntimeMethod()
     {
-        GameObject vc = new GameObject("VibrateControllerManager");
-        instance = vc.AddComponent<VibrateControllerManager>();
-        DontDestroyOnLoad(vc);
-    }
-    private void Awake()
-    {
         if (instance == null)
         {
-            instance = this;
+            GameObject vc = new GameObject("VibrateControllerManager");
+            instance = vc.AddComponent<VibrateControllerManager>();
+            DontDestroyOnLoad(vc);
         }
     }
+
     public void VibrateController(float lowFrequency, float highFrequency, float duration)
     {
         var gamepad = Gamepad.current;

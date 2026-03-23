@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class PlayerControll : MonoBehaviour, IDataPersitence
+public class PlayerControll : EntityManager, IDataPersitence
 
 {
     public static PlayerControll instance { get; private set; }
@@ -31,7 +31,6 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
     private int SkinIndex; // The Current Skin number
     public bool PlayerIsTouchingGround; // if the player is touching a ground tile collider
     private bool IsPlayerAttacking;
-    public bool CanMove = true;
     public bool CanAttack;
     private bool IsCheckingGround;
     [Space(1)]
@@ -60,7 +59,6 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
 
     public HealthManagerPlayer healthManagerPlayer;
     public EnergyManager energyManager;
-    public VibrateControllerManager vibrateController;
     void Awake()
     {
         if (instance == null)
@@ -80,7 +78,7 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
     {
         inputActions.Player.Disable();
     }
-    private void Start()
+    protected override void Start()
     {
         playerCollider = Player.GetComponent<PolygonCollider2D>();
         rb = Player.GetComponent<Rigidbody2D>();
@@ -205,7 +203,7 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
                     PlayerAniamtor.Play("PlayerDogeRoll");
                 }
                 moveInput.x += AttackRollStrength;
-                vibrateController.VibrateController(0.2f, 0.1f, 2);
+                VibrateControllerManager.instance.VibrateController(0.2f, 0.1f, 2);
                 StartCoroutine(energyManager.RemoveEnergy(-25));
             }
             else
@@ -216,7 +214,7 @@ public class PlayerControll : MonoBehaviour, IDataPersitence
                     PlayerAniamtor.Play("PlayerDogeRoll");
                 }
                 moveInput.x -= AttackRollStrength;
-                vibrateController.VibrateController(0.2f, 0.1f, 2);
+                VibrateControllerManager.instance.VibrateController(0.2f, 0.1f, 2);
                 StartCoroutine(energyManager.RemoveEnergy(-25));
             }
             StartCoroutine(AttackWait(1.5f, 0.18f));

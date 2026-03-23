@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -9,15 +10,13 @@ public class InroManager : MonoBehaviour
     private InputSystem_Actions inputActions;
     public GameObject StartInfo;
     public GameObject Intro;
-    public VibrateControllerManager vibrateController;
+    public bool CanGoToStart;
     public Button ContinueButton;
     void Awake()
     {
         inputActions = new InputSystem_Actions();
-        Intro.SetActive(false);
-        StartInfo.SetActive(true);
-        StartCoroutine(StartWarning());
     }
+
     void OnEnable()
     {
         inputActions.UI.Enable();
@@ -26,30 +25,41 @@ public class InroManager : MonoBehaviour
     {
         inputActions.UI.Disable();
     }
+    void Start()
+    {
+        Intro.SetActive(false);
+        StartInfo.SetActive(true);
+        StartCoroutine(StartWarning());
+
+        ContinueButton.onClick.AddListener(() =>
+        {
+            if (CanGoToStart)
+            {
+                VibrateControllerManager.instance.VibrateController(0.4f, 0.4f, 1);
+                SceneManager.LoadScene("Start Screen");
+            }
+        });
+        inputActions.UI.AnyKey.performed += ctx =>
+        {
+            if (CanGoToStart)
+            {
+                VibrateControllerManager.instance.VibrateController(0.4f, 0.4f, 1);
+                SceneManager.LoadScene("Start Screen");
+            }
+        };
+    }
     IEnumerator StartWarning()
     {
-        vibrateController.VibrateController(0.2f, 0.2f, 10);
+        CanGoToStart = false;
+        ContinueButton.enabled = false;
         StartInfo.SetActive(true);
         Intro.SetActive(false);
         yield return new WaitForSeconds(2);
+        VibrateControllerManager.instance.VibrateController(065f, 0.65f, 1);
         StartInfo.SetActive(false);
         Intro.SetActive(true);
-    }
-    void Start()
-    {
-        ContinueButton.onClick.AddListener(() => SceneManager.LoadScene("Start Screen"));
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (inputActions.UI.RightClick.WasPerformedThisFrame())
-        {
-            SceneManager.LoadScene("Start Screen");
-        }
-        if (inputActions.UI.Submit.WasPerformedThisFrame())
-        {
-            SceneManager.LoadScene("Start Screen");
-        }
+        yield return new WaitForSeconds(3.5f);
+        ContinueButton.enabled = true;
+        CanGoToStart = true;
     }
 }

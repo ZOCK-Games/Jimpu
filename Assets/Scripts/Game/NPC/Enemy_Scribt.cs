@@ -78,7 +78,6 @@ public class EnemyScript : MonoBehaviour, IDataPersitence
                 info.SetHealth(5f);
                 info.playerControll = this.playerControll;
                 info.SetTarget(playerControll.Player.transform);
-                info.DeathParticle = DeathParticle;
                 JimpusInfos.Add(info);
                 Debug.Log("Spawned jimpu");
             }
@@ -156,7 +155,6 @@ public class EnemyScript : MonoBehaviour, IDataPersitence
                                 info.SetHealth((int)jimpuList[i].Health);
                 info.JimpuID = jimpuList[i].JimpuID;
                 info.playerControll = this.playerControll;
-                info.DeathParticle = DeathParticle;
                 info.SetTarget(playerControll.Player.transform);
                 JimpusInfos.Add(info);
                 Debug.Log("Spawned jimpu");

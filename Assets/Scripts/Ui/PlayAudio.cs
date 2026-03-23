@@ -5,6 +5,6 @@ public class PlayAudio : MonoBehaviour
 {
     public void PlaySound(string AudioName)
     {
-        AudioManager.instance.PlayAudio(AudioName, transform, true, 2);
+        AudioManager.instance.PlayAudio(AudioName, transform, true, 2.5f);
     }
 }

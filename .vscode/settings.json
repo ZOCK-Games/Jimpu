@@ -56,5 +56,9 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Jimpu.slnx"
+    "dotnet.defaultSolution": "Jimpu.slnx",
+    "cSpell.words": [
+        "Danmpf",
+        "Wurm"
+    ]
 }
