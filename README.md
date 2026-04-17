@@ -10,13 +10,8 @@
 
 # Jimpu
 
-I'm currently developing my first game. It's a fun and simple 2D jump 'n' run made with Unity and C#. I want the game to offer lots of fun things to do and exciting areas to explore.
+In Jimpu, you play as some one who crashes his spaceship and wakes up in a mysterious cave. Suddenly, a strange creature appears and leads you into a dark world...
 
-## Roadmap
-
-- enemy attacking
-- mobile support 
-- level 1 finsihed 
 
 ## Support
 
