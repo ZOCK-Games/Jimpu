@@ -7,6 +7,7 @@ TagManager:
   - Ground
   - Bullet
   - Attackable
+  - Seat
   layers:
   - Default
   - TransparentFX
@@ -41,8 +42,14 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: CaveWall
+    uniqueID: 1623313671
+    locked: 0
   - name: Bg
     uniqueID: 4157026923
+    locked: 0
+  - name: ForGround
+    uniqueID: 2525650109
     locked: 0
   - name: Default
     uniqueID: 0
@@ -50,8 +57,6 @@ TagManager:
   - name: Pixel
     uniqueID: 2191943337
     locked: 0
-  - name: ForGround
-    uniqueID: 2525650109
-    locked: 0
   m_RenderingLayers:
   - Default
+  m_MigratedRenderPipelines: []

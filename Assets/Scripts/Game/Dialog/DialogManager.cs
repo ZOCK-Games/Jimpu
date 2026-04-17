@@ -64,7 +64,7 @@ public class DialogManager : MonoBehaviour
             {
                 DialogPriority = currentDialogData.dialog_priority;
                 TextDisplay.text = currentDialogData.dialog_text;
-                StartCoroutine(ClearDialog(6));
+                StartCoroutine(ClearDialog(currentDialogData.action_to_do_time));
             }
         }
     }

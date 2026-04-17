@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -68,7 +69,7 @@ public class PlayerControll : EntityManager, IDataPersitence
         inputActions = new InputSystem_Actions();
     }
     private void OnEnable()
-    { 
+    {
         inputActions.Player.Enable(); // Activates Player Control for him self
         inputActions.Player.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
         inputActions.Player.Move.canceled += ctx => moveInput = Vector2.zero;
@@ -114,7 +115,7 @@ public class PlayerControll : EntityManager, IDataPersitence
     {
         if (CanMove)
         {
-            if (Mathf.Abs(moveInput.x) > 0.1f && !IsPlayerAttacking) // Checks if The Player is moving or i the Player is Attacking
+            if (Mathf.Abs(moveInput.x) > 0.05f && !IsPlayerAttacking) // Checks if The Player is moving or i the Player is Attacking
             {
                 if (!AudioManager.instance.isPlaying("Walk")) // Checks if the sound is already playing
                 {
@@ -234,6 +235,38 @@ public class PlayerControll : EntityManager, IDataPersitence
             }
             StartCoroutine(AttackWait(0.8f, 0.1f));
         }
+        /// 
+        /// Sitting System
+        /// 
+        if (inputActions.Player.Interact.WasPerformedThisFrame() && CanMove)
+        {
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 2f);
+
+            foreach (Collider2D hit in colliders)
+            {
+                SeatSystem seatSystem = hit.GetComponentInParent<SeatSystem>() ?? hit.GetComponentInChildren<SeatSystem>();
+
+                if (seatSystem != null)
+                {
+                    Transform targetPosition = seatSystem.transform;
+
+                    foreach (Transform child in seatSystem.transform)
+                    {
+                        if (child.CompareTag("Seat"))
+                        {
+                            targetPosition = child;
+                            break;
+                        }
+                    }
+                    EntityManager playerEntity = GetComponent<EntityManager>();
+
+                    Debug.Log($"Setze {gameObject.name} auf {targetPosition.name}");
+                    seatSystem.Sit(this.transform, targetPosition, playerEntity);
+
+                    break;
+                }
+            }
+        }
     }
     IEnumerator AttackWait(float ResetTime, float DelayTime)
     {
@@ -300,7 +333,7 @@ public class PlayerControll : EntityManager, IDataPersitence
         }
         if (Highest > FallDamage)
         {
-            Vector3 position = new Vector3(transform.position.x,transform.position.y - 1, 0);
+            Vector3 position = new Vector3(transform.position.x, transform.position.y - 1, 0);
             ParticelManager.instance.SpawnParticle(position, "Particle System Falling", 0.6f);
             Debug.Log($"Fall: {Highest}");
         }

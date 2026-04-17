@@ -10,6 +10,8 @@ public class EntityManager : MonoBehaviour
     public TextMeshPro HealthText;
     public bool CanMove;
     public bool canTakeDamage;
+    public bool canBeSeated;
+    private bool IsSeated;
     private Animator animator;
     private Rigidbody2D rb;
     public float DestroyTime = 0.6f;
@@ -27,6 +29,11 @@ public class EntityManager : MonoBehaviour
         {
             TextMeshPro Text = new GameObject().AddComponent<TextMeshPro>();
             HealthText = Text;
+        }
+
+        if (canBeSeated == true)
+        {
+            this.gameObject.AddComponent<SeatSystem>();
         }
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
@@ -80,6 +87,12 @@ public class EntityManager : MonoBehaviour
             }
 
         }
+    }
+
+    public virtual void SetIsSeated(bool Bool)
+    {
+        IsSeated = Bool;
+        Debug.Log("Basis-Methode aufgerufen von: " + this.GetType().Name);
     }
     /// <summary>
     /// The Standard Die Function

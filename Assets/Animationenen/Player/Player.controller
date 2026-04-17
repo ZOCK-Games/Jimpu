@@ -174,7 +174,7 @@ AnimatorController:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Player
-  serializedVersion: 5
+  serializedVersion: 6
   m_AnimatorParameters:
   - m_Name: PlayerGoInHous
     m_Type: 9
@@ -213,6 +213,7 @@ AnimatorController:
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
+  m_EvaluateTransitionsOnStart: 0
 --- !u!1101 &101267847657674284
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -437,7 +438,7 @@ AnimatorState:
   m_TimeParameter: 
 --- !u!1107 &7896375299004810316
 AnimatorStateMachine:
-  serializedVersion: 6
+  serializedVersion: 7
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -446,7 +447,7 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: -1274761552596353938}
-    m_Position: {x: 340, y: 140, z: 0}
+    m_Position: {x: 340, y: 210, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 3081166315490687621}
     m_Position: {x: 450, y: 70, z: 0}

@@ -5,7 +5,7 @@
  "dialog_ended": "null", 
 "action": "null", 
 "action_to_do": "null:Avalonia.Controls.TextBox", 
-"action_to_do_time": 3, 
+"action_to_do_time": 12, 
 "next_id_done": "", 
 "next_id_not_done": "" ,
 "dialog_priority": 4

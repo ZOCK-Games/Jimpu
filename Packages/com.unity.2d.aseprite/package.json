@@ -1,0 +1,36 @@
+{
+  "name": "com.unity.2d.aseprite",
+  "version": "4.0.1",
+  "unity": "6000.4",
+  "unityRelease": "0a4",
+  "displayName": "2D Aseprite Importer",
+  "description": "2D Aseprite Importer is a package which enables the import of .aseprite files from the Pixel Art tool Aseprite.",
+  "keywords": [
+    "2d",
+    "Aseprite",
+    "Pixel",
+    "Art",
+    "assetimporter"
+  ],
+  "category": "2D",
+  "dependencies": {
+    "com.unity.2d.sprite": "1.0.0",
+    "com.unity.2d.tilemap": "1.0.0",
+    "com.unity.2d.common": "13.0.1",
+    "com.unity.mathematics": "1.2.6",
+    "com.unity.modules.animation": "1.0.0"
+  },
+  "relatedPackages": {
+    "com.unity.2d.aseprite.tests": "4.0.1"
+  },
+  "repository": {
+    "revision": "09156026ac819d901f92f956a6317aacbae1ba9e",
+    "type": "git",
+    "url": "https://github.cds.internal.unity3d.com/unity/2d.git"
+  },
+  "documentationUrl": "https://docs.unity3d.com/Packages/com.unity.2d.aseprite@4.0/manual/index.html",
+  "_upm": {
+    "changelog": "### Fixed\n- Reduced the size of the buttons in the Export asset window. (UUM-132863)\n- Fixed an issue where the editor would display errors when reverting changes to the Import Mode in the inspector. (UUM-132892)\n- Fixed an issue where changes to the Pivot Alignment in the inspector could not be reverted. (UUM-132868)\n- Fixed an issue where new lines and white spaces would create unusable animation events. (UUM-133339)"
+  },
+  "_fingerprint": "151b68d46c4040639cc917c030eec74270029275"
+}

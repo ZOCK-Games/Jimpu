@@ -28,7 +28,6 @@ public class InroManager : MonoBehaviour
     void Start()
     {
         Intro.SetActive(false);
-        StartInfo.SetActive(true);
         StartCoroutine(StartWarning());
 
         ContinueButton.onClick.AddListener(() =>
@@ -50,15 +49,11 @@ public class InroManager : MonoBehaviour
     }
     IEnumerator StartWarning()
     {
-        CanGoToStart = false;
-        ContinueButton.enabled = false;
-        StartInfo.SetActive(true);
-        Intro.SetActive(false);
-        yield return new WaitForSeconds(2);
         VibrateControllerManager.instance.VibrateController(065f, 0.65f, 1);
         StartInfo.SetActive(false);
         Intro.SetActive(true);
-        yield return new WaitForSeconds(3.5f);
+        yield return new WaitForSeconds(5f);
+        VibrateControllerManager.instance.VibrateController(065f, 0.65f, 1);
         ContinueButton.enabled = true;
         CanGoToStart = true;
     }

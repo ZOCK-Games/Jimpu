@@ -6,7 +6,6 @@ public class OpenLinks : MonoBehaviour
 {
     public string Link;
     public Button button;
-    public AudioSource audioSource;
     void Start()
     {
         button.onClick.AddListener(OpenLink);
@@ -15,7 +14,6 @@ public class OpenLinks : MonoBehaviour
     void OpenLink() //Open link
     {
         Debug.Log("Open Link: " + Link);
-        audioSource.Play();
         Application.OpenURL(Link); 
         
     }

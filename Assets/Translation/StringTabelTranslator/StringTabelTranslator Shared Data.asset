@@ -107,6 +107,10 @@ MonoBehaviour:
     m_Key: Post-Credits-Message
     m_Metadata:
       m_Items: []
+  - m_Id: 51136206366748672
+    m_Key: UI_Post-Credit-Message-End
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

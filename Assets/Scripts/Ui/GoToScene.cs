@@ -11,31 +11,42 @@ public class GoToScene : MonoBehaviour
     private bool SceneLoading;
     void OnEnable()
     {
+        if (Button == null)
+        {
+            return;
+        }
         inputActions = new InputSystem_Actions();
         inputActions.UI.Enable();
         if (!BlockInput)
         {
-            inputActions.UI.Close.performed += ctx => ButtonPreset();
+            inputActions.UI.Close.performed += ctx => ButtonPreset(SceneToGoTo);
         }
     }
     void OnDisable()
     {
-
+        if (Button == null)
+        {
+            return;
+        }
         inputActions.UI.Disable();
 
     }
     void Start()
     {
+        if (Button == null)
+        {
+            return;
+        }
         SceneLoading = false;
-        Button.onClick.AddListener(ButtonPreset);
+        Button.onClick.AddListener(() => ButtonPreset(SceneToGoTo));
     }
-    void ButtonPreset()
+    public void ButtonPreset(string Scene)
     {
         if (!SceneLoading)
         {
             SceneLoading = true;
-            Debug.Log("Loaded scene: " + SceneToGoTo);
-            SceneManager.LoadScene(SceneToGoTo);
+            Debug.Log("Loaded scene: " + Scene);
+            SceneManager.LoadScene(Scene);
         }
     }
 }

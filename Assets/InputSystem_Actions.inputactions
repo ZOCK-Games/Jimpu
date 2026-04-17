@@ -39,7 +39,7 @@
                     "id": "852140f2-7766-474d-8707-702459ba45f3",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Hold(duration=0.65,pressPoint=0.8)",
+                    "interactions": "",
                     "initialStateCheck": false
                 },
                 {
@@ -418,7 +418,7 @@
                 {
                     "name": "",
                     "id": "b3f66d0b-7751-423f-908b-a11c5bd95930",
-                    "path": "<Gamepad>/buttonNorth",
+                    "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -495,7 +495,7 @@
                 {
                     "name": "",
                     "id": "6ca34fa4-dada-426c-b435-9434d0efa401",
-                    "path": "<Gamepad>/buttonEast",
+                    "path": "<Gamepad>/buttonNorth",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
@@ -518,6 +518,17 @@
                     "name": "",
                     "id": "2f5f3d32-48f1-4d3d-b4dc-28e1b32c27bb",
                     "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenNoteBook",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b6b03214-b916-49c1-9106-e36e4ad9f985",
+                    "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -1062,7 +1073,7 @@
                 {
                     "name": "",
                     "id": "d7984700-98b8-48ac-abb8-de3e1bc49c89",
-                    "path": "<Gamepad>/buttonEast",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

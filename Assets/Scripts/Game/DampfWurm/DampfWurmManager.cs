@@ -21,16 +21,23 @@ public class DampfWurmManager : EntityManager
         }
         foreach (GameObject gameObject in ChildObjects)
         {
-            Rigidbody2D rb = gameObject.AddComponent<Rigidbody2D>();
-            rb.angularDamping = 1000f;
-            rb.gravityScale = 0.1f;
-            rbs.Add(rb);
+            if (gameObject.tag != "Seat")
+            {
+                Rigidbody2D rb = gameObject.AddComponent<Rigidbody2D>();
+                rb.angularDamping = 1000f;
+                rb.gravityScale = 0.1f;
+                rbs.Add(rb);
+            }
 
         }
-        circleCollider2D = new GameObject().AddComponent<CircleCollider2D>();
+        GameObject circleObject = new GameObject("DampfWurmTrigger");
+        circleObject.transform.SetParent(transform);
+        circleObject.transform.position = Vector3.zero;
+        
+        circleCollider2D = circleObject.AddComponent<CircleCollider2D>();
         circleCollider2D.isTrigger = true;
         circleCollider2D.radius = 2;
-        circleCollider2D.gameObject.transform.SetParent(transform);
+        circleObject.SetActive(false); // Position is not right
         SetHealth(Random.Range(5, 8));
         npcName = "DampfWurm";
         base.Start();
@@ -45,6 +52,7 @@ public class DampfWurmManager : EntityManager
     }
     protected override void Die()
     {
+        GetComponent<SeatSystem>().StandUp(PlayerControll.instance.Player.transform, transform);
         foreach (Rigidbody2D rigidbody in rbs)
         {
             rigidbody.gravityScale = 0.4f;

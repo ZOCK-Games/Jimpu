@@ -23,8 +23,8 @@ public class LuckyBlock : MonoBehaviour
     
     void Start()
     {
-        inventory = GetComponentInParent<Inventory>();
-        playerControll = GetComponentInParent<PlayerControll>();
+        inventory = Inventory.instance;
+        playerControll = PlayerControll.instance;
         LuckyBlockObj = this.gameObject;
         inputActions.Player.Interact.performed += ctx =>
         {

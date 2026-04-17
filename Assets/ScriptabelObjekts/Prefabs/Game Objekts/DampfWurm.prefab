@@ -5278,6 +5278,8 @@ MonoBehaviour:
   HealthText: {fileID: 0}
   CanMove: 0
   canTakeDamage: 0
+  canBeSeated: 1
+  seatedPosition: 0
   DestroyTime: 0.6
   ChildObjects: []
   rbs: []
