@@ -99,3 +99,5 @@ JimpuWindowsBuild Intel64 Linux_Data/
 Assets/Addons.meta
 
 Assets/Addons/
+
+node_modules/

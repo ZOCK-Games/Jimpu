@@ -27,7 +27,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Multiplayer/Multiplayer.unity
     guid: 4f6f7503ddad560c6ba86096a6596ee4
   - enabled: 1
-    path: Assets/Scenes/Game Levels/Party.unity
+    path: Assets/Scenes/Game Levels/Party/Party.unity
     guid: 42208344b6d6930158188e82ad453c11
   - enabled: 1
     path: Assets/Scenes/SkinChanger.unity

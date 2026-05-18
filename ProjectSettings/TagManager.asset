@@ -8,6 +8,7 @@ TagManager:
   - Bullet
   - Attackable
   - Seat
+  - StringPoint
   layers:
   - Default
   - TransparentFX
