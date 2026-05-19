@@ -13,8 +13,9 @@ public class StringElement
     public int SkinElement;
 }
 
-public class SkinChangerStrings : SkinChangerManager
+public class SkinChangerStrings : MonoBehaviour
 {
+    public SkinChangerManager skinChangerManager;
     public Transform parentTransform;
     public GameObject PrefabObject;
     public GameObject PrefabA;
@@ -53,11 +54,12 @@ public class SkinChangerStrings : SkinChangerManager
                 var Object = hit.collider.gameObject;
                 var Rigidbody2d = Object.GetComponent<Rigidbody2D>();
                 var parent = Object.transform.parent;
+                var Startpos = Rigidbody2d.position;
                 bool foundPort = false;
                 var A = parent.GetChild(0);
                 var B = parent.GetChild(1);
 
-                while (!foundPort && inputActions.UI.Click.IsPressed())
+                while (inputActions.UI.Click.IsPressed())
                 {
                     float speed = 10f;
 
@@ -71,11 +73,25 @@ public class SkinChangerStrings : SkinChangerManager
 
                     await Task.Yield();
                 }
-                var closestDisplay1 = skinElementDisplays.Min(x => //finds the shortest distance 
-    Vector3.Distance(x.Object.transform.position, Rigidbody2d.position));
-                var closestDisplay = skinElementDisplays.Find(x => Vector3.Distance(x.Object.transform.position, Rigidbody2d.position) == 0);
-                var colliderPort = closestDisplay.Object.GetComponentInChildren<Collider2D>(); //searches for the collider which is used as a port
-                Rigidbody2d.MovePosition(colliderPort.transform.position);
+                var closestDisplay = skinChangerManager.skinElementDisplays
+                    .OrderBy(x => Vector3.Distance(x.Object.transform.position, Rigidbody2d.position))
+                    .FirstOrDefault();
+
+                if (closestDisplay != null)
+                {
+                    Debug.Log("Found closest display");
+
+                    var colliderPort = closestDisplay.portCollider2d;
+
+                    Rigidbody2d.linearVelocity = Vector2.zero;
+                    Rigidbody2d.angularVelocity = 0f;
+
+                    Rigidbody2d.position = colliderPort.transform.position;
+                }
+                else
+                {
+                    Debug.Log("No hit");
+                }
             }
         }
     }

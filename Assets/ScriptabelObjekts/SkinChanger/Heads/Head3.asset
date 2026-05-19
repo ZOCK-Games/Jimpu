@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ccef9699529a04ad9834d3664f39a49, type: 3}
+  m_Name: Head3
+  m_EditorClassIdentifier: UIAssembly::SkinElement
+  Name: PlayerHeadShoked
+  sprite: {fileID: -554639962, guid: b490d2073cfdfc6d3943f0fcbb45b171, type: 3}
+  skinType: 0
+  ID: fcc46e4e-326b-4282-b095-b82c21735305
