@@ -31,11 +31,6 @@ public class SkinChangerStrings : MonoBehaviour
     {
         inputActions.Disable();
     }
-    void Start()
-    {
-        SetStringPosition(new Vector3(0, 0, 0), new Vector3(3, 1, 0));
-    }
-
     async Task CheckForPoint(CallbackContext ctx)
     {
         Debug.Log("Checking.....");
@@ -52,12 +47,10 @@ public class SkinChangerStrings : MonoBehaviour
             {
                 Debug.Log("Found obj");
                 var Object = hit.collider.gameObject;
-                var Rigidbody2d = Object.GetComponent<Rigidbody2D>();
+                var Rigidbody2dString = Object.GetComponent<Rigidbody2D>();
                 var parent = Object.transform.parent;
-                var Startpos = Rigidbody2d.position;
-                bool foundPort = false;
-                var A = parent.GetChild(0);
-                var B = parent.GetChild(1);
+                var Startpos = Rigidbody2dString.position;
+                var skinElementDisplay = skinChangerManager.skinElementDisplays.Find(x => x.Object == hit.collider.gameObject);
 
                 while (inputActions.UI.Click.IsPressed())
                 {
@@ -67,26 +60,27 @@ public class SkinChangerStrings : MonoBehaviour
                     WorldPos = Camera.main.ScreenToWorldPoint(new Vector3(MousePos.x, MousePos.y, Mathf.Abs(Camera.main.transform.position.z)));
                     var targetPos = new Vector2(WorldPos.x, WorldPos.y);
 
-                    var newPos = Vector2.Lerp(Rigidbody2d.position, targetPos, Time.deltaTime * speed);
-                    Rigidbody2d.MovePosition(newPos);
+                    var newPos = Vector2.Lerp(Rigidbody2dString.position, targetPos, Time.deltaTime * speed);
+                    Rigidbody2dString.MovePosition(newPos);
 
 
                     await Task.Yield();
                 }
-                var closestDisplay = skinChangerManager.skinElementDisplays
-                    .OrderBy(x => Vector3.Distance(x.Object.transform.position, Rigidbody2d.position))
+                var closestDisplay = skinChangerManager.skinDisplayMains
+                    .OrderBy(x => Vector3.Distance(x.collider2DInPort.transform.position, Rigidbody2dString.position))
                     .FirstOrDefault();
 
                 if (closestDisplay != null)
                 {
                     Debug.Log("Found closest display");
 
-                    var colliderPort = closestDisplay.portCollider2d;
+                    var colliderPort = closestDisplay.collider2DInPort;
+                    closestDisplay.SkinElement = skinElementDisplay.skinElement;
 
-                    Rigidbody2d.linearVelocity = Vector2.zero;
-                    Rigidbody2d.angularVelocity = 0f;
+                    Rigidbody2dString.linearVelocity = Vector2.zero;
+                    Rigidbody2dString.angularVelocity = 0f;
 
-                    Rigidbody2d.position = colliderPort.transform.position;
+                    Rigidbody2dString.position = colliderPort.transform.position;
                 }
                 else
                 {
@@ -95,30 +89,37 @@ public class SkinChangerStrings : MonoBehaviour
             }
         }
     }
-
-    void SetStringPosition(Vector3 PointA, Vector3 PointB)
+    /// <summary> Point A is The Normal Display And B the Main Display
+    /// </summary>
+    /// <param name="PointA"></param>
+    /// <param name="PointB"></param>
+    /// <returns>The two connected Points</returns>
+    /// 
+    public void ConnectElements(SkinElementDisplay normalDisplay, SkinElementDisplayMain mainDisplay)
     {
+        mainDisplay.normalDisplay = normalDisplay;
+
         var Parent = new GameObject().transform;
         Parent.transform.SetParent(parentTransform);
         Parent.transform.localScale = Vector3.one;
 
-        var pointA = Instantiate(PrefabA);
-        var pointB = Instantiate(PrefabB);
+        var pointA = Instantiate(PrefabA); // The Start Point
+        var pointB = Instantiate(PrefabB); // The End Point
 
 
-        pointA.transform.position = PointA;
+        pointA.transform.position = normalDisplay.portCollider2d.transform.position;
         pointA.transform.SetParent(Parent);
         pointA.name = "PointStartA";
         pointA.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
         pointA.tag = "StringPoint";
 
-        pointB.transform.position = PointB;
+        pointB.transform.position = mainDisplay.collider2DInPort.transform.position;
         pointB.transform.SetParent(Parent);
         pointB.name = "PointEndB";
         pointB.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
         pointB.tag = "StringPoint";
 
-        float Distance = Vector3.Distance(PointA, PointB);
+        float Distance = Vector3.Distance(pointA.transform.position, pointB.transform.position);
         int Points = (int)(Distance * 50); // the number defines how many points are spawned
 
         float width = PrefabObject.GetComponent<SpriteRenderer>().bounds.size.x;
@@ -128,7 +129,7 @@ public class SkinChangerStrings : MonoBehaviour
         for (int i = 0; i < Points; i++)
         {
             float t = (float)i / (Points - 1);
-            var Position = Vector3.Lerp(PointA, PointB, t);
+            var Position = Vector3.Lerp(pointA.transform.position, pointB.transform.position, t);
             var Point = Instantiate(PrefabObject);
             if (i == 0)
             {
