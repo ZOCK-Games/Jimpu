@@ -20,75 +20,7 @@ public class SkinChangerStrings : MonoBehaviour
     public GameObject PrefabObject;
     public GameObject PrefabA;
     public GameObject PrefabB;
-    private InputSystem_Actions inputActions;
-    void OnEnable()
-    {
-        inputActions = new InputSystem_Actions();
-        inputActions.UI.Enable();
-        inputActions.UI.Click.performed += ctx => CheckForPoint(ctx);
-    }
-    void OnDisable()
-    {
-        inputActions.Disable();
-    }
-    async Task CheckForPoint(CallbackContext ctx)
-    {
-        Debug.Log("Checking.....");
-        var MousePos = inputActions.UI.Point.ReadValue<Vector2>();
-        var WorldPos = Camera.main.ScreenToWorldPoint(MousePos);
-        var weltPos2D = new Vector2(WorldPos.x, WorldPos.y);
-        Debug.Log(WorldPos);
-        var hit = Physics2D.Raycast(weltPos2D, Vector2.zero);
-        if (hit.collider != null)
-        {
-            Debug.Log("Found hit");
 
-            if (hit.collider.gameObject.tag == "StringPoint")
-            {
-                Debug.Log("Found obj");
-                var Object = hit.collider.gameObject;
-                var Rigidbody2dString = Object.GetComponent<Rigidbody2D>();
-                var parent = Object.transform.parent;
-                var Startpos = Rigidbody2dString.position;
-                var skinElementDisplay = skinChangerManager.skinElementDisplays.Find(x => x.Object == hit.collider.gameObject);
-
-                while (inputActions.UI.Click.IsPressed())
-                {
-                    float speed = 10f;
-
-                    MousePos = inputActions.UI.Point.ReadValue<Vector2>();
-                    WorldPos = Camera.main.ScreenToWorldPoint(new Vector3(MousePos.x, MousePos.y, Mathf.Abs(Camera.main.transform.position.z)));
-                    var targetPos = new Vector2(WorldPos.x, WorldPos.y);
-
-                    var newPos = Vector2.Lerp(Rigidbody2dString.position, targetPos, Time.deltaTime * speed);
-                    Rigidbody2dString.MovePosition(newPos);
-
-
-                    await Task.Yield();
-                }
-                var closestDisplay = skinChangerManager.skinDisplayMains
-                    .OrderBy(x => Vector3.Distance(x.collider2DInPort.transform.position, Rigidbody2dString.position))
-                    .FirstOrDefault();
-
-                if (closestDisplay != null)
-                {
-                    Debug.Log("Found closest display");
-
-                    var colliderPort = closestDisplay.collider2DInPort;
-                    closestDisplay.SkinElement = skinElementDisplay.skinElement;
-
-                    Rigidbody2dString.linearVelocity = Vector2.zero;
-                    Rigidbody2dString.angularVelocity = 0f;
-
-                    Rigidbody2dString.position = colliderPort.transform.position;
-                }
-                else
-                {
-                    Debug.Log("No hit");
-                }
-            }
-        }
-    }
     /// <summary> Point A is The Normal Display And B the Main Display
     /// </summary>
     /// <param name="PointA"></param>

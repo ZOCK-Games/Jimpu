@@ -8,5 +8,4 @@
   <Project Path="CoreAssembly.csproj" />
   <Project Path="Unity.2D.Aseprite.Common.csproj" />
   <Project Path="InputSystem_Actions.csproj" />
-  <Project Path="Discord.Sdk.csproj" />
 </Solution>
