@@ -10,7 +10,6 @@ public class NoteBookManager : MonoBehaviour, IDataPersitence
     public List<RectTransform> DrawingSites;
     public GameObject LineParent;
     public Camera PixelCamera;
-    public ColorPicker colorPicker;
     private UILineRenderer currentLine;
     private List<Vector2> points = new List<Vector2>();
     private InputSystem_Actions inputActions;
@@ -71,7 +70,7 @@ public class NoteBookManager : MonoBehaviour, IDataPersitence
         if (currentLine != null)
         {
             currentLine.LineThickness = FontSizeSlider.value;
-            currentLine.color = colorPicker.PickedColor;
+            //currentLine.color = colorPicker.PickedColor;
         }
     }
 

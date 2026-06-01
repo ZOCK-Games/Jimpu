@@ -9,7 +9,6 @@ public class StartScreenButtons : MonoBehaviour //this script manges all buttons
     public SceneManager SceneManager;
     public string StartSceneName;
     [Header("Buttons")]
-    public Button StartButton;
     public Button ShopButton;
     public Button SkinButton;
     public Button MultiplayerButton;
@@ -25,37 +24,13 @@ public class StartScreenButtons : MonoBehaviour //this script manges all buttons
     void Start()
     {
         TransitionUi.SetActive(false);
-        StartButton.onClick.AddListener(() => StartCoroutine(ExecutingStart()));
         ShopButton.onClick.AddListener(OpeningShop);
         SkinButton.onClick.AddListener(OpeningSkin);
         QuitButton.onClick.AddListener(ExecutingQuit);
         SettingsButton.onClick.AddListener(OpeningSettings);
         MultiplayerButton.onClick.AddListener(OpeningSceneMuliplayer);
     }
-    public IEnumerator ExecutingStart() //is executed when StartButton is being clicked
-    {
-        TransitionUi.SetActive(true);
-        Animator animator = TransitionUi.GetComponent<Animator>();
-        Debug.Log("Start Button Clicked Load Scene: " + StartSceneName);
-        AsyncOperation operation = SceneManager.LoadSceneAsync(StartSceneName);
-        operation.allowSceneActivation = false;
 
-        AnimatorClipInfo[] clipInfo = animator.GetCurrentAnimatorClipInfo(0);
-        float clipLenght = clipInfo[0].clip.length;
-        if (clipInfo.Length == 0)
-        {
-            Debug.LogWarning("No animation clip found!");
-            TransitionUi.SetActive(false);
-            operation.allowSceneActivation = true;
-            yield break;
-
-        }
-        else
-        {
-            yield return new WaitForSeconds(clipLenght);
-            operation.allowSceneActivation = true;
-        }
-    }
     public void OpeningShop() //is executed when ShopButton is being clicked
     {
         Debug.Log("Automatic Save Aktivated!");

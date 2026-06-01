@@ -354,13 +354,12 @@ public class PlayerControll : EntityManager, IDataPersitence
     {
 
         Player.transform.localPosition = manager.dataSOs.playerDataSO.PlayerPosition != null ? manager.dataSOs.playerDataSO.PlayerPosition : Vector3.zero;
-        SkinIndex = manager.dataSOs.playerDataSO.SkinIndex;
         CheckSkin();
-        if (UnityEngine.ColorUtility.TryParseHtmlString("#" + manager.dataSOs.playerDataSO.colorHex, out Color colorHex))
+        /*if (UnityEngine.ColorUtility.TryParseHtmlString("#" + manager.dataSOs.playerDataSO.colorHex, out Color colorHex))
             for (int i = 0; i < BodyPartsContainer.transform.childCount; i++)
             {
                 BodyPartsContainer.transform.GetChild(i).GetComponent<SpriteRenderer>().color = colorHex;
-            }
+            }*/
         healthManagerPlayer.PlayerHealth = manager.dataSOs.playerDataSO.Health! <= 0 ? manager.dataSOs.playerDataSO.Health : 3;
 
     }
@@ -368,7 +367,6 @@ public class PlayerControll : EntityManager, IDataPersitence
     {
         manager.dataSOs.playerDataSO.PlayerPosition = this.Player.transform.localPosition;
         manager.dataSOs.playerDataSO.Health = healthManagerPlayer.PlayerHealth;
-        manager.dataSOs.playerDataSO.SkinIndex = SkinIndex;
     }
 }
 

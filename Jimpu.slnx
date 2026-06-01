@@ -1,11 +1,12 @@
 ﻿<Solution>
   <Project Path="Unity.2D.Aseprite.Editor.csproj" />
   <Project Path="Unity.InternalAPIEditorBridge.001.csproj" />
-  <Project Path="UIAssembly.csproj" />
   <Project Path="DataPersistenceAssembly.csproj" />
   <Project Path="Unity.2D.Aseprite.EditorTests.csproj" />
+  <Project Path="UIAssembly.csproj" />
   <Project Path="GameAssembly.csproj" />
   <Project Path="CoreAssembly.csproj" />
   <Project Path="Unity.2D.Aseprite.Common.csproj" />
   <Project Path="InputSystem_Actions.csproj" />
+  <Project Path="Discord.Sdk.csproj" />
 </Solution>

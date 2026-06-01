@@ -337,69 +337,6 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 180, y: 120}
-  - name: Color 4
-    originalName: 
-    pivot: {x: 12.6, y: -9.8}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    customData: 
-    rect:
-      serializedVersion: 2
-      x: 180
-      y: 154
-      width: 5
-      height: 5
-    spriteID: 1b032f85db670310c89243b9a132c463
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 180, y: 154}
-  - name: Color 3
-    originalName: 
-    pivot: {x: 12.6, y: -11.2}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    customData: 
-    rect:
-      serializedVersion: 2
-      x: 180
-      y: 167
-      width: 5
-      height: 5
-    spriteID: adae2fff70ee5fd7cb0d7b7436f74b01
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 180, y: 167}
-  - name: Color 2
-    originalName: 
-    pivot: {x: 12.6, y: -12.599999}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    customData: 
-    rect:
-      serializedVersion: 2
-      x: 180
-      y: 180
-      width: 5
-      height: 5
-    spriteID: 593e8787b4fbf2aa28ea2e35a3c8e10e
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 180, y: 180}
   - name: Color 1
     originalName: 
     pivot: {x: 12.6, y: -14}
@@ -409,7 +346,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 180
-      y: 193
+      y: 154
       width: 5
       height: 5
     spriteID: 7efb5cf53b687c88799b11ec3f38a7ad
@@ -420,7 +357,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 180, y: 193}
+    uvTransform: {x: 180, y: 154}
   spriteSheetImportData: []
   tileSetImportData: []
   asepriteLayers:
@@ -750,81 +687,6 @@ ScriptedImporter:
         width: 26
         height: 8
       spriteId: 41faa6104c6fd26369170191c3c24bc0
-    linkedCells: []
-    tileCells: []
-    tileSetIndex: 0
-    parentIndex: 15
-  - layerIndex: 17
-    uuid:
-      value0: 3178993527
-      value1: 0
-      value2: 0
-      value3: 0
-    guid: 0
-    name: Color 4
-    layerFlags: 3
-    layerType: 0
-    blendMode: 0
-    cells:
-    - name: Color 4
-      frameIndex: 0
-      additiveSortOrder: 0
-      cellRect:
-        x: 33
-        y: 49
-        width: 5
-        height: 5
-      spriteId: 1b032f85db670310c89243b9a132c463
-    linkedCells: []
-    tileCells: []
-    tileSetIndex: 0
-    parentIndex: 15
-  - layerIndex: 18
-    uuid:
-      value0: 3582278054
-      value1: 0
-      value2: 0
-      value3: 0
-    guid: 0
-    name: Color 3
-    layerFlags: 3
-    layerType: 0
-    blendMode: 0
-    cells:
-    - name: Color 3
-      frameIndex: 0
-      additiveSortOrder: 0
-      cellRect:
-        x: 33
-        y: 56
-        width: 5
-        height: 5
-      spriteId: adae2fff70ee5fd7cb0d7b7436f74b01
-    linkedCells: []
-    tileCells: []
-    tileSetIndex: 0
-    parentIndex: 15
-  - layerIndex: 19
-    uuid:
-      value0: 2016194113
-      value1: 0
-      value2: 0
-      value3: 0
-    guid: 0
-    name: Color 2
-    layerFlags: 3
-    layerType: 0
-    blendMode: 0
-    cells:
-    - name: Color 2
-      frameIndex: 0
-      additiveSortOrder: 0
-      cellRect:
-        x: 33
-        y: 63
-        width: 5
-        height: 5
-      spriteId: 593e8787b4fbf2aa28ea2e35a3c8e10e
     linkedCells: []
     tileCells: []
     tileSetIndex: 0
