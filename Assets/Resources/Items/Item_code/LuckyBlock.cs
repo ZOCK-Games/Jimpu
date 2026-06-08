@@ -3,7 +3,6 @@ using UnityEngine;
 public class LuckyBlock : MonoBehaviour
 {
     private GameObject LuckyBlockObj;
-    private PlayerControll playerControll;
     private Inventory inventory;
     private InputSystem_Actions inputActions;
 
@@ -24,7 +23,6 @@ public class LuckyBlock : MonoBehaviour
     void Start()
     {
         inventory = Inventory.instance;
-        playerControll = PlayerControll.instance;
         LuckyBlockObj = this.gameObject;
         inputActions.Player.Interact.performed += ctx =>
         {
@@ -37,7 +35,7 @@ public class LuckyBlock : MonoBehaviour
 
     public void SpawnChest()
     {
-        Vector3 Position = new Vector3(playerControll.Player.transform.position.x, playerControll.Player.transform.position.y + 1.5f, 0);
+        Vector3 Position = new Vector3(playerControl.instance.Player.transform.position.x, playerControl.instance.Player.transform.position.y + 1.5f, 0);
         ChestManager chestManager = GameObject.FindFirstObjectByType<ChestManager>();
         chestManager.AddChest(Position);
         LuckyBlockObj.SetActive(false);

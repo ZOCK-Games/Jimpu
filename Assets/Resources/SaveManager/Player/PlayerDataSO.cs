@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerDataSO : ScriptableObject
 {
     public Vector3 PlayerPosition;
+    public string LastGameScene;
     public int Health;
     public List<BodyPart> bodyParts;
 }

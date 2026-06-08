@@ -6,7 +6,6 @@ using WebSocketSharp;
 public class EnemyInfo : EntityManager
 {
     public string JimpuID;
-    public PlayerControll playerControll;
     public Transform Target;
     public GameObject JimpuObj;
     public float ViewField = 6;
@@ -71,11 +70,11 @@ public class EnemyInfo : EntityManager
         JimpuAnimator.SetFloat("VelocityX", meshAgent.velocity.magnitude);
         JimpuAnimator.SetFloat("VelocityY", meshAgent.velocity.y);
 
-        if (playerControll != null && transform.position.x > playerControll.Player.transform.position.x)
+        if (playerControl.instance != null && transform.position.x > playerControl.instance.Player.transform.position.x)
         {
             transform.rotation = new Quaternion(0, 0, 0, 0);
         }
-        else if (playerControll != null && transform.position.x < playerControll.Player.transform.position.x)
+        else if (playerControl.instance != null && transform.position.x < playerControl.instance.Player.transform.position.x)
         {
             transform.rotation = new Quaternion(0, 180, 0, 0);
         }
@@ -90,9 +89,9 @@ public class EnemyInfo : EntityManager
     {
         while (true)
         {
-            if (meshAgent.isOnNavMesh && playerControll != null)
+            if (meshAgent.isOnNavMesh && playerControl.instance != null)
             {
-                float sqrDistance = (playerControll.Player.transform.position - transform.position).sqrMagnitude;
+                float sqrDistance = (playerControl.instance.Player.transform.position - transform.position).sqrMagnitude;
                 meshAgent.isStopped = sqrDistance > (ViewField * ViewField);
             }
             yield return new WaitForSeconds(0.5f); // Needs to bee here so it doesn't crash

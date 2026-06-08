@@ -4,7 +4,6 @@ using UnityEngine.UI;
 public class CheatGoodMode : MonoBehaviour
 {
     public Button GoodButton;
-    public PlayerControll playerControll;
     private bool IsActive;
     private float NormalGravity;
     private InputSystem_Actions inputActions;
@@ -25,7 +24,7 @@ public class CheatGoodMode : MonoBehaviour
     void Start()
     {
         IsActive = false;
-        NormalGravity = playerControll.rb.gravityScale;
+        NormalGravity = playerControl.instance.rb.gravityScale;
         GoodButton.onClick.AddListener(ToggleMode);
         inputActions.Player.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
         inputActions.Player.Move.canceled += ctx => moveInput = Vector2.zero;
@@ -35,7 +34,7 @@ public class CheatGoodMode : MonoBehaviour
         if (IsActive);
         {
             Vector3 move = new Vector3(moveInput.x, moveInput.y, 0);
-            playerControll.transform.position += move * 5 * Time.deltaTime;
+            playerControl.instance.transform.position += move * 5 * Time.deltaTime;
         }
     }
 
@@ -53,16 +52,16 @@ public class CheatGoodMode : MonoBehaviour
     }
     void Activate()
     {
-        playerControll.playerCollider.isTrigger = true;
-        playerControll.CanMove = false;
-        playerControll.rb.bodyType = RigidbodyType2D.Kinematic;
+        playerControl.instance.playerCollider.isTrigger = true;
+        playerControl.instance.CanMove = false;
+        playerControl.instance.rb.bodyType = RigidbodyType2D.Kinematic;
         IsActive = true;
     }
     void Deactivate()
     {
-        playerControll.CanMove = true;
-        playerControll.rb.bodyType = RigidbodyType2D.Dynamic;
-        playerControll.playerCollider.isTrigger = false;
+        playerControl.instance.CanMove = true;
+        playerControl.instance.rb.bodyType = RigidbodyType2D.Dynamic;
+        playerControl.instance.playerCollider.isTrigger = false;
         IsActive = false;
     }
 }

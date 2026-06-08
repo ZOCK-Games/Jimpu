@@ -4,7 +4,6 @@ using UnityEngine;
 public class SpeedItemScribt : MonoBehaviour
 {
     [SerializeField] private float Adding = 2;
-    private PlayerControll PlayerScribt;
     public GameObject SpeedObjekt;
     public Inventory inventory;
     private bool PowerAktive;
@@ -29,7 +28,6 @@ public class SpeedItemScribt : MonoBehaviour
     {
         Adding = 2;
         inventory = GetComponentInParent<ItemInfoManager>().inventory;
-        PlayerScribt = GetComponentInParent<ItemInfoManager>().playerControll;
         SpeedObjekt = this.gameObject;
         PowerAktive = false;
         inputActions.Player.Interact.performed += ctx => CheckInput();
@@ -40,9 +38,9 @@ public class SpeedItemScribt : MonoBehaviour
         if (SpeedObjekt.activeSelf && !PowerAktive)
         {
             PowerAktive = true;
-            MoveBevore = PlayerScribt.MoveSpeed;
+            MoveBevore = playerControl.instance.PlayerMovement.MoveSpeed;
 
-            PlayerScribt.MoveSpeed += Adding;
+            playerControl.instance.PlayerMovement.MoveSpeed += Adding;
             Debug.Log("Power Used Power is aktive");
             StartCoroutine(Waiting());
         }
@@ -51,11 +49,11 @@ public class SpeedItemScribt : MonoBehaviour
     }
     public void ResetStats()
     {
-        PlayerScribt.MoveSpeed = MoveBevore;
+        playerControl.instance.PlayerMovement.MoveSpeed = MoveBevore;
         PowerAktive = false;
         inventory.RemoveItem(inventory.HandSlot.ItemStored, -10, null);
         Debug.Log("Power Used Power is Disabled & reset");
-        PlayerScribt.JumpSpeed = 350; // to prevent it from making it to low soe how..
+        playerControl.instance.PlayerMovement.JumpForce = 350; // to prevent it from making it to low soe how..
         SpeedObjekt.SetActive(false);
     }
 

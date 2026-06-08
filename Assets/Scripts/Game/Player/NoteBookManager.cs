@@ -9,7 +9,6 @@ public class NoteBookManager : MonoBehaviour, IDataPersitence
     public GameObject linePrefab;
     public List<RectTransform> DrawingSites;
     public GameObject LineParent;
-    public Camera PixelCamera;
     private UILineRenderer currentLine;
     private List<Vector2> points = new List<Vector2>();
     private InputSystem_Actions inputActions;

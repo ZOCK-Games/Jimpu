@@ -8,26 +8,27 @@ public class BulletShootVoice : MonoBehaviour
     public List<GameObject> Bullets;
     public Transform BulletContainer;
     public bool ShootAllsided;
-    public PlayerControll playerControll;
     public Transform ShotingPositionShooter;
     public bool ShootBullet;
+    public Transform TargetPos;
     void Start()
     {
-        StartCoroutine(Shoot(playerControll.Player.transform, Bullets[0], ShotingPositionShooter, 2, 2, 0, true));
+        StartCoroutine(Shoot(playerControl.instance.Player.transform, Bullets[0], ShotingPositionShooter, 2, 2, 0, true));
+        TargetPos = playerControl.instance.Player.transform;
     }
     void Update()
     {
         if (ShootBullet)
         {
             ShootBullet = false;
-            StartCoroutine(Shoot(playerControll.Player.transform, Bullets[0], ShotingPositionShooter, 2, 2, 0, false));
+            StartCoroutine(Shoot(playerControl.instance.Player.transform, Bullets[0], ShotingPositionShooter, 2, 2, 0, false));
         }
 
         if (ShootAllsided)
         {
             ShootAllsided = false;
-            Transform transformPos = playerControll.Player.transform;
-            ShotToRadius(playerControll.Player.transform, Bullets[0], ShotingPositionShooter, 2, 2, 0, true);
+            Transform transformPos = playerControl.instance.Player.transform;
+            ShotToRadius(playerControl.instance.Player.transform, Bullets[0], ShotingPositionShooter, 2, 2, 0, true);
         }
     }
     public void ShotToRadius(Transform transformPos, GameObject BulletType, Transform ShotingPosition, float BulletSpeed, int BulletCount, float BulletShotCountdown, bool DuplicateOnWallHit)

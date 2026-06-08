@@ -52,7 +52,7 @@ public class DampfWurmManager : EntityManager
     }
     protected override void Die()
     {
-        GetComponent<SeatSystem>().StandUp(PlayerControll.instance.Player.transform, transform);
+        GetComponent<SeatSystem>().StandUp(playerControl.instance.Player.transform, transform);
         foreach (Rigidbody2D rigidbody in rbs)
         {
             rigidbody.gravityScale = 0.4f;

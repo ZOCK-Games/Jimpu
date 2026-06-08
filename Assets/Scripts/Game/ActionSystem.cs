@@ -5,7 +5,6 @@ using UnityEngine;
 public class ActionSystem : MonoBehaviour
 {
     public Rigidbody2D PlayerRB;
-    public PlayerControll playerControll;
     public enum ActionType
     {
         Input,

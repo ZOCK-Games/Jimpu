@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class GravityChanger : MonoBehaviour
 {
-    private PlayerControll PlayerScribt;
     private GameObject GravityChangingObjekt;
     public bool reset;
     public bool BlockUse;
@@ -25,7 +24,6 @@ public class GravityChanger : MonoBehaviour
     void Start()
     {
         GravityChangingObjekt = this.gameObject;
-        PlayerScribt = GetComponentInParent<ItemInfoManager>().playerControll;
         inventory = GetComponentInParent<ItemInfoManager>().inventory;
         reset = false;
         BlockUse = false;
@@ -34,19 +32,19 @@ public class GravityChanger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float DefaultJump = PlayerScribt.JumpSpeed;
+        float DefaultJump = playerControl.instance.PlayerMovement.JumpForce;
         if (GravityChangingObjekt.activeSelf && inputActions.Player.Interact.WasPerformedThisFrame() && !BlockUse)
         {
-            PlayerScribt.rb.gravityScale = -0.25f;
-            PlayerScribt.transform.rotation = new Quaternion(180,0,0,0);
-            PlayerScribt.JumpSpeed = -DefaultJump / 3;
+            playerControl.instance.rb.gravityScale = -0.25f;
+            playerControl.instance.transform.rotation = new Quaternion(180,0,0,0);
+            playerControl.instance.PlayerMovement.JumpForce = -DefaultJump / 3;
             StartCoroutine(IsAktive());
         }
         if (reset == true && inputActions.Player.Interact.WasPerformedThisFrame())
         {
-            PlayerScribt.transform.rotation = new Quaternion(0,0,0,0);
-            PlayerScribt.rb.gravityScale = 1f;
-            PlayerScribt.JumpSpeed = 350;
+            playerControl.instance.transform.rotation = new Quaternion(0,0,0,0);
+            playerControl.instance.rb.gravityScale = 1f;
+            playerControl.instance.PlayerMovement.JumpForce = 350;
             StartCoroutine(GoDown());
             Debug.Log("Reset");
         }

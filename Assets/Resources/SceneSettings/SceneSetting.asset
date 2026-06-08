@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9b1add1618b8c69fbc040bae7f3ba8b, type: 3}
+  m_Name: SceneSetting
+  m_EditorClassIdentifier: CoreAssembly::sceneSetting
+  sceneSettings:
+  - sceneName: Intro
+    tag: 0
+  - sceneName: Start Screen
+    tag: 0
+  - sceneName: Shop Scene
+    tag: 0
+  - sceneName: Settings
+    tag: 0
+  - sceneName: Death
+    tag: 0
+  - sceneName: Multiplayer
+    tag: 0
+  - sceneName: Party
+    tag: 0
+  - sceneName: SkinChanger
+    tag: 0
+  - sceneName: Post-Credits Message
+    tag: 0
+  - sceneName: SpaceCrash-1
+    tag: 0
+  - sceneName: SpaceCrash-0
+    tag: 0
+  - sceneName: GameTutorial
+    tag: 2

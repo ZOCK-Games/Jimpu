@@ -14,6 +14,7 @@ public class DataSOs
     public UserSettingsSO userSettingsSO;
     public InventorDataSO inventorDataSO;
     public NoteBookListSO noteBookDataSO;
+    public GameProgressDataSO gameProgressDataSO;
 }
 
 public class SaveManager : MonoBehaviour
@@ -48,7 +49,8 @@ public class SaveManager : MonoBehaviour
                 JimpuListData =  scriptableObjects.OfType<JimpuListData>().FirstOrDefault(),
                 userSettingsSO =  scriptableObjects.OfType<UserSettingsSO>().FirstOrDefault(),
                 inventorDataSO =  scriptableObjects.OfType<InventorDataSO>().FirstOrDefault(),
-                noteBookDataSO =  scriptableObjects.OfType<NoteBookListSO>().FirstOrDefault()
+                noteBookDataSO =  scriptableObjects.OfType<NoteBookListSO>().FirstOrDefault(),
+                gameProgressDataSO = scriptableObjects.OfType<GameProgressDataSO>().FirstOrDefault()
             };
             dataSOs = data;
 
@@ -87,6 +89,7 @@ public class SaveManager : MonoBehaviour
         WriteData(dataSOs.userSettingsSO, "SettingsData.dat");
         WriteData(dataSOs.inventorDataSO, "InventoryData.dat");
         WriteData(dataSOs.noteBookDataSO, "NoteBookData.dat");
+        WriteData(dataSOs.gameProgressDataSO, "GameProgressData.dat");
 
         /// <summary>
         /// Writes the data from the Scriptable Objects
@@ -121,6 +124,7 @@ public class SaveManager : MonoBehaviour
         LoadFile("/JimpuData.dat", dataSOs.JimpuListData);
         LoadFile("/SettingsData.dat", dataSOs.userSettingsSO);
         LoadFile("/InventoryData.dat", dataSOs.inventorDataSO);
+        LoadFile("/GameProgressData.dat", dataSOs.gameProgressDataSO);
 
         IEnumerable<IDataPersitence> dataPersistenceObjects =
             FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None).OfType<IDataPersitence>();

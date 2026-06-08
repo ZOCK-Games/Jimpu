@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class BombScribt : MonoBehaviour
 {
     [SerializeField] private Tilemap BlockTilemap;
-    [SerializeField] private PlayerControll playerControll;
     [SerializeField] private GameObject ExplosionBigPrefab;
     [SerializeField] private Button AddButton;
     [SerializeField] private Button SubtractButton;
@@ -32,13 +31,13 @@ public class BombScribt : MonoBehaviour
     public void SetBombPosition()
     {
         GameObject BombPrefab = Instantiate(ExplosionBigPrefab);
-        BombPrefab.transform.position = playerControll.Player.transform.position;
+        BombPrefab.transform.position = playerControl.instance.Player.transform.position;
         UnityEngine.Vector3 Size = new UnityEngine.Vector3(ExplosionRadius, ExplosionRadius, 0);
         BombPrefab.transform.localScale = Size;
         Destroy(BombPrefab, 1.5f);
         for (int i = 0; i < 125 * ExplosionRadius; i++)
         {
-            Vector2 Playerpos = playerControll.Player.transform.position;
+            Vector2 Playerpos = playerControl.instance.Player.transform.position;
             float TilePosY = Playerpos.y + Random.Range(ExplosionRadius, -ExplosionRadius);
             float TilePosX = Playerpos.x + Random.Range(ExplosionRadius, -ExplosionRadius);
 

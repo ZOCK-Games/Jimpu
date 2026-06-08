@@ -6,7 +6,6 @@ using UnityEngine.AI;
 public class DrunkenJimpuManager : EntityManager
 {
     private NavMeshAgent navMeshAgent;
-    public PlayerControll playerControll;
     public float Speed;
     private Rigidbody2D rigidbody2D;
     public Animator Animation;
@@ -41,19 +40,19 @@ public class DrunkenJimpuManager : EntityManager
     }
     protected  void Update()
     {
-        navMeshAgent.SetDestination(playerControll.Player.transform.position);
-        float Distance = Vector3.Distance(playerControll.Player.transform.position, this.gameObject.transform.position);
+        navMeshAgent.SetDestination(playerControl.instance.Player.transform.position);
+        float Distance = Vector3.Distance(playerControl.instance.Player.transform.position, this.gameObject.transform.position);
         if (Distance < 1.5 && !IsAttacking)
         {
             navMeshAgent.isStopped = true;
             StartCoroutine(Attack());
         }
-        if (transform.position.x > playerControll.Player.transform.position.x)
+        if (transform.position.x > playerControl.instance.Player.transform.position.x)
         {
             // The player is on his right side
             transform.rotation = new Quaternion(0, 0, 0, 0);
         }
-        else if (transform.position.x < playerControll.Player.transform.position.x)
+        else if (transform.position.x < playerControl.instance.Player.transform.position.x)
         {
             // The player is on his left side
             transform.rotation = new Quaternion(0, 180, 0, 0);
@@ -91,10 +90,10 @@ public class DrunkenJimpuManager : EntityManager
         Rigidbody2D rb = BotelPrefab.AddComponent<Rigidbody2D>();
         BotelPrefab.AddComponent<CapsuleCollider2D>();
 
-        Vector2 VelocityUP = new Vector2((playerControll.transform.position.x - BotelPrefab.transform.position.x) / 3, 2);
+        Vector2 VelocityUP = new Vector2((playerControl.instance.transform.position.x - BotelPrefab.transform.position.x) / 3, 2);
         rb.linearVelocity = (VelocityUP * Speed) / 1.8f;
         yield return new WaitForSeconds(0.15f);
-        Vector2 Velocity = playerControll.transform.position - BotelPrefab.transform.position;
+        Vector2 Velocity = playerControl.instance.transform.position - BotelPrefab.transform.position;
         rb.linearVelocity = Velocity * Speed;
         IsAttacking = false;
     }

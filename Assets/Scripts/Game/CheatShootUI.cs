@@ -59,7 +59,7 @@ public class CheatShootUI : MonoBehaviour
             Transform ShootTarget = null;
             if (Target.value == 0)
             {
-                ShootTarget = bulletShootVoice.playerControll.Player.transform; //Player Pos
+                ShootTarget = bulletShootVoice.TargetPos; //Player Pos
             }
             else if (Target.value == 1)
             {
@@ -79,7 +79,7 @@ public class CheatShootUI : MonoBehaviour
             Transform ShootingPosition = null;
             if (Target.value == 0)
             {
-                ShootingPosition = bulletShootVoice.playerControll.Player.transform; //Player Pos
+                ShootingPosition = bulletShootVoice.TargetPos; //Player Pos
             }
             else if (Target.value == 1)
             {
@@ -125,7 +125,7 @@ public class CheatShootUI : MonoBehaviour
         Transform ShootTarget = null;
         if (Target.value == 0)
         {
-            ShootTarget = bulletShootVoice.playerControll.Player.transform; //Player Pos
+            ShootTarget = bulletShootVoice.TargetPos; //Player Pos
         }
         else if (Target.value == 1)
         {
@@ -145,7 +145,7 @@ public class CheatShootUI : MonoBehaviour
         Transform ShootingPosition = null;
         if (Target.value == 0)
         {
-            ShootingPosition = bulletShootVoice.playerControll.Player.transform; //Player Pos
+            ShootingPosition = bulletShootVoice.TargetPos; //Player Pos
         }
         else if (Target.value == 1)
         {

@@ -10,35 +10,18 @@ public class DamageTags
 }
 public class HealthManagerPlayer : MonoBehaviour
 {
-    public List<DamageTags> DamageInfo = new List<DamageTags>();
+    public static HealthManagerPlayer instance {get; set;}
+    [SerializeField] private List<DamageTags> DamageInfo = new List<DamageTags>();
     public int PlayerHealth;
-    public GameObject HeartContainer;
-    public GameObject HeartPrefab;
-    public GameObject DamageParticle;
-    public GameObject HealParticle;
-    public VibrateControllerManager vibrateController;
-    void Start()
-    {
-
-    }
-
+    public Action<int> HealthChanged;
+    [SerializeField] private GameObject DamageParticle;
+    [SerializeField] private GameObject HealParticle;
     // Update is called once per frame
-    void Update()
+    void Awake()
     {
-        ////////////////////////////////////////////////////////
-        ///             Heart System                         ///
-        ////////////////////////////////////////////////////////
-
-        if (HeartContainer.transform.childCount != PlayerHealth)
+        if (instance == null)
         {
-            foreach (Transform child in HeartContainer.transform)
-            {
-                Destroy(child.gameObject);
-            }
-            for (int i = 0; i < PlayerHealth; i++)
-            {
-                GameObject HeartObj = Instantiate(HeartPrefab, HeartContainer.transform);
-            }
+            instance = this;
         }
     }
     void OnTriggerEnter2D(Collider2D collision)
@@ -59,8 +42,9 @@ public class HealthManagerPlayer : MonoBehaviour
                     Particel.transform.position = collision.gameObject.transform.position;
                     Destroy(Particel, 0.2f);
                 }
-                vibrateController.VibrateController(0.5f, 0f, 2f);
+                VibrateControllerManager.instance.VibrateController(0.5f, 0f, 2f);
                 PlayerHealth += DamageInfo[i].Damage;
+                HealthChanged.Invoke(PlayerHealth);
                 Debug.Log("New Health for player: " + PlayerHealth);
             }
         }

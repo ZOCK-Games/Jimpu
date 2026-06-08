@@ -8,7 +8,6 @@ public class VoiceManager : MonoBehaviour
     [SerializeField] private float Mode;
     [SerializeField] private Animator VoiceAnimator;
     [SerializeField] private TextMeshProUGUI TextField;
-    [SerializeField] private PlayerControll playerControll;
     [SerializeField] private BulletShootVoice bulletShootVoice;
     [Header("AttackSettings")]
     public Transform ShootingPosition;
@@ -37,7 +36,7 @@ public class VoiceManager : MonoBehaviour
         TextField.text = "Thats enough You wont make it out alive!";
 
         StartCoroutine(bulletShootVoice.Shoot(
-        playerControll.Player.transform,
+        playerControl.instance.Player.transform,
         bulletShootVoice.Bullets[0],
         ShootingPosition,
         Random.Range(MinBulletSpeed,
@@ -45,12 +44,12 @@ public class VoiceManager : MonoBehaviour
         10,
         Random.Range(MaxBulletShotCountdown,MinBulletShotCountdown), false));
 
-        playerControll.rb.linearVelocityX = 0.31f;
+        playerControl.instance.rb.linearVelocityX = 0.31f;
 
     }
     void Update()
     {
-        if (playerControll.rb.linearVelocityX > 0.6f)
+        if (playerControl.instance.rb.linearVelocityX > 0.6f)
         {
             StopCoroutine(WalkLeftWaiting());
             TextField.text = "I knew you can do it (=";

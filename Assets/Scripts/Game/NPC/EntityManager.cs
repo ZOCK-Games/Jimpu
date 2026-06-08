@@ -6,7 +6,7 @@ public class EntityManager : MonoBehaviour
 {
     public string npcName;
     [SerializeField] private float Health;
-    public Animator DeathAnimator;
+    public Animator MoveAnimator;
     public TextMeshPro HealthText;
     public bool CanMove;
     public bool canTakeDamage;
@@ -19,10 +19,9 @@ public class EntityManager : MonoBehaviour
     protected virtual void Start()
     {
         canTakeDamage = true;
-        DeathAnimator = this.GetComponent<Animator>();
-        if (DeathAnimator == null)
+        if (MoveAnimator == null)
         {
-            DeathAnimator = GetComponentInChildren<Animator>();
+            MoveAnimator = GetComponentInChildren<Animator>();
         }
         HealthText = (TextMeshPro)GetComponentInChildren<TMPro.TMP_Text>(true);
         if (HealthText == null)
@@ -92,7 +91,6 @@ public class EntityManager : MonoBehaviour
     public virtual void SetIsSeated(bool Bool)
     {
         IsSeated = Bool;
-        Debug.Log("Basis-Methode aufgerufen von: " + this.GetType().Name);
     }
     /// <summary>
     /// The Standard Die Function
@@ -102,17 +100,17 @@ public class EntityManager : MonoBehaviour
     {
         ParticelManager.instance.SpawnParticle(transform.position, "Particle System Damage", 0.6f);
 
-        if (DeathAnimator != null)
+        if (MoveAnimator != null)
         {
-            DeathAnimator.SetBool("Death", true);
+            MoveAnimator.SetBool("Death", true);
         }
 
-        else if (DeathAnimator == null)
+        else if (MoveAnimator == null)
         {
-            DeathAnimator = GetComponentInChildren<Animator>();
-            if (DeathAnimator != null)
+            MoveAnimator = GetComponentInChildren<Animator>();
+            if (MoveAnimator != null)
             {
-                DeathAnimator.SetBool("Death", true);
+                MoveAnimator.SetBool("Death", true);
             }
         }
 

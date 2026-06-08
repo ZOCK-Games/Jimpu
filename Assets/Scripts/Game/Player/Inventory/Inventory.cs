@@ -117,13 +117,13 @@ public class Inventory : MonoBehaviour, IDataPersitence
         if (!IsActive)
         {
             CloseButton.Select();
-            PlayerControll.instance.CanMove = false;
-            PlayerControll.instance.CanAttack = false;
+            playerControl.instance.CanMove = false;
+            playerControl.instance.PlayerState.CanAttack = false;
         }
         else
         {
-            PlayerControll.instance.CanMove = true;
-            PlayerControll.instance.CanAttack = true;
+            playerControl.instance.CanMove = true;
+            playerControl.instance.PlayerState.CanAttack = true;
         }
         InventoryUI.SetActive(!IsActive);
     }

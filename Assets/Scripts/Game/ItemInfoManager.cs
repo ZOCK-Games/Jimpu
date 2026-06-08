@@ -3,7 +3,6 @@ using UnityEngine.Tilemaps;
 
 public class ItemInfoManager : MonoBehaviour //Can be used by the items for getting information's
 {
-    public PlayerControll playerControll;
     public Inventory inventory;
     public ChestManager chestManager;
     public EnemyScript enemyScript;

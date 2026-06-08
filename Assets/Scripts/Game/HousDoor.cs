@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class HousDoor : MonoBehaviour
 {
     [Header("Animator Trigger Names")]
-    public PlayerControll playerControll;
     public float InfoTextRange;
     public string GoToScene;
     public GameObject UILoading;

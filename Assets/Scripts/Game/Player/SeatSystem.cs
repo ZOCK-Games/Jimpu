@@ -1,35 +1,38 @@
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 public class SeatSystem : MonoBehaviour
 {
     private bool Seated;
     private Transform EntitySeatPosition;
-public virtual void Sit(Transform entityToBeSeated, Transform ObjectSeat, EntityManager entity = null, EntityManager seatObject = null)
-{
-    if (entity == null) 
+    public virtual void Sit(Transform entityToBeSeated, Transform ObjectSeat, EntityManager entity = null, EntityManager seatObject = null)
     {
-        entity = entityToBeSeated.GetComponent<EntityManager>();
-    }
-
-    if (seatObject == null)
-    {
-        seatObject = GetComponent<EntityManager>();
-    }
-
-    if (entity != null && entity.canBeSeated)
-    {
-        entity.SetIsSeated(true);
-
-        if (seatObject != null)
+        if (entity == null)
         {
-            seatObject.SetIsSeated(true); 
+            entity = entityToBeSeated.GetComponent<EntityManager>();
         }
 
-        Seated = true;
-        StartCoroutine(SetPosition(entityToBeSeated, ObjectSeat));
+
+        if (seatObject == null)
+        {
+            seatObject = GetComponent<EntityManager>();
+        }
+
+        if (entity != null && entity.canBeSeated)
+        {
+            entity.SetIsSeated(true);
+
+            if (seatObject != null)
+            {
+                seatObject.SetIsSeated(true);
+            }
+            entity.MoveAnimator.SetBool("Seated", true);
+            
+            Seated = true;
+            StartCoroutine(SetPosition(entityToBeSeated, ObjectSeat));
+        }
     }
-}
 
     private IEnumerator SetPosition(Transform entityToBeSeated, Transform ObjectSeat, float TimeToSet = -1)
     {
@@ -59,6 +62,8 @@ public virtual void Sit(Transform entityToBeSeated, Transform ObjectSeat, Entity
         EntityManager entity = ObjectToStandUp.gameObject.GetComponent<EntityManager>();
         Seated = false;
         entity.SetMovement(true);
-        GetComponent<EntityManager>()?.SetIsSeated(false);
+
+        entity.MoveAnimator.SetBool("Seated", false);
+
     }
 }

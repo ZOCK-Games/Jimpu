@@ -10,7 +10,6 @@ public class EnemyAttackController : MonoBehaviour
     public float loadTime = 1f;
     public float decisionTime = 3f;
     public float travelDuration = 3f;
-    [SerializeField] private PlayerControll playerControll;
     [SerializeField] private EnemyScript enemyScript;
     [SerializeField] private GameObject EnemyContainer;
     [SerializeField] private GameObject GridTilemaps;

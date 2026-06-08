@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.IO;
 
 public class ClearData : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class ClearData : MonoBehaviour
     void DeleteData()
     {
         Debug.Log("Data cleared and new game started.");
+        Directory.Delete(Application.persistentDataPath, true);
     }
 
 
