@@ -190,7 +190,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 216}
-  - name: Coin1
+  - name: Items-Coins-Coin1
     originalName: 
     pivot: {x: 16, y: -2.2}
     alignment: 9
@@ -198,11 +198,11 @@ ScriptedImporter:
     customData: 
     rect:
       serializedVersion: 2
-      x: 228
-      y: 120
+      x: 222
+      y: 164
       width: 5
       height: 5
-    spriteID: ba81620b07f0eb7e8b647d3eb67b0855
+    spriteID: 6ad5bd574200aa24fbfc913f8b0fc8ec
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -210,8 +210,8 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 228, y: 120}
-  - name: Coin2
+    uvTransform: {x: 222, y: 164}
+  - name: Items-Coins-Coin2
     originalName: 
     pivot: {x: 12.833333, y: -2.1666667}
     alignment: 9
@@ -219,11 +219,11 @@ ScriptedImporter:
     customData: 
     rect:
       serializedVersion: 2
-      x: 214
-      y: 120
+      x: 222
+      y: 150
       width: 6
       height: 6
-    spriteID: 03e13e5d37e4132cb863e8b9e71f5ebc
+    spriteID: e934616c6bdfd7d40897859bfb70efef
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -231,8 +231,8 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 214, y: 120}
-  - name: Coin3
+    uvTransform: {x: 222, y: 150}
+  - name: Items-Coins-Coin3
     originalName: 
     pivot: {x: 14.8, y: -2.2}
     alignment: 9
@@ -240,11 +240,11 @@ ScriptedImporter:
     customData: 
     rect:
       serializedVersion: 2
-      x: 241
-      y: 120
+      x: 222
+      y: 177
       width: 5
       height: 5
-    spriteID: ca46a360ec0f03e4dada0e4ae06da604
+    spriteID: 377664f160631ec48bad08177f83db16
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -252,8 +252,8 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 241, y: 120}
-  - name: Feather
+    uvTransform: {x: 222, y: 177}
+  - name: Items-Feather
     originalName: 
     pivot: {x: -7.3333335, y: -8.1}
     alignment: 9
@@ -261,11 +261,11 @@ ScriptedImporter:
     customData: 
     rect:
       serializedVersion: 2
-      x: 180
-      y: 136
+      x: 204
+      y: 170
       width: 9
       height: 10
-    spriteID: ba5c0a59151efdc52a0a1fdf4f3cd3be
+    spriteID: a6b496ca9337b984a93082d00aa26606
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -273,8 +273,8 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 180, y: 136}
-  - name: Vertical
+    uvTransform: {x: 204, y: 170}
+  - name: Lines-Vertical
     originalName: 
     pivot: {x: 0.47183096, y: -0.28787878}
     alignment: 9
@@ -286,7 +286,7 @@ ScriptedImporter:
       y: 377
       width: 142
       height: 66
-    spriteID: 5aec328799d755bd1a023dbac4474fea
+    spriteID: e22665b3945421946819b3678ca35c75
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -295,7 +295,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 377}
-  - name: HorizontalLines
+  - name: Lines-HorizontalLines
     originalName: 
     pivot: {x: 0.47101453, y: -0.1917808}
     alignment: 9
@@ -307,7 +307,7 @@ ScriptedImporter:
       y: 296
       width: 138
       height: 73
-    spriteID: 1d1d4c8c5e4cd08bdad29ea886e72b78
+    spriteID: 03c172dd3af41744094a4751b5ebecc7
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -316,7 +316,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 296}
-  - name: Text Field
+  - name: Color + Text Field-Text Field
     originalName: 
     pivot: {x: 2.4615383, y: -9.625}
     alignment: 9
@@ -325,10 +325,52 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 180
-      y: 120
+      y: 198
       width: 26
       height: 8
-    spriteID: 41faa6104c6fd26369170191c3c24bc0
+    spriteID: 871d99a499040784c9063eef50265d7a
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 180, y: 198}
+  - name: SkinPartPaper
+    originalName: 
+    pivot: {x: 1.9999999, y: -2.55}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 180
+      y: 170
+      width: 16
+      height: 20
+    spriteID: b3bf888a996050647ae393922db92b11
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 180, y: 170}
+  - name: SkinPaperMain
+    originalName: 
+    pivot: {x: 0.14705877, y: -0.7619048}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 180
+      y: 120
+      width: 34
+      height: 42
+    spriteID: ea6ebea8b15c06c40b8616d062991e11
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -337,19 +379,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 180, y: 120}
-  - name: Color 1
+  - name: PinBlue
     originalName: 
-    pivot: {x: 12.6, y: -14}
+    pivot: {x: 6.571429, y: -8.428572}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
     rect:
       serializedVersion: 2
-      x: 180
-      y: 154
-      width: 5
-      height: 5
-    spriteID: 7efb5cf53b687c88799b11ec3f38a7ad
+      x: 222
+      y: 120
+      width: 7
+      height: 7
+    spriteID: b7937326218429b4992ec7bdac556fdb
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -357,7 +399,49 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 180, y: 154}
+    uvTransform: {x: 222, y: 120}
+  - name: PinYellow
+    originalName: 
+    pivot: {x: 7.4285707, y: -8.428572}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 222
+      y: 135
+      width: 7
+      height: 7
+    spriteID: 874fbfeb9914d054ea9d43ad9a4e0937
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 222, y: 135}
+  - name: Color + Text Field-Color 1
+    originalName: 
+    pivot: {x: 12.6, y: -14}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 222
+      y: 190
+      width: 5
+      height: 5
+    spriteID: 42dcee3680c4a2c4a9983d6f36254bbe
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 222, y: 190}
   spriteSheetImportData: []
   tileSetImportData: []
   asepriteLayers:
@@ -438,204 +522,6 @@ ScriptedImporter:
     parentIndex: -1
   - layerIndex: 3
     uuid:
-      value0: 3356135654
-      value1: 0
-      value2: 0
-      value3: 0
-    guid: 0
-    name: Items
-    layerFlags: 3
-    layerType: 1
-    blendMode: 0
-    cells: []
-    linkedCells: []
-    tileCells: []
-    tileSetIndex: 0
-    parentIndex: -1
-  - layerIndex: 4
-    uuid:
-      value0: 1379600125
-      value1: 0
-      value2: 0
-      value3: 0
-    guid: 0
-    name: Coins
-    layerFlags: 35
-    layerType: 1
-    blendMode: 0
-    cells: []
-    linkedCells: []
-    tileCells: []
-    tileSetIndex: 0
-    parentIndex: 3
-  - layerIndex: 5
-    uuid:
-      value0: 793177732
-      value1: 0
-      value2: 0
-      value3: 0
-    guid: 0
-    name: Coin1
-    layerFlags: 3
-    layerType: 0
-    blendMode: 0
-    cells:
-    - name: Coin1
-      frameIndex: 0
-      additiveSortOrder: 0
-      cellRect:
-        x: 16
-        y: 11
-        width: 5
-        height: 5
-      spriteId: ba81620b07f0eb7e8b647d3eb67b0855
-    linkedCells: []
-    tileCells: []
-    tileSetIndex: 0
-    parentIndex: 4
-  - layerIndex: 6
-    uuid:
-      value0: 793177735
-      value1: 0
-      value2: 0
-      value3: 0
-    guid: 0
-    name: Coin2
-    layerFlags: 3
-    layerType: 0
-    blendMode: 0
-    cells:
-    - name: Coin2
-      frameIndex: 0
-      additiveSortOrder: 0
-      cellRect:
-        x: 19
-        y: 13
-        width: 6
-        height: 6
-      spriteId: 03e13e5d37e4132cb863e8b9e71f5ebc
-    linkedCells: []
-    tileCells: []
-    tileSetIndex: 0
-    parentIndex: 4
-  - layerIndex: 7
-    uuid:
-      value0: 793177734
-      value1: 0
-      value2: 0
-      value3: 0
-    guid: 0
-    name: Coin3
-    layerFlags: 3
-    layerType: 0
-    blendMode: 0
-    cells:
-    - name: Coin3
-      frameIndex: 0
-      additiveSortOrder: 0
-      cellRect:
-        x: 22
-        y: 11
-        width: 5
-        height: 5
-      spriteId: ca46a360ec0f03e4dada0e4ae06da604
-    linkedCells: []
-    tileCells: []
-    tileSetIndex: 0
-    parentIndex: 4
-  - layerIndex: 8
-    uuid:
-      value0: 3429905354
-      value1: 0
-      value2: 0
-      value3: 0
-    guid: 0
-    name: Feather
-    layerFlags: 3
-    layerType: 0
-    blendMode: 0
-    cells:
-    - name: Feather
-      frameIndex: 0
-      additiveSortOrder: 0
-      cellRect:
-        x: 162
-        y: 81
-        width: 9
-        height: 10
-      spriteId: ba5c0a59151efdc52a0a1fdf4f3cd3be
-    linkedCells: []
-    tileCells: []
-    tileSetIndex: 0
-    parentIndex: 3
-  - layerIndex: 9
-    uuid:
-      value0: 3645111905
-      value1: 0
-      value2: 0
-      value3: 0
-    guid: 0
-    name: Lines
-    layerFlags: 3
-    layerType: 1
-    blendMode: 0
-    cells: []
-    linkedCells: []
-    tileCells: []
-    tileSetIndex: 0
-    parentIndex: -1
-  - layerIndex: 10
-    uuid:
-      value0: 2724023632
-      value1: 0
-      value2: 0
-      value3: 0
-    guid: 0
-    name: Vertical
-    layerFlags: 3
-    layerType: 0
-    blendMode: 10
-    cells:
-    - name: Vertical
-      frameIndex: 0
-      additiveSortOrder: 0
-      cellRect:
-        x: 29
-        y: 19
-        width: 142
-        height: 66
-      spriteId: 5aec328799d755bd1a023dbac4474fea
-    linkedCells: []
-    tileCells: []
-    tileSetIndex: 0
-    parentIndex: 9
-  - layerIndex: 11
-    uuid:
-      value0: 3938476145
-      value1: 0
-      value2: 0
-      value3: 0
-    guid: 0
-    name: HorizontalLines
-    layerFlags: 3
-    layerType: 0
-    blendMode: 10
-    cells:
-    - name: HorizontalLines
-      frameIndex: 0
-      additiveSortOrder: 0
-      cellRect:
-        x: 31
-        y: 14
-        width: 138
-        height: 73
-      spriteId: 1d1d4c8c5e4cd08bdad29ea886e72b78
-    linkedCells: []
-    tileCells: []
-    tileSetIndex: 0
-    parentIndex: 9
-  - layerIndex: 12
-    uuid:
       value0: 1521968231
       value1: 0
       value2: 0
@@ -650,35 +536,169 @@ ScriptedImporter:
     tileCells: []
     tileSetIndex: 0
     parentIndex: -1
-  - layerIndex: 15
+  - layerIndex: 6
     uuid:
-      value0: 3057881721
+      value0: 3196188100
       value1: 0
       value2: 0
       value3: 0
     guid: 0
-    name: Color + Text Field
-    layerFlags: 3
-    layerType: 1
-    blendMode: 0
-    cells: []
-    linkedCells: []
-    tileCells: []
-    tileSetIndex: 0
-    parentIndex: -1
-  - layerIndex: 16
-    uuid:
-      value0: 440840005
-      value1: 0
-      value2: 0
-      value3: 0
-    guid: 0
-    name: Text Field
+    name: Items-Coins-Coin1
     layerFlags: 3
     layerType: 0
     blendMode: 0
     cells:
-    - name: Text Field
+    - name: Items-Coins-Coin1
+      frameIndex: 0
+      additiveSortOrder: 0
+      cellRect:
+        x: 16
+        y: 11
+        width: 5
+        height: 5
+      spriteId: 6ad5bd574200aa24fbfc913f8b0fc8ec
+    linkedCells: []
+    tileCells: []
+    tileSetIndex: 0
+    parentIndex: -1
+  - layerIndex: 7
+    uuid:
+      value0: 3196188103
+      value1: 0
+      value2: 0
+      value3: 0
+    guid: 0
+    name: Items-Coins-Coin2
+    layerFlags: 3
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: Items-Coins-Coin2
+      frameIndex: 0
+      additiveSortOrder: 0
+      cellRect:
+        x: 19
+        y: 13
+        width: 6
+        height: 6
+      spriteId: e934616c6bdfd7d40897859bfb70efef
+    linkedCells: []
+    tileCells: []
+    tileSetIndex: 0
+    parentIndex: -1
+  - layerIndex: 8
+    uuid:
+      value0: 3196188102
+      value1: 0
+      value2: 0
+      value3: 0
+    guid: 0
+    name: Items-Coins-Coin3
+    layerFlags: 3
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: Items-Coins-Coin3
+      frameIndex: 0
+      additiveSortOrder: 0
+      cellRect:
+        x: 22
+        y: 11
+        width: 5
+        height: 5
+      spriteId: 377664f160631ec48bad08177f83db16
+    linkedCells: []
+    tileCells: []
+    tileSetIndex: 0
+    parentIndex: -1
+  - layerIndex: 9
+    uuid:
+      value0: 3055424576
+      value1: 0
+      value2: 0
+      value3: 0
+    guid: 0
+    name: Items-Feather
+    layerFlags: 3
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: Items-Feather
+      frameIndex: 0
+      additiveSortOrder: 0
+      cellRect:
+        x: 162
+        y: 81
+        width: 9
+        height: 10
+      spriteId: a6b496ca9337b984a93082d00aa26606
+    linkedCells: []
+    tileCells: []
+    tileSetIndex: 0
+    parentIndex: -1
+  - layerIndex: 10
+    uuid:
+      value0: 3815709850
+      value1: 0
+      value2: 0
+      value3: 0
+    guid: 0
+    name: Lines-Vertical
+    layerFlags: 3
+    layerType: 0
+    blendMode: 10
+    cells:
+    - name: Lines-Vertical
+      frameIndex: 0
+      additiveSortOrder: 0
+      cellRect:
+        x: 29
+        y: 19
+        width: 142
+        height: 66
+      spriteId: e22665b3945421946819b3678ca35c75
+    linkedCells: []
+    tileCells: []
+    tileSetIndex: 0
+    parentIndex: -1
+  - layerIndex: 11
+    uuid:
+      value0: 4254277863
+      value1: 0
+      value2: 0
+      value3: 0
+    guid: 0
+    name: Lines-HorizontalLines
+    layerFlags: 3
+    layerType: 0
+    blendMode: 10
+    cells:
+    - name: Lines-HorizontalLines
+      frameIndex: 0
+      additiveSortOrder: 0
+      cellRect:
+        x: 31
+        y: 14
+        width: 138
+        height: 73
+      spriteId: 03c172dd3af41744094a4751b5ebecc7
+    linkedCells: []
+    tileCells: []
+    tileSetIndex: 0
+    parentIndex: -1
+  - layerIndex: 12
+    uuid:
+      value0: 671043587
+      value1: 0
+      value2: 0
+      value3: 0
+    guid: 0
+    name: Color + Text Field-Text Field
+    layerFlags: 3
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: Color + Text Field-Text Field
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
@@ -686,24 +706,124 @@ ScriptedImporter:
         y: 77
         width: 26
         height: 8
-      spriteId: 41faa6104c6fd26369170191c3c24bc0
+      spriteId: 871d99a499040784c9063eef50265d7a
     linkedCells: []
     tileCells: []
     tileSetIndex: 0
-    parentIndex: 15
-  - layerIndex: 20
+    parentIndex: -1
+  - layerIndex: 13
     uuid:
-      value0: 2419478640
+      value0: 2751296804
       value1: 0
       value2: 0
       value3: 0
     guid: 0
-    name: Color 1
+    name: SkinPartPaper
     layerFlags: 3
     layerType: 0
     blendMode: 0
     cells:
-    - name: Color 1
+    - name: SkinPartPaper
+      frameIndex: 0
+      additiveSortOrder: 0
+      cellRect:
+        x: 64
+        y: 51
+        width: 16
+        height: 20
+      spriteId: b3bf888a996050647ae393922db92b11
+    linkedCells: []
+    tileCells: []
+    tileSetIndex: 0
+    parentIndex: -1
+  - layerIndex: 14
+    uuid:
+      value0: 3981272130
+      value1: 0
+      value2: 0
+      value3: 0
+    guid: 0
+    name: SkinPaperMain
+    layerFlags: 3
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: SkinPaperMain
+      frameIndex: 0
+      additiveSortOrder: 0
+      cellRect:
+        x: 91
+        y: 32
+        width: 34
+        height: 42
+      spriteId: ea6ebea8b15c06c40b8616d062991e11
+    linkedCells: []
+    tileCells: []
+    tileSetIndex: 0
+    parentIndex: -1
+  - layerIndex: 15
+    uuid:
+      value0: 822804025
+      value1: 0
+      value2: 0
+      value3: 0
+    guid: 0
+    name: PinBlue
+    layerFlags: 3
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: PinBlue
+      frameIndex: 0
+      additiveSortOrder: 0
+      cellRect:
+        x: 50
+        y: 59
+        width: 7
+        height: 7
+      spriteId: b7937326218429b4992ec7bdac556fdb
+    linkedCells: []
+    tileCells: []
+    tileSetIndex: 0
+    parentIndex: -1
+  - layerIndex: 16
+    uuid:
+      value0: 2677012179
+      value1: 0
+      value2: 0
+      value3: 0
+    guid: 0
+    name: PinYellow
+    layerFlags: 3
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: PinYellow
+      frameIndex: 0
+      additiveSortOrder: 0
+      cellRect:
+        x: 44
+        y: 59
+        width: 7
+        height: 7
+      spriteId: 874fbfeb9914d054ea9d43ad9a4e0937
+    linkedCells: []
+    tileCells: []
+    tileSetIndex: 0
+    parentIndex: -1
+  - layerIndex: 20
+    uuid:
+      value0: 2419685682
+      value1: 0
+      value2: 0
+      value3: 0
+    guid: 0
+    name: Color + Text Field-Color 1
+    layerFlags: 3
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: Color + Text Field-Color 1
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
@@ -711,11 +831,11 @@ ScriptedImporter:
         y: 70
         width: 5
         height: 5
-      spriteId: 7efb5cf53b687c88799b11ec3f38a7ad
+      spriteId: 42dcee3680c4a2c4a9983d6f36254bbe
     linkedCells: []
     tileCells: []
     tileSetIndex: 0
-    parentIndex: 15
+    parentIndex: -1
   tileSets: []
   platformSettings:
   - name: DefaultTexturePlatform

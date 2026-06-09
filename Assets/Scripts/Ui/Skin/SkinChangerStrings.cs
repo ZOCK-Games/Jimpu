@@ -46,6 +46,7 @@ public class SkinChangerStrings : MonoBehaviour
         var Parent = new GameObject("StringParent").transform;
         Parent.transform.SetParent(parentTransform);
         Parent.transform.localScale = Vector3.one;
+        Parent.localPosition = Vector3.zero;
 
         var holder = Parent.gameObject.AddComponent<StringHolder>();
         holder.normalDisplay = normalDisplay;
@@ -55,10 +56,12 @@ public class SkinChangerStrings : MonoBehaviour
         var pointB = Instantiate(PrefabB); // The End Point
 
 
-        pointA.transform.position = normalDisplay.portCollider2d.transform.position;
-        pointA.transform.SetParent(Parent);
+        pointA.transform.SetParent(Parent,true);
         pointA.name = "PointStartA";
         pointA.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+        Debug.Log("pointA position bevor" + normalDisplay.portCollider2d.transform.position);
+        pointA.transform.position = normalDisplay.portCollider2d.transform.position;
+        Debug.Log("pointA position avter" + pointA.transform.position);
 
         if (!onlyNormal)
         {
@@ -68,7 +71,7 @@ public class SkinChangerStrings : MonoBehaviour
         {
             pointB.transform.position = normalDisplay.portCollider2d.transform.position;
         }
-        pointB.transform.SetParent(Parent);
+        pointB.transform.SetParent(Parent, true);
         pointB.name = "PointEndB";
         pointB.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
         pointB.tag = "StringPoint";

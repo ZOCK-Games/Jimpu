@@ -13,6 +13,7 @@ public class playerControl : EntityManager, IDataPersitence
     public PlayerState PlayerState;
     [Space(0.5f)]
     public LayerMask FallLayerMask;
+    
     // The Current Skin number
     [Space(1)]
     [Header("Player Components")]
