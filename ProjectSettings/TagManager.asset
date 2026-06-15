@@ -9,11 +9,12 @@ TagManager:
   - Attackable
   - Seat
   - StringPoint
+  - CameraTarget
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Solid Objekt
+  - Solid Object
   - Water
   - UI
   - Entity

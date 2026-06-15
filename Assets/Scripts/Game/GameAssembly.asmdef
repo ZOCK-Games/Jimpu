@@ -11,7 +11,8 @@
         "Unity.InputSystem",
         "UnityUIExtensions",
         "Unity.2D.Tilemap.Extras",
-        "InputSystem_Actions"
+        "InputSystem_Actions",
+        "Unity.Cinemachine"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

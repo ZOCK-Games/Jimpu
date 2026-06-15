@@ -1,16 +1,14 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.Events;
-using UnityEngine.EventSystems;
-using UnityEngine.UI.Extensions;
 
 public class DanmpfWurmTraveler : DampfWurmManager
 {
     public Vector3 goalPosition = Vector3.zero;
     private Vector3 startPosition;
     private CircleCollider2D circleCollider2D;
-    public UnityEvent Event;
+    public UnityEvent EventOnGaol;
+    private bool isTraveling;
 
     protected override void Start()
     {
@@ -28,7 +26,7 @@ public class DanmpfWurmTraveler : DampfWurmManager
     {
         Debug.Log("Is Seated: " + Bool);
         base.SetIsSeated(Bool);
-        if (Bool)
+        if (Bool && !isTraveling)
         {
             StartCoroutine(GoToGoalPosition());
         }
@@ -46,12 +44,19 @@ public class DanmpfWurmTraveler : DampfWurmManager
 
     public IEnumerator GoToGoalPosition()
     {
+            Debug.Log($"Current: {transform.position}");
+    Debug.Log($"Goal: {goalPosition}");
+    Debug.Log($"Distance: {Vector3.Distance(transform.position, goalPosition)}");
+        isTraveling = true;
         while (Vector3.Distance(transform.position, goalPosition) > 0.1f)
         {
             transform.position = Vector3.MoveTowards(transform.position, goalPosition, 1f * Time.deltaTime);
             yield return null;
         }
-        Event.Invoke();
+            Debug.Log("Invoke Event");
+        isTraveling = false;
+
+        EventOnGaol?.Invoke();
     }
 
 

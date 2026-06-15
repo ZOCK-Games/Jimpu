@@ -21,9 +21,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Death.unity
     guid: 55426fadc8f20d1698ef4c1266df52d8
   - enabled: 0
-    path: Assets/Scenes/Game Levels/GameTutorial.unity
-    guid: 66724caa9456362e2846412ebb2d21b8
-  - enabled: 0
     path: Assets/Scenes/Multiplayer/Multiplayer.unity
     guid: 4f6f7503ddad560c6ba86096a6596ee4
   - enabled: 1
@@ -42,8 +39,14 @@ EditorBuildSettings:
     path: Assets/Scenes/CutScenes/SpaceCrash/SpaceCrash-0.unity
     guid: e885dbe9315a2b3c699df71aec7ca2ae
   - enabled: 1
-    path: Assets/Scenes/Game Levels/lowest stone desert/GameTutorial.unity
+    path: Assets/Scenes/Game Levels/lowest stone desert/GameTutorial/GameTutorial.unity
     guid: 0e3f067be5d70c162a9cb43dd903a460
+  - enabled: 1
+    path: Assets/Scenes/Game Levels/lowest stone desert/Trumba - City/Trumba-City-Main.unity
+    guid: 9a012006808a907018b09e8eac775fd3
+  - enabled: 1
+    path: Assets/Scenes/LoadScene.unity
+    guid: 16965c4fa30a67cc0abd051f177ab72f
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: cabfead460a73d888bacd5c620188ae2, type: 2}
     com.unity.dt.app-ui: {fileID: 11400000, guid: 1b1c20d82303e4b5781c3ef50ac1449f, type: 2}

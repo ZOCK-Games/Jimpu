@@ -19,6 +19,7 @@ public class FollowPlayer : MonoBehaviour
         navMeshAgent = GetComponent<NavMeshAgent>();
         navMeshAgent.updateRotation = false;
         navMeshAgent.updateUpAxis = false;
+        MainPosition = playerControl.instance.gameObject.transform;
     }
 
     // Update is called once per frame

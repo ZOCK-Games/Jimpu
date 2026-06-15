@@ -9,7 +9,18 @@ public class ChestManager : MonoBehaviour
     public AnimatedTile ChestAnimationTile;
     public Tile ChestNormalTile;
     public GameObject DisplayItem;
-    public Inventory inventory;
+    private Inventory inventory;
+    void Start()
+    {
+        if ( Inventory.instance != null)
+        {
+            inventory = Inventory.instance;
+        }
+        else
+        {
+            gameObject.SetActive(false);
+        }
+    }
     public void AddChest(Vector3 Position)
     {
         Vector3Int TilePos = new Vector3Int((int)Position.x, (int)Position.y, (int)Position.z);

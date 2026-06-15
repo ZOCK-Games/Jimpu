@@ -1,16 +1,19 @@
+using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GoToScene : MonoBehaviour
 {
+    public bool OnlyScript;
     public string SceneToGoTo;
     public Button Button;
     public bool BlockInput;
     private InputSystem_Actions inputActions;
-    private bool SceneLoading;
     void OnEnable()
     {
+        if (OnlyScript) return;
         if (Button == null)
         {
             return;
@@ -19,11 +22,12 @@ public class GoToScene : MonoBehaviour
         inputActions.UI.Enable();
         if (!BlockInput)
         {
-            inputActions.UI.Close.performed += ctx => ButtonPreset(SceneToGoTo);
+            inputActions.UI.Close.performed += ctx => GoToSceneAsync(SceneToGoTo);
         }
     }
     void OnDisable()
     {
+        if (OnlyScript) return;
         if (Button == null)
         {
             return;
@@ -33,20 +37,31 @@ public class GoToScene : MonoBehaviour
     }
     void Start()
     {
+        if (OnlyScript) return;
         if (Button == null)
         {
             return;
         }
-        SceneLoading = false;
-        Button.onClick.AddListener(() => ButtonPreset(SceneToGoTo));
+        Button.onClick.AddListener(() => GoToSceneAsync(SceneToGoTo));
     }
-    public void ButtonPreset(string Scene)
+    public void GoToSceneAsync(string SceneName)
     {
-        if (!SceneLoading)
-        {
-            SceneLoading = true;
-            Debug.Log("Loaded scene: " + Scene);
-            SceneManager.LoadScene(Scene);
-        }
+        _ = GoToSceneAsyncExecute(SceneName);
+    }
+    private async Task GoToSceneAsyncExecute(string SceneName, bool PlayAnimation = true)
+    {
+        await SceneManager.LoadSceneAsync("LoadScene", LoadSceneMode.Additive);
+        var async = SceneManager.LoadSceneAsync(SceneName);
+
+        async.allowSceneActivation = false;
+
+        await Task.Delay(2000);
+        async.allowSceneActivation = true;
+
+
+        while (!async.isDone)
+            await Task.Yield();
+
+        await SceneManager.UnloadSceneAsync("LoadScene");
     }
 }

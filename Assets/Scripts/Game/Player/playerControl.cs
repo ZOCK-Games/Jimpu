@@ -13,7 +13,7 @@ public class playerControl : EntityManager, IDataPersitence
     public PlayerState PlayerState;
     [Space(0.5f)]
     public LayerMask FallLayerMask;
-    
+
     // The Current Skin number
     [Space(1)]
     [Header("Player Components")]
@@ -25,9 +25,8 @@ public class playerControl : EntityManager, IDataPersitence
     [Tooltip("The Player Rigidbody2D")]
     public Rigidbody2D rb;
     public PolygonCollider2D playerCollider;
-    public GameObject CollidersGameObjekt;
     public BoxCollider2D JumpCollider;
-    public List<TilemapCollider2D> Grounds;
+    public List<Collider2D> Grounds;
     public GameObject BodyPartsContainer;
     public List<Sprite> SkinSprite;
     [SerializeField] private List<Skins> PlayerSkins;
@@ -40,24 +39,29 @@ public class playerControl : EntityManager, IDataPersitence
 
     public HealthManagerPlayer healthManagerPlayer;
     public EnergyManager energyManager;
-    void Awake()
+    public void Init()
     {
-        if (instance == null)
+        if (instance != null && instance != this)
         {
-            instance = this;
+            Destroy(gameObject);
+            return;
         }
+
+        instance = this;
+
+        DontDestroyOnLoad(gameObject);
+
         inputActions = new InputSystem_Actions();
-    }
-    private void OnEnable()
-    {
-        inputActions.Player.Enable(); // Activates Player Control for him self
+
         inputActions.Player.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
         inputActions.Player.Move.canceled += ctx => moveInput = Vector2.zero;
+        inputActions.Player.Enable(); // Activates Player Control for him self
+
     }
 
     private void OnDisable()
     {
-        inputActions.Player.Disable();
+        inputActions?.Player.Disable();
     }
     protected override void Start()
     {
@@ -70,22 +74,16 @@ public class playerControl : EntityManager, IDataPersitence
         PlayerState.IsCheckingGround = false;
         PlayerAniamtor.SetBool("Walk", false);
 
-        for (int i = 0; i < CollidersGameObjekt.transform.childCount - 1; i++)
+        GameObject[] all = FindObjectsByType<GameObject>();
+        foreach (var obj in all)
         {
-            if (CollidersGameObjekt.transform.GetChild(i).gameObject.CompareTag("Ground"))
+            if (obj.layer == LayerMask.NameToLayer("Solid Object"))
             {
-                Grounds.Add(CollidersGameObjekt.transform.GetChild(i).gameObject.GetComponent<TilemapCollider2D>());
-                Debug.Log("Found Ground: " + CollidersGameObjekt.transform.GetChild(i).gameObject.name);
-            }
-            else if (Grounds == null)
-            {
-                Debug.LogWarning("NoGroundFound");
-            }
-            else
-            {
-                Debug.Log("An unexpected error accrued");
+                Grounds.Add(obj.GetComponent<Collider2D>());
             }
         }
+
+
     }
 
 
@@ -120,7 +118,7 @@ public class playerControl : EntityManager, IDataPersitence
 
         foreach (var ground in Grounds)
         {
-            if (ground != null && JumpCollider.IsTouching(ground))
+            if (JumpCollider.IsTouching(ground))
             {
                 PlayerState.PlayerIsTouchingGround = true;
                 break;
@@ -343,5 +341,20 @@ public class PlayerState
     public bool AnimationsCanPlay;
     [Header("The Current Attack as a string for checking the current attack")]
     public string CurrentAttack;
+}
+#endregion
+
+#region  PlayerBodyParts
+public class PlayerBodyParts
+{
+    public class Skins : ScriptableObject
+    {
+        public GameObject Head;
+        public GameObject Body;
+        public GameObject LeftArm;
+        public GameObject RightArm;
+        public GameObject LeftLeg;
+        public GameObject RightLeg;
+    }
 }
 #endregion

@@ -6,7 +6,8 @@
         "Unity.InputSystem.IntegrationTests",
         "DataPersistenceAssembly",
         "Unity.TextMeshPro",
-        "InputSystem_Actions"
+        "InputSystem_Actions",
+        "Unity.Cinemachine"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

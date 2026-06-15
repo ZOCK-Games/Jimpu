@@ -58,6 +58,10 @@ public class Inventory : MonoBehaviour, IDataPersitence
                 HandButton = InvSlots[i].ItemSlot.GetComponent<Button>();
             }
         }
+        if(instance == null)
+        {
+            instance = this;
+        }
     }
     void Start()
     {
