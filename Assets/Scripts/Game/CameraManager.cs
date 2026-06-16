@@ -1,5 +1,7 @@
+using System.Linq;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.UIElements;
 [Tooltip("Searches for a target with the tag: CameraTarget")]
 public class CameraManager : MonoBehaviour
 {
@@ -14,6 +16,7 @@ public class CameraManager : MonoBehaviour
     void OnEnable()
     {
         cinemachineCamera = this.gameObject.GetComponent<CinemachineCamera>();
+        if (cinemachineCamera == null) cinemachineCamera = this.gameObject.GetComponentInChildren<CinemachineCamera>();
         SceneInfoManager.OnSceneChanged += CheckScene;
     }
     void OnDisable()
@@ -23,16 +26,24 @@ public class CameraManager : MonoBehaviour
 
     void CheckScene(SceneSettings sceneSetting)
     {
-        if (sceneSetting.tag != SceneTags.Game) return;
-        CameraTarget = GameObject.FindWithTag("Player");
-        if (CameraTarget != null)
+        Debug.Log("Scene Changed: " + sceneSetting.sceneName);
+        var CameraTargets = GameObject.FindGameObjectsWithTag("CameraManagerTarget").ToList();
+        if (CameraTarget != null && sceneSetting.tag == SceneTags.Game)
         {
-            SetTarget(CameraTarget);
+            CameraTarget = CameraTargets.Find(x => x.GetComponentInParent<playerControl>());
+            cinemachineCamera.transform.position = CameraTarget.transform.position;
+            cinemachineCamera.Follow = CameraTarget.transform;
+            cinemachineCamera.LookAt = CameraTarget.transform;
         }
+        else
+        {
+            CameraTarget = CameraTargets.Find(x => !x.GetComponentInParent<playerControl>());
+            cinemachineCamera.transform.position = CameraTarget.transform.position;
+            cinemachineCamera.Follow = CameraTarget.transform;
+            cinemachineCamera.LookAt = CameraTarget.transform;
+            transform.position = CameraTarget.transform.position;
+        }
+
     }
-    public void SetTarget(GameObject target)
-    {
-        cinemachineCamera.Follow = target.transform;
-        cinemachineCamera.LookAt = target.transform;
-    }
+
 }

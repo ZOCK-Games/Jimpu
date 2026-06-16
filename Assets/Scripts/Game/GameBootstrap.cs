@@ -32,6 +32,5 @@ public class GameBootstrap : MonoBehaviour
             DontDestroyOnLoad(cam);
         }
         player.GetComponent<playerControl>().Init();
-        cam.GetComponent<CameraManager>().SetTarget(player.gameObject);
     }
 }

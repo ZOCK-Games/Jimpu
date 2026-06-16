@@ -666,7 +666,6 @@ MonoBehaviour:
   PlayerAniamtor: {fileID: 5753060413423190392}
   rb: {fileID: 7062749464660336897}
   playerCollider: {fileID: 2414476923585735712}
-  CollidersGameObjekt: {fileID: 0}
   JumpCollider: {fileID: 8896055915071809689}
   Grounds: []
   BodyPartsContainer: {fileID: 86730670725180135}
@@ -1789,7 +1788,7 @@ GameObject:
   - component: {fileID: 4376255867314909835}
   m_Layer: 0
   m_Name: CameraTarget
-  m_TagString: CameraTarget
+  m_TagString: CameraManagerTarget
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

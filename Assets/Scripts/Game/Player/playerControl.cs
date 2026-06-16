@@ -57,6 +57,8 @@ public class playerControl : EntityManager, IDataPersitence
         inputActions.Player.Move.canceled += ctx => moveInput = Vector2.zero;
         inputActions.Player.Enable(); // Activates Player Control for him self
 
+        SceneInfoManager.OnSceneChanged += CheckScene;
+
     }
 
     private void OnDisable()
@@ -236,6 +238,32 @@ public class playerControl : EntityManager, IDataPersitence
             }
         }
         #endregion
+    }
+    private void CheckScene(SceneSettings sceneSetting)
+    {
+        if (sceneSetting.tag != SceneTags.Game)
+        {
+            BodyPartsContainer.SetActive(false);
+            CanMove = false;
+            canTakeDamage = false;
+        }
+        else
+        {
+            BodyPartsContainer.SetActive(true);
+            CanMove = true;
+            canTakeDamage = true;
+
+            Grounds.Clear();
+            GameObject[] all = FindObjectsByType<GameObject>();
+            foreach (var obj in all)
+            {
+                if (obj.layer == LayerMask.NameToLayer("Solid Object"))
+                {
+                    Grounds.Add(obj.GetComponent<Collider2D>());
+                }
+            }
+        }
+
     }
     IEnumerator AttackWait(float ResetTime, float DelayTime)
     {

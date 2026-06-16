@@ -9,7 +9,7 @@ TagManager:
   - Attackable
   - Seat
   - StringPoint
-  - CameraTarget
+  - CameraManagerTarget
   layers:
   - Default
   - TransparentFX

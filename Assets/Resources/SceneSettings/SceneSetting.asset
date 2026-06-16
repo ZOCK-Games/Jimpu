@@ -14,26 +14,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: CoreAssembly::sceneSetting
   sceneSettings:
   - sceneName: Intro
-    tag: 0
+    tag: 3
   - sceneName: Start Screen
-    tag: 0
+    tag: 4
   - sceneName: Shop Scene
-    tag: 0
+    tag: 4
   - sceneName: Settings
-    tag: 0
+    tag: 1
   - sceneName: Death
-    tag: 0
+    tag: 3
   - sceneName: Multiplayer
-    tag: 0
+    tag: 4
   - sceneName: Party
-    tag: 0
+    tag: 2
   - sceneName: SkinChanger
-    tag: 0
+    tag: 1
   - sceneName: Post-Credits Message
-    tag: 0
+    tag: 3
   - sceneName: SpaceCrash-1
-    tag: 0
+    tag: 3
   - sceneName: SpaceCrash-0
-    tag: 0
+    tag: 3
   - sceneName: GameTutorial
     tag: 2
