@@ -17,7 +17,7 @@ public class SceneInfoManager : MonoBehaviour
     public static SceneInfoManager instance { get; set; }
     public sceneSetting sceneSettings;
     public string LastGameScene;
-    private SceneSettings CurrentScene;
+    public SceneSettings CurrentScene;
     public static event Action<SceneSettings> OnSceneChanged;
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     static void Init()
@@ -28,6 +28,10 @@ public class SceneInfoManager : MonoBehaviour
     }
     void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
         sceneSettings = Resources.Load<sceneSetting>("SceneSettings/SceneSetting");
         SceneManager.sceneLoaded += OnSceneLoaded;
         OnSceneLoaded(SceneManager.GetActiveScene(), LoadSceneMode.Single);

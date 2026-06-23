@@ -18,6 +18,7 @@ public class CameraManager : MonoBehaviour
         cinemachineCamera = this.gameObject.GetComponent<CinemachineCamera>();
         if (cinemachineCamera == null) cinemachineCamera = this.gameObject.GetComponentInChildren<CinemachineCamera>();
         SceneInfoManager.OnSceneChanged += CheckScene;
+        CheckScene(SceneInfoManager.instance.CurrentScene);
     }
     void OnDisable()
     {
@@ -28,21 +29,20 @@ public class CameraManager : MonoBehaviour
     {
         Debug.Log("Scene Changed: " + sceneSetting.sceneName);
         var CameraTargets = GameObject.FindGameObjectsWithTag("CameraManagerTarget").ToList();
-        if (CameraTarget != null && sceneSetting.tag == SceneTags.Game)
+        if (sceneSetting.tag == SceneTags.Game)
         {
             CameraTarget = CameraTargets.Find(x => x.GetComponentInParent<playerControl>());
-            cinemachineCamera.transform.position = CameraTarget.transform.position;
-            cinemachineCamera.Follow = CameraTarget.transform;
-            cinemachineCamera.LookAt = CameraTarget.transform;
+            GetComponent<Camera>().enabled = true;
         }
         else
         {
             CameraTarget = CameraTargets.Find(x => !x.GetComponentInParent<playerControl>());
-            cinemachineCamera.transform.position = CameraTarget.transform.position;
-            cinemachineCamera.Follow = CameraTarget.transform;
-            cinemachineCamera.LookAt = CameraTarget.transform;
-            transform.position = CameraTarget.transform.position;
+            GetComponent<Camera>().enabled = false;
         }
+        cinemachineCamera.transform.position = CameraTarget.transform.position;
+        cinemachineCamera.Follow = CameraTarget.transform;
+        cinemachineCamera.LookAt = CameraTarget.transform;
+        transform.position = CameraTarget.transform.position;
 
     }
 
