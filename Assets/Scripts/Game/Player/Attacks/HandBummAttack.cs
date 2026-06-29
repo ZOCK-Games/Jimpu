@@ -19,8 +19,9 @@ public class HandBummAttack : MonoBehaviour
         {
             entity = collision.transform.GetComponentInParent<EntityManager>();
         }
-        if (entity != null)
+        if (entity != null) // Entity found and giving entity damage
         {
+            AudioManager.instance.PlayAudio("punch-impact", collision.transform, new Vector2(2,30), 1, false, 0.2f);
             entity.TakeDamage(damage);
             ParticelManager.instance.SpawnParticle(collision.transform.position, "Particle System Attack", 0.4f);
             CanDealDamage = false;

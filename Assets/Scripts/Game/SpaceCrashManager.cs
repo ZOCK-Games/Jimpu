@@ -15,7 +15,7 @@ public class SpaceCrashManager : MonoBehaviour
     async Task PlayAudio()
     {
         await Task.Delay((int)(0.3f * 1000));
-        AudioManager.instance.PlayAudio(AudioName, transform, true, 4);
+        AudioManager.instance.PlayAudio(AudioName, transform,Vector2.zero, 0, true, 4);
         int DelayTime = (int)(Time * 1000);
         AsyncOperation operation = SceneManager.LoadSceneAsync(NextScene);
         operation.allowSceneActivation = false;

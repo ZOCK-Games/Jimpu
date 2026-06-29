@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
 
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance { get; private set; }
-    public List<AudioClip> audioClips = new List<AudioClip>();
+    public List<AudioClip> audioClips = new List<AudioClip>(); // can bes used for small audios
     public List<GameObject> LoopedAudios = new List<GameObject>();
     public List<GameObject> NormalAudios = new List<GameObject>();
 
@@ -35,6 +36,17 @@ public class AudioManager : MonoBehaviour
     void LoadAudios()
     {
         audioClips = Resources.LoadAll<AudioClip>("Audio/Game").ToList();
+    }
+
+    AudioClip LoadMusic(string musicName)
+    {
+        AudioClip audioClip = Resources.Load<AudioClip>($"Music/{musicName}");
+        if (audioClip == null)
+        {
+            Debug.LogWarning($"A tried to load a music file out of Music/{musicName}, but it doesn't exist");
+            return null;
+        }
+        return audioClip;
     }
 
     public IEnumerator LoadAudioFromDirectory(string Path)
@@ -67,7 +79,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void PlayAudio(string AudioName, Transform Position, bool IsChild = false, float Volume = 1)
+    public void PlayAudio(string AudioName, Transform Position, Vector2 Distance, float SpatialBlend = 0,  bool IsChild = false, float Volume = 1)
     {
         AudioClip audio = audioClips.Find(audioClips => audioClips.name == AudioName);
         if (audio != null)
@@ -86,6 +98,10 @@ public class AudioManager : MonoBehaviour
                 AudioSource Audio = Source.AddComponent<AudioSource>();
                 Audio.volume = Volume;
                 Audio.clip = audio;
+
+                Audio.spatialBlend = SpatialBlend;
+                Audio.maxDistance = Distance[0];
+                Audio.minDistance = Distance[1];
                 Audio.Play();
                 Destroy(Source, audio.length);
             }
@@ -93,6 +109,39 @@ public class AudioManager : MonoBehaviour
         else
         {
             Debug.LogWarning("There is no audio called: " + AudioName);
+        }
+    }
+
+    public async Task PlayMusic(string MusicName, Transform Position, bool IsChild = false, float Volume = 1)
+    {
+        AudioClip music = LoadMusic(MusicName);
+        if (music != null)
+        {
+            Debug.Log("Playing " + music.name);
+            if (!IsChild)
+            {
+                AudioSource.PlayClipAtPoint(music, Position.position);
+            }
+            else
+            {
+                GameObject Source = new GameObject($"{MusicName}");
+                NormalAudios.Add(Source);
+                Source.transform.SetParent(Position);
+                Source.transform.localPosition = Vector3.zero;
+                AudioSource Audio = Source.AddComponent<AudioSource>();
+                Audio.volume = Volume;
+                Audio.clip = music;
+                Audio.Play();
+                while (Audio != null && Audio.isPlaying)
+                {
+                    await Task.Yield();
+                }
+                Destroy(Source);
+            }
+        }
+        else
+        {
+            Debug.LogWarning("There is no music called: " + MusicName);
         }
     }
 

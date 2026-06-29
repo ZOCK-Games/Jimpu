@@ -84,12 +84,9 @@ public class playerControl : EntityManager, IDataPersitence
                 Grounds.Add(obj.GetComponent<Collider2D>());
             }
         }
-
-
     }
 
-
-    // Update is called once per frame
+    #region  Update Loop
     protected void Update()
     {
         // Checks if the player CanMove from EntityManager so Animations and Sounds Can be played
@@ -99,7 +96,7 @@ public class playerControl : EntityManager, IDataPersitence
             {
                 if (!AudioManager.instance.isPlaying("Walk")) // Checks if the sound is already playing
                 {
-                    AudioManager.instance.PlayAudio("Walk", transform, true, 1);
+                    AudioManager.instance.PlayAudio("Walk", transform, Vector2.zero, 0, true, 1);
                 }
                 PlayerAniamtor.SetBool("Walk", true);
             }
@@ -135,7 +132,7 @@ public class playerControl : EntityManager, IDataPersitence
         if (inputActions.Player.Jump.WasPerformedThisFrame() && PlayerState.PlayerIsTouchingGround && CanMove)
         {
             PlayerState.IsPlayerAttacking = true;
-            AudioManager.instance.PlayAudio("jump", transform);
+            AudioManager.instance.PlayAudio("jump", transform, Vector2.zero);
             rb.AddForce(new Vector2(0, PlayerMovement.JumpForce));
             if (PlayerState.AnimationsCanPlay)
             {
@@ -162,7 +159,7 @@ public class playerControl : EntityManager, IDataPersitence
             Debug.Log("Attack");
             float Direction = inputActions.Player.Move.ReadValue<Vector2>().x;
             PlayerState.CurrentAttack = "DodgeRoll";
-            AudioManager.instance.PlayAudio("Player_Punch", transform, true, 1);
+            AudioManager.instance.PlayAudio("Rolling", transform, Vector2.one / 1.5f, 1, true, 1);
             if (Direction > 0)
             {
                 Debug.Log("Attack R");
@@ -195,7 +192,7 @@ public class playerControl : EntityManager, IDataPersitence
         if (inputActions.Player.Attack.WasPerformedThisFrame() && PlayerState.CanAttack)
         {
             PlayerState.IsPlayerAttacking = true;
-            AudioManager.instance.PlayAudio("Player_Punch", transform, true, 1);
+            AudioManager.instance.PlayAudio("Player_Punch", transform, Vector2.one *1.5f, 1);
             PlayerState.CurrentAttack = "HandBumm";
             if (PlayerState.AnimationsCanPlay)
             {
@@ -239,6 +236,8 @@ public class playerControl : EntityManager, IDataPersitence
         }
         #endregion
     }
+    #endregion
+
     private void CheckScene(SceneSettings sceneSetting)
     {
         if (sceneSetting.tag != SceneTags.Game)
@@ -310,6 +309,7 @@ public class playerControl : EntityManager, IDataPersitence
         PlayerState.IsCheckingGround = false;
     }
     #endregion
+    
     #region  Save / Load
     public void LoadData(SaveManager manager)
     {

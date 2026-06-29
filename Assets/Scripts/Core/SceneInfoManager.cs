@@ -40,6 +40,8 @@ public class SceneInfoManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        Resources.UnloadUnusedAssets(); // fixes memory 
+        
         var sceneSetting = sceneSettings.sceneSettings.Find(x => x.sceneName == scene.name);
         if (sceneSetting != null && sceneSetting.tag == SceneTags.Game)
         {

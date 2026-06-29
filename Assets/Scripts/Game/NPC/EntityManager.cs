@@ -5,6 +5,7 @@ using System.Collections;
 public class EntityManager : MonoBehaviour
 {
     public string npcName;
+    public EntityTypes entityType;
     [SerializeField] private float Health;
     public Animator MoveAnimator;
     public TextMeshPro HealthText;
@@ -79,12 +80,15 @@ public class EntityManager : MonoBehaviour
         if (canTakeDamage)
         {
             Health -= damage;
+
             StartCoroutine(RefreshHealthText());
             if (Health <= 0)
             {
+                CameraManager.instance.PlayCameraAnimation(entityType, impulseSourceTypes.Death);
                 Die();
+                return;
             }
-
+            CameraManager.instance.PlayCameraAnimation(entityType, impulseSourceTypes.Damage);
         }
     }
 
