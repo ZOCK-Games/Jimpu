@@ -1,103 +1,48 @@
-using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 public class Hammer : MonoBehaviour
 {
-    private GameObject HamerObjekt;
-    private GameObject EnemyContainer;
     private Animator ItemAnimator;
-    public int Demage = 1;
-    public float Range = 0.8f;
-    private Tilemap ObjektTilemap;
-    private Tilemap BlocksTilemap;
-    public AnimatedTile ExplsionTile;
-    private bool CanAttack;
-    private int currentenemy;
-    private Inventory inventory;
+    [SerializeField] private bool CanAttack;
     public GameObject ExplosionPrefab;
-    private TilemapCollider2D GroundCollider;
-    private InputSystem_Actions inputActions;
-    public LayerMask layerMask ;
-
-    void Awake()
+    [SerializeField] private ItemData itemDataHammer;
+    private async void Start()
     {
-        inputActions = new InputSystem_Actions();
-    }
-    void Start()
-    {
-        layerMask = LayerMask.GetMask();
-        GroundCollider = GetComponentInParent<ItemInfoManager>().GroundCollider;
-        inventory = GetComponentInParent<ItemInfoManager>().inventory;
-        BlocksTilemap = GetComponentInParent<ItemInfoManager>().BlockTilemapDestroyable;
-        ObjektTilemap = GetComponentInParent<ItemInfoManager>().DecoTilemap;
         ItemAnimator = GetComponentInParent<Animator>();
-        EnemyContainer = GetComponentInParent<ItemInfoManager>().enemyScript.EnemyContainer;
-        HamerObjekt = this.gameObject;
-        CanAttack = true;
-        inputActions.Player.Interact.performed += ctx => CanAttack = true;
-        inputActions.Player.Interact.canceled += ctx => CanAttack = false;
+
+        ItemHolder holder;
+
+        while ((holder = GetComponent<ItemHolder>()) == null || holder.ItemReference == null)
+        {
+            await Task.Yield();
+        }
+
+         itemDataHammer = holder.ItemReference;
+         
+        CanAttack = false;
+
+        PlayerAttackManager.OnAttackTurn += CheckAttack;
     }
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == layerMask && CanAttack)
-        {
-            Inventory.instance.RemoveHandItem(-1);
-            StartCoroutine(Inactive());
-            ItemAnimator.SetTrigger("HammerUse");
+        if (!CanAttack) return;
 
-        }
+        EntityManager entity = collision.gameObject.GetComponent<EntityManager>();
+
+        if (entity == null) return;
+
+        CanAttack = false;
+        entity.TakeDamage(5);
+        ItemAnimator.SetTrigger("HammerUse");
     }
-    public IEnumerator Inactive()
+
+    async void CheckAttack(ItemData itemData)
     {
-        float NumY = 0.9f;
-        Transform enemy = EnemyContainer.transform.GetChild(currentenemy);
-        float PosY = enemy.position.y;
-        float PosX = enemy.position.x;
-
-        bool tileFound = false;
-        Vector3Int cellPos = Vector3Int.zero;
-
-        for (int i = 0; i < 125; i++) // Max 20 Versuche
+        Debug.Log(itemData.ItemNameText);
+        if (itemData == itemDataHammer)
         {
-            PosY = enemy.position.y;
-            PosX = enemy.position.x;
-            float TileY = Random.Range(PosY, PosY + Range);
-            float TileX = Random.Range(PosX, PosX + Range);
-
-            Vector3 TilePos = new Vector3(TileX, TileY - NumY, 0);
-            cellPos = BlocksTilemap.WorldToCell(TilePos);
-
-            if (!BlocksTilemap.HasTile(cellPos))
-            {
-                tileFound = true;
-                break;
-            }
-
-            NumY += 0.3f;
-        }
-
-        if (tileFound)
-        {
-            Debug.Log("Found Tile: " + BlocksTilemap);
-            ObjektTilemap.SetTile(cellPos, ExplsionTile);
-            ItemAnimator.SetTrigger("HammerHit");
-            CanAttack = false;
-
-            yield return new WaitForSeconds(0.4f);
-            ObjektTilemap.SetTile(cellPos, null);
-            enemy.GetComponent<EnemyInfo>().TakeDamage(1);
-            Destroy(enemy, 0.1f);
-            currentenemy = -1;
-            yield return new WaitForSeconds(0.8f);
-
             CanAttack = true;
-            HamerObjekt.SetActive(false);
-        }
-        else
-        {
-            Debug.LogWarning("No valid tile found after multiple attempts.");
         }
     }
-
 }

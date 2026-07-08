@@ -35,8 +35,15 @@ public class CameraManager : MonoBehaviour
         var CameraTargets = GameObject.FindGameObjectsWithTag("CameraManagerTarget").ToList();
         if (sceneSetting.tag == SceneTags.Game)
         {
-            CameraTarget = CameraTargets.Find(x => x.GetComponentInParent<playerControl>());
-            GetComponentInChildren<Camera>().enabled = true;
+            if (CameraTarget == null || CameraTarget.GetComponentInParent<playerControl>() == null)
+            {
+                CameraTarget = CameraTargets.Find(x => x.GetComponentInParent<playerControl>());
+                if (CameraTarget == null)
+                {
+                    CameraTarget = CameraTargets.Find(x => x.GetComponent<playerControl>());
+                }
+                GetComponentInChildren<Camera>().enabled = true;
+            }
         }
         else
         {

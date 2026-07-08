@@ -637,6 +637,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   npcName: 
+  entityType: 0
   Health: 666
   MoveAnimator: {fileID: 5753060413423190392}
   HealthText: {fileID: 0}
@@ -663,6 +664,20 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   Player: {fileID: 3077175096677931408}
+  playerBodyParts:
+    playerBodyParts:
+    - playerBodyPartTypes: 0
+      gameObject: {fileID: 885314853171129755}
+    - playerBodyPartTypes: 1
+      gameObject: {fileID: 5983866175704286780}
+    - playerBodyPartTypes: 2
+      gameObject: {fileID: 4420644662487888782}
+    - playerBodyPartTypes: 3
+      gameObject: {fileID: 336449696748315583}
+    - playerBodyPartTypes: 4
+      gameObject: {fileID: 8589109207599309051}
+    - playerBodyPartTypes: 5
+      gameObject: {fileID: 4725060887160241730}
   PlayerAniamtor: {fileID: 5753060413423190392}
   rb: {fileID: 7062749464660336897}
   playerCollider: {fileID: 2414476923585735712}
@@ -702,7 +717,7 @@ Rigidbody2D:
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 342a96c46c295a150929e8cc05ccdfa5, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -876,7 +891,7 @@ CompositeCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 342a96c46c295a150929e8cc05ccdfa5, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1700,6 +1715,7 @@ GameObject:
   - component: {fileID: 7208083313350743927}
   - component: {fileID: 4764509277824228112}
   - component: {fileID: 9180285838372587360}
+  - component: {fileID: 3664796301677857098}
   m_Layer: 0
   m_Name: Attacks
   m_TagString: Untagged
@@ -1746,6 +1762,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ee330646bcd871ff92b8a108542930b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: GameAssembly::DamageRoll
+--- !u!114 &3664796301677857098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7088504414808135055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8d6e70cec997e05d9154f79cb2d37bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameAssembly::PlayerAttackManager
 --- !u!1 &7831269858874428728
 GameObject:
   m_ObjectHideFlags: 0

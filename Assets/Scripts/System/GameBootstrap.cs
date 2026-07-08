@@ -4,6 +4,7 @@ public class GameBootstrap : MonoBehaviour
 {
     private static GameObject player;
     private static GameObject cam;
+    private static GameObject hud;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     static void Init()
@@ -24,6 +25,12 @@ public class GameBootstrap : MonoBehaviour
         {
             player = Instantiate(Resources.Load<GameObject>("Player/Player"));
             DontDestroyOnLoad(player);
+        }
+
+        if (FindAnyObjectByType<PlayerHudUIManager>() == null)
+        {
+            hud = Instantiate(Resources.Load<GameObject>("UI/Player Hud Canvas"));
+            DontDestroyOnLoad(hud);
         }
 
         if (FindAnyObjectByType<CameraManager>() == null)

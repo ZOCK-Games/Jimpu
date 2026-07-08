@@ -12,7 +12,9 @@
         "UnityUIExtensions",
         "Unity.2D.Tilemap.Extras",
         "InputSystem_Actions",
-        "Unity.Cinemachine"
+        "Unity.Cinemachine",
+        "Unity.Addressables",
+        "Unity.ResourceManager"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

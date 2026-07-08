@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Items
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: Items
+  m_GUID: 53e9c9fdd7413a925b11d3498b3456b5
+  m_SerializeEntries:
+  - m_GUID: 2bc8d19226bca831ea0c475606c32900
+    m_Address: Items/ItemPrefps/Hammer
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Item
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 492d10c6c86a8e0b8b59b9fd222c4360
+    m_Address: Items/ItemPrefps/Speed
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Item
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7197acf4d87be7f86ad19d7df89a9500
+    m_Address: Items/ItemPrefps/Lucky Block
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Item
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dc59fbd60ff38073b8d30d83b9a5254a
+    m_Address: Items/ItemPrefps/Gravity Changer
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Item
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 338174e766797ab5293a677b9e421770, type: 2}
+  m_SchemaSet:
+    m_Schemas: []

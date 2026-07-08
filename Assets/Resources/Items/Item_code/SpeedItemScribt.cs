@@ -1,41 +1,35 @@
 using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class SpeedItemScribt : MonoBehaviour
 {
     [SerializeField] private float Adding = 2;
-    public GameObject SpeedObjekt;
     public Inventory inventory;
     private bool PowerAktive;
     private float MoveBevore;
-    private InputSystem_Actions inputActions;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Awake()
-    {
-        inputActions = new InputSystem_Actions();
-    }
-    private void OnEnable()
-    {
-        inputActions.Player.Enable();
-    }
+    private ItemData SpeedItem;
 
-    private void OnDisable()
+    async Task Start()
     {
-        inputActions.Player.Disable();
-    }
-    void Start()
-    {
+        ItemHolder holder;
+
+        while ((holder = GetComponent<ItemHolder>()) == null || holder.ItemReference == null)
+        {
+            await Task.Yield();
+        }
+
+        SpeedItem = holder.ItemReference;
+
+        PlayerAttackManager.OnAttackTurn += CheckAttack;
+
         Adding = 2;
-        inventory = GetComponentInParent<ItemInfoManager>().inventory;
-        SpeedObjekt = this.gameObject;
         PowerAktive = false;
-        inputActions.Player.Interact.performed += ctx => CheckInput();
     }
-    // Update is called once per frame
     void CheckInput()
     {
-        if (SpeedObjekt.activeSelf && !PowerAktive)
+        if (gameObject.activeSelf && !PowerAktive)
         {
             PowerAktive = true;
             MoveBevore = playerControl.instance.PlayerMovement.MoveSpeed;
@@ -54,7 +48,7 @@ public class SpeedItemScribt : MonoBehaviour
         inventory.RemoveItem(inventory.HandSlot.ItemStored, -10, null);
         Debug.Log("Power Used Power is Disabled & reset");
         playerControl.instance.PlayerMovement.JumpForce = 350; // to prevent it from making it to low soe how..
-        SpeedObjekt.SetActive(false);
+        gameObject.SetActive(false);
     }
 
 
@@ -65,6 +59,15 @@ public class SpeedItemScribt : MonoBehaviour
         yield return new WaitForSeconds(5);
         Debug.Log("Wayt_Aktive end");
         ResetStats();
+    }
+
+    async void CheckAttack(ItemData itemData)
+    {
+        Debug.Log(itemData.ItemNameText);
+        if (itemData == SpeedItem)
+        {
+            CheckInput();
+        }
     }
 
 }

@@ -1,44 +1,38 @@
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class LuckyBlock : MonoBehaviour
 {
-    private GameObject LuckyBlockObj;
-    private Inventory inventory;
-    private InputSystem_Actions inputActions;
+    private ItemData LuckyBlockItem;
+    private async Task Start()
+    {
+        ItemHolder holder;
 
-    void Awake()
-    {
-        inputActions = new InputSystem_Actions();
-    }
-    private void OnEnable()
-    {
-        inputActions.Player.Enable();
-    }
-
-    private void OnDisable()
-    {
-        inputActions.Player.Disable();
-    }
-    
-    void Start()
-    {
-        inventory = Inventory.instance;
-        LuckyBlockObj = this.gameObject;
-        inputActions.Player.Interact.performed += ctx =>
+        while ((holder = GetComponent<ItemHolder>()) == null || holder.ItemReference == null)
         {
-            if (LuckyBlockObj.activeSelf)
-            {
-                SpawnChest();
-            }
-        };
+            await Task.Yield();
+        }
+
+        LuckyBlockItem = holder.ItemReference;
+
+        PlayerAttackManager.OnAttackTurn += CheckAttack;
     }
 
     public void SpawnChest()
     {
         Vector3 Position = new Vector3(playerControl.instance.Player.transform.position.x, playerControl.instance.Player.transform.position.y + 1.5f, 0);
-        ChestManager chestManager = GameObject.FindFirstObjectByType<ChestManager>();
+        ChestManager chestManager = FindFirstObjectByType<ChestManager>();
         chestManager.AddChest(Position);
-        LuckyBlockObj.SetActive(false);
-        inventory.RemoveHandItem(-1);
+        gameObject.SetActive(false);
+        Inventory.instance.RemoveItem(LuckyBlockItem, 1);
+    }
+
+    async void CheckAttack(ItemData itemData)
+    {
+        Debug.Log(itemData.ItemNameText);
+        if (itemData == LuckyBlockItem)
+        {
+            SpawnChest();
+        }
     }
 }

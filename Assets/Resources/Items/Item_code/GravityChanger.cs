@@ -1,48 +1,47 @@
 using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class GravityChanger : MonoBehaviour
 {
-    private GameObject GravityChangingObjekt;
-    public bool reset;
-    public bool BlockUse;
+    private bool reset;
+    private bool IsActive;
+    private bool BlockUse;
     private Inventory inventory;
-    private InputSystem_Actions inputActions;
+    private ItemData GravityItem;
 
-    void Awake()
+    async Task Start()
     {
-        inputActions = new InputSystem_Actions();
-    }
-    void OnEnable()
-    {
-        inputActions.Enable();
-    }
-    void OnDisable()
-    {
-        inputActions.Disable();
-    }
-    void Start()
-    {
-        GravityChangingObjekt = this.gameObject;
-        inventory = GetComponentInParent<ItemInfoManager>().inventory;
         reset = false;
         BlockUse = false;
+
+        ItemHolder holder;
+
+        while ((holder = GetComponent<ItemHolder>()) == null || holder.ItemReference == null)
+        {
+            await Task.Yield();
+        }
+
+        GravityItem = holder.ItemReference;
+
+        PlayerAttackManager.OnAttackTurn += CheckAttack;
     }
 
-    // Update is called once per frame
-    void Update()
+    void ToggleState()
     {
+        if(BlockUse) return;
+
         float DefaultJump = playerControl.instance.PlayerMovement.JumpForce;
-        if (GravityChangingObjekt.activeSelf && inputActions.Player.Interact.WasPerformedThisFrame() && !BlockUse)
+        if (gameObject.activeSelf && !IsActive)
         {
             playerControl.instance.rb.gravityScale = -0.25f;
-            playerControl.instance.transform.rotation = new Quaternion(180,0,0,0);
+            playerControl.instance.transform.rotation = new Quaternion(180, 0, 0, 0);
             playerControl.instance.PlayerMovement.JumpForce = -DefaultJump / 3;
             StartCoroutine(IsAktive());
         }
-        if (reset == true && inputActions.Player.Interact.WasPerformedThisFrame())
+        else if (gameObject.activeSelf && IsActive)
         {
-            playerControl.instance.transform.rotation = new Quaternion(0,0,0,0);
+            playerControl.instance.transform.rotation = new Quaternion(0, 0, 0, 0);
             playerControl.instance.rb.gravityScale = 1f;
             playerControl.instance.PlayerMovement.JumpForce = 350;
             StartCoroutine(GoDown());
@@ -51,6 +50,7 @@ public class GravityChanger : MonoBehaviour
     }
     public IEnumerator IsAktive()
     {
+        IsActive = true;
         yield return new WaitForSeconds(0.3f);
         reset = true;
         Debug.Log("IsAktive = true");
@@ -58,6 +58,7 @@ public class GravityChanger : MonoBehaviour
     public IEnumerator GoDown()
     {
         yield return new WaitForSeconds(0.1f);
+        IsActive = false;
         reset = false;
         Debug.Log("IsAktive = false");
         StartCoroutine(Wayt());
@@ -67,9 +68,18 @@ public class GravityChanger : MonoBehaviour
     {
         BlockUse = true;
         Debug.Log("Wayt start");
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1.3f);
         BlockUse = false;
-        inventory.RemoveHandItem(-1);
-        GravityChangingObjekt.SetActive(false);
+        Inventory.instance.RemoveItem(GravityItem, 1);
+        gameObject.SetActive(false);
+    }
+
+    async void CheckAttack(ItemData itemData)
+    {
+        Debug.Log(itemData.ItemNameText);
+        if (itemData == GravityItem)
+        {
+            ToggleState();
+        }
     }
 }

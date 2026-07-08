@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -20,6 +22,7 @@ public class playerControl : EntityManager, IDataPersitence
     [Space(0.5f)]
     [Tooltip("The Player Game Object")]
     public GameObject Player;
+    public PlayerBodyParts playerBodyParts;
     [Tooltip("The Player Animator for body parts")]
     public Animator PlayerAniamtor;
     [Tooltip("The Player Rigidbody2D")]
@@ -185,22 +188,7 @@ public class playerControl : EntityManager, IDataPersitence
             StartCoroutine(AttackWait(1.5f, 0.18f));
         }
         #endregion
-        ////
-        /// Hand Bumm
-        /// 
-        #region  Hand Bumm
-        if (inputActions.Player.Attack.WasPerformedThisFrame() && PlayerState.CanAttack)
-        {
-            PlayerState.IsPlayerAttacking = true;
-            AudioManager.instance.PlayAudio("Player_Punch", transform, Vector2.one *1.5f, 1);
-            PlayerState.CurrentAttack = "HandBumm";
-            if (PlayerState.AnimationsCanPlay)
-            {
-                PlayerAniamtor.Play("HandBumm");
-            }
-            StartCoroutine(AttackWait(0.8f, 0.1f));
-        }
-        #endregion
+
         /// 
         /// Sitting System
         ///
@@ -309,7 +297,7 @@ public class playerControl : EntityManager, IDataPersitence
         PlayerState.IsCheckingGround = false;
     }
     #endregion
-    
+
     #region  Save / Load
     public void LoadData(SaveManager manager)
     {
@@ -373,16 +361,34 @@ public class PlayerState
 #endregion
 
 #region  PlayerBodyParts
+
+[System.Serializable]
 public class PlayerBodyParts
 {
-    public class Skins : ScriptableObject
-    {
-        public GameObject Head;
-        public GameObject Body;
-        public GameObject LeftArm;
-        public GameObject RightArm;
-        public GameObject LeftLeg;
-        public GameObject RightLeg;
-    }
+    public List<PlayerBodyPart> playerBodyParts = new List<PlayerBodyPart>();
+}
+[System.Serializable]
+public class PlayerBodyPart
+{
+    public PlayerBodyPartTypes playerBodyPartTypes;
+    public GameObject gameObject;
+}
+
+public enum PlayerBodyPartTypes
+{
+    Head,
+    Body,
+    LeftArm,
+    RightArm,
+    LeftLeg,
+    RightLeg,
+    All
 }
 #endregion
+
+public class Tasks
+{
+    public static event Func<Task> Attack;
+    public static event Func<Task> Interacting;
+
+}

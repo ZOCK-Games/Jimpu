@@ -12,15 +12,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71d9166a2e8155b17a686d5558e7a530, type: 3}
   m_Name: Gravity Changer
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  itemID: 222
+  itemID: 5595dc42-4ad2-4431-8ecc-8bf04f14de65
+  MaxStackAble: 3
+  DropChance: 25
+  playerBodyPartType: 3
+  gamePlaySettings:
+    IsQuestItem: 0
+    IsConsumable: 0
+    IsCraftingMaterial: 0
+    IsPlaceable: 0
+    IsTradable: 0
+    IsDroppable: 0
+  itemType: 0
+  ItemRarity: 1
   ItemImagePrev: {fileID: 6835824012722241415, guid: 848d5d6fab2a83d46b418456f5fba775, type: 3}
   ItemImageInHand: {fileID: 6835824012722241415, guid: 848d5d6fab2a83d46b418456f5fba775, type: 3}
   ItemNameText: Gravity Changer
   ItemInfosText: This is a Gravity Changer
   ItemDescription: 'No Description here '
-  ItemRarity: 0
   ItemCanBeFoundIn: World
   BuyPrice: 1
   SellPrice: 1
-  itemType: 0
-  ItemObject: {fileID: 2910099179966969371, guid: dc59fbd60ff38073b8d30d83b9a5254a, type: 3}
+  ItemReference:
+    m_AssetGUID: dc59fbd60ff38073b8d30d83b9a5254a
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0

@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.iOS;
 using UnityEngine.UI;
 
 [System.Serializable]
@@ -14,7 +16,7 @@ public class SlotInfo
 
 
 [System.Serializable]
-public class ItemInfo
+public class ItemInfoUI // For the UI Elements
 {
     public TextMeshProUGUI ItemName;
     public TextMeshProUGUI ItemRarity;
@@ -30,16 +32,14 @@ public class Inventory : MonoBehaviour, IDataPersitence
 {
     public static Inventory instance { get; private set; }
     public List<ItemData> ItemDatas;
-    public List<GameObject> Items;
     public string CurentItem;
     public int CurentItemData;
     public List<SlotInfo> InvSlots = new List<SlotInfo>();
-    public List<ItemInfo> ItemInfos = new List<ItemInfo>();
+    public List<ItemInfoUI> ItemInfosUI = new List<ItemInfoUI>();
     public bool Add;
     public bool Remove;
     public Button CloseButton;
     public GameObject InventoryUI;
-    public GameObject HandItemParent;
     private InputSystem_Actions inputActions;
     public InventorySlot HandSlot;
     public GameObject MouseItemPrefab;
@@ -58,26 +58,25 @@ public class Inventory : MonoBehaviour, IDataPersitence
                 HandButton = InvSlots[i].ItemSlot.GetComponent<Button>();
             }
         }
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
         }
     }
     void Start()
     {
-        
         for (int i = 0; i < InvSlots.Count; i++)
         {
             int SlotNumber = i;
             var currentInvSlot = InvSlots[SlotNumber].inventorySlot;
             Button SlotButton = InvSlots[SlotNumber].ItemSlot.GetComponent<Button>();
 
-            SlotButton.onClick.AddListener(() =>
+            SlotButton.onClick.AddListener(async () =>
             {
                 if (!currentInvSlot.IsEmpty && !MovingItem)
                 {
                     LoadItemInfo(currentInvSlot.ItemStored);
-                    StartCoroutine(MoveItem(currentInvSlot, SlotNumber));
+                    await MoveItem(currentInvSlot, SlotNumber);
                 }
                 else if (MovingItem)
                 {
@@ -96,13 +95,17 @@ public class Inventory : MonoBehaviour, IDataPersitence
         }
 
         SaveManager.instance.Load();
+
+        gameObject.AddComponent<InvPlayerEquip>();
+
+        CheckBodyPartItemObjects();
     }
 
     void OnDisable()
     {
         inputActions.Player.Disable();
     }
-    public void OnEnable()
+    public async Task OnEnable()
     {
         inputActions.Player.Enable();
         MovingItem = false;
@@ -113,7 +116,7 @@ public class Inventory : MonoBehaviour, IDataPersitence
         CloseButton.onClick.AddListener(() => ToggleInventory());
 
         HandButton.Select();
-        ReloadAllItemInfos();
+        await ReloadAllItemInfos();
     }
     public void ToggleInventory()
     {
@@ -135,30 +138,41 @@ public class Inventory : MonoBehaviour, IDataPersitence
     {
         if (itemData != null)
         {
-            ItemInfos[0].ItemBuyPrice.text = itemData.BuyPrice.ToString();
-            ItemInfos[0].ItemCanBeFoundIn.text = itemData.ItemCanBeFoundIn;
-            ItemInfos[0].ItemDescription.text = itemData.ItemDescription.ToString();
-            ItemInfos[0].ItemDisplayImage.sprite = itemData.ItemImagePrev;
-            ItemInfos[0].ItemName.text = itemData.ItemNameText;
-            ItemInfos[0].ItemRarity.text = itemData.ItemRarity.ToString();
-            ItemInfos[0].ItemSellPrice.text = itemData.SellPrice.ToString();
-            ItemInfos[0].ItemType.text = itemData.itemType.ToString();
+            ItemInfosUI[0].ItemBuyPrice.text = itemData.BuyPrice.ToString();
+            ItemInfosUI[0].ItemCanBeFoundIn.text = itemData.ItemCanBeFoundIn;
+            ItemInfosUI[0].ItemDescription.text = itemData.ItemDescription.ToString();
+            ItemInfosUI[0].ItemDisplayImage.sprite = itemData.ItemImagePrev;
+            ItemInfosUI[0].ItemName.text = itemData.ItemNameText;
+            ItemInfosUI[0].ItemRarity.text = itemData.ItemRarity.ToString();
+            ItemInfosUI[0].ItemSellPrice.text = itemData.SellPrice.ToString();
+            ItemInfosUI[0].ItemType.text = itemData.itemType.ToString();
         }
         else
         {
             Debug.Log("ItemData is null");
         }
     }
-    public void ReloadAllItemInfos()
+    public async Task ReloadAllItemInfos()
     {
-        for (int i = 0; i < HandItemParent.transform.childCount; i++)
+        while (playerControl.instance == null)
         {
-            Destroy(HandItemParent.transform.GetChild(i).gameObject);
+            await Task.Yield();
+        }
+
+        // Removes all Items that are set as a child for the body part
+        foreach (var x in playerControl.instance.playerBodyParts.playerBodyParts)
+        {
+            for (int i = 0; i < x.gameObject.transform.childCount; i++)
+            {
+                Destroy(x.gameObject.transform.GetChild(i).gameObject);
+            }
         }
         for (int i = 0; i < InvSlots.Count; i++)
         {
             var Slot = InvSlots[i].ItemSlot;
             InventorySlot Inv = InvSlots[i].inventorySlot;
+
+
             if (Inv.ItemCount > Inv.MaxItems)
             {
                 Inv.ItemCount = Inv.MaxItems;
@@ -171,7 +185,7 @@ public class Inventory : MonoBehaviour, IDataPersitence
             }
             else
             {
-                Slot.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = 0.ToString();
+                Slot.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "0";
                 Slot.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "null";
                 Slot.transform.GetChild(0).GetComponent<Image>().sprite = null;
             }
@@ -197,7 +211,7 @@ public class Inventory : MonoBehaviour, IDataPersitence
         }
         SaveManager.instance.dataSOs.inventorDataSO.SaveFromInventory(saveDatas);
     }
-    public void AddItem(ItemData item, InventorySlot slot, int? ItemCount)
+    public async Task AddItem(ItemData item, InventorySlot slot, int? ItemCount)
     {
         if (slot == null)
         {
@@ -221,7 +235,7 @@ public class Inventory : MonoBehaviour, IDataPersitence
                             }
                             Inv.ItemStored = item;
                             Inv.itemType = item.itemType;
-                            ReloadAllItemInfos();
+                            await ReloadAllItemInfos();
                             return;
                         }
                         else if (Inv.ItemCount > 0 && Inv.ItemStored.ItemNameText == item.ItemNameText) // increasing the item count and refreshing
@@ -249,7 +263,7 @@ public class Inventory : MonoBehaviour, IDataPersitence
                 }
                 else
                 {
-                    Debug.Log($"There is no Item slot for this item type: {item.itemType}");
+                    Debug.LogWarning($"There is no Item slot for this item type: {item.itemType}");
                 }
             }
         }
@@ -261,13 +275,13 @@ public class Inventory : MonoBehaviour, IDataPersitence
                 Inv.ItemCount += 1;
                 Inv.ItemStored = item;
                 Inv.itemType = item.itemType;
-                ReloadAllItemInfos();
+                await ReloadAllItemInfos();
                 return;
             }
             else if (Inv.ItemCount > 0 && Inv.ItemStored.ItemNameText == item.ItemNameText) // increasing the item count and refreshing
             {
                 Inv.ItemCount += 1;
-                ReloadAllItemInfos();
+                await ReloadAllItemInfos();
                 return;
             }
             else
@@ -276,7 +290,7 @@ public class Inventory : MonoBehaviour, IDataPersitence
             }
         }
     }
-    public void RemoveItem(ItemData item, int ItemCount, int? InvSlot)
+    public async Task RemoveItem(ItemData item, int ItemCount, int? InvSlot = null)
     {
         if (InvSlot == null)
         {
@@ -293,7 +307,7 @@ public class Inventory : MonoBehaviour, IDataPersitence
                         Inv.ItemStored = null;
 
                     }
-                    ReloadAllItemInfos();
+                    await ReloadAllItemInfos();
                     Debug.Log($"Removed Items");
                     return;
                 }
@@ -311,7 +325,7 @@ public class Inventory : MonoBehaviour, IDataPersitence
                 {
                     Inv.ItemStored = null;
                 }
-                ReloadAllItemInfos();
+                await ReloadAllItemInfos();
 
                 Debug.Log($"Removed Items");
                 return;
@@ -320,7 +334,7 @@ public class Inventory : MonoBehaviour, IDataPersitence
         Debug.Log("There Was no item found to remove");
     }
 
-    public IEnumerator MoveItem(InventorySlot inventorySlot, int InvSlot)
+    public async Task MoveItem(InventorySlot inventorySlot, int InvSlot)
     {
         InventorySlot Inv = InvSlots[InvSlot].inventorySlot;
         ItemData item = inventorySlot.ItemStored;
@@ -332,29 +346,40 @@ public class Inventory : MonoBehaviour, IDataPersitence
             MouseItem.GetComponent<Image>().sprite = item.ItemImagePrev;
             MouseItem.transform.position = Mouse.current.position.ReadValue();
             MouseItem.SetActive(true);
-            ReloadAllItemInfos();
+            await ReloadAllItemInfos();
             InvSlots[InvSlot].ItemSlot.transform.GetChild(0).gameObject.SetActive(false);
             MovingItem = true;
             float ElapsedTime = 0;
+            bool VerifiedItemSpace = false;
             currentInvSlotMovingItem = null;
-            while (currentInvSlotMovingItem == null)
+            while (currentInvSlotMovingItem == null && !VerifiedItemSpace)
             {
                 MouseItem.transform.position = new Vector3(Mouse.current.position.ReadValue().x, Mouse.current.position.ReadValue().y, 0);
                 ElapsedTime += Time.deltaTime;
-                yield return null;
+                await Task.Yield();
+                if (currentInvSlotMovingItem != null)
+                {
+                    int itemSpace = currentInvSlotMovingItem.MaxItems - currentInvSlotMovingItem.ItemCount;
+                    if (itemSpace >= ItemMovingCount)
+                    {
+                        VerifiedItemSpace = true;
+                    }
+                    else
+                    {
+                        VerifiedItemSpace = false;
+                        currentInvSlotMovingItem = null;
+                    }
+                }
             }
             ;
             MovingItem = false;
             InvSlots[InvSlot].ItemSlot.transform.GetChild(0).gameObject.SetActive(true);
-            if (ElapsedTime > 5)
-            {
-                Debug.Log("Item was not set to a new Slot so it canceled");
-                yield break;
-            }
-            RemoveItem(item, -ItemMovingCount, InvSlot);
-            AddItem(item, currentInvSlotMovingItem, ItemMovingCount);
-            ReloadAllItemInfos();
+
+            await RemoveItem(item, -ItemMovingCount, InvSlot);
+            await AddItem(item, currentInvSlotMovingItem, ItemMovingCount);
+            await ReloadAllItemInfos();
             MouseItem.SetActive(false);
+            CheckBodyPartItemObjects();
         }
         else
         {
@@ -365,50 +390,55 @@ public class Inventory : MonoBehaviour, IDataPersitence
         MovingItem = false;
     }
 
-    void Update()
+    async Task Update()
     {
         if (Add)
         {
             Debug.Log("add");
-            AddItem(ItemDatas[1], InvSlots[0].inventorySlot, 1);
+            await AddItem(ItemDatas[Random.Range(0, ItemDatas.Count)], InvSlots[Random.Range(0, InvSlots.Count)].inventorySlot, 1);
             Add = false;
         }
         if (Remove)
         {
-            RemoveItem(ItemDatas[1], -1, null);
+            await RemoveItem(ItemDatas[1], -1, null);
             Remove = false;
         }
-
-        if (HandSlot.ItemStored != null &&
-        (
-            HandItemParent.transform.childCount == 0 ||
-            HandItemParent.transform.GetChild(0).gameObject.name != HandSlot.ItemStored.ItemObject.name
-        ))
-        {
-            for (int i = 0; i < HandItemParent.transform.childCount; i++)
-            {
-                Destroy(HandItemParent.transform.GetChild(i).gameObject);
-            }
-            GameObject HandItem = Instantiate(HandSlot.ItemStored.ItemObject);
-            HandItem.transform.position = HandItemParent.transform.position;
-            HandItem.transform.SetParent(HandItemParent.transform);
-            HandItem.name = HandSlot.ItemStored.ItemObject.name;
-        }
-        if (HandSlot.ItemStored == null)
-        {
-            for (int i = 0; i < HandItemParent.transform.childCount; i++)
-            {
-                Destroy(HandItemParent.transform.GetChild(i).gameObject);
-            }
-        }
-
-
     }
-    public void RemoveHandItem(int Amount)
+
+    void CheckBodyPartItemObjects()
+    {
+        foreach (var x in playerControl.instance.playerBodyParts.playerBodyParts)
+        {
+            for (int i = 0; i < x.gameObject.transform.childCount; i++)
+            {
+                var ItemReference = x.gameObject.transform.GetChild(i).GetComponent<ItemHolder>().ItemReference;
+                if (ItemReference != null && ItemReference.playerBodyPartType != x.playerBodyPartTypes)
+                {
+                    Destroy(x.gameObject.transform.GetChild(i));
+                }
+            }
+            if (x.gameObject.transform.childCount == 0) // when a body part currently doesn't have a Object it checks if there is a Item in that slot
+            {
+                var Slot = InvSlots.Find(s => s.inventorySlot != null &&
+                s.inventorySlot.ItemStored != null &&
+                s.inventorySlot.ItemStored.playerBodyPartType == x.playerBodyPartTypes);
+
+                if (Slot != null && Slot.inventorySlot != null && Slot.inventorySlot.ItemStored != null)
+                {
+                    _ = InvPlayerEquip.instance.EquipItem(Slot.inventorySlot.ItemStored);
+                }
+            }
+        }
+    }
+
+
+
+
+    public async Task RemoveHandItem(int Amount)
     {
         HandSlot.ItemCount += Amount;
         HandSlot.ItemStored = null;
-        ReloadAllItemInfos();
+        await ReloadAllItemInfos();
     }
 
     public void LoadData(SaveManager manager)

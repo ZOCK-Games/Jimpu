@@ -8,6 +8,7 @@ public class GoToScene : MonoBehaviour
 {
     public bool OnlyScript;
     public string SceneToGoTo;
+    public string SwitcherID;
     public Button Button;
     public bool BlockInput;
     private InputSystem_Actions inputActions;

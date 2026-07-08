@@ -8,6 +8,7 @@ public class HandBummAttack : MonoBehaviour
     void Start()
     {
         damage = playerControl.instance.PlayerMovement.HandBummAttackDamage;
+        PlayerAttackManager.OnAttackTurn += CheckAttack;
     }
     void OnTriggerStay2D(Collider2D collision)
     {
@@ -21,7 +22,7 @@ public class HandBummAttack : MonoBehaviour
         }
         if (entity != null) // Entity found and giving entity damage
         {
-            AudioManager.instance.PlayAudio("punch-impact", collision.transform, new Vector2(2,30), 1, false, 0.2f);
+            AudioManager.instance.PlayAudio("punch-impact", collision.transform, new Vector2(2, 30), 1, false, 0.2f);
             entity.TakeDamage(damage);
             ParticelManager.instance.SpawnParticle(collision.transform.position, "Particle System Attack", 0.4f);
             CanDealDamage = false;
@@ -31,10 +32,17 @@ public class HandBummAttack : MonoBehaviour
             Debug.Log("There Has been a problem with finding the enmity Manager");
         }
     }
-    void Update()
+    void CheckAttack(ItemData itemData)
     {
-        if (!CanDealDamage && !HandBummActive)
+        if (itemData == null)
         {
+            AudioManager.instance.PlayAudio("Player_Punch", transform, Vector2.one * 1.5f, 1);
+            playerControl.instance.PlayerState.CurrentAttack = "HandBumm";
+            if (playerControl.instance.PlayerState.AnimationsCanPlay)
+            {
+                playerControl.instance.PlayerAniamtor.Play("HandBumm");
+            }
+
             CanDealDamage = true;
         }
     }

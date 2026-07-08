@@ -22,7 +22,8 @@ public class PlayerHudUIManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
         subscribed = false;
         SceneInfoManager.OnSceneChanged += x => CheckScene(x);
-        toggle(false);
+        Toggle(false);
+        CheckScene(SceneInfoManager.instance.CurrentScene);
 
     }
     void CheckScene(SceneSettings scene)
@@ -39,7 +40,7 @@ public class PlayerHudUIManager : MonoBehaviour
             }
             subscribed = true;
 
-            toggle(true);
+            Toggle(true);
         }
         else if (subscribed)
         {
@@ -47,11 +48,11 @@ public class PlayerHudUIManager : MonoBehaviour
             EnergyManager.instance.EnergyChanged -= CheckEnergy;
             subscribed = false;
 
-            toggle(false);
+            Toggle(false);
         }
     }
 
-    void toggle(bool status)
+    void Toggle(bool status)
     {
         for (int i = 0; i < transform.childCount; i++)
         {

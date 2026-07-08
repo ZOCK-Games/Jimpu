@@ -12,15 +12,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71d9166a2e8155b17a686d5558e7a530, type: 3}
   m_Name: Lucky Block
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  itemID: 222
+  itemID: 67bd23cc-7391-42c6-8735-77f81c7d32d2
+  MaxStackAble: 3
+  DropChance: 25
+  playerBodyPartType: 3
+  gamePlaySettings:
+    IsQuestItem: 0
+    IsConsumable: 0
+    IsCraftingMaterial: 0
+    IsPlaceable: 0
+    IsTradable: 0
+    IsDroppable: 0
+  itemType: 0
+  ItemRarity: 1
   ItemImagePrev: {fileID: -6831884610337485332, guid: 848d5d6fab2a83d46b418456f5fba775, type: 3}
   ItemImageInHand: {fileID: -6831884610337485332, guid: 848d5d6fab2a83d46b418456f5fba775, type: 3}
   ItemNameText: Lucky Block
   ItemInfosText: This is a Lucky Block
   ItemDescription: fff
-  ItemRarity: 0
   ItemCanBeFoundIn: fff
   BuyPrice: 0
   SellPrice: 0
-  itemType: 0
-  ItemObject: {fileID: 2692864394147549482, guid: 7197acf4d87be7f86ad19d7df89a9500, type: 3}
+  ItemReference:
+    m_AssetGUID: 7197acf4d87be7f86ad19d7df89a9500
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0
