@@ -4070,7 +4070,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   Time: 26
   NextScene: SpaceCrash-1
-  AudioName: SpaceCrashAudioV1
+  AudioName: SpaceCrashAudioV2
 --- !u!4 &1878909680
 Transform:
   m_ObjectHideFlags: 0
