@@ -21,6 +21,7 @@ public class SkinChangerManager : MonoBehaviour, IDataPersitence
     private float size = 2.3f;
     private float displayMaxDistance = 2f;
     private InputSystem_Actions inputActions;
+    private bool isDragging;
     void OnEnable()
     {
         inputActions = new InputSystem_Actions();
@@ -36,16 +37,57 @@ public class SkinChangerManager : MonoBehaviour, IDataPersitence
         Gizmos.DrawSphere(Vector3.zero, size + 0.2f);
     }
 
+    void LateUpdate()
+    {
+        if (isDragging || skinChangerStrings == null || skinChangerStrings.parentTransform == null)
+        {
+            return;
+        }
+
+        var stringHolders = skinChangerStrings.parentTransform.GetComponentsInChildren<SkinChangerStrings.StringHolder>();
+        foreach (var holder in stringHolders)
+        {
+            if (holder == null || holder.isTemporary || holder.mainDisplay == null)
+            {
+                continue;
+            }
+
+            bool hasValidMain = holder.normalDisplay != null && holder.mainDisplay.normalDisplay == holder.normalDisplay;
+            if (!hasValidMain)
+            {
+                if (holder.normalDisplay != null)
+                {
+                    holder.normalDisplay.connected = false;
+                }
+                _ = skinChangerStrings.DestroyString(holder.gameObject);
+            }
+        }
+    }
+
     async Task CheckForPoint(GameObject hitObject = null, SkinElementDisplay sourceDisplay = null)
     {
+        if (hitObject == null && isDragging)
+        {
+            return;
+        }
+
         Debug.Log("Checking.....");
         var MousePos = inputActions.UI.Point.ReadValue<Vector2>();
-        var WorldPos = Camera.main.ScreenToWorldPoint(MousePos);
+        var camera = Camera.main;
+        var WorldPos = camera.ScreenToWorldPoint(new Vector3(MousePos.x, MousePos.y, -camera.transform.position.z));
         var weltPos2D = new Vector2(WorldPos.x, WorldPos.y);
         Debug.Log(WorldPos);
 
         GameObject clickedObj = hitObject;
         var hit = Physics2D.Raycast(weltPos2D, Vector2.zero);
+        var displayCollider = Physics2D.OverlapPointAll(weltPos2D)
+            .Select(collider => skinElementDisplays.Find(display =>
+                display != null && !display.connected && display.portCollider2d == collider))
+            .FirstOrDefault(display => display != null)?.portCollider2d;
+        if (hitObject == null && displayCollider != null)
+        {
+            clickedObj = displayCollider.gameObject;
+        }
         if (clickedObj == null && hit.collider != null)
         {
             clickedObj = hit.collider.gameObject;
@@ -88,7 +130,7 @@ public class SkinChangerManager : MonoBehaviour, IDataPersitence
                     float speed = 10f;
 
                     MousePos = inputActions.UI.Point.ReadValue<Vector2>();
-                    WorldPos = Camera.main.ScreenToWorldPoint(new Vector3(MousePos.x, MousePos.y, Mathf.Abs(Camera.main.transform.position.z)));
+                    WorldPos = camera.ScreenToWorldPoint(new Vector3(MousePos.x, MousePos.y, -camera.transform.position.z));
                     var targetPos = new Vector2(WorldPos.x, WorldPos.y);
 
                     var newPos = Vector2.Lerp(Rigidbody2dString.position, targetPos, Time.deltaTime * speed);
@@ -96,6 +138,7 @@ public class SkinChangerManager : MonoBehaviour, IDataPersitence
 
                     await Task.Yield();
                 }
+                isDragging = false;
                 var targetType = skinElementDisplay != null ? skinElementDisplay.skinType : stringHolder?.normalDisplay?.skinType;
                 var allTypeMains = targetType != null ? skinDisplayMains.FindAll(x => x.skinType == targetType) : new List<SkinElementDisplayMain>();
 
@@ -112,11 +155,19 @@ public class SkinChangerManager : MonoBehaviour, IDataPersitence
                         Debug.Log("Found closest display");
 
                         var colliderPort = closestDisplay.collider2DInPort;
-                        ClearMainConnection(closestDisplay);
+                        ClearMainConnection(closestDisplay, stringParent);
+                        closestDisplay.normalDisplay = null;
+                        closestDisplay.SkinElement = null;
                         closestDisplay.SkinElement = (skinElementDisplay != null) ? skinElementDisplay.skinElement : null;
                         if (skinElementDisplay != null)
                         {
                             closestDisplay.normalDisplay = skinElementDisplay;
+                            var holder = stringParent != null ? stringParent.GetComponent<SkinChangerStrings.StringHolder>() : null;
+                            if (holder != null)
+                            {
+                                holder.mainDisplay = closestDisplay;
+                                holder.isTemporary = false;
+                            }
                             skinElementDisplay.connected = true;
                             if (closestDisplay.sprite != null && skinElementDisplay.DisplayImage != null)
                             {
@@ -180,10 +231,19 @@ public class SkinChangerManager : MonoBehaviour, IDataPersitence
             }
             else
             {
-                var skinDisplay = skinElementDisplays.Find(x => x.portCollider2d == (hit.collider));
+                var skinDisplay = skinElementDisplays.Find(x =>
+                    x.portCollider2d == hit.collider ||
+                    (x.portCollider2d != null && x.portCollider2d.gameObject == clickedObj));
                 if (skinDisplay != null && !skinDisplay.connected)
                 {
-                    var connection = skinChangerStrings.ConnectElements(skinDisplay, null, true);
+                    isDragging = true;
+                    var connection = skinChangerStrings.ConnectElements(skinDisplay, null, true, WorldPos);
+                    if (connection.PointB == null)
+                    {
+                        isDragging = false;
+                        Debug.LogWarning("Could not create string for " + skinDisplay.name);
+                        return;
+                    }
                     GameObject PointB = connection.PointB;
                     _ = CheckForPoint(PointB, skinDisplay);
                 }
@@ -209,10 +269,13 @@ public class SkinChangerManager : MonoBehaviour, IDataPersitence
             positions.Add(vector3);
         }
         float elementMultiplayer = 1;
-        float distance = Vector3.Distance(positions[0], positions[1]);
-        if (distance <= displayMaxDistance)
+        if (positions.Count >= 2)
         {
-            elementMultiplayer = distance / displayMaxDistance;
+            float distance = Vector3.Distance(positions[0], positions[1]);
+            if (distance <= displayMaxDistance)
+            {
+                elementMultiplayer = distance / displayMaxDistance;
+            }
         }
 
 
@@ -260,6 +323,11 @@ public class SkinChangerManager : MonoBehaviour, IDataPersitence
         foreach (SkinElementDisplayMain element in skinDisplayMains)
         {
             var normalDisplayList = skinElementDisplays.FindAll(x => x.skinType == element.skinType);
+            if (normalDisplayList.Count == 0)
+            {
+                Debug.LogWarning("No skin element found for type " + element.skinType);
+                continue;
+            }
             var normalDisplay = normalDisplayList[Random.Range(0, normalDisplayList.Count)];
             if (normalDisplay != null)
             {
@@ -340,7 +408,7 @@ public class SkinChangerManager : MonoBehaviour, IDataPersitence
         }
     }
 
-    private void ClearMainConnection(SkinElementDisplayMain main)
+    private void ClearMainConnection(SkinElementDisplayMain main, GameObject protectedStringParent = null)
     {
         if (main == null)
             return;
@@ -348,11 +416,11 @@ public class SkinChangerManager : MonoBehaviour, IDataPersitence
         if (main.normalDisplay != null)
         {
             var stringParent = FindStringParent(main);
-            if (stringParent != null)
+            if (stringParent != null && stringParent != protectedStringParent)
             {
                 _ = skinChangerStrings.DestroyString(stringParent);
             }
-            else
+            else if (stringParent == null)
             {
                 main.normalDisplay.connected = false;
             }

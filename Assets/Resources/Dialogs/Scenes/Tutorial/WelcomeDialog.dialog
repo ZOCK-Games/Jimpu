@@ -1,0 +1,368 @@
+{
+    "dialogNodeDatas": [
+        {
+            "NodeName": "Start",
+            "nodeTypes": 0,
+            "PosX": 87.0,
+            "PosY": 207.0,
+            "width": 118.0,
+            "height": 97.0,
+            "fields": [
+                {
+                    "name": "Description",
+                    "Value": "Description",
+                    "type": 0
+                }
+            ],
+            "dropDownFields": [],
+            "objectSaveDatas": [],
+            "NodeID": "e687e49c-fd11-4a10-b542-72f9672b5cee",
+            "edgeSaveDatas": [
+                {
+                    "InputNodeID": "0d9d6cd2-05e9-48c7-9d52-e00d390d6baf",
+                    "InputPortName": "In",
+                    "OutputPortName": "Out"
+                }
+            ]
+        },
+        {
+            "NodeName": "Action",
+            "nodeTypes": 4,
+            "PosX": 272.0,
+            "PosY": 258.0,
+            "width": 297.0,
+            "height": 98.0,
+            "fields": [],
+            "dropDownFields": [],
+            "objectSaveDatas": [
+                {
+                    "name": "Character",
+                    "path": "Assets/Resources/Characters/Xenon.asset",
+                    "typeName": "DialogSystem.CharacterData, DialogSystem, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "isAsset": true
+                }
+            ],
+            "NodeID": "0d9d6cd2-05e9-48c7-9d52-e00d390d6baf",
+            "edgeSaveDatas": [
+                {
+                    "InputNodeID": "a4ef78b1-f2a2-402f-ba46-0ff7b4bfb95b",
+                    "InputPortName": "In",
+                    "OutputPortName": "Out"
+                }
+            ]
+        },
+        {
+            "NodeName": "Dialog",
+            "nodeTypes": 1,
+            "PosX": 651.0,
+            "PosY": 315.0,
+            "width": 214.0,
+            "height": 176.0,
+            "fields": [
+                {
+                    "name": "NarratorText",
+                    "Value": "Ahhh endlich bist du da!",
+                    "type": 0
+                },
+                {
+                    "name": "Time",
+                    "Value": "4",
+                    "type": 1
+                },
+                {
+                    "name": "TextSpeed",
+                    "Value": "1",
+                    "type": 1
+                },
+                {
+                    "name": "Color",
+                    "Value": "#FFFFFFFF",
+                    "type": 2
+                }
+            ],
+            "dropDownFields": [],
+            "objectSaveDatas": [],
+            "NodeID": "a4ef78b1-f2a2-402f-ba46-0ff7b4bfb95b",
+            "edgeSaveDatas": [
+                {
+                    "InputNodeID": "e6cbfbd2-dbdb-4a9d-9f48-9f7469786095",
+                    "InputPortName": "In",
+                    "OutputPortName": "Out"
+                }
+            ]
+        },
+        {
+            "NodeName": "Dialog",
+            "nodeTypes": 1,
+            "PosX": 1631.0,
+            "PosY": 338.0,
+            "width": 214.0,
+            "height": 176.0,
+            "fields": [
+                {
+                    "name": "NarratorText",
+                    "Value": "Ahhh ja, Dir Hier einiges zu erklären",
+                    "type": 0
+                },
+                {
+                    "name": "Time",
+                    "Value": "4",
+                    "type": 1
+                },
+                {
+                    "name": "TextSpeed",
+                    "Value": "1",
+                    "type": 1
+                },
+                {
+                    "name": "Color",
+                    "Value": "#FFFFFFFF",
+                    "type": 2
+                }
+            ],
+            "dropDownFields": [],
+            "objectSaveDatas": [],
+            "NodeID": "fc719ef3-ecc1-4e59-a0fc-9382fa777aba",
+            "edgeSaveDatas": [
+                {
+                    "InputNodeID": "f4a44c44-0d37-469d-8b2d-e21da2bde3ba",
+                    "InputPortName": "In",
+                    "OutputPortName": "Out"
+                }
+            ]
+        },
+        {
+            "NodeName": "Dialog",
+            "nodeTypes": 1,
+            "PosX": 950.0,
+            "PosY": 307.0,
+            "width": 214.0,
+            "height": 176.0,
+            "fields": [
+                {
+                    "name": "NarratorText",
+                    "Value": "Ich bin in übrigen Xenon Schön Dich\n kennenzulernen Spieler",
+                    "type": 0
+                },
+                {
+                    "name": "Time",
+                    "Value": "6",
+                    "type": 1
+                },
+                {
+                    "name": "TextSpeed",
+                    "Value": "1",
+                    "type": 1
+                },
+                {
+                    "name": "Color",
+                    "Value": "#FFFFFFFF",
+                    "type": 2
+                }
+            ],
+            "dropDownFields": [],
+            "objectSaveDatas": [],
+            "NodeID": "e6cbfbd2-dbdb-4a9d-9f48-9f7469786095",
+            "edgeSaveDatas": [
+                {
+                    "InputNodeID": "ed5c2bf1-c421-40b6-b95c-58792898cb0a",
+                    "InputPortName": "In",
+                    "OutputPortName": "Out"
+                }
+            ]
+        },
+        {
+            "NodeName": "Dialog",
+            "nodeTypes": 1,
+            "PosX": 1313.0,
+            "PosY": 314.0,
+            "width": 214.0,
+            "height": 176.0,
+            "fields": [
+                {
+                    "name": "NarratorText",
+                    "Value": "Ich bin hier um Ähhh...",
+                    "type": 0
+                },
+                {
+                    "name": "Time",
+                    "Value": "3",
+                    "type": 1
+                },
+                {
+                    "name": "TextSpeed",
+                    "Value": "2",
+                    "type": 1
+                },
+                {
+                    "name": "Color",
+                    "Value": "#FFFFFFFF",
+                    "type": 2
+                }
+            ],
+            "dropDownFields": [],
+            "objectSaveDatas": [],
+            "NodeID": "ed5c2bf1-c421-40b6-b95c-58792898cb0a",
+            "edgeSaveDatas": [
+                {
+                    "InputNodeID": "fc719ef3-ecc1-4e59-a0fc-9382fa777aba",
+                    "InputPortName": "In",
+                    "OutputPortName": "Out"
+                }
+            ]
+        },
+        {
+            "NodeName": "Dialog",
+            "nodeTypes": 1,
+            "PosX": 2410.0,
+            "PosY": 538.0,
+            "width": 214.0,
+            "height": 176.0,
+            "fields": [
+                {
+                    "name": "NarratorText",
+                    "Value": "Vertrau mir ich will dir nur helfen!",
+                    "type": 0
+                },
+                {
+                    "name": "Time",
+                    "Value": "5",
+                    "type": 1
+                },
+                {
+                    "name": "TextSpeed",
+                    "Value": "1",
+                    "type": 1
+                },
+                {
+                    "name": "Color",
+                    "Value": "#B1B1B1FF",
+                    "type": 2
+                }
+            ],
+            "dropDownFields": [],
+            "objectSaveDatas": [],
+            "NodeID": "40d616ee-61a4-4ff8-b5ae-2f540d61bad1",
+            "edgeSaveDatas": [
+                {
+                    "InputNodeID": "c8699e8c-95ab-4265-8512-ce0a9ff30169",
+                    "InputPortName": "In",
+                    "OutputPortName": "Out"
+                }
+            ]
+        },
+        {
+            "NodeName": "End",
+            "nodeTypes": 6,
+            "PosX": 2404.0,
+            "PosY": 337.0,
+            "width": 68.0,
+            "height": 77.0,
+            "fields": [],
+            "dropDownFields": [],
+            "objectSaveDatas": [],
+            "NodeID": "10922bb9-867a-4d71-bc49-980984749229",
+            "edgeSaveDatas": []
+        },
+        {
+            "NodeName": "MultiDialog",
+            "nodeTypes": 2,
+            "PosX": 2065.0,
+            "PosY": 330.0,
+            "width": 214.0,
+            "height": 218.0,
+            "fields": [
+                {
+                    "name": "NarratorText",
+                    "Value": "Also Alls erstes lauf mal nach rechts",
+                    "type": 0
+                },
+                {
+                    "name": "TextSpeed:",
+                    "Value": "5",
+                    "type": 1
+                },
+                {
+                    "name": "Color",
+                    "Value": "#FFFFFFFF",
+                    "type": 2
+                },
+                {
+                    "name": "DialogText",
+                    "Value": "Alles klar:;Warum Sölte ich?:40d616ee-61a4-4ff8-b5ae-2f540d61bad1",
+                    "type": 4
+                }
+            ],
+            "dropDownFields": [],
+            "objectSaveDatas": [],
+            "NodeID": "f4a44c44-0d37-469d-8b2d-e21da2bde3ba",
+            "edgeSaveDatas": [
+                {
+                    "InputNodeID": "10922bb9-867a-4d71-bc49-980984749229",
+                    "InputPortName": "In",
+                    "OutputPortName": "Out"
+                },
+                {
+                    "InputNodeID": "40d616ee-61a4-4ff8-b5ae-2f540d61bad1",
+                    "InputPortName": "In",
+                    "OutputPortName": "DialogText_1"
+                }
+            ]
+        },
+        {
+            "NodeName": "Dialog",
+            "nodeTypes": 1,
+            "PosX": 2789.0,
+            "PosY": 574.0,
+            "width": 214.0,
+            "height": 176.0,
+            "fields": [
+                {
+                    "name": "NarratorText",
+                    "Value": "Enter",
+                    "type": 0
+                },
+                {
+                    "name": "Time",
+                    "Value": "5",
+                    "type": 1
+                },
+                {
+                    "name": "TextSpeed",
+                    "Value": "1",
+                    "type": 1
+                },
+                {
+                    "name": "Color",
+                    "Value": "#FFFFFFFF",
+                    "type": 2
+                }
+            ],
+            "dropDownFields": [],
+            "objectSaveDatas": [],
+            "NodeID": "c8699e8c-95ab-4265-8512-ce0a9ff30169",
+            "edgeSaveDatas": [
+                {
+                    "InputNodeID": "66ac4478-200c-45b9-9616-0e968e32b609",
+                    "InputPortName": "In",
+                    "OutputPortName": "Out"
+                }
+            ]
+        },
+        {
+            "NodeName": "End",
+            "nodeTypes": 6,
+            "PosX": 3140.0,
+            "PosY": 606.0,
+            "width": 68.0,
+            "height": 77.0,
+            "fields": [],
+            "dropDownFields": [],
+            "objectSaveDatas": [],
+            "NodeID": "66ac4478-200c-45b9-9616-0e968e32b609",
+            "edgeSaveDatas": []
+        }
+    ],
+    "desciption": "Description",
+    "ID": ""
+}

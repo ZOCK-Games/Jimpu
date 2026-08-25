@@ -1,0 +1,124 @@
+{
+    "dialogNodeDatas": [
+        {
+            "NodeName": "Start",
+            "nodeTypes": 0,
+            "PosX": -81.0,
+            "PosY": -28.0,
+            "width": 118.0,
+            "height": 97.0,
+            "fields": [
+                {
+                    "name": "Description",
+                    "Value": "Chest Dialog",
+                    "type": 0
+                }
+            ],
+            "dropDownFields": [],
+            "objectSaveDatas": [],
+            "NodeID": "d6a074bb-a508-4e30-95d3-978f1e49e896",
+            "edgeSaveDatas": [
+                {
+                    "InputNodeID": "ced542ac-7fc2-495f-a79f-e8be7d23bc9f",
+                    "InputPortName": "In",
+                    "OutputPortName": "Out"
+                }
+            ]
+        },
+        {
+            "NodeName": "Dialog",
+            "nodeTypes": 1,
+            "PosX": 514.0,
+            "PosY": -54.0,
+            "width": 256.0,
+            "height": 176.0,
+            "fields": [
+                {
+                    "name": "NarratorText",
+                    "Value": "Probiere sie zu öffnen in dem du zu ihr leufst",
+                    "type": 0
+                },
+                {
+                    "name": "Time",
+                    "Value": "6",
+                    "type": 1
+                },
+                {
+                    "name": "TextSpeed",
+                    "Value": "2",
+                    "type": 1
+                },
+                {
+                    "name": "Color",
+                    "Value": "#FFFFFFFF",
+                    "type": 2
+                }
+            ],
+            "dropDownFields": [],
+            "objectSaveDatas": [],
+            "NodeID": "789a8f67-4eac-4f5f-ae65-33f2e24fc3b7",
+            "edgeSaveDatas": [
+                {
+                    "InputNodeID": "eba7b5ea-5b9d-460d-ae78-6f0051c5f3f3",
+                    "InputPortName": "In",
+                    "OutputPortName": "Out"
+                }
+            ]
+        },
+        {
+            "NodeName": "Dialog",
+            "nodeTypes": 1,
+            "PosX": 199.0,
+            "PosY": 17.0,
+            "width": 214.0,
+            "height": 176.0,
+            "fields": [
+                {
+                    "name": "NarratorText",
+                    "Value": "Oh eine truhe! ",
+                    "type": 0
+                },
+                {
+                    "name": "Time",
+                    "Value": "3",
+                    "type": 1
+                },
+                {
+                    "name": "TextSpeed",
+                    "Value": "5",
+                    "type": 1
+                },
+                {
+                    "name": "Color",
+                    "Value": "#FFFFFFFF",
+                    "type": 2
+                }
+            ],
+            "dropDownFields": [],
+            "objectSaveDatas": [],
+            "NodeID": "ced542ac-7fc2-495f-a79f-e8be7d23bc9f",
+            "edgeSaveDatas": [
+                {
+                    "InputNodeID": "789a8f67-4eac-4f5f-ae65-33f2e24fc3b7",
+                    "InputPortName": "In",
+                    "OutputPortName": "Out"
+                }
+            ]
+        },
+        {
+            "NodeName": "End",
+            "nodeTypes": 6,
+            "PosX": 895.0,
+            "PosY": 27.0,
+            "width": 68.0,
+            "height": 77.0,
+            "fields": [],
+            "dropDownFields": [],
+            "objectSaveDatas": [],
+            "NodeID": "eba7b5ea-5b9d-460d-ae78-6f0051c5f3f3",
+            "edgeSaveDatas": []
+        }
+    ],
+    "desciption": "Chest Dialog",
+    "ID": ""
+}

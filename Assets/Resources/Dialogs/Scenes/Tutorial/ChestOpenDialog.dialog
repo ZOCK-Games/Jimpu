@@ -1,0 +1,110 @@
+{
+    "dialogNodeDatas": [
+        {
+            "NodeName": "Start",
+            "nodeTypes": 0,
+            "PosX": 103.0,
+            "PosY": 141.0,
+            "width": 118.0,
+            "height": 97.0,
+            "fields": [
+                {
+                    "name": "Description",
+                    "Value": "Description",
+                    "type": 0
+                }
+            ],
+            "dropDownFields": [],
+            "objectSaveDatas": [],
+            "NodeID": "10757a17-e484-4d9b-83e1-35cde62238cf",
+            "edgeSaveDatas": [
+                {
+                    "InputNodeID": "48853f67-ba17-4ba0-bb8a-0b17e5378101",
+                    "InputPortName": "In",
+                    "OutputPortName": "Out"
+                }
+            ]
+        },
+        {
+            "NodeName": "Action",
+            "nodeTypes": 4,
+            "PosX": 332.0,
+            "PosY": 200.0,
+            "width": 297.0,
+            "height": 98.0,
+            "fields": [],
+            "dropDownFields": [],
+            "objectSaveDatas": [
+                {
+                    "name": "Character",
+                    "path": "Assets/Resources/Characters/Xenon.asset",
+                    "typeName": "DialogSystem.CharacterData, DialogSystem, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "isAsset": true
+                }
+            ],
+            "NodeID": "48853f67-ba17-4ba0-bb8a-0b17e5378101",
+            "edgeSaveDatas": [
+                {
+                    "InputNodeID": "713b6f60-6fce-4339-800d-c03b4e412627",
+                    "InputPortName": "In",
+                    "OutputPortName": "Out"
+                }
+            ]
+        },
+        {
+            "NodeName": "Dialog",
+            "nodeTypes": 1,
+            "PosX": 667.0,
+            "PosY": 199.0,
+            "width": 246.0,
+            "height": 176.0,
+            "fields": [
+                {
+                    "name": "NarratorText",
+                    "Value": "Du kanst items nutzen in dem du E drückst",
+                    "type": 0
+                },
+                {
+                    "name": "Time",
+                    "Value": "4",
+                    "type": 1
+                },
+                {
+                    "name": "TextSpeed",
+                    "Value": "4",
+                    "type": 1
+                },
+                {
+                    "name": "Color",
+                    "Value": "#FFFFFFFF",
+                    "type": 2
+                }
+            ],
+            "dropDownFields": [],
+            "objectSaveDatas": [],
+            "NodeID": "713b6f60-6fce-4339-800d-c03b4e412627",
+            "edgeSaveDatas": [
+                {
+                    "InputNodeID": "c4a5133d-ed40-44b3-8c1f-460eed07fe50",
+                    "InputPortName": "In",
+                    "OutputPortName": "Out"
+                }
+            ]
+        },
+        {
+            "NodeName": "End",
+            "nodeTypes": 6,
+            "PosX": 1009.0,
+            "PosY": 207.0,
+            "width": 68.0,
+            "height": 77.0,
+            "fields": [],
+            "dropDownFields": [],
+            "objectSaveDatas": [],
+            "NodeID": "c4a5133d-ed40-44b3-8c1f-460eed07fe50",
+            "edgeSaveDatas": []
+        }
+    ],
+    "desciption": "Description",
+    "ID": ""
+}

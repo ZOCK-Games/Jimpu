@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.UIElements;
 using static UnityEngine.InputSystem.InputAction;
@@ -20,6 +19,7 @@ public class SkinChangerStrings : MonoBehaviour
     {
         public SkinElementDisplay normalDisplay;
         public SkinElementDisplayMain mainDisplay;
+        public bool isTemporary;
     }
 
     public SkinChangerManager skinChangerManager;
@@ -35,8 +35,20 @@ public class SkinChangerStrings : MonoBehaviour
     /// <param name="PointB"></param>
     /// <returns>The two connected Points</returns>
     /// 
-    public (GameObject PointA, GameObject PointB) ConnectElements(SkinElementDisplay normalDisplay, SkinElementDisplayMain mainDisplay, bool onlyNormal = false)
+    public (GameObject PointA, GameObject PointB) ConnectElements(SkinElementDisplay normalDisplay, SkinElementDisplayMain mainDisplay, bool onlyNormal = false, Vector3? initialPointBPosition = null)
     {
+        if (normalDisplay == null || normalDisplay.portCollider2d == null || (!onlyNormal && (mainDisplay == null || mainDisplay.collider2DInPort == null)))
+        {
+            Debug.LogWarning("ConnectElements: missing display or port collider");
+            return (null, null);
+        }
+
+        if (!onlyNormal && normalDisplay.skinType != mainDisplay.skinType)
+        {
+            Debug.LogWarning("ConnectElements: skin types do not match");
+            return (null, null);
+        }
+
         if (mainDisplay != null)
         {
             mainDisplay.normalDisplay = normalDisplay;
@@ -51,6 +63,7 @@ public class SkinChangerStrings : MonoBehaviour
         var holder = Parent.gameObject.AddComponent<StringHolder>();
         holder.normalDisplay = normalDisplay;
         holder.mainDisplay = mainDisplay;
+        holder.isTemporary = onlyNormal;
 
         var pointA = Instantiate(PrefabA); // The Start Point
         var pointB = Instantiate(PrefabB); // The End Point
@@ -58,10 +71,10 @@ public class SkinChangerStrings : MonoBehaviour
 
         pointA.transform.SetParent(Parent,true);
         pointA.name = "PointStartA";
-        pointA.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
-        Debug.Log("pointA position bevor" + normalDisplay.portCollider2d.transform.position);
-        pointA.transform.position = normalDisplay.portCollider2d.transform.position;
-        Debug.Log("pointA position avter" + pointA.transform.position);
+        var pointARigidbody = pointA.GetComponent<Rigidbody2D>();
+        pointARigidbody.bodyType = RigidbodyType2D.Kinematic;
+        pointA.transform.position = normalDisplay.portCollider2d.gameObject.transform.position;
+        pointARigidbody.position = normalDisplay.portCollider2d.transform.position;
 
         if (!onlyNormal)
         {
@@ -69,15 +82,17 @@ public class SkinChangerStrings : MonoBehaviour
         }
         else
         {
-            pointB.transform.position = normalDisplay.portCollider2d.transform.position;
+            pointB.transform.position = initialPointBPosition ?? normalDisplay.portCollider2d.transform.position;
         }
         pointB.transform.SetParent(Parent, true);
         pointB.name = "PointEndB";
-        pointB.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+        var pointBRigidbody = pointB.GetComponent<Rigidbody2D>();
+        pointBRigidbody.bodyType = RigidbodyType2D.Kinematic;
+        pointBRigidbody.position = pointB.transform.position;
         pointB.tag = "StringPoint";
 
         float Distance = Vector3.Distance(pointA.transform.position, pointB.transform.position);
-        int Points = (int)(Distance * 50); 
+        int Points = Mathf.Max(2, (int)(Distance * 50));
 
         if (Points < MinPoint)
         {
@@ -117,6 +132,9 @@ public class SkinChangerStrings : MonoBehaviour
 
     public async Task DestroyString(GameObject String)
     {
+        if (String == null)
+            return;
+
         // Clean up connection flags if present
         var holder = String.GetComponent<StringHolder>();
         if (holder != null)
@@ -130,19 +148,23 @@ public class SkinChangerStrings : MonoBehaviour
             }
         }
 
-        var PointB = String.transform.GetChild(1).gameObject;
-
-        PointB.SetActive(false);
-
-
-        for (int i = String.transform.childCount - 1; i >= 0; i = i - 3)
+        if (String.transform.childCount > 1)
         {
-            Destroy(String.transform.GetChild(i).gameObject);
-            Destroy(String.transform.GetChild(i -1).gameObject);
-            Destroy(String.transform.GetChild(i -2).gameObject);
-
-            await Task.Delay(1); // Delay
+            String.transform.GetChild(1).gameObject.SetActive(false);
         }
+
+        var children = new GameObject[String.transform.childCount];
+        for (int i = 0; i < children.Length; i++)
+        {
+            children[i] = String.transform.GetChild(i).gameObject;
+        }
+
+        foreach (var child in children)
+        {
+            Destroy(child);
+        }
+
+        await Task.Yield();
         Destroy(String);
     }
 }

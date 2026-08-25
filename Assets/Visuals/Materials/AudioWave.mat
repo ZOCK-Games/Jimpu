@@ -44,11 +44,11 @@ Material:
     - _Amplitude: 0.462
     - _EnableExternalAlpha: 0
     - _Frequency: 30
-    - _Loudness: 0.287
-    - _Resolution: 8
-    - _Sensitivity: 1.63
-    - _Speed: 24.4
-    - _Thickness: 0.063
+    - _Loudness: 0.165
+    - _Resolution: 9
+    - _Sensitivity: 5.4
+    - _Speed: 5.4
+    - _Thickness: 0.061
     - _ZWrite: 0
     m_Colors:
     - _BackgroundColor: {r: 0.30407515, g: 0.5660378, b: 0.040049836, a: 0.007843138}

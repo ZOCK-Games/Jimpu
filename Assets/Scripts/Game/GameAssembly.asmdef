@@ -14,7 +14,8 @@
         "InputSystem_Actions",
         "Unity.Cinemachine",
         "Unity.Addressables",
-        "Unity.ResourceManager"
+        "Unity.ResourceManager",
+        "DialogSystem"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
