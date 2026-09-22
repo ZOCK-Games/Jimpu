@@ -21,10 +21,10 @@ public class LuckyBlock : MonoBehaviour
     public void SpawnChest()
     {
         Vector3 Position = new Vector3(playerControl.instance.Player.transform.position.x, playerControl.instance.Player.transform.position.y + 1.5f, 0);
-        ChestManager chestManager = FindFirstObjectByType<ChestManager>();
+        ChestManager chestManager = FindAnyObjectByType<ChestManager>();
         chestManager.AddChest(Position);
         gameObject.SetActive(false);
-        Inventory.instance.RemoveItem(LuckyBlockItem, 1);
+        _ = Inventory.instance.RemoveItem(LuckyBlockItem, 1);
     }
 
     async void CheckAttack(ItemData itemData)

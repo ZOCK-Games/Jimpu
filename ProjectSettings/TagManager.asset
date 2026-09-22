@@ -10,6 +10,7 @@ TagManager:
   - Seat
   - StringPoint
   - CameraManagerTarget
+  - Item
   layers:
   - Default
   - TransparentFX

@@ -33,15 +33,27 @@ public class SceneInfoManager : MonoBehaviour
             instance = this;
         }
         sceneSettings = Resources.Load<sceneSetting>("SceneSettings/SceneSetting");
+
+        if (sceneSettings == null)
+        {
+            Debug.LogError("SceneSetting konnte nicht geladen werden!");
+            return;
+        }
+    }
+
+    void OnEnable()
+    {
         SceneManager.sceneLoaded += OnSceneLoaded;
         OnSceneLoaded(SceneManager.GetActiveScene(), LoadSceneMode.Single);
     }
 
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Resources.UnloadUnusedAssets(); // fixes memory 
-        
         var sceneSetting = sceneSettings.sceneSettings.Find(x => x.sceneName == scene.name);
         if (sceneSetting != null && sceneSetting.tag == SceneTags.Game)
         {

@@ -1,10 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.iOS;
 using UnityEngine.UI;
 
 [System.Serializable]
@@ -47,6 +45,7 @@ public class Inventory : MonoBehaviour, IDataPersitence
     private ItemData MovingItemData;
     private InventorySlot currentInvSlotMovingItem;
     private Button HandButton;
+    public GameObject PickUpItemInfo;
     void Awake()
     {
         inputActions = new InputSystem_Actions();
@@ -488,6 +487,15 @@ public class Inventory : MonoBehaviour, IDataPersitence
             saveDatas.Add(X);
         }
         SaveManager.instance.dataSOs.inventorDataSO.SaveFromInventory(saveDatas);
+    }
+
+    public DroppedItemData DropItem(ItemData itemData)
+    {
+        var gameObject = new GameObject();
+
+        DroppedItemData x = gameObject.AddComponent<DroppedItemData>();
+        x.itemData = itemData;
+        return x;
     }
 }
 

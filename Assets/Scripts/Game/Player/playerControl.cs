@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -60,13 +61,23 @@ public class playerControl : EntityManager, IDataPersitence
         inputActions.Player.Move.canceled += ctx => moveInput = Vector2.zero;
         inputActions.Player.Enable(); // Activates Player Control for him self
 
-        SceneInfoManager.OnSceneChanged += CheckScene;
-
     }
 
     private void OnDisable()
     {
         inputActions?.Player.Disable();
+
+        SceneInfoManager.OnSceneChanged -= CheckScene;
+    }
+
+    private void OnEnable()
+    {
+        SceneInfoManager.OnSceneChanged += CheckScene;
+        // Handle first scene case - check current scene immediately
+        if (SceneInfoManager.instance != null && SceneInfoManager.instance.CurrentScene != null)
+        {
+            CheckScene(SceneInfoManager.instance.CurrentScene);
+        }
     }
     protected override void Start()
     {
@@ -228,17 +239,28 @@ public class playerControl : EntityManager, IDataPersitence
 
     private void CheckScene(SceneSettings sceneSetting)
     {
+        if (sceneSetting == null)
+        {
+            Debug.LogWarning("No SceneSettings found for current scene.");
+            return;
+        }
+
+        Debug.Log("Loaded scene with tag: " + sceneSetting.tag);
+
         if (sceneSetting.tag != SceneTags.Game)
         {
             BodyPartsContainer.SetActive(false);
             CanMove = false;
             canTakeDamage = false;
+            rb.bodyType = RigidbodyType2D.Static;
         }
         else
         {
             BodyPartsContainer.SetActive(true);
             CanMove = true;
             canTakeDamage = true;
+            rb.bodyType = RigidbodyType2D.Dynamic;
+
 
             Grounds.Clear();
             GameObject[] all = FindObjectsByType<GameObject>();

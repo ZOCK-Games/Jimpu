@@ -26,6 +26,11 @@ public class PlayerHudUIManager : MonoBehaviour
         CheckScene(SceneInfoManager.instance.CurrentScene);
 
     }
+
+    void OnEnable()
+    {
+        Toggle(false);
+    }
     void CheckScene(SceneSettings scene)
     {
         if (scene == null) return;
@@ -40,7 +45,7 @@ public class PlayerHudUIManager : MonoBehaviour
             }
             subscribed = true;
 
-            Toggle(true);
+            Toggle(false);
         }
         else if (subscribed)
         {

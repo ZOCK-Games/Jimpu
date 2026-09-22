@@ -1,0 +1,131 @@
+{
+    "dialogNodeDatas": [
+        {
+            "NodeName": "Action",
+            "nodeTypes": 4,
+            "PosX": 447.0,
+            "PosY": 237.0,
+            "width": 297.0,
+            "height": 98.0,
+            "fields": [],
+            "dropDownFields": [],
+            "objectSaveDatas": [
+                {
+                    "name": "Character",
+                    "path": "Assets/Resources/Characters/Xenon.asset",
+                    "typeName": "DialogSystem.CharacterData, DialogSystem, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "isAsset": true
+                }
+            ],
+            "NodeID": "ded7c564-4cf4-45c4-8170-72835e7c64de",
+            "edgeSaveDatas": [
+                {
+                    "InputNodeID": "90593c18-6f6c-4087-bade-7dd25c196e02",
+                    "InputPortName": "In",
+                    "OutputPortName": "Out"
+                }
+            ]
+        },
+        {
+            "NodeName": "Dialog",
+            "nodeTypes": 1,
+            "PosX": 772.0,
+            "PosY": 241.0,
+            "width": 282.0,
+            "height": 176.0,
+            "fields": [
+                {
+                    "name": "NarratorText",
+                    "Value": "Vor denen solltest du dich besser in Acht nehmen",
+                    "type": 0
+                },
+                {
+                    "name": "Time",
+                    "Value": "5",
+                    "type": 1
+                },
+                {
+                    "name": "TextSpeed",
+                    "Value": "1",
+                    "type": 1
+                },
+                {
+                    "name": "Color",
+                    "Value": "#FFFFFFFF",
+                    "type": 2
+                }
+            ],
+            "dropDownFields": [],
+            "objectSaveDatas": [],
+            "NodeID": "90593c18-6f6c-4087-bade-7dd25c196e02",
+            "edgeSaveDatas": [
+                {
+                    "InputNodeID": "6729a602-f876-4f6f-b223-9ba4e9be013e",
+                    "InputPortName": "In",
+                    "OutputPortName": "Out"
+                }
+            ]
+        },
+        {
+            "NodeName": "Start",
+            "nodeTypes": 0,
+            "PosX": 245.0,
+            "PosY": 235.0,
+            "width": 118.0,
+            "height": 97.0,
+            "fields": [
+                {
+                    "name": "Description",
+                    "Value": "Description",
+                    "type": 0
+                }
+            ],
+            "dropDownFields": [],
+            "objectSaveDatas": [],
+            "NodeID": "d13fb4fb-4218-426a-8d22-d0172c17dac4",
+            "edgeSaveDatas": [
+                {
+                    "InputNodeID": "ded7c564-4cf4-45c4-8170-72835e7c64de",
+                    "InputPortName": "In",
+                    "OutputPortName": "Out"
+                }
+            ]
+        },
+        {
+            "NodeName": "Dialog",
+            "nodeTypes": 1,
+            "PosX": 1229.0,
+            "PosY": 260.0,
+            "width": 289.0,
+            "height": 176.0,
+            "fields": [
+                {
+                    "name": "NarratorText",
+                    "Value": "Falls er dich angreift: Wehre dich mit [Doppel Shift]",
+                    "type": 0
+                },
+                {
+                    "name": "Time",
+                    "Value": "5",
+                    "type": 1
+                },
+                {
+                    "name": "TextSpeed",
+                    "Value": "1",
+                    "type": 1
+                },
+                {
+                    "name": "Color",
+                    "Value": "#FFFFFFFF",
+                    "type": 2
+                }
+            ],
+            "dropDownFields": [],
+            "objectSaveDatas": [],
+            "NodeID": "6729a602-f876-4f6f-b223-9ba4e9be013e",
+            "edgeSaveDatas": []
+        }
+    ],
+    "desciption": "Description",
+    "ID": ""
+}

@@ -50,10 +50,13 @@ public class CameraManager : MonoBehaviour
             CameraTarget = CameraTargets.Find(x => !x.GetComponentInParent<playerControl>());
             GetComponentInChildren<Camera>().enabled = false;
         }
-        cinemachineCamera.transform.position = CameraTarget.transform.position;
-        cinemachineCamera.Follow = CameraTarget.transform;
-        cinemachineCamera.LookAt = CameraTarget.transform;
-        transform.position = CameraTarget.transform.position;
+        if(CameraTarget != null)
+        {
+            cinemachineCamera.transform.position = CameraTarget.transform.position;
+            cinemachineCamera.Follow = CameraTarget.transform;
+            cinemachineCamera.LookAt = CameraTarget.transform;
+            transform.position = CameraTarget.transform.position;
+        }
 
     }
 
